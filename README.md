@@ -40,16 +40,16 @@ assuming you are in your own branch you can make changes by doing the following:
 
 
 # INTEGRATION WEEKS: 
-    - when we get to the end of an integration sprint, we will need to integrate the files into the master branch, to do this make sure you have committed and pushed your files (see above)
-    - go to github.com, log in and go to the repository. 
-    - at the top of the repository page (below the repoistory name) you will see pull requests, click that
-    - then click the green button "New Pull Request" at the top right 
-    - then using the second drop down box choose your branch. 
+   - when we get to the end of an integration sprint, we will need to integrate the files into the master branch, to do this make sure you have committed and pushed your files (see above)
+   - go to github.com, log in and go to the repository. 
+   - at the top of the repository page (below the repoistory name) you will see pull requests, click that
+   - then click the green button "New Pull Request" at the top right 
+   - then using the second drop down box choose your branch. 
         NOTE: this should read as (merge symbol) [base: master] <- [your branch]
-    - click create pull request
-    - this will open a pull request, and will show you what files are going to be getting merged to the master branch 
+   - click create pull request
+   - this will open a pull request, and will show you what files are going to be getting merged to the master branch 
 
-    SOMEONE ELSE SHOULD MERGE YOUR BRANCH AFTER THE CHECK IT, DONT CLICK MERGE PULL REQUEST ON YOUR OWN BRANCH 
+   SOMEONE ELSE SHOULD MERGE YOUR BRANCH AFTER THE CHECK IT, DONT CLICK MERGE PULL REQUEST ON YOUR OWN BRANCH 
 
 
 # AFTER INTEGRATION WEEKS:
@@ -74,20 +74,20 @@ I'm recommending we use seperate branches for the weeks second branch, so we are
 
 
 # REACT PREP:
-    - Install node :You will need to install software called 'node'. This can be downloaded and installed from here: https://nodejs.org/en/
-    - Create a folder : this will be where you have your work on your local computer, can be anywhere
-    - Use powershell to go to that folder : open powershell then use the command 
+   - Install node :You will need to install software called 'node'. This can be downloaded and installed from here: https://nodejs.org/en/
+   - Create a folder : this will be where you have your work on your local computer, can be anywhere
+   - Use powershell to go to that folder : open powershell then use the command 
         cd "folder/location/on/local/machine"
-    - create the app: use the following command to create the app 
+   - create the app: use the following command to create the app 
         npx create-react-app FOLDER_NAME_YOU_MADE
-    - install react router dom (and any other that need to be installed based on other peoples work)
+   - install react router dom (and any other that need to be installed based on other peoples work)
         npm install react-router-dom
-    - move into the folder containing the react files 
+   - move into the folder containing the react files 
         cd FOLDER_NAME_YOU_MADE
-    - start the app 
+   - start the app 
         npm start 
         (this will open a browser page to http://localhost:3000/ , any changes made to the files inside of the app will automatically update the webpage.)
-    - Quit app: Ctrl+c
+   - Quit app: Ctrl+c
 
 
 # SQLite:
