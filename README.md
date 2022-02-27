@@ -31,9 +31,9 @@ assuming you are in your own branch you can make changes by doing the following:
  * once changes have been made and you are ready to do a commit (you should do this fairly regularly in case you break anything so you can roll back)
  * the right panel on sublime show's changes made to existing files, if a new file has been created it will show untracked files 
  * use stage to stage fore each change you want to commit, this makes them ready to be committed
-        NOTE: if you click delete it will make the edit to your files, or remove the file completely.
+        * NOTE: if you click delete it will make the edit to your files, or remove the file completely.
  * when all of the files you are ready to commit have been staged, enter a commit message at the top left of the right panel
-      try to make this a logical message in case you need to roll back i.e. "added button functionality"
+      * try to make this a logical message in case you need to roll back i.e. "added button functionality"
  * when you are all ready to commit, click the commit button at the top of the right of the right panel of sublime merge
  * You will now see a (1) at the top middle of the page next to your branch name, this means you have committed the files (which should also be visible in the middle panel of sublime)
     - push the files, use the up arrow in the far right of the top panel of sublime to push your files to the repository. 
@@ -45,7 +45,7 @@ when we get to the end of an integration sprint, we will need to integrate the f
  * at the top of the repository page (below the repoistory name) you will see pull requests, click that
  * then click the green button "New Pull Request" at the top right 
  * then using the second drop down box choose your branch. 
-        NOTE: this should read as (merge symbol) [base: master] <- [your branch]
+        * NOTE: this should read as (merge symbol) [base: master] <- [your branch]
  * click create pull request
  * this will open a pull request, and will show you what files are going to be getting merged to the master branch 
 
@@ -77,16 +77,16 @@ I'm recommending we use seperate branches for the weeks second branch, so we are
   * Install node :You will need to install software called 'node'. This can be downloaded and installed from here: https://nodejs.org/en/
   * Create a folder : this will be where you have your work on your local computer, can be anywhere
   * Use powershell to go to that folder : open powershell then use the command 
-        cd "folder/location/on/local/machine"
+        * cd "folder/location/on/local/machine"
   * create the app: use the following command to create the app 
-        npx create-react-app FOLDER_NAME_YOU_MADE
+        * npx create-react-app FOLDER_NAME_YOU_MADE
   * install react router dom (and any other that need to be installed based on other peoples work)
-        npm install react-router-dom
+        * npm install react-router-dom
   * move into the folder containing the react files 
-        cd FOLDER_NAME_YOU_MADE
+        * cd FOLDER_NAME_YOU_MADE
   * start the app 
-        npm start 
-        (this will open a browser page to http://localhost:3000/ , any changes made to the files inside of the app will automatically update the webpage.)
+        * npm start 
+        * (this will open a browser page to http://localhost:3000/ , any changes made to the files inside of the app will automatically update the webpage.)
   * Quit app: Ctrl+c
 
 
