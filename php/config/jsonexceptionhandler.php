@@ -5,7 +5,7 @@
  *
  * Handles JSON exceptions on API/ pages
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  * 
  * @param  object $e The exception containing the message line and file of occurance.
  */

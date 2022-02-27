@@ -5,7 +5,7 @@
  * 
  * Sets headers for JSON formatted responses and performs other JSON related tasks.
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 class JSONResponse extends Response
 {

@@ -2,7 +2,7 @@
 /**
  * General configuration parameters for the webpage. 
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 include 'config/autoloader.php'; 
 include 'config/jsonexceptionhandler.php';

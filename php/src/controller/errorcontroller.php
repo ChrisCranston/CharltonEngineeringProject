@@ -5,7 +5,7 @@
  * 
  * Handles the Errors for the webpage when an incorrect page name is typed into the URL bar. 
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 class ErrorController extends Controller
 {    

@@ -8,7 +8,7 @@ import React from "react";
  * with the preview video shown without needing to click a button.
  * This component calls to PaperManager.
  *
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 class HomePage extends React.Component {
   render() {

@@ -6,7 +6,7 @@
  * 
  * Used to connect and interact with a databse.
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 class Database
 {

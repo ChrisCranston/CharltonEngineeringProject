@@ -5,7 +5,7 @@
  * 
  * Automatically loads classes from appropriate file using classname.
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  *
  * @param string $className The class for the autoloader to load.
  */

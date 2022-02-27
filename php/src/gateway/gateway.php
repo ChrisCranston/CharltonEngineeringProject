@@ -5,7 +5,7 @@
  * 
  * The abstract core Gateway class used as a template for all other gateway's. 
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 abstract class Gateway
 {

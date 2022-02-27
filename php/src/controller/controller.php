@@ -5,7 +5,7 @@
  * 
  * The base controller class provides core functionality used by the other controllers.
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 abstract class Controller
 {

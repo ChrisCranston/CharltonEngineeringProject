@@ -6,7 +6,7 @@
  * 
  * Handles errors for the website.
  * 
- * @author Chris Cranston - W18018468
+ * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  *
  * @param  int $errno - The error number associated with the error.
  * @param  string $errstr - The error string containing the error message.
