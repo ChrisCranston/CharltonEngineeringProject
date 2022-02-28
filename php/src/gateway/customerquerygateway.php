@@ -44,7 +44,6 @@ class CustomerQueryGateway extends Gateway
         $this->pcqsql .= " VALUES (:date_time, :name, :business_individual, :email, :phone_number, :query, :query_type_id)";
         $params = ["date_time" => $datetime, "name" => $name, "business_individual" => $businessoption, "email" => $email, "phone_number" => $phonenumber, "query" => $query, "query_type_id" => $querytypeid];
         $result = $this->getDatabase()->executeSQL($this->sql, $params);
-        $this->setResult($result);
     }
 
      /**
@@ -58,7 +57,6 @@ class CustomerQueryGateway extends Gateway
         $this->pcqsql .= " VALUES (:date_time, :name, :business_individual, :phone_number, :query, :query_type_id)";
         $params = ["date_time" => $datetime, "name" => $name, "business_individual" => $businessoption, "phone_number" => $phonenumber, "query" => $query, "query_type_id" => $querytypeid];
         $result = $this->getDatabase()->executeSQL($this->sql, $params);
-        $this->setResult($result); //should these return a result?
     }
 
      /**
@@ -72,6 +70,5 @@ class CustomerQueryGateway extends Gateway
         $this->pcqsql .= " VALUES (:date_time, :name, :business_individual, :email, :query, :query_type_id)";
         $params = ["date_time" => $datetime, "name" => $name, "business_individual" => $businessoption, "email" => $email, "query" => $query, "query_type_id" => $querytypeid];
         $result = $this->getDatabase()->executeSQL($this->sql, $params);
-        $this->setResult($result);
     }
 }
