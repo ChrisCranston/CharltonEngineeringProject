@@ -1,7 +1,7 @@
 import React from "react";
 import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import HomePage from "./components/HomePage.js";
+import HomePage from "./components/home/HomePage.js";
 import StoragePage from "./components/storage/StoragePage.js";
 
 function App() {
