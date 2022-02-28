@@ -45,7 +45,7 @@ class  ApiCustomerQueryController extends Controller
                 $this->getGateway()->addQueryWAll($datetime, $name, $businessindividual, $email, $phonenumber, $query, $querytype);
             }
         } else if ($this->getRequest()->getRequestMethod() == "GET") {
-                $this->getGateway()->GetQueryTypes();
+                $this->getGateway()->getQueryTypes();
         } else {
             $this->getResponse()->setMessage("Invalid Request Type.");
             $this->getResponse()->setStatusCode(405);
