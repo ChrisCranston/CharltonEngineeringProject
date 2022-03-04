@@ -12,7 +12,17 @@ abstract class Gateway
 
     private $database;
     private $result;
-    
+
+    /**
+     * __construct
+     *
+     * Constructor of the gateway, set's the database value
+     */
+    public function __construct()
+    {
+        $this->setDatabase(DATABASE);
+    }
+
     /**
      * setDatabase
      * 
@@ -24,7 +34,7 @@ abstract class Gateway
     {
         $this->database = new Database($database);
     }
-    
+
     /**
      * getDatabase
      * 
@@ -36,7 +46,7 @@ abstract class Gateway
     {
         return $this->database;
     }
-    
+
     /**
      * setResult
      * 
@@ -48,7 +58,7 @@ abstract class Gateway
     {
         $this->result = $result;
     }
-    
+
     /**
      * getResult
      * 
