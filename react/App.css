@@ -1,26 +1,25 @@
-
 body {
-  font-family:"Segoe UI","Tahoma" ;
+  font-family: "Segoe UI", "Tahoma";
 }
 
 .top {
   justify-content: center;
   align-items: center;
-  margin:auto;
-  display:flex;
+  margin: auto;
+  display: flex;
   flex-direction: row;
-  background-color: grey ;
-  width:100%;
+  background-color: grey;
+  width: 100%;
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 .top_auth {
   justify-content: center;
   align-items: center;
-  margin:auto;
-  display:flex;
+  margin: auto;
+  display: flex;
   flex-direction: row;
-  background-color: grey ;
-  width:100%;
+  background-color: grey;
+  width: 100%;
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 nav {
@@ -28,24 +27,28 @@ nav {
   padding: 15px;
 }
 
-ul.nav {
-  height:2em;
-  margin-top:25px;
+nav ul {
+  height: 2em;
+  margin-top: 25px;
   justify-content: center;
   width: auto;
-  margin:0 auto;
-  padding:0;
-  list-style:none;
-  background-color:grey;
-  text-align:center;
-  display:flex;
-  align-items:stretch;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  background-color: grey;
+  text-align: center;
+  display: flex;
+  align-items: stretch;
   flex-direction: row;
+}
+
+nav ul .active {
+  background-color: red;
 }
 
 .main_content {
   width: 80%;
-  margin:auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,33 +57,32 @@ ul.nav {
 }
 
 footer {
-  background-color: #282c2d ;
-  display:flex;
+  background-color: #282c2d;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color:white;
+  color: white;
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 .page_item {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  width:80%;
-  margin:0;
+  width: 80%;
+  margin: 0;
   background-color: #6a6e6e;
-  color:white;
+  color: white;
   text-align: center;
   border-radius: 30px 30px 30px 30px;
-  margin:20px;
-  padding:20px;
+  margin: 20px;
+  padding: 20px;
   box-shadow: 0 0.25rem 0.75rem #282c2d;
-
 }
 
 .nav li {
   text-decoration: none;
   color: white;
-  padding:0%;
+  padding: 0%;
   flex: 1;
 }
 

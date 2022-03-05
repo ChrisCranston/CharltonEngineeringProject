@@ -1,5 +1,5 @@
 import React from "react";
-import VariableNav from "./VariableNav.js";
+// import VariableNav from "./VariableNav.js";
 
 /**
  * HomePage
@@ -10,6 +10,18 @@ import VariableNav from "./VariableNav.js";
 class HomePage extends React.Component {
   render() {
     return (
+      <div className="background">
+        <div className="main_content">
+          <p>homepage</p>
+        </div>
+      </div>
+    );
+  }
+}
+
+/*
+
+   return (
       <div>
         <VariableNav/>
       <div className="background">
@@ -19,7 +31,7 @@ class HomePage extends React.Component {
       </div>
       </div>
     );
-  }
-}
+
+*/
 
 export default HomePage;

@@ -1,92 +1,79 @@
-import Logo from "../img/logo-Placeholder.png";
 import React from "react";
-import { Link } from "react-router-dom";
+import Logo from "../img/logo-Placeholder.png";
+import { NavLink, useLocation } from "react-router-dom";
 
-class VariableNav extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      auth: false,
-    };
-    this.handle_login_logout = this.handle_login_logout.bind(this);
-  }
+const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
+  const location = useLocation().pathname;
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {
-  }
-
-  handle_login_logout = () => {
-    if (this.state.auth === true) {
-      this.setState({auth:false})
-    }
-    else {
-      this.setState({auth:true})
-    }
-  };
-
-  
-  render() {
-    let nav = "test";
-    if (this.state.auth === false) {
-      nav =
-        <div className="top">
-          <img src={Logo} className="logo" alt="Website Logo" />
-          <nav>
-            <ul className="nav">
+  return (
+    <div className="top">
+      <img src={Logo} className="logo" alt="Website Logo" />
+      <nav>
+        <ul className="nav">
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          {!isAuthenticated && (
+            <li>
+              <NavLink to="contact-us">Contact Us</NavLink>
+            </li>
+          )}
+          {isAuthenticated && (
+            <>
               <li>
-                <Link to="/">Home</Link>
+                <NavLink to="assembly-parts">Assembly Parts</NavLink>
               </li>
               <li>
-                <Link to="customerquery">Contact Us</Link>
+                <NavLink to="storage">Storage</NavLink>
+                {location.split("/")[1] === "storage" && (
+                  <nav>
+                    <li>
+                      <NavLink to="/storage/storage-parts">Parts</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/storage/storage-locations">
+                        Locations
+                      </NavLink>
+                    </li>
+                  </nav>
+                )}
               </li>
-            </ul>
-          </nav>
-          <button onClick={this.handle_login_logout}>Temp Login Button</button>
-        </div>;
-    } else {
-      nav =
-        <div className="top">
-          <img src={Logo} className="logo" alt="Website Logo" />
-          <nav>
-            <ul className="nav">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/parts">Parts</Link>
-              </li>
-              <li>
-                <Link to="/storage">Storage</Link>
-                <nav>
+              {isManager && (
+                <>
                   <li>
-                    <Link to="/storage_parts">Parts</Link>
+                    <NavLink to="reporting">Reporting</NavLink>
+                    {location.split("/")[1] === "reporting" && (
+                      <nav>
+                        <li>
+                          <NavLink to="/reporting/assembly-reports">
+                            Assembly Reports
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to="/reporting/storage-reports">
+                            Storage Reports
+                          </NavLink>
+                        </li>
+                      </nav>
+                    )}
                   </li>
                   <li>
-                    <Link to="/storage_locations">Locations</Link>
+                    <NavLink to="user-management">User Management</NavLink>
                   </li>
                   <li>
-                    <Link to="/storage_locations">Locations</Link>
+                    <NavLink to="account">My Account</NavLink>
                   </li>
-                </nav>
-              </li>
-              <li>
-                <Link to="/reporting">Reporting</Link>
-              </li>
-              <li>
-                <Link to="/account">My Account</Link>
-              </li>
-            </ul>
-          </nav>
-          <button onClick={this.handle_login_logout}>Temp Login Button</button>
-        </div>
-      ;
-    }
-    return (
-      <div className="top">
-        {nav}
-      </div>
-    );
-  }
-}
+                </>
+              )}
+            </>
+          )}
+        </ul>
+      </nav>
+      <button onClick={handleAuthentication}>
+        {isAuthenticated ? "Temp Logout Button" : "Temp Login Button"}
+      </button>
+    </div>
+  );
+};
+
 export default VariableNav;

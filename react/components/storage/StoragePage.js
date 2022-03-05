@@ -1,6 +1,6 @@
 import React from "react";
 import StoredManager from "./StoredManager.js";
-import VariableNav from "../VariableNav.js";
+// import VariableNav from "../VariableNav.js";
 
 /**
  * PaperPage
@@ -16,6 +16,20 @@ class StoragePage extends React.Component {
   }
   render() {
     return (
+      <div className="main_content">
+        <div className="page_item">
+          <StoredManager />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default StoragePage;
+
+/*
+
+    return (
       <div>
         <VariableNav />
         <div className="main_content">
@@ -25,7 +39,5 @@ class StoragePage extends React.Component {
         </div>
       </div>
     );
-  }
-}
 
-export default StoragePage;
+*/
