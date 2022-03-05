@@ -1,22 +1,22 @@
 import React from "react";
+import VariableNav from "./VariableNav.js";
 
 /**
  * HomePage
  *
- * This simple component controls what is being shown on the homepage,
- * via the use of props it makes the shows the most simplistic version of a random paper without filter
- * with the preview video shown without needing to click a button.
- * This component calls to PaperManager.
  *
  * @author Team 2 - Chris Cranston, Christopher Ewart, Kess Strongman, Stephen Campbell, Matthew Dawson
  */
 class HomePage extends React.Component {
   render() {
     return (
+      <div>
+        <VariableNav/>
       <div className="background">
         <div className="main_content">
           <p>homepage</p>
         </div>
+      </div>
       </div>
     );
   }
