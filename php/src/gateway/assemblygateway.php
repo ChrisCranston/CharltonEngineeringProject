@@ -9,38 +9,52 @@
  */
 class AssemblyGateway extends Gateway
 {
-    private $assemblyPartSQL = "SELECT assembly_part.part_id, assembly_part.serial_number, assembly_part.name, assembly_part.notes, assembly_part.quantity, assembly_part.low_warning, assembly_part.order_url
+    private $selectSQL = "SELECT assembly_part.part_id, assembly_part.serial_number, assembly_part.name, assembly_part.notes, assembly_part.quantity, assembly_part.low_warning, assembly_part.order_url
         FROM assembly_part";
 
     /**
-     * setAssemblyPartSQL
+     * setSelectSQL
      * 
-     * Appends content to the end of the Assembly Part SQL query.
+     * Appends content to the end of the Assembly Part Select SQL query.
      * 
-     * @param string $assemblyPartSQL the sql to be appended
+     * @param string $selectSQL the sql to be appended
      */
-    private function setAssemblyPartSQL($assemblyPartSQL)
+    private function setSelectSQL($selectSQL)
     {
-        $this->assemblyPartSQL .= $assemblyPartSQL;
+        $this->selectSQL .= $selectSQL;
     }
 
     /**
-     * getAssemblySQL
+     * getSelectSQL
      * 
-     * Gets the Assembly Part SQL query.
+     * Gets the Assembly Part Select SQL query.
      * 
-     * @return string the Assembly Part SQL query
+     * @return string the Assembly Part Select SQL query
      */
-    private function getAssemblyPartSQL()
+    private function getSelectSQL()
     {
-        return $this->assemblyPartSQL;
+        return $this->selectSQL;
+    }
+
+    /**
+     * queryAssemblyParts
+     * 
+     * Executes the SQL query to select, insert or delete from the assembly part table then sets the result.
+     * 
+     * @param string $sql    the SQL query to execute
+     * @param array  $params the array of params for the SQL PDO prepared statement
+     */
+    private function queryAssemblyParts($sql, $params)
+    {
+        $result = $this->getDatabase()->executeSQL($sql, $params);
+        $this->setResult($result);
     }
 
     /**
      * retrieveAssemblyParts
      * 
-     * Adds the ORDER BY clause to the end of the constructed Assembly Part SQL query,
-     * Executes the constructed Assembly Part SQL query,
+     * Adds the ORDER BY clause to the end of the constructed Assembly Part Select SQL query,
+     * executes the constructed Assembly Part Select SQL query,
      * and then returns the result.
      * 
      * The ORDER BY is not hardcoded into setAssemblyPartSQL to improve modularity and allow
@@ -51,14 +65,13 @@ class AssemblyGateway extends Gateway
      * A default $orderBy column name is provided, which is used for most queries, but allows
      * change if necessary.
      * 
-     * @param array  $params the array of params for the Assembly Part SQL PDO prepared statement
+     * @param array  $params the array of params for the Assembly Part Select SQL PDO prepared statement
      * @param string $orderBy the column to order the results by
      */
     private function retrieveAssemblyParts($params = [], $orderBy = "assembly_part.part_id")
     {
-        $this->setAssemblyPartSQL(" ORDER BY $orderBy");
-        $result = $this->getDatabase()->executeSQL($this->getAssemblyPartSQL(), $params);
-        $this->setResult($result);
+        $this->setSelectSQL(" ORDER BY $orderBy");
+        $this->queryAssemblyParts($this->getSelectSQL(), $params);
     }
 
     /**
@@ -80,7 +93,91 @@ class AssemblyGateway extends Gateway
      */
     public function findOne($id)
     {
-        $this->setAssemblyPartSQL(" WHERE assembly_part_id = :id");
+        $this->setSelectSQL(" WHERE assembly_part.part_id = :id");
         $this->retrieveAssemblyParts(["id" => $id]);
+    }
+
+    /**
+     * findBySerialNumber
+     * 
+     * Retrieves assembly parts that match a provided serial number search string.
+     * 
+     * The query uses LIKE with % to check for partial matches to the search string.
+     * 
+     * @param string $serialNumber the serial number string used to find the paper
+     */
+    public function findBySerialNumber($serialNumber)
+    {
+        $this->setSelectSQL(" WHERE assembly_part.serial_number LIKE :serialNumber");
+        $this->retrieveAssemblyParts(["serialNumber" => "%$serialNumber%"]);
+    }
+
+    /**
+     * findByPartName
+     * 
+     * Retrieves assembly parts that match a provided part name search string.
+     * 
+     * The query uses LIKE with % to check for partial matches to the search string.
+     * 
+     * @param string $name the part name string used to find the paper
+     */
+    public function findByPartName($name)
+    {
+        $this->setSelectSQL(" WHERE assembly_part.name LIKE :name");
+        $this->retrieveAssemblyParts(["name" => "%$name%"]);
+    }
+
+    /**
+     * addStock
+     * 
+     * Adds stock quantity for a specific assembly part id.
+     * 
+     * @param string $partID   the part ID whose quantity value is to be added to
+     * @param string $quantity the amount of stock to add to the current stock level
+     */
+    public function addStock($partID, $quantity)
+    {
+        $sql = "UPDATE assembly_part SET quantity = quantity + :quantity WHERE part_id = :partID";
+        $params = [":quantity" => $quantity, ":partID" => $partID];
+        $this->queryAssemblyParts($sql, $params);
+    }
+
+    /**
+     * removeStock
+     * 
+     * Subtracts stock quantity for a specific assembly part id.
+     * 
+     * @param string $partID   the part ID whose quantity value is to be subtracted
+     * @param string $quantity the amount of stock to subtract from the current stock level
+     */
+    public function removeStock($partID, $quantity)
+    {
+        $sql = "UPDATE assembly_part SET quantity = quantity - :quantity WHERE part_id = :partID";
+        $params = [":quantity" => $quantity, ":partID" => $partID];
+        $this->queryAssemblyParts($sql, $params);
+    }
+
+    /**
+     * modifyStock
+     * 
+     * Adds or subtracts stock quantity for a specific assembly part id.
+     * 
+     * @param string $partID   the part ID whose quantity value is to be modified
+     * @param string $quantity the amount of stock to add or subtract from the current stock level
+     * @param bool   $isAdd    boolean to state whether the modification type is "add" or not ("remove")
+     */
+    public function modifyStock($partID, $quantity, $isAdd)
+    {
+        $sql = "UPDATE assembly_part";
+
+        if ($isAdd) {
+            $sql .= " SET quantity = quantity + :quantity";
+        } else {
+            $sql .= " SET quantity = quantity - :quantity";
+        }
+
+        $sql .= " WHERE part_id = :partID";
+        $params = [":quantity" => $quantity, ":partID" => $partID];
+        $this->queryAssemblyParts($sql, $params);
     }
 }
