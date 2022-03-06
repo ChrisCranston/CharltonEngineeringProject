@@ -38,7 +38,8 @@ class ApiAssemblyController extends Controller
 
             $create = $this->getRequest()->getParameter("create");
             $edit = $this->getRequest()->getParameter("edit");
-            $modifyQuantity = $this->getRequest()->getParameter("quantity");
+            $delete = $this->getRequest()->getParameter("delete");
+            $quantity = $this->getRequest()->getParameter("quantity");
 
             // WHERE quantity <= low warning 
 
@@ -113,7 +114,7 @@ class ApiAssemblyController extends Controller
                     if (count($findBySerialNumberGateway->getResult()) === 0 || (int)$findBySerialNumberGateway->getResult()[0]["part_id"] === $partDetails["part_id"]) {
                         $this->getGateway()->editPartDetails($partDetails);
                         $this->getResponse()->setMessage("Part edited successfully");
-                        $this->getResponse()->setStatusCode(201);
+                        $this->getResponse()->setStatusCode(200);
                     } else {
                         $this->getResponse()->setMessage("Unable to edit - serial number already exists for a different part");
                         $this->getResponse()->setStatusCode(400);
@@ -122,11 +123,27 @@ class ApiAssemblyController extends Controller
                     $this->getResponse()->setMessage("Unable to edit - part does not exist");
                     $this->getResponse()->setStatusCode(404);
                 }
-            } elseif (!is_null($modifyQuantity)) {
+            } elseif (!is_null($delete)) {
+                // {\"part_id\": 23}
+
+                $partID = json_decode(html_entity_decode(stripslashes($delete)), true)["part_id"];
+
+                $findByPartIDGateway = new AssemblyGateway();
+                $findByPartIDGateway->findOne($partID);
+
+                if (count($findByPartIDGateway->getResult()) === 1) {
+                    $this->getGateway()->deletePart($partID);
+                    $this->getResponse()->setMessage("Part deleted successfully");
+                    $this->getResponse()->setStatusCode(200);
+                } else {
+                    $this->getResponse()->setMessage("Unable to delete - part does not exist");
+                    $this->getResponse()->setStatusCode(404);
+                }
+            } elseif (!is_null($quantity)) {
                 // {\"part_id\": 1, \"quantity\": 20, \"modificationType\": \"add\"}
                 // {\"part_id\": 1, \"quantity\": 20, \"modificationType\": \"remove\"}
 
-                $partDetails = json_decode(html_entity_decode(stripslashes($modifyQuantity)), true);
+                $partDetails = json_decode(html_entity_decode(stripslashes($quantity)), true);
                 $findByPartIDGateway = new AssemblyGateway();
                 $findByPartIDGateway->findOne($partDetails["part_id"]);
 
@@ -136,7 +153,7 @@ class ApiAssemblyController extends Controller
                     if ($modificationType === "add" || $modificationType === "remove") {
                         $this->getGateway()->addOrRemoveStock($partDetails, $userID);
                         $this->getResponse()->setMessage("Quantity modified successfully");
-                        $this->getResponse()->setStatusCode(201);
+                        $this->getResponse()->setStatusCode(200);
                     } else {
                         $this->getResponse()->setMessage("Unable to add - invalid quantity modification type");
                         $this->getResponse()->setStatusCode(400);

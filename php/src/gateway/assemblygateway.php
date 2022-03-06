@@ -9,7 +9,8 @@
  */
 class AssemblyGateway extends Gateway
 {
-    private $selectPartSQL = "SELECT assembly_part.part_id, assembly_part.serial_number, assembly_part.name, assembly_part.notes, assembly_part.quantity, assembly_part.low_warning, assembly_part.order_url
+    private $selectPartSQL = "SELECT assembly_part.part_id, assembly_part.serial_number, assembly_part.name,
+        assembly_part.notes, assembly_part.quantity, assembly_part.low_warning, assembly_part.order_url
         FROM assembly_part";
 
     private $createPartSQL = "INSERT INTO assembly_part (name, serial_number, quantity, notes, low_warning, order_url)
@@ -17,8 +18,12 @@ class AssemblyGateway extends Gateway
 
     private $editPartSQL = "UPDATE assembly_part";
 
-    private $interactionSQL = "INSERT INTO assembly_interaction (part_id, user_id, amount, interaction_datetime)
+    private $deletePartSQL = "DELETE FROM assembly_part WHERE assembly_part.part_id = :partID";
+
+    private $createInteractionSQL = "INSERT INTO assembly_interaction (part_id, user_id, amount, interaction_datetime)
         VALUES (:partID, :userID, :amount, datetime())";
+
+    private $deleteInteractionSQL = "DELETE FROM assembly_interaction WHERE assembly_interaction.part_id = :partID";
 
     /**
      * setSelectPartSQL
@@ -82,16 +87,41 @@ class AssemblyGateway extends Gateway
     }
 
     /**
-     * getInteractionSQL
+     * getDeletePartSQL
      * 
-     * Gets the Interaction Insert SQL query.
+     * Gets the delete part SQL query
+     * 
+     * @return string the delete part SQL query
+     */
+    private function getDeletePartSQL()
+    {
+        return $this->deletePartSQL;
+    }
+
+    /**
+     * getCreateInteractionSQL
+     * 
+     * Gets the Create Interaction Insert SQL query.
      * 
      * @return string the Interaction Insert SQL query
      */
-    private function getInteractionSQL()
+    private function getCreateInteractionSQL()
     {
-        return $this->interactionSQL;
+        return $this->createInteractionSQL;
     }
+
+    /**
+     * getDeleteInteractionSQL
+     * 
+     * Gets the Delete Interaction Insert SQL query.
+     * 
+     * @return string the Interaction Insert SQL query
+     */
+    private function getDeleteInteractionSQL()
+    {
+        return $this->deleteInteractionSQL;
+    }
+
 
     /**
      * retrieveAssemblyParts
@@ -138,13 +168,13 @@ class AssemblyGateway extends Gateway
      * added or removed stock, how much they have added or removed, and the datetime that
      * it was added/removed.
      * 
-     * @param int  $partID the array of params for the Assembly Part Select SQL PDO prepared statement
+     * @param int    $partID the array of params for the Assembly Part Select SQL PDO prepared statement
      * @param string $orderBy the column to order the results by
      */
     private function insertInteraction($partID, $userID, $amount)
     {
         $params = ["partID" => $partID, "userID" => $userID, "amount" => $amount];
-        $this->executeSQL($this->getInteractionSQL(), $params);
+        $this->executeSQL($this->getCreateInteractionSQL(), $params);
     }
 
     /**
@@ -232,6 +262,21 @@ class AssemblyGateway extends Gateway
         $this->setEditPartSQL(" SET name = :name, serial_number = :serial_number, notes = :notes, low_warning = :low_warning, order_url = :order_url");
         $this->editPart($partDetails);
     }
+
+    /**
+     * deletePart
+     * 
+     * Deletes a part from the database.
+     * 
+     * @param int $partID the part ID of the part to be deleted
+     */
+    public function deletePart($partID)
+    {
+        $params = ["partID" => $partID];
+        $this->executeSQL($this->getDeletePartSQL(), $params);
+        $this->executeSQL($this->getDeleteInteractionSQL(), $params);
+    }
+
 
     /**
      * addOrRemoveStock
