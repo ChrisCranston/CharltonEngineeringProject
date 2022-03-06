@@ -19,19 +19,5 @@ class HomePage extends React.Component {
   }
 }
 
-/*
-
-   return (
-      <div>
-        <VariableNav/>
-      <div className="background">
-        <div className="main_content">
-          <p>homepage</p>
-        </div>
-      </div>
-      </div>
-    );
-
-*/
 
 export default HomePage;

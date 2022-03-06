@@ -27,17 +27,3 @@ class StoragePage extends React.Component {
 
 export default StoragePage;
 
-/*
-
-    return (
-      <div>
-        <VariableNav />
-        <div className="main_content">
-          <div className="page_item">
-            <StoredManager />
-          </div>
-        </div>
-      </div>
-    );
-
-*/
