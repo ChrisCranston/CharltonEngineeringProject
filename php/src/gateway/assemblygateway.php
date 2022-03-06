@@ -9,45 +9,88 @@
  */
 class AssemblyGateway extends Gateway
 {
-    private $selectSQL = "SELECT assembly_part.part_id, assembly_part.serial_number, assembly_part.name, assembly_part.notes, assembly_part.quantity, assembly_part.low_warning, assembly_part.order_url
+    private $selectPartSQL = "SELECT assembly_part.part_id, assembly_part.serial_number, assembly_part.name, assembly_part.notes, assembly_part.quantity, assembly_part.low_warning, assembly_part.order_url
         FROM assembly_part";
 
+    private $createPartSQL = "INSERT INTO assembly_part (name, serial_number, quantity, notes, low_warning, order_url)
+        VALUES (:name, :serial_number, :quantity, :notes, :low_warning, :order_url)";
+
+    private $editPartSQL = "UPDATE assembly_part";
+
+    private $interactionSQL = "INSERT INTO assembly_interaction (part_id, user_id, amount, interaction_datetime)
+        VALUES (:partID, :userID, :amount, datetime())";
+
     /**
-     * setSelectSQL
+     * setSelectPartSQL
      * 
-     * Appends content to the end of the Assembly Part Select SQL query.
+     * Appends content to the end of the select part SQL query.
      * 
-     * @param string $selectSQL the sql to be appended
+     * @param string $selectPartSQL the sql to be appended
      */
-    private function setSelectSQL($selectSQL)
+    private function setSelectPartSQL($selectPartSQL)
     {
-        $this->selectSQL .= $selectSQL;
+        $this->selectPartSQL .= $selectPartSQL;
     }
 
     /**
-     * getSelectSQL
+     * setEditPartSQL
      * 
-     * Gets the Assembly Part Select SQL query.
+     * Appends content to the end of the edit part SQL query
      * 
-     * @return string the Assembly Part Select SQL query
+     * @param string $editPartSQL the sql to be appended
      */
-    private function getSelectSQL()
+    private function setEditPartSQL($editPartSQL)
     {
-        return $this->selectSQL;
+        $this->editPartSQL .= $editPartSQL;
     }
 
     /**
-     * queryAssemblyParts
+     * getSelectPartSQL
      * 
-     * Executes the SQL query to select, insert or delete from the assembly part table then sets the result.
+     * Gets the select part SQL query.
      * 
-     * @param string $sql    the SQL query to execute
-     * @param array  $params the array of params for the SQL PDO prepared statement
+     * @return string the select part SQL query.
      */
-    private function queryAssemblyParts($sql, $params)
+    private function getSelectPartSQL()
     {
-        $result = $this->getDatabase()->executeSQL($sql, $params);
-        $this->setResult($result);
+        return $this->selectPartSQL;
+    }
+
+    /**
+     * getCreatePartSQL
+     * 
+     * Gets the create part SQL query.
+     * 
+     * @return string the create part SQL query.
+     */
+    private function getCreatePartSQL()
+    {
+        return $this->createPartSQL;
+    }
+
+
+    /**
+     * getEditPartSQL
+     * 
+     * Gets the edit part SQL query
+     * 
+     * @return string the edit part SQL query
+     */
+    private function getEditPartSQL()
+    {
+        return $this->editPartSQL;
+    }
+
+    /**
+     * getInteractionSQL
+     * 
+     * Gets the Interaction Insert SQL query.
+     * 
+     * @return string the Interaction Insert SQL query
+     */
+    private function getInteractionSQL()
+    {
+        return $this->interactionSQL;
     }
 
     /**
@@ -70,8 +113,38 @@ class AssemblyGateway extends Gateway
      */
     private function retrieveAssemblyParts($params = [], $orderBy = "assembly_part.part_id")
     {
-        $this->setSelectSQL(" ORDER BY $orderBy");
-        $this->queryAssemblyParts($this->getSelectSQL(), $params);
+        $this->setSelectPartSQL(" ORDER BY $orderBy");
+        $this->executeSQL($this->getSelectPartSQL(), $params);
+    }
+
+    /**
+     * editPart
+     * 
+     * Adds the WHERE clause to the end of the constructed edit part SQL query so that the
+     * specific part can be modified, executes the constructed query, and then returns the result.
+     * 
+     * @param array $params the array of params for the edit part SQL PDO prepared statement
+     */
+    private function editPart($params)
+    {
+        $this->setEditPartSQL(" WHERE assembly_part.part_id = :part_id");
+        $this->executeSQL($this->getEditPartSQL(), $params);
+    }
+
+    /**
+     * insertInteraction
+     * 
+     * Inserts a new interaction into the assembly_interaction table to record which user has
+     * added or removed stock, how much they have added or removed, and the datetime that
+     * it was added/removed.
+     * 
+     * @param int  $partID the array of params for the Assembly Part Select SQL PDO prepared statement
+     * @param string $orderBy the column to order the results by
+     */
+    private function insertInteraction($partID, $userID, $amount)
+    {
+        $params = ["partID" => $partID, "userID" => $userID, "amount" => $amount];
+        $this->executeSQL($this->getInteractionSQL(), $params);
     }
 
     /**
@@ -93,7 +166,7 @@ class AssemblyGateway extends Gateway
      */
     public function findOne($id)
     {
-        $this->setSelectSQL(" WHERE assembly_part.part_id = :id");
+        $this->setSelectPartSQL(" WHERE assembly_part.part_id = :id");
         $this->retrieveAssemblyParts(["id" => $id]);
     }
 
@@ -108,7 +181,7 @@ class AssemblyGateway extends Gateway
      */
     public function findBySerialNumber($serialNumber)
     {
-        $this->setSelectSQL(" WHERE assembly_part.serial_number LIKE :serialNumber");
+        $this->setSelectPartSQL(" WHERE assembly_part.serial_number LIKE :serialNumber");
         $this->retrieveAssemblyParts(["serialNumber" => "%$serialNumber%"]);
     }
 
@@ -123,61 +196,66 @@ class AssemblyGateway extends Gateway
      */
     public function findByPartName($name)
     {
-        $this->setSelectSQL(" WHERE assembly_part.name LIKE :name");
+        $this->setSelectPartSQL(" WHERE assembly_part.name LIKE :name");
         $this->retrieveAssemblyParts(["name" => "%$name%"]);
     }
 
     /**
-     * addStock
+     * createPart
      * 
-     * Adds stock quantity for a specific assembly part id.
+     * Creates a new part with a base stock value and adds it to the database.
      * 
-     * @param string $partID   the part ID whose quantity value is to be added to
-     * @param string $quantity the amount of stock to add to the current stock level
+     * @param array $partDetails array of part details used to create the new part
+     * @param int   $userID      the user ID of the user who is creating the new part
      */
-    public function addStock($partID, $quantity)
+    public function createPart($partDetails, $userID)
     {
-        $sql = "UPDATE assembly_part SET quantity = quantity + :quantity WHERE part_id = :partID";
-        $params = [":quantity" => $quantity, ":partID" => $partID];
-        $this->queryAssemblyParts($sql, $params);
+        $serialNumber = $partDetails["serial_number"];
+        $this->executeSQL($this->getCreatePartSQL(), $partDetails);
+
+        $findBySerialNumberGateway = new AssemblyGateway();
+        $findBySerialNumberGateway->findBySerialNumber($serialNumber);
+        $createdPart = $findBySerialNumberGateway->getResult()[0];
+
+        $this->insertInteraction($createdPart["part_id"], $userID, $createdPart["quantity"]);
     }
 
     /**
-     * removeStock
+     * editPartDetails
      * 
-     * Subtracts stock quantity for a specific assembly part id.
+     * Edits an existing part's details.
      * 
-     * @param string $partID   the part ID whose quantity value is to be subtracted
-     * @param string $quantity the amount of stock to subtract from the current stock level
+     * @param array $partDetails array of part details used to edit the part
      */
-    public function removeStock($partID, $quantity)
+    public function editPartDetails($partDetails)
     {
-        $sql = "UPDATE assembly_part SET quantity = quantity - :quantity WHERE part_id = :partID";
-        $params = [":quantity" => $quantity, ":partID" => $partID];
-        $this->queryAssemblyParts($sql, $params);
+        $this->setEditPartSQL(" SET name = :name, serial_number = :serial_number, notes = :notes, low_warning = :low_warning, order_url = :order_url");
+        $this->editPart($partDetails);
     }
 
     /**
-     * modifyStock
+     * addOrRemoveStock
      * 
-     * Adds or subtracts stock quantity for a specific assembly part id.
+     * Adds or subtracts stock quantity for a specific assembly part id and adds an interaction to the assembly_interaction database.
      * 
-     * @param string $partID   the part ID whose quantity value is to be modified
-     * @param string $quantity the amount of stock to add or subtract from the current stock level
-     * @param bool   $isAdd    boolean to state whether the modification type is "add" or not ("remove")
+     * @param array $stockDetails array featuring the part ID the quantity, and the modification type ("add" or "remove")
+     * @param int   $userID   the user ID of the user who is modifying the stock
      */
-    public function modifyStock($partID, $quantity, $isAdd)
+    public function addOrRemoveStock($stockDetails, $userID)
     {
-        $sql = "UPDATE assembly_part";
+        $isAdd = $stockDetails["modificationType"] === "add";
+
+        $partID = $stockDetails["part_id"];
+        $quantity = $stockDetails["quantity"];
 
         if ($isAdd) {
-            $sql .= " SET quantity = quantity + :quantity";
+            $this->setEditPartSQL(" SET quantity = quantity + :quantity");
         } else {
-            $sql .= " SET quantity = quantity - :quantity";
+            $this->setEditPartSQL(" SET quantity = quantity - :quantity");
         }
 
-        $sql .= " WHERE part_id = :partID";
-        $params = [":quantity" => $quantity, ":partID" => $partID];
-        $this->queryAssemblyParts($sql, $params);
+        $params = ["quantity" => $quantity, "part_id" => $partID];
+        $this->editPart($params);
+        $this->insertInteraction($partID, $userID, $isAdd ? $quantity : -$quantity);
     }
 }

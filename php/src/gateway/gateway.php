@@ -38,7 +38,7 @@ abstract class Gateway
     /**
      * getDatabase
      * 
-     * Returns the databsae stored in the class variables.
+     * Returns the database stored in the class variables.
      *
      * @return object $this->database - The database stored in the class variable.
      */
@@ -69,5 +69,19 @@ abstract class Gateway
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * executeSQL
+     * 
+     * Executes the SQL query to select, insert or delete from a table and then sets the result.
+     * 
+     * @param string $sql    the SQL query to execute
+     * @param array  $params the array of params for the SQL PDO prepared statement
+     */
+    protected function executeSQL($sql, $params)
+    {
+        $result = $this->getDatabase()->executeSQL($sql, $params);
+        $this->setResult($result);
     }
 }
