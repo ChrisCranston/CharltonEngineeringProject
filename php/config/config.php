@@ -14,6 +14,6 @@ set_error_handler('errorHandler');
 
 define('LOCAL_BASEPATH', '/kv6002/php/');
 // define('BASEPATH_ABSOLUTE', 'http://unn-w18018468.newnumyspace.co.uk/kv6002/php/' );
-define('DATABASE', 'db/CESDB.sqlite');
-define('CUSTOMER_DATABASE', 'db/CESDB_CUST.sqlite');
+define('DATABASE', 'db/CES.sqlite');
+define('CUSTOMER_DATABASE', 'db/CESCUST.sqlite');
 define('DEVELOPMENT_MODE', True);  

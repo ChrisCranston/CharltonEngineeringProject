@@ -29,11 +29,17 @@ class  ApiStoredController extends Controller
     protected function processRequest()
     {
 
-        $stored_id = $this->getRequest()->getParameter("stored_id");
+        $part_search = $this->getRequest()->getParameter("part_search");
+        $location_search = $this->getRequest()->getParameter("location_search");
+        $serial_number = $this->getRequest()->getParameter("serial_number");
+        $location = $this->getRequest()->getParameter("serial_number");
+
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
-            if (!is_null($stored_id)) {
-                $this->getGateway()->findOne($stored_id);
+            if (!is_null($part_search)) {
+                $this->getGateway()->findAllPart();
+            } elseif (!is_null($location_search)) {
+                $this->getGateway()->findAllLocation();
             } else {
                 $this->getGateway()->findAll();
             }

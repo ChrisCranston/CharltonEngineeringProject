@@ -4,7 +4,8 @@ import "./App.css";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/HomePage.js";
-import StoragePage from "./components/storage/StoragePage.js";
+import StoragePartPage from "./components/storage/StorageStockPage.js";
+import StorageLocationPage from "./components/storage/StorageManagerPage.js";
 import AssemblyPartsPage from "./components/AssemblyParts/AssemblyPartsPage";
 
 function App() {
@@ -47,7 +48,7 @@ function App() {
             index
             element={
               <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <h1>STORAGE HOMEPAGE</h1>
+                <StorageLocationPage />
               </RestrictedRoute>
             }
           />
@@ -55,15 +56,15 @@ function App() {
             path="storage-parts"
             element={
               <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <StoragePage />
+                <StoragePartPage />
               </RestrictedRoute>
             }
           />
           <Route
-            path="storage-locations"
+            path="storage-manager"
             element={
               <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <h1>STORAGE LOCATIONS</h1>
+                <StorageLocationPage />
               </RestrictedRoute>
             }
           />

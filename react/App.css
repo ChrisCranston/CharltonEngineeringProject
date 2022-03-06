@@ -87,5 +87,24 @@ footer {
 }
 
 .item {
+  
   border: 1px solid red;
+}
+.location_information {
+  text-align: left
+}
+
+.location {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  color:red;
 }

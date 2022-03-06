@@ -24,17 +24,18 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
                 <NavLink to="assembly-parts">Assembly Parts</NavLink>
               </li>
               <li>
-                <NavLink to="storage">Storage</NavLink>
+                <NavLink to="/storage/storage-manager">Storage</NavLink>
                 {location.split("/")[1] === "storage" && (
                   <nav>
                     <li>
-                      <NavLink to="/storage/storage-parts">Parts</NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/storage/storage-locations">
-                        Locations
+                      <NavLink to="/storage/storage-manager">
+                        Storage Manager
                       </NavLink>
                     </li>
+                    <li>
+                      <NavLink to="/storage/storage-parts">Parts manager</NavLink>
+                    </li>
+                    
                   </nav>
                 )}
               </li>

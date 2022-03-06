@@ -1,5 +1,6 @@
 import React from "react";
 import Stored from "./Stored";
+import Parts from "./Parts";
 
 /**
  * StoredManager
@@ -15,7 +16,7 @@ class StoredManager extends React.Component {
 
   componentDidMount() {
     const url =
-      "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+      "http://localhost/kv6002/php/stored";
     this.fetchData(url);
   }
 
@@ -23,6 +24,12 @@ class StoredManager extends React.Component {
   }
 
   fetchData = (url) => {
+    if (this.props.item_type === "part") {
+      console.log("search")
+      url += "?part_search=true"
+    } else if (this.props.item_type === "location") {
+      url += "?location_search=true"
+    }
     fetch(url)
       .then((response) => {
         if (response.status === 200) {
@@ -48,14 +55,36 @@ class StoredManager extends React.Component {
 
     let filteredResults = this.state.results;
 
-    return (
-      <div>
+    let display = "";
+
+    if (this.props.item_type === "location") {
+      display = ( 
+        <div>
         {noData}
         {filteredResults.map((stored_item, i) => (
           <Stored
             key={i + stored_item.stored_id}
             stored_item={stored_item} />
         ))}
+      </div>
+      )
+    } else if (this.props.item_type === "part"){
+      display = (
+        <div>
+        {noData}
+        {filteredResults.map((stored_item, i) => (
+          <Parts
+            key={i + stored_item.stored_id}
+            stored_item={stored_item} />
+        ))}
+      </div>
+
+      )
+    }
+
+    return (
+      <div>
+        {display}
       </div>
     );
   }
