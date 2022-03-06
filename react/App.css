@@ -1,10 +1,91 @@
-
 body {
-  font-family:"Segoe UI","Tahoma" ;
+  font-family: "Segoe UI", "Tahoma";
 }
+
 .top {
-  border: 1px solid green;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  background-color: grey;
+  width: 100%;
+  box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
+.top_auth {
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  background-color: grey;
+  width: 100%;
+  box-shadow: 0 0.25rem 0.75rem #282c2d;
+}
+nav {
+  width: 100%;
+  padding: 15px;
+}
+
+nav ul {
+  height: 2em;
+  margin-top: 25px;
+  justify-content: center;
+  width: auto;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  background-color: grey;
+  text-align: center;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+}
+
+nav ul .active {
+  background-color: red;
+}
+
+.main_content {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.25rem 0.75rem #282c2d;
+}
+
+footer {
+  background-color: #282c2d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 0.25rem 0.75rem #282c2d;
+}
+.page_item {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0;
+  background-color: #6a6e6e;
+  color: white;
+  text-align: center;
+  border-radius: 30px 30px 30px 30px;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 0.25rem 0.75rem #282c2d;
+}
+
+.nav li {
+  text-decoration: none;
+  color: white;
+  padding: 0%;
+  flex: 1;
+}
+
 .item {
   border: 1px solid red;
 }
