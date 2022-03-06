@@ -4,9 +4,6 @@ import Stored from "./Stored";
 /**
  * StoredManager
  *
- * This component manages what is being shown by the Stored component via passing props, it also
- * manages pages which are on display and the search functionality display in the ViewingList and Paper components.
- * It calls the Stored component and is also responsible for retrieving data from the stored API.
  *
  * @author Chris Cranston - W18018468
  */
