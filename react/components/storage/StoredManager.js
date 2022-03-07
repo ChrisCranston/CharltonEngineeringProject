@@ -21,6 +21,9 @@ class StoredManager extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const url =
+      "http://localhost/kv6002/php/stored";
+    this.fetchData(url);
   }
 
   fetchData = (url) => {
@@ -63,7 +66,7 @@ class StoredManager extends React.Component {
         {noData}
         {filteredResults.map((stored_item, i) => (
           <Stored
-            key={i + stored_item.stored_id}
+            key={i + stored_item}
             stored_item={stored_item} />
         ))}
       </div>
@@ -74,7 +77,7 @@ class StoredManager extends React.Component {
         {noData}
         {filteredResults.map((stored_item, i) => (
           <Parts
-            key={i + stored_item.stored_id}
+            key={i + stored_item}
             stored_item={stored_item} />
         ))}
       </div>

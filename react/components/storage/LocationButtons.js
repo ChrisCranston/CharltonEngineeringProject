@@ -4,7 +4,7 @@ import React from "react";
 class LocationButtons extends React.Component {
   render() {
     let buttons = ""
-    if (this.props.quantity == 0 || this.props.quantity == null){
+    if (this.props.quantity <= 0 || this.props.quantity == null){
       buttons = (
         <div className="buttons">
           <button onClick={this.props.handleLocationAddNewClick}>Add Item</button>

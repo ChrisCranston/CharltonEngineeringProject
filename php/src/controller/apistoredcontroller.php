@@ -31,8 +31,9 @@ class  ApiStoredController extends Controller
 
         $part_search = $this->getRequest()->getParameter("part_search");
         $location_search = $this->getRequest()->getParameter("location_search");
-        $serial_number = $this->getRequest()->getParameter("serial_number");
-        $location = $this->getRequest()->getParameter("serial_number");
+        $edit = $this->getRequest()->getParameter("edit");
+        $location = $this->getRequest()->getParameter("location");
+        $quantity = $this->getRequest()->getParameter("quantity");
 
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
@@ -44,8 +45,11 @@ class  ApiStoredController extends Controller
                 $this->getGateway()->findAll();
             }
         } else {
-            $this->getResponse()->setMessage("Invalid Request Type.");
-            $this->getResponse()->setStatusCode(405);
+            if ($edit == "add"){
+                $this->getGateway()->addQuantity($location, $quantity);
+            } elseif ($edit == "remove") {
+                $this->getGateway()->removeQuantity($location, $quantity); 
+            }
         }
         return $this->getGateway()->getResult();
     }
