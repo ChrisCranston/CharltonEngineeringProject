@@ -33,14 +33,14 @@ class StoredGateway extends Gateway
 
     public function findAllLocation()
     {
-        $sql = "SELECT storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) ORDER BY storage_location.warehouse_number, storage_location.location_string ";
+        $sql = "SELECT storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) ORDER BY storage_location.warehouse_number, storage_location.location_string ";
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }
 
     public function findAllPart()
     {
-        $sql = "SELECT  storage_part.serial_number, storage_part.name, storage_part.description, storage_part.qr_id,  storage.quantity FROM storage_part LEFT JOIN storage on (storage_part.part_id = storage.part_id)  ORDER by storage_part.serial_number";
+        $sql = "SELECT  storage_part.serial_number, storage_part.name, storage_part.description, storage_part.qr_id,  storage.quantity, qr_code.qr_code_string FROM storage_part LEFT JOIN storage on (storage_part.part_id = storage.part_id) LEFT JOIN qr_code on (storage_part.qr_id = qr_code.qr_id)  ORDER by storage_part.serial_number";
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }

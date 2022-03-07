@@ -1,6 +1,8 @@
 import React from "react";
 import LocationButtons from "./LocationButtons";
 import {ADDEditStored, REMOVEEditStored}  from "./EditStored";
+import QRCode from "qrcode.react";
+
 
 /**
  * Stored
@@ -101,6 +103,7 @@ class Stored extends React.Component {
   
 
   handleRemoveAllClick = (e) => {
+    e.preventDefault()
     this.setState({confirmation: (
       <div>
         <p>Are you sure you want to remove all items from this location?</p>
@@ -112,12 +115,18 @@ class Stored extends React.Component {
   }
 
   handleConfirmClick = (e) => {
-    this.state.quantityUpdate = this.props.stored_item.quantity 
+    e.preventDefault()
+    // this.setState({quantityUpdate: this.props.stored_item.quantity}) 
+    this.state.quantityUpdate = this.props.stored_item.quantity
     this.handleUpdateQuantityClick()
     this.setState({confirmation: ""})
   }
+  myFunction = () => {
+    this.props.updateItem(this.state)
+  }
 
   handleDenyClick = (e) => {
+    e.preventDefault()
     this.setState({confirmation: ""}) 
   }
 
@@ -125,9 +134,11 @@ class Stored extends React.Component {
     let filteredResults = this.state.results;
     let result = "";
     let edit = "";
-    let qr = "";
     let empty = "";
+    let addNew = "";
     let confirmation = this.state.confirmation;
+    let qr_code = <div><p>WH: {this.props.stored_item.warehouse_number}: {this.props.stored_item.location_string}</p><QRCode value={this.props.stored_item.qr_code_string} size={256}/></div>
+
 
     if (this.state.edit === "add") {
       edit = (
@@ -152,11 +163,8 @@ class Stored extends React.Component {
       );
     }
 
-    if (this.state.qr !== "") {
-      qr = <p>QR TEST</p>;
-    }
     if (this.state.addNew !== "") {
-      qr = <p>ADD NEW TEST</p>;
+      addNew = <p>ADD NEW TEST</p>;
     }
 
     if (
@@ -188,6 +196,8 @@ class Stored extends React.Component {
           </div>
           {empty}
           <LocationButtons
+            qr_code={qr_code}
+            location_string={this.props.stored_item.location_string}
             quantity={this.props.stored_item.quantity}
             handleLocationAddClick={this.handleLocationAddClick}
             handleLocationRemoveClick={this.handleLocationRemoveClick}
@@ -198,7 +208,8 @@ class Stored extends React.Component {
         {this.state.updateMessage}
         {edit}
         {confirmation}
-        {qr}
+        {addNew}
+        
       </div>
     );
 

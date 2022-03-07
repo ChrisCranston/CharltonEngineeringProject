@@ -97,4 +97,6 @@ The boilerplate code will have the databse we designed with some initial values 
  * usage video :  https://www.youtube.com/watch?v=HQKwgk6XkIA 
 
 
-
+# Additional installs: 
+npm install qrcode.react
+npm install react-to-print

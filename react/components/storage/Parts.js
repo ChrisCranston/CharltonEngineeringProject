@@ -1,6 +1,6 @@
 import React from "react";
 import PartButtons from "./PartButtons";
-import LocationButtons from "./LocationButtons";
+import QRCode from "qrcode.react";
 
 /**
  * Stored
@@ -19,6 +19,7 @@ class Parts extends React.Component {
 
   render() {
     let filteredResults = this.state.results;
+    let qr_code = <div><p>WH: {this.props.stored_item.serial_number} Name: {this.props.stored_item.name}</p><QRCode value={this.props.stored_item.qr_code_string} size={256}/></div>
 
     let result = "";
 
@@ -28,7 +29,7 @@ class Parts extends React.Component {
             <p>Serial number: {this.props.stored_item.serial_number} </p>
             <p>Name: {this.props.stored_item.name} </p>
             <p>Description: {this.props.stored_item.description} </p>
-            <PartButtons />
+            <PartButtons qr_code={qr_code}/>
           </div>
         );
       result = (
