@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../img/logo-Placeholder.png";
+import Logo from "../img/logo.jpg";
 import { NavLink, useLocation } from "react-router-dom";
 
 const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {

@@ -11,3 +11,134 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.bannerimg {
+  padding-top: 1px;
+  width: 100%;
+}
+#welcome_banner {
+  position: relative;
+}
+
+/* Bottom right text */
+.text-on-img {
+  position: absolute;
+  top: 120px;
+  left: 90px;
+  background-color: black;
+  opacity: 0.7;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#about_the_company {
+  width:100%;
+  text-align: center;
+  
+}
+.services_content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-bottom: 40px;
+}
+
+.serviceDIV {
+  position: relative;
+  width: 200px;
+  height:200px;
+  padding:20px;
+}
+
+.serviceimg {
+  height: 200px;
+  width: 200px;
+}
+
+.text-on-serviceimg{
+  position:absolute;
+  top: 20px;
+  left: 20px;
+  right:20px;
+  background-color: black;
+  opacity: 0.6;
+  color: white;
+}
+
+.text-on-serviceimg h4{
+  height: 28px;
+}
+.text-on-serviceimg p {
+  top: 30px;
+  display: none;
+}
+.text-on-serviceimg p:hover {
+  display: block;
+}
+.query_Content {
+  position: relative;
+  height:900px;
+  width:100%;
+}
+#leftside {
+  position: absolute;
+  top:10px;
+  left:10px;
+}
+#rightside {
+  position:absolute;
+  top:10px;
+  right:10px;
+}
+.customerserviceimg {
+  height: 300px;
+  width:450px;
+}
+
+
+#infoBanner {
+  position: relative;
+}
+
+.moreaboutCE {
+  position: absolute;
+  top: 1085px;
+  left: 122px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width:80%;
+}
+.infoBox {
+  height:250px;
+  width:250px;
+  justify-content: center;
+  background-color: white;
+  margin: 20px;
+  opacity: 1;
+}
+.infoBox p {
+  color: black;
+  opacity: 1;
+}
+
+.mapimg {
+  height:250px;
+  width:250px;
+}
+.CEstandards {
+  position: absolute;
+  top: 1375px;
+  left: 122px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width:80%;
+  text-align: center;
+}
+.standards {
+  height:50%;
+  width:90%;
+  justify-content: center;
+  background-color: white;
+  margin:20px;
+  opacity: 1;
+}

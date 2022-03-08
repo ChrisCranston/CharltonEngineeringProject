@@ -33,6 +33,7 @@ class CustomerQueryGateway extends Gateway
         $this->setResult($result);
     }
 
+
     /**
      * addQueryWAll
      *
