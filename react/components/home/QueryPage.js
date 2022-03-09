@@ -20,14 +20,14 @@ class QueryPage extends React.Component {
         failedsubmit: false,
         submiterror: "",
         name: "",
-        businesstype: "",
+        clienttype: 0,
         email: "",
         phone: "",
-        querytype: "",
+        querytype:0,
         query: ""
     }
-    this.handleName = this.handleEmail.bind(this)
-    this.handleBusinessType = this.handleBusinessType.bind(this)
+    this.handleName = this.handleName.bind(this)
+    this.handleClientType = this.handleClientType.bind(this)
     this.handleEmail = this.handleEmail.bind(this)
     this.handlePhone = this.handlePhone.bind(this)
     this.handleQueryType = this.handleQueryType.bind(this)
@@ -36,18 +36,22 @@ class QueryPage extends React.Component {
 }
 
 handleName = (e) => {
+  console.log(e.target.value);
     this.setState({name: e.target.value});
 }
-handleBusinessType = (e) => {
-    this.setState({businesstype: e.target.value});
+handleClientType = (e) => {
+  console.log(e.target.value);
+    this.setState({clienttype: e.target.value});
 }
 handleEmail = (e) => {
+   console.log(e.target.value);
     this.setState({email: e.target.value});
 }
 handlePhone = (e) => {
     this.setState({phone: e.target.value});
 }
 handleQueryType = (e) => {
+  console.log(e.target.value);
     this.setState({querytype: e.target.value});
 }
 handleQuery = (e) => {
@@ -60,27 +64,17 @@ handleQuerySubmit = (e) => {
   let pattern = /[a-zA-Z0-9]+([a-zA-Z0-9]+)?[@][a-z][a-z]/g;
   if (pattern.test(this.state.email)) {
       this.setState({submiterror: ""});
-      let url = "http://localhost/kv6002/php/customerQuery";
+      let url = "http://localhost/kv6002/php/customerquery";
       let formData = new FormData();
-      formData.append("name", "olivia");
-      formData.append("businesstype", 1);
-      formData.append("email", "ol@email.com");
-      formData.append("phone", "04948485567");
-      formData.append("querytype", 1);
-      formData.append("query", "this.state.query");
-      // formData.append("name", this.state.name);
-      // formData.append("businesstype", this.state.businesstype);
-      // formData.append("email", this.state.email);
-      // formData.append("phone", this.state.phone);
-      // formData.append("querytype", this.state.querytype);
-      // formData.append("query", this.state.query);
-      if(Object.keys(formData).length === 0) {
-        console.log("formdata empty")
-      }
-    console.log("form data"+ JSON.stringify(formData));
+      formData.append("name", this.state.name);
+      formData.append("businessindividual", this.state.clienttype);
+      formData.append("email", this.state.email);
+      formData.append("phonenumber", this.state.phone);
+      formData.append("querytype", this.state.querytype);
+      formData.append("query", this.state.query);
       fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
-        console.log(response)
+        console.log(response.status)
           if (response.status === 200 || response.status === 204) {
               return response.json();
           } else {
@@ -101,6 +95,8 @@ handleQuerySubmit = (e) => {
       })
   }
 }
+
+
 
   render() {
     return (
@@ -135,7 +131,7 @@ handleQuerySubmit = (e) => {
             <div className="formArea">
               <QueryForm 
               handleName={this.handleName}
-              handleBusinessType={this.handleBusinessType}
+              handleClientType={this.handleClientType}
               handleEmail={this.handleEmail}
               handlePhone={this.handlePhone}
               handleQueryType={this.handleQueryType}

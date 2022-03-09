@@ -1,4 +1,6 @@
 import React from "react";
+import ClientType from "./ClientTypeClass.js"
+import QueryType from "./QueryTypeClass.js"
 
 /**
  * QueryPage
@@ -13,10 +15,41 @@ import React from "react";
 
 
 class QueryForm extends React.Component {
-   
-    // 
-
-    
+    constructor() {
+        super();
+        this.state = {
+            clienttypes: [],
+            querytypes: []
+        };
+    }
+    componentDidMount() {
+        let clienttypes = [];
+        fetch('http://localhost/kv6002/php/customerquery?tabletoget=clientType')
+            .then(response => {
+                return response.json();
+            }).then(data => {
+              clienttypes = data.results.map((client) => {
+                return client
+            });
+            console.log(clienttypes);
+            this.setState({
+                clienttypes: clienttypes,
+            });
+        });
+        let querytypes = [];
+        fetch('http://localhost/kv6002/php/customerquery?tabletoget=queryType')
+            .then(response => {
+                return response.json();
+            }).then(data => {
+                querytypes = data.results.map((query) => {
+                return query
+            });
+            console.log(querytypes);
+            this.setState({
+                querytypes: querytypes,
+            });
+        });
+      }
 
   render() {
     return (
@@ -29,14 +62,10 @@ class QueryForm extends React.Component {
             onChange={this.props.handleName}
             />
             <p>Who are you?</p>
-            <div>
-                <input 
-                type="radio"
-                value="1"
-                checked={this.props.selected}
-                name="Business" /> Business
-                <input type="radio" value="2" name="Individual" /> Individual
-            </div>
+            <ClientType 
+            value={this.props.clienttype}
+            onChange={this.props.handleClientType}
+               state={this.state}/>
             <p>Email</p>
             <input 
             type="text"
@@ -53,12 +82,10 @@ class QueryForm extends React.Component {
             />
             
             <p>Query Type</p>
-            <div>
-                <input type="radio" value="1" name="Request Call Back" /> Request Call Back
-                <input type="radio" value="2" name="Request Email Back" /> Request Email Back
-                <input type="radio" value="3" name="Urgent" /> Urgent
-                <input type="radio" value="4" name="Complaint" /> Complaint
-            </div>
+            <QueryType 
+            value={this.props.querytype}
+            onChange={this.props.handleQueryType}
+            state={this.state}/>
             
             <p>Query</p>
             <textarea rows="15" cols="50"
