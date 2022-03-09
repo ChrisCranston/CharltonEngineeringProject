@@ -28,27 +28,34 @@ class  ApiCustomerQueryController extends Controller
      */
     protected function processRequest()
     {
-        $datetime = $this->getRequest()->getParameter("datetime");
         $name = $this->getRequest()->getParameter("name");
         $businessindividual = $this->getRequest()->getParameter("businessindividual");
         $email = $this->getRequest()->getParameter("email"); //parameters = the table column fillers
         $phonenumber = $this->getRequest()->getParameter("phonenumber");
         $query = $this->getRequest()->getParameter("query");
         $querytype = $this->getRequest()->getParameter("querytype");
+
+        $tableToGet = $this->getRequest()->getParameter("tabletoget");
         
 
         if ($this->getRequest()->getRequestMethod() == "POST") {
             $datetime = "2022/09/03 12:00:00"; //needs to be the current time
-            if (!is_null($email)) { //if they haven't submitted an email 
+            if (is_null($email)) { //if they haven't submitted an email 
                 $this->getGateway()->addQueryWOEmail($datetime, $name, $businessindividual, $phonenumber, $query, $querytype); 
-            } else if (!is_null($phonenumber)) { //if they haven't submitted phone
+            } else if (is_null($phonenumber)) { //if they haven't submitted phone
                     $this->getGateway()->addQueryWOPhonenumber($datetime, $name, $businessindividual, $email, $query, $querytype); 
             } else {
                 $this->getGateway()->addQueryWAll($datetime, $name, $businessindividual, $email, $phonenumber, $query, $querytype);
             }
         } else if ($this->getRequest()->getRequestMethod() == "GET") {
-                $this->getGateway()->getEverything();
-            //$this->getGateway()->getQueryTypes();
+                //$this->getGateway()->getEverything();
+                if ($tableToGet == "clientType") { //if they haven't submitted phone
+                    $this->getGateway()->getClientTypes();
+                } else  if ($tableToGet == "queryType"){
+                    $this->getGateway()->getQueryTypes();
+                } else {
+                    $this->getGateway()->getEverything();
+                }
         } else {
             $this->getResponse()->setMessage("Invalid Request Type. put a type");
             $this->getResponse()->setStatusCode(405);

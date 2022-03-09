@@ -30,7 +30,14 @@ class CustomerQueryGateway extends Gateway
      */
     public function getQueryTypes()
     {
-        $this->sql = "SELECT query_type_id, query_type_desc FROM query_type";
+        $this->sql = "SELECT query_type_id, query_type_name FROM query_type";
+        $result = $this->getDatabase()->executeSQL($this->sql);
+        $this->setResult($result);
+    }
+
+    public function getClientTypes()
+    {
+        $this->sql = "SELECT prospective_client_type_id, prospective_client_type FROM prospective_client_type";
         $result = $this->getDatabase()->executeSQL($this->sql);
         $this->setResult($result);
     }
@@ -55,7 +62,7 @@ class CustomerQueryGateway extends Gateway
         $this->pcqsql .= " VALUES (:date_time, :name, :business_individual, :email, :phone_number, :query, :query_type_id)";
         $params = ["date_time" => $datetime, "name" => $name, "business_individual" => $businessoption, "email" => $email, "phone_number" => $phonenumber, "query" => $query, "query_type_id" => $querytypeid];
         $result = $this->getDatabase()->executeSQL($this->pcqsql, $params);
-        
+        $this->setResult($result);
     }
 
      /**
