@@ -3,61 +3,91 @@ body {
 }
 
 .top {
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;*/
+  align-items: center; 
   margin: auto;
   display: flex;
   flex-direction: row;
   background-color: rgb(255, 255, 255);
   width: 100%;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  height:80px;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
-.top_auth {
+/* .top_auth {
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: 10px;
   display: flex;
   flex-direction: row;
   background-color: rgb(255, 255, 255);
   width: 100%;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d;
+} */
+.top img {
+  margin-right:10px;
 }
 nav {
   width: 100%;
-  padding: 15px;
+  padding: 0px;
+  margin:20px;
 }
 
-nav ul {
+.nav {
   height: 2em;
+  display: flex;
+  flex-direction: row;
   margin-top: 25px;
   justify-content: center;
   width: auto;
   margin: 0 auto;
-  padding: 0;
+  padding: 30px;
   list-style: none;
+  color: black;
+  text-decoration: none!important;
   background-color: rgb(255, 255, 255);
   text-align: center;
-  display: flex;
+  
   align-items: stretch;
-  flex-direction: row;
 }
 
-nav ul .active {
-  background-color: red;
+
+.styledNavLink {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  width:auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 20px 10px 20px;
+  font-size: 1rem;
+  display: block;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
 }
+
+.styledNavLink:hover {
+  text-decoration: none;
+  border-bottom: 3px solid rgb(58, 58, 58);
+}
+
+.styledNavLink.active {
+  text-decoration: none;
+  border-bottom: 3px solid rgb(58, 58, 58);
+  background-color: lightgrey;
+
+}
+
 
 .main_content {
-  width: 80%;
+  width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
 
 footer {
-  background-color: #282c2d;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,18 +109,16 @@ footer {
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 
-.nav li {
-  text-decoration: none;
-  color: white;
-  padding: 0%;
-  flex: 1;
-}
 
 .item {
   border: 1px solid red;
 }
 
+#loginbutton {
+  margin-right: 30px;
+}
 .logo {
-  height:100px;
-  width: 620px;
+  margin-left: 30px;
+  height:70px;
+  width: 15%;
 }

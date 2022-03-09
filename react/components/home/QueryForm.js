@@ -13,9 +13,14 @@ import React from "react";
 
 
 class QueryForm extends React.Component {
+   
+    // 
+
+    
+
   render() {
     return (
-        <form>
+        <form className="queryform">
             <p>Name</p>
             <input 
             type="text"
