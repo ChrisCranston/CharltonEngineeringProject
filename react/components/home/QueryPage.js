@@ -32,6 +32,7 @@ class QueryPage extends React.Component {
     this.handlePhone = this.handlePhone.bind(this)
     this.handleQueryType = this.handleQueryType.bind(this)
     this.handleQuery = this.handleQuery.bind(this)
+    this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
 }
 
 handleName = (e) => {
@@ -54,22 +55,33 @@ handleQuery = (e) => {
 }
 
 handleQuerySubmit = (e) => {
+  console.log("submitting")
   e.preventDefault();
   let pattern = /[a-zA-Z0-9]+([a-zA-Z0-9]+)?[@][a-z][a-z]/g;
   if (pattern.test(this.state.email)) {
       this.setState({submiterror: ""});
-      let url = ""
+      let url = "http://localhost/kv6002/php/customerQuery";
       let formData = new FormData();
-      formData.append("name", this.state.name)
-      formData.append("businesstype", this.state.businesstype)
-      formData.append("email", this.state.email)
-      formData.append("phone", this.state.phone)
-      formData.append("querytype", this.state.querytype)
-      formData.append("query", this.state.query)
-    
+      formData.append("name", "olivia");
+      formData.append("businesstype", 1);
+      formData.append("email", "ol@email.com");
+      formData.append("phone", "04948485567");
+      formData.append("querytype", 1);
+      formData.append("query", "this.state.query");
+      // formData.append("name", this.state.name);
+      // formData.append("businesstype", this.state.businesstype);
+      // formData.append("email", this.state.email);
+      // formData.append("phone", this.state.phone);
+      // formData.append("querytype", this.state.querytype);
+      // formData.append("query", this.state.query);
+      if(Object.keys(formData).length === 0) {
+        console.log("formdata empty")
+      }
+    console.log("form data"+ JSON.stringify(formData));
       fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
-          if (response.status === 200) {
+        console.log(response)
+          if (response.status === 200 || response.status === 204) {
               return response.json();
           } else {
               throw Error(response.statusText);
@@ -128,6 +140,7 @@ handleQuerySubmit = (e) => {
               handlePhone={this.handlePhone}
               handleQueryType={this.handleQueryType}
               handleQuery={this.handleQuery}
+              handleQuerySubmit={this.handleQuerySubmit}
               />
             </div>
           </aside>

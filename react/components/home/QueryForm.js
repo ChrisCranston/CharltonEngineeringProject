@@ -30,7 +30,11 @@ class QueryForm extends React.Component {
             />
             <p>Who are you?</p>
             <div>
-                <input type="radio" value="1" name="Business" /> Business
+                <input 
+                type="radio"
+                value="1"
+                checked={this.props.selected}
+                name="Business" /> Business
                 <input type="radio" value="2" name="Individual" /> Individual
             </div>
             <p>Email</p>
