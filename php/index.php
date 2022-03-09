@@ -17,7 +17,7 @@ switch ($request->getPath()) {
     case 'stored':
         $controller = new ApiStoredController($request, $response);
         break;
-    case 'customerQuery':
+    case 'customerquery':
             $controller = new ApiCustomerQueryController($request, $response);
         break;
     default:

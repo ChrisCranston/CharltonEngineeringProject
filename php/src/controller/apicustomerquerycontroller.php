@@ -35,8 +35,10 @@ class  ApiCustomerQueryController extends Controller
         $phonenumber = $this->getRequest()->getParameter("phonenumber");
         $query = $this->getRequest()->getParameter("query");
         $querytype = $this->getRequest()->getParameter("querytype");
+        
 
         if ($this->getRequest()->getRequestMethod() == "POST") {
+            $datetime = "2022/09/03 12:00:00"; //needs to be the current time
             if (!is_null($email)) { //if they haven't submitted an email 
                 $this->getGateway()->addQueryWOEmail($datetime, $name, $businessindividual, $phonenumber, $query, $querytype); 
             } else if (!is_null($phonenumber)) { //if they haven't submitted phone
@@ -45,11 +47,12 @@ class  ApiCustomerQueryController extends Controller
                 $this->getGateway()->addQueryWAll($datetime, $name, $businessindividual, $email, $phonenumber, $query, $querytype);
             }
         } else if ($this->getRequest()->getRequestMethod() == "GET") {
-                $this->getGateway()->getQueryTypes();
+                $this->getGateway()->getEverything();
+            //$this->getGateway()->getQueryTypes();
         } else {
-            $this->getResponse()->setMessage("Invalid Request Type.");
+            $this->getResponse()->setMessage("Invalid Request Type. put a type");
             $this->getResponse()->setStatusCode(405);
-        }
+        } 
         return $this->getGateway()->getResult();
     }
 }

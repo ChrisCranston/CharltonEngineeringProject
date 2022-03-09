@@ -9,7 +9,9 @@
  */
 class CustomerQueryGateway extends Gateway
 {
-    private $pcqsql = "INSERT INTO  prospective_client_query (date_time, name, business_individual, email, phone_number, query, query_type_ id)";
+    private $pcqsql = "INSERT INTO  prospective_client_query (date_time, _name, prospective_client_type_id, email, phone_number, _query, query_type_id)";
+    private $pcqsql_nE = "INSERT INTO  prospective_client_query (date_time, _name, prospective_client_type_id, phone_number, _query, query_type_id)";
+    private $pcqsql_nP = "INSERT INTO  prospective_client_query (date_time, _name, prospective_client_type_id, email, _query, query_type_id)";
   
     /**
      * __construct
@@ -28,10 +30,18 @@ class CustomerQueryGateway extends Gateway
      */
     public function getQueryTypes()
     {
-        $this->sql .= "SELECT query_type_id, query_type_desc FROM query_type";
+        $this->sql = "SELECT query_type_id, query_type_desc FROM query_type";
         $result = $this->getDatabase()->executeSQL($this->sql);
         $this->setResult($result);
     }
+
+    public function getEverything()
+    {
+        $this->sql = "SELECT * FROM prospective_client_query";
+        $result = $this->getDatabase()->executeSQL($this->sql);
+        $this->setResult($result);
+    }
+
 
 
     /**
@@ -44,7 +54,8 @@ class CustomerQueryGateway extends Gateway
     {
         $this->pcqsql .= " VALUES (:date_time, :name, :business_individual, :email, :phone_number, :query, :query_type_id)";
         $params = ["date_time" => $datetime, "name" => $name, "business_individual" => $businessoption, "email" => $email, "phone_number" => $phonenumber, "query" => $query, "query_type_id" => $querytypeid];
-        $result = $this->getDatabase()->executeSQL($this->sql, $params);
+        $result = $this->getDatabase()->executeSQL($this->pcqsql, $params);
+        
     }
 
      /**
@@ -55,9 +66,9 @@ class CustomerQueryGateway extends Gateway
      */
     public function addQueryWOEmail($datetime, $name, $businessoption, $phonenumber, $query, $querytypeid)
     {
-        $this->pcqsql .= " VALUES (:date_time, :name, :business_individual, :phone_number, :query, :query_type_id)";
+        $this->pcqsql_nE .= " VALUES (:date_time, :name, :business_individual, :phone_number, :query, :query_type_id)";
         $params = ["date_time" => $datetime, "name" => $name, "business_individual" => $businessoption, "phone_number" => $phonenumber, "query" => $query, "query_type_id" => $querytypeid];
-        $result = $this->getDatabase()->executeSQL($this->sql, $params);
+        $result = $this->getDatabase()->executeSQL($this->pcqsql_nE, $params);
     }
 
      /**
@@ -68,8 +79,8 @@ class CustomerQueryGateway extends Gateway
      */
     public function addQueryWOPhonenumber($datetime, $name, $businessoption, $email, $query, $querytypeid)
     {
-        $this->pcqsql .= " VALUES (:date_time, :name, :business_individual, :email, :query, :query_type_id)";
+        $this->pcqsql_np .= " VALUES (:date_time, :name, :business_individual, :email, :query, :query_type_id)";
         $params = ["date_time" => $datetime, "name" => $name, "business_individual" => $businessoption, "email" => $email, "query" => $query, "query_type_id" => $querytypeid];
-        $result = $this->getDatabase()->executeSQL($this->sql, $params);
+        $result = $this->getDatabase()->executeSQL($this->pcqsql_nP, $params);
     }
 }
