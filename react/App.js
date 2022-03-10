@@ -5,7 +5,7 @@ import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/HomePage.js";
 import StoragePage from "./components/storage/StoragePage.js";
-import AssemblyPartsPage from "./components/AssemblyParts/AssemblyPartsPage";
+import AssemblyPartsPage from "./components/parts/AssemblyPartsPage/AssemblyPartsPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,7 +37,7 @@ function App() {
           path="assembly-parts"
           element={
             <RestrictedRoute isAuthenticated={isAuthenticated}>
-              <AssemblyPartsPage test="THIS IS A TEST PROP" />
+              <AssemblyPartsPage />
             </RestrictedRoute>
           }
         />

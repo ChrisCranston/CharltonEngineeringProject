@@ -1,0 +1,38 @@
+.text-input-wrapper {
+  margin: 0.5rem;
+}
+
+.text-input {
+  padding: 0.25rem 1.5rem 0.25rem 0.25rem;
+  margin-left: -0.45rem;
+}
+
+.clear-icon {
+  cursor: pointer !important;
+}
+
+.clear-icon:focus {
+  outline: none;
+  padding-bottom: 0;
+}
+
+.clear-icon:focus-visible {
+  outline: 1px solid #0000ff;
+  padding-bottom: 0.5rem;
+}
+
+.input-icon {
+  all: unset;
+  color: #000000;
+  position: relative;
+  margin-right: -1.5rem;
+  right: 1.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.login-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
