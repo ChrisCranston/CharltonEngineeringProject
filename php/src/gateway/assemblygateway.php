@@ -141,7 +141,7 @@ class AssemblyGateway extends Gateway
      * @param array  $params the array of params for the Assembly Part Select SQL PDO prepared statement
      * @param string $orderBy the column to order the results by
      */
-    private function retrieveAssemblyParts($params = [], $orderBy = "assembly_part.part_id")
+    private function retrieveAssemblyParts($params = [], $orderBy = "assembly_part.serial_number")
     {
         $this->setSelectPartSQL(" ORDER BY $orderBy");
         $this->executeSQL($this->getSelectPartSQL(), $params);
