@@ -109,6 +109,10 @@ code {
   opacity: 1;
 }
 
+.GoogleMaps {
+  position: relative;
+}
+
 .mapimg {
   height:250px;
   width:250px;

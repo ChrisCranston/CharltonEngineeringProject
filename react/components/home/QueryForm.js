@@ -15,11 +15,11 @@ import QueryType from "./QueryTypeClass.js"
 
 
 class QueryForm extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             clienttypes: [],
-            querytypes: []
+            querytypes: [],
         };
     }
     componentDidMount() {
@@ -31,7 +31,7 @@ class QueryForm extends React.Component {
               clienttypes = data.results.map((client) => {
                 return client
             });
-            console.log(clienttypes);
+            //console.log(clienttypes);
             this.setState({
                 clienttypes: clienttypes,
             });
@@ -44,7 +44,7 @@ class QueryForm extends React.Component {
                 querytypes = data.results.map((query) => {
                 return query
             });
-            console.log(querytypes);
+           //console.log(querytypes);
             this.setState({
                 querytypes: querytypes,
             });
@@ -63,9 +63,9 @@ class QueryForm extends React.Component {
             />
             <p>Who are you?</p>
             <ClientType 
-            value={this.props.clienttype}
-            onChange={this.props.handleClientType}
-               state={this.state}/>
+                handleClientType={this.props.handleClientType}
+                state={this.state}
+            />
             <p>Email</p>
             <input 
             type="text"
@@ -83,9 +83,9 @@ class QueryForm extends React.Component {
             
             <p>Query Type</p>
             <QueryType 
-            value={this.props.querytype}
-            onChange={this.props.handleQueryType}
-            state={this.state}/>
+                handleQueryType={this.props.handleQueryType}
+                state={this.state}
+            />
             
             <p>Query</p>
             <textarea rows="15" cols="50"

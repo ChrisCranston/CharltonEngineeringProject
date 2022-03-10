@@ -40,7 +40,7 @@ handleName = (e) => {
     this.setState({name: e.target.value});
 }
 handleClientType = (e) => {
-  console.log(e.target.value);
+  console.log("client type" + e.target.value);
     this.setState({clienttype: e.target.value});
 }
 handleEmail = (e) => {
@@ -51,7 +51,7 @@ handlePhone = (e) => {
     this.setState({phone: e.target.value});
 }
 handleQueryType = (e) => {
-  console.log(e.target.value);
+  console.log("query type" + e.target.value);
     this.setState({querytype: e.target.value});
 }
 handleQuery = (e) => {
@@ -72,9 +72,10 @@ handleQuerySubmit = (e) => {
       formData.append("phonenumber", this.state.phone);
       formData.append("querytype", this.state.querytype);
       formData.append("query", this.state.query);
+      console.log(formData)
       fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
-        console.log(response.status)
+        //console.log(response.status)
           if (response.status === 200 || response.status === 204) {
               return response.json();
           } else {

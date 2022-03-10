@@ -3,6 +3,7 @@ import React from "react";
 import MapPlaceholder from ".//img/map.jpg"
 import TwitterPlaceholder from ".//img/twitter.png"
 import Service from ".//ServiceClass"
+import  MapContainer  from ".//GoogleAPI"
 /**
  * HomePage
  *
@@ -12,6 +13,8 @@ import Service from ".//ServiceClass"
 class HomePage extends React.Component {
  
   render() {
+    
+    
     return (
       <div className="background">
         <div className="main_content">
@@ -47,7 +50,7 @@ class HomePage extends React.Component {
                     <img src={TwitterPlaceholder} className="twitterimg" alt="twitter img" />
                   </div>
                   <div className="infoBox GoogleMaps">
-                    <img src={MapPlaceholder} className="mapimg" alt="map img" />
+                    <MapContainer />
                   </div>
                 </div>
                 <div className="CEstandards">
