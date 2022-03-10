@@ -98,3 +98,5 @@ The boilerplate code will have the databse we designed with some initial values 
 
 
 
+# Kess' react imports
+npm install google-maps-react@2.0.6
