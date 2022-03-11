@@ -45,6 +45,7 @@ class JSONResponse extends Response
         }
         http_response_code($this->statusCode);
         $response['message'] = $this->message;
+        $response['status'] = $this->statusCode;
         $response['count'] = count($data);
         $response['results'] = $data;
         return json_encode($response);
