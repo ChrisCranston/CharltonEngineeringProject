@@ -16,16 +16,17 @@ import {
   resetInputErrors,
   validateFields,
 } from "../../assemblyPartHelpers";
-import { ASSEMBLY_PARTS_URL, editTypes } from "../../assemblyPartConstants";
+import { ASSEMBLY_PARTS_URL } from "../../assemblyPartConstants";
 
-class EditPartForm extends React.Component {
+class ChangeQuantityForm extends React.Component {
   constructor(props) {
     super(props);
-    const { selectedPart } = this.props;
+    const { selectedPart, editType } = this.props;
 
     this.state = {
+      formattedEditType: formatString(editType),
       isSubmitting: false,
-      editError: false,
+      quantityError: false,
       data: {
         part_id: {
           type: "text",
@@ -35,38 +36,21 @@ class EditPartForm extends React.Component {
           inputError: false,
           hidden: true,
         },
-        name: {
-          type: "text",
-          value: selectedPart.name,
-          default: "",
-          mandatory: true,
-          inputError: false,
-        },
-        serial_number: {
-          type: "text",
-          value: selectedPart.serial_number,
-          default: "",
-          mandatory: true,
-          inputError: false,
-        },
-        notes: {
-          type: "text",
-          value: selectedPart.notes,
-          default: "",
-          inputError: false,
-        },
-        low_warning: {
+        quantity: {
           type: "number",
-          value: selectedPart.low_warning,
+          value: null,
+          default: null,
+          mandatory: true,
+          allowZero: true,
+          inputError: false,
+        },
+        modificationType: {
+          type: "text",
+          value: editType,
           default: null,
           mandatory: true,
           inputError: false,
-        },
-        order_url: {
-          type: "text",
-          value: selectedPart.order_url,
-          default: "",
-          inputError: false,
+          hidden: true,
         },
       },
     };
@@ -98,12 +82,12 @@ class EditPartForm extends React.Component {
 
   sendData = () => {
     const { data } = this.state;
-    const { closePortal } = this.props;
+    const { editType, closePortal } = this.props;
 
-    const editValues = getInputValues(data);
+    const changeQuantityValues = getInputValues(data);
 
     const formData = new FormData();
-    formData.append("edit", JSON.stringify(editValues));
+    formData.append("quantity", JSON.stringify(changeQuantityValues));
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
@@ -113,29 +97,31 @@ class EditPartForm extends React.Component {
       .then((response) => {
         if (response) {
           if (response.status === 200) {
-            toast.success("Part updated successfully");
+            toast.success("Stock " + editType + "ed updated successfully");
 
             const newData = clearFields(data);
             this.mounted && this.setState({ data: newData });
 
-            closePortal(editTypes.EDIT, true);
+            closePortal(editType, true);
           } else {
             this.mounted &&
               this.setState({
-                editError: `Failed to update part: ${response.message}`,
+                editError: `Failed to ${editType} stock quantity: ${response.message}`,
               });
           }
         } else {
           throw new Error("No response object");
         }
       })
-      .catch((err) => toast.error(`Failed to update part: ${err.message}`))
+      .catch((err) =>
+        toast.error(`Failed to ${editType} stock: ${err.message}`)
+      )
       .finally(() => this.mounted && this.setState({ isSubmitting: false }));
   };
 
   render() {
-    const { isSubmitting, data, editError } = this.state;
-    const { closePortal } = this.props;
+    const { isSubmitting, data, quantityError, formattedEditType } = this.state;
+    const { closePortal, editType } = this.props;
 
     return (
       <div>
@@ -143,9 +129,9 @@ class EditPartForm extends React.Component {
           <Loading />
         ) : (
           <>
-            <h1 className="small-centre">Edit Assembly Part Details</h1>
+            <h1 className="small-centre">{formattedEditType} Stock</h1>
             <p className="small-centre"></p>
-            {editError && (
+            {quantityError && (
               <p className="form-error">
                 <span>
                   <FontAwesomeIcon
@@ -153,7 +139,7 @@ class EditPartForm extends React.Component {
                     icon={faExclamationTriangle}
                   />
                 </span>
-                <span>{editError}</span>
+                <span>{quantityError}</span>
               </p>
             )}
             <div className="form">
@@ -199,8 +185,8 @@ class EditPartForm extends React.Component {
             </div>
             <ModalFooter
               disabled={isSubmitting}
-              submitText="Edit Part"
-              onClose={() => closePortal(editTypes.EDIT)}
+              submitText={`${formattedEditType} Stock`}
+              onClose={() => closePortal(editType)}
               onSubmit={this.handleSubmit}
             />
           </>
@@ -210,11 +196,11 @@ class EditPartForm extends React.Component {
   }
 }
 
-EditPartForm.defaultProps = {
+ChangeQuantityForm.defaultProps = {
   selectedPart: {},
 };
 
-EditPartForm.propTypes = {
+ChangeQuantityForm.propTypes = {
   selectedPart: PropTypes.shape({
     part_id: PropTypes.string,
     serial_number: PropTypes.string,
@@ -224,7 +210,8 @@ EditPartForm.propTypes = {
     low_warning: PropTypes.string,
     order_url: PropTypes.string,
   }),
+  editType: PropTypes.string.isRequired,
   closePortal: PropTypes.func.isRequired,
 };
 
-export default EditPartForm;
+export default ChangeQuantityForm;

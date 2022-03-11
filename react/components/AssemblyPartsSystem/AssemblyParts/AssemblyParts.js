@@ -6,6 +6,8 @@ import { faRotateRight } from "@fortawesome/free-solid-svg-icons"; */
 import AssemblyPart from "../AssemblyPart/AssemblyPart";
 import CreatePartForm from "../AssemblyPartsForms/CreatePartForm/CreatePartForm";
 import EditPartForm from "../AssemblyPartsForms/EditPartForm/EditPartForm";
+import ChangeQuantityForm from "../AssemblyPartsForms/ChangeQuantityForm/ChangeQuantityForm";
+import DeletePartForm from "../AssemblyPartsForms/DeletePartForm/DeletePartForm";
 import Loading from "../../ReusableComponents/Loading/Loading";
 import Pagination from "../../ReusableComponents/Pagination/Pagination";
 import Modal from "../../ReusableComponents/Modal/Modal";
@@ -225,6 +227,29 @@ class AssemblyParts extends React.Component {
         <Modal modalOpen={modalOpen[editTypes.EDIT]}>
           <EditPartForm
             selectedPart={results[selectedPartID]}
+            closePortal={this.closePartModal}
+          />
+        </Modal>
+        <Modal modalOpen={modalOpen[editTypes.ADD]}>
+          <ChangeQuantityForm
+            selectedPart={results[selectedPartID]}
+            editType={editTypes.ADD}
+            closePortal={this.closePartModal}
+          />
+        </Modal>
+        <Modal modalOpen={modalOpen[editTypes.REMOVE]}>
+          <ChangeQuantityForm
+            selectedPart={results[selectedPartID]}
+            editType={editTypes.REMOVE}
+            closePortal={this.closePartModal}
+          />
+        </Modal>
+        <Modal modalOpen={modalOpen[editTypes.DELETE]}>
+          <DeletePartForm
+            selectedPartID={results[selectedPartID]?.part_id}
+            selectedPartSerialNumber={results[selectedPartID]?.serial_number}
+            selectedPartName={results[selectedPartID]?.name}
+            editType={editTypes.DELETE}
             closePortal={this.closePartModal}
           />
         </Modal>

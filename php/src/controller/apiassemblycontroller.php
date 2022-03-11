@@ -77,9 +77,6 @@ class ApiAssemblyController extends Controller
             } elseif (!is_null($name)) {
                 $this->getGateway()->findByPartName($name);
             } elseif (!is_null($create)) {
-                // {\"name\": \"rubber washer\", \"serial_number\": \"XX1\", \"quantity\": 364, \"notes\": null, \"low_warning\": 100, \"order_url\": \"https://www.screwfix.com/p/flomasta-fibre-rubber-washers-210-pcs/70837\"}
-                // {\"name\": \"blue crimp\", \"serial_number\": \"IA0893\", \"quantity\": 1000, \"notes\": \"for the komatsu job\", \"low_warning\": 200, \"order_url\": \"https://www.screwfix.com/p/insulated-blue-1-5-2-5mm-crimp-butts-100-pack/47402\"}
-
                 $partDetails = json_decode(html_entity_decode(stripslashes($create)), true);
 
                 if (!empty($partDetails["serial_number"])) {
@@ -87,22 +84,27 @@ class ApiAssemblyController extends Controller
                     $findBySerialNumberGateway->findBySerialNumber($partDetails["serial_number"]);
 
                     if (count($findBySerialNumberGateway->getResult()) === 0) {
-                        if ($partDetails["quantity"] > 0) {
-                            if (!empty($partDetails["name"])) {
-                                if ($partDetails["low_warning"] > 0) {
-                                    $this->getGateway()->createPart($partDetails, $userID);
-                                    $this->getResponse()->setMessage("Part created successfully");
-                                    $this->getResponse()->setStatusCode(201);
+                        if (!empty($partDetails["quantity"])) {
+                            if ($partDetails["quantity"] > 0) {
+                                if (!empty($partDetails["name"])) {
+                                    if ($partDetails["low_warning"] > 0) {
+                                        $this->getGateway()->createPart($partDetails, $userID);
+                                        $this->getResponse()->setMessage("Part created successfully");
+                                        $this->getResponse()->setStatusCode(201);
+                                    } else {
+                                        $this->getResponse()->setMessage("Unable to create - low warning must be greater than zero");
+                                        $this->getResponse()->setStatusCode(400);
+                                    }
                                 } else {
-                                    $this->getResponse()->setMessage("Unable to create - low warning must be greater than zero");
+                                    $this->getResponse()->setMessage("Unable to create - missing part name");
                                     $this->getResponse()->setStatusCode(400);
                                 }
                             } else {
-                                $this->getResponse()->setMessage("Unable to create - missing part name");
+                                $this->getResponse()->setMessage("Unable to create - initial part quantity must be greater than zero");
                                 $this->getResponse()->setStatusCode(400);
                             }
                         } else {
-                            $this->getResponse()->setMessage("Unable to create - initial part quantity must be greater than zero");
+                            $this->getResponse()->setMessage("Unable to create - missing quantity");
                             $this->getResponse()->setStatusCode(400);
                         }
                     } else {
@@ -114,10 +116,6 @@ class ApiAssemblyController extends Controller
                     $this->getResponse()->setStatusCode(400);
                 }
             } elseif (!is_null($edit)) {
-                // {\"part_id\": 22, \"name\": \"red rubber washer\", \"serial_number\": \"XX1\", \"notes\": null, \"low_warning\": 100, \"order_url\": \"https://www.screwfix.com/p/flomasta-fibre-rubber-washers-210-pcs/70837\"}
-                // {\"part_id\": 22, \"name\": \"rubber washer\", \"serial_number\": \"XX1\", \"notes\": null, \"low_warning\": 100, \"order_url\": \"https://www.screwfix.com/p/flomasta-fibre-rubber-washers-210-pcs/70837\"}
-                // {\"part_id\": 22, \"name\": \"blue rubber washer\", \"serial_number\": \"XBBX1\", \"notes\": "need to buy 100 more before next month", \"low_warning\": 200, \"order_url\": \"https://www.screwfix.com/p/flomasta-fibre-rubber-washers-210-pcs/70837\"}
-
                 $partDetails = json_decode(html_entity_decode(stripslashes($edit)), true);
 
                 if (!empty($partDetails["part_id"])) {
@@ -160,43 +158,65 @@ class ApiAssemblyController extends Controller
                     $this->getResponse()->setMessage("Unable to edit - missing part ID");
                     $this->getResponse()->setStatusCode(404);
                 }
-            } elseif (!is_null($delete)) {
-                // {\"part_id\": 23}
-
-                $partID = json_decode(html_entity_decode(stripslashes($delete)), true)["part_id"];
-
-                $findByPartIDGateway = new AssemblyGateway();
-                $findByPartIDGateway->findOne($partID);
-
-                if (count($findByPartIDGateway->getResult()) === 1) {
-                    $this->getGateway()->deletePart($partID);
-                    $this->getResponse()->setMessage("Part deleted successfully");
-                    $this->getResponse()->setStatusCode(200);
-                } else {
-                    $this->getResponse()->setMessage("Unable to delete - part does not exist");
-                    $this->getResponse()->setStatusCode(404);
-                }
             } elseif (!is_null($quantity)) {
                 // {\"part_id\": 1, \"quantity\": 20, \"modificationType\": \"add\"}
                 // {\"part_id\": 1, \"quantity\": 20, \"modificationType\": \"remove\"}
 
                 $partDetails = json_decode(html_entity_decode(stripslashes($quantity)), true);
-                $findByPartIDGateway = new AssemblyGateway();
-                $findByPartIDGateway->findOne($partDetails["part_id"]);
+                if (!empty($partDetails["part_id"])) {
+                    $findByPartIDGateway = new AssemblyGateway();
+                    $findByPartIDGateway->findOne($partDetails["part_id"]);
 
-                if (count($findByPartIDGateway->getResult()) > 0) {
-                    $modificationType = $partDetails["modificationType"];
+                    if (count($findByPartIDGateway->getResult()) > 0) {
+                        if (!empty($partDetails["modificationType"])) {
+                            $modificationType = $partDetails["modificationType"];
 
-                    if ($modificationType === "add" || $modificationType === "remove") {
-                        $this->getGateway()->addOrRemoveStock($partDetails, $userID);
-                        $this->getResponse()->setMessage("Quantity modified successfully");
-                        $this->getResponse()->setStatusCode(200);
+                            if ($modificationType === "add" || $modificationType === "remove") {
+                                if (!empty($partDetails["quantity"])) {
+                                    $this->getGateway()->addOrRemoveStock($partDetails, $userID);
+                                    $this->getResponse()->setMessage("Quantity modified successfully");
+                                    $this->getResponse()->setStatusCode(200);
+                                } else {
+                                    $this->getResponse()->setMessage("Unable to $modificationType - missing quantity");
+                                    $this->getResponse()->setStatusCode(400);
+                                }
+                            } else {
+                                $this->getResponse()->setMessage("Unable to modify quantity - invalid quantity modification type");
+                                $this->getResponse()->setStatusCode(400);
+                            }
+                        } else {
+                            $this->getResponse()->setMessage("Unable to modify quantity - missing modification type");
+                            $this->getResponse()->setStatusCode(404);
+                        }
                     } else {
-                        $this->getResponse()->setMessage("Unable to add - invalid quantity modification type");
-                        $this->getResponse()->setStatusCode(400);
+                        $this->getResponse()->setMessage("Unable to modify quantity - part does not exist");
+                        $this->getResponse()->setStatusCode(404);
                     }
                 } else {
-                    $this->getResponse()->setMessage("Unable to add - part does not exist");
+                    $this->getResponse()->setMessage("Unable to modify quantity - missing part ID");
+                    $this->getResponse()->setStatusCode(404);
+                }
+            } elseif (!is_null($delete)) {
+                // {\"part_id\": 23}
+
+                $partDetails = json_decode(html_entity_decode(stripslashes($delete)), true);
+
+                if (!empty($partDetails["part_id"])) {
+                    $partID = $partDetails["part_id"];
+
+                    $findByPartIDGateway = new AssemblyGateway();
+                    $findByPartIDGateway->findOne($partID);
+
+                    if (count($findByPartIDGateway->getResult()) === 1) {
+                        $this->getGateway()->deletePart($partID);
+                        $this->getResponse()->setMessage("Part deleted successfully");
+                        $this->getResponse()->setStatusCode(200);
+                    } else {
+                        $this->getResponse()->setMessage("Unable to delete - part does not exist");
+                        $this->getResponse()->setStatusCode(404);
+                    }
+                } else {
+                    $this->getResponse()->setMessage("Unable to modify quantity - missing part ID");
                     $this->getResponse()->setStatusCode(404);
                 }
             } else {

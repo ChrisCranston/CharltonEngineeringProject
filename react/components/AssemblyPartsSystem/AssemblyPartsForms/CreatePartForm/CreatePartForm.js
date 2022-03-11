@@ -10,7 +10,7 @@ import {
   cancelText,
   clearFields,
   fetchResource,
-  formatKey,
+  formatString,
   getInputValues,
   handleTextEntry,
   resetInputErrors,
@@ -169,7 +169,7 @@ class CreatePartForm extends React.Component {
                     </p>
                   )}
                   <Input
-                    label={formatKey(key)}
+                    label={formatString(key)}
                     type={data[key].type}
                     id={key}
                     value={data[key].value ?? ""}
