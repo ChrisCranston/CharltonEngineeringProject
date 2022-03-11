@@ -82,20 +82,35 @@ class ApiAssemblyController extends Controller
 
                 $partDetails = json_decode(html_entity_decode(stripslashes($create)), true);
 
-                $findBySerialNumberGateway = new AssemblyGateway();
-                $findBySerialNumberGateway->findBySerialNumber($partDetails["serial_number"]);
+                if (!empty($partDetails["serial_number"])) {
+                    $findBySerialNumberGateway = new AssemblyGateway();
+                    $findBySerialNumberGateway->findBySerialNumber($partDetails["serial_number"]);
 
-                if (count($findBySerialNumberGateway->getResult()) === 0) {
-                    if ($partDetails["quantity"] > 0) {
-                        $this->getGateway()->createPart($partDetails, $userID);
-                        $this->getResponse()->setMessage("Part created successfully");
-                        $this->getResponse()->setStatusCode(201);
+                    if (count($findBySerialNumberGateway->getResult()) === 0) {
+                        if ($partDetails["quantity"] > 0) {
+                            if (!empty($partDetails["name"])) {
+                                if ($partDetails["low_warning"] > 0) {
+                                    $this->getGateway()->createPart($partDetails, $userID);
+                                    $this->getResponse()->setMessage("Part created successfully");
+                                    $this->getResponse()->setStatusCode(201);
+                                } else {
+                                    $this->getResponse()->setMessage("Unable to create - low warning must be greater than zero");
+                                    $this->getResponse()->setStatusCode(400);
+                                }
+                            } else {
+                                $this->getResponse()->setMessage("Unable to create - missing part name");
+                                $this->getResponse()->setStatusCode(400);
+                            }
+                        } else {
+                            $this->getResponse()->setMessage("Unable to create - initial part quantity must be greater than zero");
+                            $this->getResponse()->setStatusCode(400);
+                        }
                     } else {
-                        $this->getResponse()->setMessage("Unable to create - initial part quantity must be greater than zero");
+                        $this->getResponse()->setMessage("Unable to create - part already exists");
                         $this->getResponse()->setStatusCode(400);
                     }
                 } else {
-                    $this->getResponse()->setMessage("Unable to create - part already exists");
+                    $this->getResponse()->setMessage("Unable to create - missing serial number");
                     $this->getResponse()->setStatusCode(400);
                 }
             } elseif (!is_null($edit)) {

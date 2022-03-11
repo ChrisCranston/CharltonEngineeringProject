@@ -205,14 +205,14 @@ class AssemblyGateway extends Gateway
      * 
      * Retrieves assembly parts that match a provided serial number search string.
      * 
-     * The query uses LIKE with % to check for partial matches to the search string.
+     * Only full matches are allowed.
      * 
      * @param string $serialNumber the serial number string used to find the paper
      */
     public function findBySerialNumber($serialNumber)
     {
-        $this->setSelectPartSQL(" WHERE assembly_part.serial_number LIKE :serialNumber");
-        $this->retrieveAssemblyParts(["serialNumber" => "%$serialNumber%"]);
+        $this->setSelectPartSQL(" WHERE assembly_part.serial_number = :serialNumber");
+        $this->retrieveAssemblyParts(["serialNumber" => $serialNumber]);
     }
 
     /**
