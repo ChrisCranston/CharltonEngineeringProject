@@ -30,9 +30,3 @@
   width: 1rem;
   height: 1rem;
 }
-
-.login-input {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}

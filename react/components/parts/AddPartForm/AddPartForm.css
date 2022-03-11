@@ -1,0 +1,27 @@
+.create-error {
+  color: #d81f26;
+  background-color: #ffd3d4;
+  display: flex;
+  padding: 0.75rem 1rem 0.75rem 1rem;
+}
+
+.field-label {
+  margin: 0 0.5rem;
+}
+
+.field-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px) {
+  .small-centre,
+  .create-error {
+    text-align: center;
+  }
+
+  .field-label {
+    margin-left: 0;
+  }
+}

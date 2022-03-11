@@ -32,7 +32,7 @@
 
 .modal-content div,
 .modal-content div .loading-spinner {
-  margin: auto;
+  width: 100%;
 }
 
 .modal-content div .loading-spinner p {

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/HomePage.js";
 import StoragePage from "./components/storage/StoragePage.js";
 import AssemblyPartsPage from "./components/parts/AssemblyPartsPage/AssemblyPartsPage";
+import "./App.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -121,7 +123,7 @@ function App() {
           }
         />
       </Routes>
-
+      <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">
         <p>footer text</p>
       </footer>

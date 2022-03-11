@@ -13,17 +13,21 @@ import "./ModalFooter.css";
  */
 class ModalFooter extends React.Component {
   render() {
-    const { closeText, submitText, onClose, onSubmit } = this.props;
+    const { disabled, closeText, submitText, onClose, onSubmit } = this.props;
 
     return (
       <div className="modal-footer">
         {onClose && (
-          <button className="button" onClick={onClose}>
+          <button disabled={disabled} className="button" onClick={onClose}>
             {closeText}
           </button>
         )}
         {onSubmit && (
-          <button className="submit-button button" onClick={onSubmit}>
+          <button
+            disabled={disabled}
+            className="submit-button button"
+            onClick={onSubmit}
+          >
             {submitText}
           </button>
         )}
@@ -33,6 +37,7 @@ class ModalFooter extends React.Component {
 }
 
 ModalFooter.defaultProps = {
+  disabled: false,
   closeText: "Cancel",
   submitText: "Submit",
   onClose: null,
@@ -40,6 +45,7 @@ ModalFooter.defaultProps = {
 };
 
 ModalFooter.propTypes = {
+  disabled: PropTypes.bool,
   closeText: PropTypes.string,
   submitText: PropTypes.string,
   onClose: PropTypes.func,

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TextInput from "../TextInput/TextInput";
+import Input from "../Input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./SearchBox.css";
@@ -9,9 +9,9 @@ import "./SearchBox.css";
  * SearchBox class component
  *
  * Generates a dynamic search box for the user to type in using
- * the TextInput component.
+ * the Input component.
  *
- * The TextInput's ID, label, search value, placeholder text,
+ * The Input's ID, label, search value, placeholder text,
  * and boolean to show or hide an optional magnifying glass icon
  * are passed in to allow dynamic generation.
  *
@@ -36,7 +36,7 @@ class SearchBox extends React.Component {
     } = this.props;
 
     return (
-      <TextInput
+      <Input
         wrapperClassName="item-control-wrapper"
         labelClassName="search-box-label"
         id={id}

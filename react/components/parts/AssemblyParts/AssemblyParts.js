@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons"; */
 import AssemblyPart from "../AssemblyPart/AssemblyPart";
 import Loading from "../Loading/Loading";
 import Pagination from "../Pagination/Pagination";
+import AddPartForm from "../AddPartForm/AddPartForm";
+import Modal from "../Modal/Modal";
+import ModalFooter from "../ModalFooter/ModalFooter";
 import "./AssemblyParts.css";
 
 class AssemblyParts extends React.Component {
@@ -11,35 +17,85 @@ class AssemblyParts extends React.Component {
     this.state = {
       results: [],
       isLoading: false,
-      pageSize: Number(localStorage.getItem("assemblyPartPageSize")) ?? 15,
+      selectedPartID: null,
+      modalOpen: {
+        create: false,
+        edit: false,
+        add: false,
+        remove: false,
+        delete: false,
+      },
+      pageSize: localStorage.getItem("assemblyPartPageSize")
+        ? Number(localStorage.getItem("assemblyPartPageSize"))
+        : 15,
     };
   }
 
   componentDidMount() {
-    const url =
-      "http://unn-w18002221.newnumyspace.co.uk/kv6002/php/assembly-parts";
-    this.fetchData(url);
+    this.fetchData();
   }
 
-  fetchData = (url) => {
+  openCreatePartModal = () => {
+    const { modalOpen } = this.state;
+
+    this.setState({ modalOpen: { ...modalOpen, create: true } });
+  };
+
+  closeCreatePartModal = (submitted = false) => {
+    const { modalOpen } = this.state;
+
+    submitted && this.fetchData();
+
+    this.setState({ modalOpen: { ...modalOpen, create: false } });
+  };
+
+  openEditPartModal = (selectedPartID) => {
+    const { modalOpen } = this.state;
+
+    this.setState({
+      selectedPartID,
+      modalOpen: { ...modalOpen, edit: true },
+    });
+  };
+
+  closeEditPartModal = (submitted = false) => {
+    const { modalOpen } = this.state;
+
+    submitted && this.fetchData();
+
+    this.setState({
+      selectedPartID: null,
+      modalOpen: { ...modalOpen, edit: false },
+    });
+  };
+
+  fetchData = () => {
+    const url =
+      "http://unn-w18002221.newnumyspace.co.uk/kv6002/php/assembly-parts";
+
     this.setState({ isLoading: true });
     fetch(url, {
       method: "POST",
       headers: new Headers(),
     })
+      .then((resObj) =>
+        resObj.status === 204 ? { status: 204, results: [] } : resObj.json()
+      )
       .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else if (response.status !== 204) {
-          throw Error(response.statusText);
+        if (response) {
+          if (response.status === 200 || response.status === 204) {
+            toast.success("Successfully retrieved assembly parts");
+            this.setState({ results: response.results });
+          } else {
+            throw new Error(response.message);
+          }
+        } else {
+          throw new Error("No response object");
         }
       })
-      .then((data) => {
-        this.setState({ results: data.results });
-      })
-      .catch((err) => {
-        console.log("something went wrong ", err);
-      })
+      .catch((err) =>
+        toast.error(`Failed to retrieve assembly parts: ${err.message}`)
+      )
       .finally(() => this.setState({ isLoading: false }));
   };
 
@@ -73,7 +129,9 @@ class AssemblyParts extends React.Component {
   };
 
   render() {
-    const { results, isLoading, pageSize } = this.state;
+    const { results, isLoading, modalOpen, selectedPartID, pageSize } =
+      this.state;
+
     const {
       page,
       search,
@@ -107,48 +165,71 @@ class AssemblyParts extends React.Component {
       }
     }
 
+    /*
+    <button onClick={() => this.fetchData()}>
+      Refresh <FontAwesomeIcon icon={faRotateRight} />
+    </button>
+    */
+
     return (
-      <div>
-        {isLoading ? (
-          <Loading />
-        ) : filteredResults.length === 0 ? (
-          <p>No data found</p>
-        ) : (
-          <>
-            <table className="parts-table">
-              <thead style={{ marginBottom: "1rem" }}>
-                <tr>
-                  <th>Serial Number</th>
-                  <th>Part Name</th>
-                  <th>Quantity</th>
-                  <th>Notes</th>
-                  <th>Low Warning</th>
-                  <th>Order URL</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {filteredResults.map((assemblyPart) => (
-                  <AssemblyPart
-                    key={assemblyPart.part_id}
-                    assemblyPart={assemblyPart}
-                  />
-                ))}
-              </tbody>
-            </table>
-            {page && (
-              <Pagination
-                pageSize={pageSize}
-                page={page}
-                pageNumbers={pageNumbers}
-                handlePageSizeChange={this.handlePageSizeChange}
-                handleNextClick={handleNextClick}
-                handlePreviousClick={handlePreviousClick}
-              />
-            )}
-          </>
-        )}
-      </div>
+      <>
+        <div>
+          {isLoading ? (
+            <Loading />
+          ) : filteredResults.length === 0 ? (
+            <p>No data found</p>
+          ) : (
+            <>
+              <div>
+                <button onClick={() => this.openCreatePartModal()}>
+                  Add New Part
+                </button>
+              </div>
+              <table className="parts-table">
+                <thead style={{ marginBottom: "1rem" }}>
+                  <tr>
+                    <th>Serial Number</th>
+                    <th>Part Name</th>
+                    <th>Quantity</th>
+                    <th>Notes</th>
+                    <th>Low Warning</th>
+                    <th>Order URL</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredResults.map((assemblyPart) => (
+                    <AssemblyPart
+                      key={assemblyPart.part_id}
+                      assemblyPart={assemblyPart}
+                      openEditPartModal={this.openEditPartModal}
+                    />
+                  ))}
+                </tbody>
+              </table>
+              {page && (
+                <Pagination
+                  pageSize={pageSize}
+                  page={page}
+                  pageNumbers={pageNumbers}
+                  handlePageSizeChange={this.handlePageSizeChange}
+                  handleNextClick={handleNextClick}
+                  handlePreviousClick={handlePreviousClick}
+                />
+              )}
+            </>
+          )}
+        </div>
+        <Modal modalOpen={modalOpen["create"]}>
+          <AddPartForm closePortal={this.closeCreatePartModal} />
+        </Modal>
+        <Modal modalOpen={modalOpen["edit"]}>
+          <div>
+            <h1>{selectedPartID} EDIT PART MODAL</h1>
+            <ModalFooter onClose={() => this.closeEditPartModal()} />
+          </div>
+        </Modal>
+      </>
     );
   }
 }

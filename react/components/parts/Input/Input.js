@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import "./TextInput.css";
+import "./Input.css";
 
 /**
- * TextInput class component
+ * Input class component
  *
- * Generates a text input for the user to type into.
+ * Generates an input for the user to type into.
  *
  * The component executes a supplied function whenever the user
  * types into the box or optionally presses enter, and displays
@@ -28,7 +28,7 @@ import "./TextInput.css";
  *
  * @author Matthew William Dawson W18002221
  */
-class TextInput extends React.Component {
+class Input extends React.Component {
   render() {
     const {
       id,
@@ -72,7 +72,7 @@ class TextInput extends React.Component {
   }
 }
 
-TextInput.defaultProps = {
+Input.defaultProps = {
   type: "text",
   label: "",
   wrapperClassName: "",
@@ -83,7 +83,7 @@ TextInput.defaultProps = {
   onEnter: null,
 };
 
-TextInput.propTypes = {
+Input.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -97,4 +97,4 @@ TextInput.propTypes = {
   onEnter: PropTypes.func,
 };
 
-export default TextInput;
+export default Input;

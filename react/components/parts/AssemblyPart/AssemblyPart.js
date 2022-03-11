@@ -1,26 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"; */
 // import DropdownButton from "./DropdownButton/DropdownButton";
-import Modal from "../Modal/Modal";
-import ModalFooter from "../ModalFooter/ModalFooter";
 import "./AssemblyPart.css";
 
 class AssemblyPart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalOpen: false,
-    };
-  }
-
-  openStockModal = () => this.setState({ modalOpen: true });
-
-  closeStockModal = () => this.setState({ modalOpen: false });
-
   render() {
-    const { modalOpen } = this.state;
-    const { assemblyPart } = this.props;
+    const { assemblyPart, openEditPartModal } = this.props;
 
+    const partID = assemblyPart.part_id;
     const quantity = Number(assemblyPart.quantity);
     const className =
       quantity === 0
@@ -29,37 +18,43 @@ class AssemblyPart extends React.Component {
         ? "low-stock"
         : "";
 
-    return (
-      <>
-        <tr>
-          <td>{assemblyPart.serial_number}</td>
-          <td>{assemblyPart.name}</td>
-          <td className={className}>{assemblyPart.quantity}</td>
-          <td>{assemblyPart.notes ?? "N/A"}</td>
-          <td>{assemblyPart.low_warning}</td>
-          <td>
-            {assemblyPart.order_url ? (
+    /*
+             {assemblyPart.order_url ? (
               <a href={assemblyPart.order_url} target="_blank" rel="noreferrer">
-                URL
+                <FontAwesomeIcon icon={faUpRightFromSquare} />
               </a>
             ) : (
               "N/A"
-            )}
-          </td>
-          <td className="user-list__dropdown">
-            <button onClick={this.openStockModal}>Add Stock</button>
-            <button onClick={this.openStockModal}>Remove Stock</button>
-            <button onClick={this.openStockModal}>Edit Stock Details</button>
-            <button onClick={this.openStockModal}>Delete Stock</button>
-          </td>
-        </tr>
-        <Modal modalOpen={modalOpen}>
-          <div>
-            <h1>MODIFY STOCK MODAL</h1>
-            <ModalFooter onClose={() => this.closeStockModal()} />
-          </div>
-        </Modal>
-      </>
+            )} 
+        */
+
+    return (
+      <tr>
+        <td>{assemblyPart.serial_number}</td>
+        <td>{assemblyPart.name}</td>
+        <td className={className}>{assemblyPart.quantity}</td>
+        <td>{assemblyPart.notes ?? "N/A"}</td>
+        <td>{assemblyPart.low_warning}</td>
+        <td>
+          {assemblyPart.order_url ? (
+            <a href={assemblyPart.order_url} target="_blank" rel="noreferrer">
+              {assemblyPart.order_url.substring(0, 25) + "..."}
+            </a>
+          ) : (
+            "N/A"
+          )}
+        </td>
+        <td className="user-list__dropdown">
+          <button onClick={() => openEditPartModal(partID)}>Add Stock</button>
+          <button onClick={() => openEditPartModal(partID)}>
+            Remove Stock
+          </button>
+          <button onClick={() => openEditPartModal(partID)}>
+            Edit Part Details
+          </button>
+          <button onClick={() => openEditPartModal(partID)}>Delete Part</button>
+        </td>
+      </tr>
     );
   }
 }
@@ -110,20 +105,6 @@ class AssemblyPart extends React.Component {
 
 */
 
-/*
-
-      <div>
-          <p>Serial Number: {assemblyPart.serial_number}</p>
-          <p>Part Name: {assemblyPart.name} </p>
-          <p>Quantity: {assemblyPart.quantity}</p>
-          <p>Notes: {assemblyPart.notes}</p>
-          <p>Low Warning: {assemblyPart.low_warning}</p>
-          <p>Order URL: {assemblyPart.order_url}</p>
-          <p>THREE DOT BUTTON</p>
-        </div>
-
-*/
-
 AssemblyPart.propTypes = {
   assemblyPart: PropTypes.shape({
     part_id: PropTypes.string.isRequired,
@@ -134,6 +115,7 @@ AssemblyPart.propTypes = {
     low_warning: PropTypes.string.isRequired,
     order_url: PropTypes.string,
   }),
+  openEditPartModal: PropTypes.func.isRequired,
 };
 
 export default AssemblyPart;
