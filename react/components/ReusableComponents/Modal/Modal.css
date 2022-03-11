@@ -24,10 +24,9 @@
   border-radius: 0.3rem;
   overflow-x: hidden;
   overflow-y: auto;
-  min-width: 35rem;
   min-height: 18rem;
   max-height: 80%;
-  max-width: 50rem;
+  width: 45rem;
 }
 
 .modal-content div,

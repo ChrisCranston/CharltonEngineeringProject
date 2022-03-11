@@ -4,30 +4,40 @@ import { toast } from "react-toastify";
 /* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons"; */
 import AssemblyPart from "../AssemblyPart/AssemblyPart";
-import Loading from "../Loading/Loading";
-import Pagination from "../Pagination/Pagination";
-import AddPartForm from "../AddPartForm/AddPartForm";
-import Modal from "../Modal/Modal";
-import ModalFooter from "../ModalFooter/ModalFooter";
+import CreatePartForm from "../AssemblyPartsForms/CreatePartForm/CreatePartForm";
+import EditPartForm from "../AssemblyPartsForms/EditPartForm/EditPartForm";
+import Loading from "../../ReusableComponents/Loading/Loading";
+import Pagination from "../../ReusableComponents/Pagination/Pagination";
+import Modal from "../../ReusableComponents/Modal/Modal";
+import {
+  fetchResource,
+  getAssemblyPartPageSize,
+  setAssemblyPartPageSize,
+} from "../assemblyPartHelpers";
+import {
+  ASSEMBLY_PARTS_URL,
+  DEFAULT_ASSEMBLY_PART_PAGE_SIZE,
+  editTypes,
+} from "../assemblyPartConstants";
 import "./AssemblyParts.css";
 
 class AssemblyParts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: [],
+      results: {},
       isLoading: false,
       selectedPartID: null,
       modalOpen: {
         create: false,
-        edit: false,
         add: false,
         remove: false,
+        edit: false,
         delete: false,
       },
-      pageSize: localStorage.getItem("assemblyPartPageSize")
-        ? Number(localStorage.getItem("assemblyPartPageSize"))
-        : 15,
+      pageSize: getAssemblyPartPageSize()
+        ? Number(getAssemblyPartPageSize())
+        : DEFAULT_ASSEMBLY_PART_PAGE_SIZE,
     };
   }
 
@@ -35,57 +45,46 @@ class AssemblyParts extends React.Component {
     this.fetchData();
   }
 
-  openCreatePartModal = () => {
-    const { modalOpen } = this.state;
-
-    this.setState({ modalOpen: { ...modalOpen, create: true } });
-  };
-
-  closeCreatePartModal = (submitted = false) => {
-    const { modalOpen } = this.state;
-
-    submitted && this.fetchData();
-
-    this.setState({ modalOpen: { ...modalOpen, create: false } });
-  };
-
-  openEditPartModal = (selectedPartID) => {
+  openPartModal = (editType, selectedPartID = null) => {
     const { modalOpen } = this.state;
 
     this.setState({
       selectedPartID,
-      modalOpen: { ...modalOpen, edit: true },
+      modalOpen: { ...modalOpen, [editType]: true },
     });
   };
 
-  closeEditPartModal = (submitted = false) => {
+  closePartModal = (editType, submitted = false) => {
     const { modalOpen } = this.state;
 
     submitted && this.fetchData();
 
     this.setState({
       selectedPartID: null,
-      modalOpen: { ...modalOpen, edit: false },
+      modalOpen: { ...modalOpen, [editType]: false },
     });
   };
 
   fetchData = () => {
-    const url =
-      "http://unn-w18002221.newnumyspace.co.uk/kv6002/php/assembly-parts";
-
     this.setState({ isLoading: true });
-    fetch(url, {
+
+    fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
       headers: new Headers(),
     })
-      .then((resObj) =>
-        resObj.status === 204 ? { status: 204, results: [] } : resObj.json()
-      )
       .then((response) => {
         if (response) {
           if (response.status === 200 || response.status === 204) {
             toast.success("Successfully retrieved assembly parts");
-            this.setState({ results: response.results });
+            this.setState({
+              results: response.results.reduce(
+                (obj, variable) => ({
+                  ...obj,
+                  [variable.part_id]: variable,
+                }),
+                {}
+              ),
+            });
           } else {
             throw new Error(response.message);
           }
@@ -125,7 +124,7 @@ class AssemblyParts extends React.Component {
   handlePageSizeChange = (e) => {
     const pageSize = parseInt(e.target.value);
     this.setState({ pageSize });
-    localStorage.setItem("assemblyPartPageSize", pageSize);
+    setAssemblyPartPageSize(pageSize);
   };
 
   render() {
@@ -141,7 +140,7 @@ class AssemblyParts extends React.Component {
       handlePreviousClick,
     } = this.props;
 
-    let filteredResults = results;
+    let filteredResults = Object.values(results);
 
     if (filteredResults.length > 0 && search) {
       filteredResults = filteredResults.filter(this.filterSearch);
@@ -181,7 +180,7 @@ class AssemblyParts extends React.Component {
           ) : (
             <>
               <div>
-                <button onClick={() => this.openCreatePartModal()}>
+                <button onClick={() => this.openPartModal("create")}>
                   Add New Part
                 </button>
               </div>
@@ -202,7 +201,7 @@ class AssemblyParts extends React.Component {
                     <AssemblyPart
                       key={assemblyPart.part_id}
                       assemblyPart={assemblyPart}
-                      openEditPartModal={this.openEditPartModal}
+                      openPartModal={this.openPartModal}
                     />
                   ))}
                 </tbody>
@@ -220,14 +219,14 @@ class AssemblyParts extends React.Component {
             </>
           )}
         </div>
-        <Modal modalOpen={modalOpen["create"]}>
-          <AddPartForm closePortal={this.closeCreatePartModal} />
+        <Modal modalOpen={modalOpen[editTypes.CREATE]}>
+          <CreatePartForm closePortal={this.closePartModal} />
         </Modal>
-        <Modal modalOpen={modalOpen["edit"]}>
-          <div>
-            <h1>{selectedPartID} EDIT PART MODAL</h1>
-            <ModalFooter onClose={() => this.closeEditPartModal()} />
-          </div>
+        <Modal modalOpen={modalOpen[editTypes.EDIT]}>
+          <EditPartForm
+            selectedPart={results[selectedPartID]}
+            closePortal={this.closePartModal}
+          />
         </Modal>
       </>
     );

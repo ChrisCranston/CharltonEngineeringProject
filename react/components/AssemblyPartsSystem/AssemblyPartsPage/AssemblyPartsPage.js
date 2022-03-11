@@ -1,6 +1,6 @@
 import React from "react";
 import AssemblyParts from "../AssemblyParts/AssemblyParts";
-import SearchBox from "../SearchBox/SearchBox";
+import SearchBox from "../../ReusableComponents/SearchBox/SearchBox";
 import "./AssemblyPartsPage.css";
 
 class AssemblyPartsPage extends React.Component {
@@ -64,7 +64,7 @@ class AssemblyPartsPage extends React.Component {
             search={search}
             handleSearch={this.handleSearch}
             cancelSearch={this.cancelSearch}
-            placeholder="Search by name/part ID"
+            placeholder="Search by name/serial number"
             icon
           />
           <label className="item-control-wrapper">

@@ -106,7 +106,7 @@ class ApiAssemblyController extends Controller
                             $this->getResponse()->setStatusCode(400);
                         }
                     } else {
-                        $this->getResponse()->setMessage("Unable to create - part already exists");
+                        $this->getResponse()->setMessage("Unable to create - part with serial number '" . $partDetails["serial_number"] . "' already exists");
                         $this->getResponse()->setStatusCode(400);
                     }
                 } else {
@@ -119,23 +119,45 @@ class ApiAssemblyController extends Controller
                 // {\"part_id\": 22, \"name\": \"blue rubber washer\", \"serial_number\": \"XBBX1\", \"notes\": "need to buy 100 more before next month", \"low_warning\": 200, \"order_url\": \"https://www.screwfix.com/p/flomasta-fibre-rubber-washers-210-pcs/70837\"}
 
                 $partDetails = json_decode(html_entity_decode(stripslashes($edit)), true);
-                $findByPartIDGateway = new AssemblyGateway();
-                $findByPartIDGateway->findOne($partDetails["part_id"]);
 
-                if (count($findByPartIDGateway->getResult()) === 1) {
-                    $findBySerialNumberGateway = new AssemblyGateway();
-                    $findBySerialNumberGateway->findBySerialNumber($partDetails["serial_number"]);
+                if (!empty($partDetails["part_id"])) {
+                    $findByPartIDGateway = new AssemblyGateway();
+                    $findByPartIDGateway->findOne($partDetails["part_id"]);
 
-                    if (count($findBySerialNumberGateway->getResult()) === 0 || (int)$findBySerialNumberGateway->getResult()[0]["part_id"] === $partDetails["part_id"]) {
-                        $this->getGateway()->editPartDetails($partDetails);
-                        $this->getResponse()->setMessage("Part edited successfully");
-                        $this->getResponse()->setStatusCode(200);
+                    if (count($findByPartIDGateway->getResult()) === 1) {
+                        if (!empty($partDetails["serial_number"])) {
+
+                            $findBySerialNumberGateway = new AssemblyGateway();
+                            $findBySerialNumberGateway->findBySerialNumber($partDetails["serial_number"]);
+
+                            if (count($findBySerialNumberGateway->getResult()) === 0 || $findBySerialNumberGateway->getResult()[0]["part_id"] === $partDetails["part_id"]) {
+                                if (!empty($partDetails["name"])) {
+                                    if ($partDetails["low_warning"] > 0) {
+                                        $this->getGateway()->editPartDetails($partDetails);
+                                        $this->getResponse()->setMessage("Part edited successfully");
+                                        $this->getResponse()->setStatusCode(200);
+                                    } else {
+                                        $this->getResponse()->setMessage("Unable to edit - low warning must be greater than zero");
+                                        $this->getResponse()->setStatusCode(400);
+                                    }
+                                } else {
+                                    $this->getResponse()->setMessage("Unable to edit - missing part name");
+                                    $this->getResponse()->setStatusCode(400);
+                                }
+                            } else {
+                                $this->getResponse()->setMessage("Unable to edit - serial number already exists for a different part");
+                                $this->getResponse()->setStatusCode(400);
+                            }
+                        } else {
+                            $this->getResponse()->setMessage("Unable to edit - missing serial number");
+                            $this->getResponse()->setStatusCode(400);
+                        }
                     } else {
-                        $this->getResponse()->setMessage("Unable to edit - serial number already exists for a different part");
-                        $this->getResponse()->setStatusCode(400);
+                        $this->getResponse()->setMessage("Unable to edit - part does not exist");
+                        $this->getResponse()->setStatusCode(404);
                     }
                 } else {
-                    $this->getResponse()->setMessage("Unable to edit - part does not exist");
+                    $this->getResponse()->setMessage("Unable to edit - missing part ID");
                     $this->getResponse()->setStatusCode(404);
                 }
             } elseif (!is_null($delete)) {

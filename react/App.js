@@ -6,7 +6,7 @@ import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/HomePage.js";
 import StoragePage from "./components/storage/StoragePage.js";
-import AssemblyPartsPage from "./components/parts/AssemblyPartsPage/AssemblyPartsPage";
+import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
 import "./App.css";
 
 function App() {
