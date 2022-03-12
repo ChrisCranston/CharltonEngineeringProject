@@ -1,8 +1,7 @@
 import React from "react";
 import LocationButtons from "./LocationButtons";
-import {ADDEditStored, REMOVEEditStored}  from "./EditStored";
+import { ADDEditStored, REMOVEEditStored } from "./EditStored";
 import QRCode from "qrcode.react";
-
 
 /**
  * Stored
@@ -21,7 +20,8 @@ class Stored extends React.Component {
       addNew: "",
       quantityUpdate: 0,
       updateMessage: "",
-      confirmation: ""
+      confirmation: "",
+      update: "",
     };
     this.handleLocationAddClick = this.handleLocationAddClick.bind(this);
     this.handleLocationRemoveClick = this.handleLocationRemoveClick.bind(this);
@@ -35,12 +35,10 @@ class Stored extends React.Component {
     this.handleDenyClick = this.handleDenyClick.bind(this);
   }
 
-  componentDidMount(){}
-  componentDidUpdate(){}
-
   handleLocationAddClick = () => {
     if (this.state.edit === "" || this.state.edit === "remove") {
       this.setState({ edit: "add" });
+      this.setState({ confirmation: "" });
     } else {
       this.setState({ edit: "" });
     }
@@ -51,6 +49,7 @@ class Stored extends React.Component {
       this.setState({ edit: "remove" });
     } else {
       this.setState({ edit: "" });
+      this.setState({ confirmation: "" });
     }
   };
   handlePrintLocationQRClick = () => {
@@ -73,14 +72,18 @@ class Stored extends React.Component {
     this.setState({ quantityUpdate: e.target.value });
   };
 
-
-
-  handleUpdateQuantityClick = (e) => {
+  handleUpdateQuantityClick = (e, removeAll = false) => {
+    e.preventDefault();
     let url = "http://localhost/kv6002/php/stored";
     let formData = new FormData();
     formData.append("edit", this.state.edit);
     formData.append("location", this.props.stored_item.storage_location_id);
-    formData.append("quantity", this.state.quantityUpdate);
+    formData.append(
+      "quantity",
+      removeAll === true
+        ? this.props.stored_item.quantity
+        : this.state.quantityUpdate
+    );
     fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         if (response.status === 200 || response.status === 204) {
@@ -91,44 +94,41 @@ class Stored extends React.Component {
             }.bind(this),
             5000
           );
+          this.props.update();
         } else {
           this.setState({ updateMessage: "Update Failed" });
           throw Error(response.statusText);
         }
       })
+
       .catch((err) => {
         console.log("something went wrong ", err);
       });
   };
-  
 
   handleRemoveAllClick = (e) => {
-    e.preventDefault()
-    this.setState({confirmation: (
-      <div>
-        <p>Are you sure you want to remove all items from this location?</p>
-      <button onClick={this.handleConfirmClick}>Tick</button>
-      <button onClick={this.handleDenyClick}>Cross</button>
-      </div>
-    )})
-    
-  }
+    e.preventDefault();
+    this.setState({
+      confirmation: (
+        <div>
+          <p>Are you sure you want to remove all items from this location?</p>
+          <button onClick={this.handleConfirmClick}>Tick</button>
+          <button onClick={this.handleDenyClick}>Cross</button>
+        </div>
+      ),
+    });
+  };
 
   handleConfirmClick = (e) => {
-    e.preventDefault()
-    // this.setState({quantityUpdate: this.props.stored_item.quantity}) 
-    this.state.quantityUpdate = this.props.stored_item.quantity
-    this.handleUpdateQuantityClick()
-    this.setState({confirmation: ""})
-  }
-  myFunction = () => {
-    this.props.updateItem(this.state)
-  }
+    e.preventDefault();
+    this.handleUpdateQuantityClick(true);
+    this.setState({ confirmation: "" });
+  };
 
   handleDenyClick = (e) => {
-    e.preventDefault()
-    this.setState({confirmation: ""}) 
-  }
+    e.preventDefault();
+    this.setState({ confirmation: "" });
+  };
 
   render() {
     let filteredResults = this.state.results;
@@ -137,8 +137,15 @@ class Stored extends React.Component {
     let empty = "";
     let addNew = "";
     let confirmation = this.state.confirmation;
-    let qr_code = <div><p>WH: {this.props.stored_item.warehouse_number}: {this.props.stored_item.location_string}</p><QRCode value={this.props.stored_item.qr_code_string} size={256}/></div>
-
+    let qr_code = (
+      <div>
+        <p>
+          WH: {this.props.stored_item.warehouse_number}:{" "}
+          {this.props.stored_item.location_string}
+        </p>
+        <QRCode value={this.props.stored_item.qr_code_string} size={256} />
+      </div>
+    );
 
     if (this.state.edit === "add") {
       edit = (
@@ -209,7 +216,6 @@ class Stored extends React.Component {
         {edit}
         {confirmation}
         {addNew}
-        
       </div>
     );
 
