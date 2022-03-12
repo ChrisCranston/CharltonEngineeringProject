@@ -23,17 +23,24 @@ class  ApiCustomerReportController extends Controller
      * processRequest
      *
      * Processes the request, and calls the appropriate gateway method to perform the appropriate actions.
-     * 
+     * clientTypes
      * @return object returns the result of the gateway.
      */
     protected function processRequest()
     {
 
         $storage_id = $this->getRequest()->getParameter("query_id");
+        $clientTypes = $this->getRequest()->getParameter("clientTypes");
+        $queryTypes = $this->getRequest()->getParameter("queryTypes");
+
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
             if (!is_null($storage_id)) {
                 $this->getGateway()->findOne($storage_id);
+             } elseif ($clientTypes){
+                $this->getGateway()->clientTypes(); 
+            } elseif ($queryTypes){
+                $this->getGateway()->queryTypes(); 
             } else {
                 $this->getGateway()->findAll();
             }

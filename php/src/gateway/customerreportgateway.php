@@ -36,6 +36,19 @@ class customerReportGateway extends Gateway
         $this->setResult($result);
     }
 
+    public function clientTypes()
+    {
+        $this->sql = "SELECT prospective_client_type FROM prospective_client_type";
+        $result = $this->getDatabase()->executeSQL($this->sql);
+        $this->setResult($result);
+    }
+
+    public function queryTypes()
+    {
+        $this->sql = "SELECT query_type_name FROM query_type;";
+        $result = $this->getDatabase()->executeSQL($this->sql);
+        $this->setResult($result);
+    }
     /**
      * findOne
      *
