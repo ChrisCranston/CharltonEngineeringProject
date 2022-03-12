@@ -32,8 +32,10 @@ class JSONResponse extends Response
      */
     public function getData()
     {
+        $data = $this->data ?: [];
+
         if (is_null($this->message)) {
-            if (count($this->data) > 0) {
+            if (count($data) > 0) {
                 $this->message = "Ok";
                 $this->setStatusCode(200);
             } else {
@@ -43,8 +45,9 @@ class JSONResponse extends Response
         }
         http_response_code($this->statusCode);
         $response['message'] = $this->message;
-        $response['count'] = count($this->data);
-        $response['results'] = $this->data;
+        $response['status'] = $this->statusCode;
+        $response['count'] = count($data);
+        $response['results'] = $data;
         return json_encode($response);
     }
 
