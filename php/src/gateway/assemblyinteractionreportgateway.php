@@ -9,7 +9,7 @@
  */
 class AssemblyInteractionReportGateway extends Gateway
 {
-    private $sql = "SELECT interaction_id, serial_number, assembly_part.name, amount, firstname, lastname, interaction_datetime
+    private $sql = "SELECT interaction_id, serial_number, assembly_part.name, amount, firstname, lastname, interaction_datetime, email_address
     FROM assembly_interaction
     JOIN assembly_part on assembly_interaction.part_id = assembly_part.part_id
     JOIN user on assembly_interaction.user_id = user.user_id";
@@ -32,6 +32,14 @@ class AssemblyInteractionReportGateway extends Gateway
     public function findAll()
     {
         $this->sql .= " ORDER by interaction_datetime;";
+        $result = $this->getDatabase()->executeSQL($this->sql);
+        $this->setResult($result);
+    }
+
+    public function getUserNames()
+    {
+        $this->sql = "SELECT email_address from user
+        ORDER by email_address;";
         $result = $this->getDatabase()->executeSQL($this->sql);
         $this->setResult($result);
     }

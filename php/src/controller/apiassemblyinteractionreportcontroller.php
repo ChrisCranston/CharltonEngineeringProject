@@ -30,10 +30,13 @@ class  ApiAssemblyInteractionReportController extends Controller
     {
 
         $interaction_id = $this->getRequest()->getParameter("interaction_id");
+        $user_names = $this->getRequest()->getParameter("user_names");
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
             if (!is_null($interaction_id)) {
                 $this->getGateway()->findOne($interaction_id);
+            } elseif ($user_names){
+                $this->getGateway()->getUserNames();
             } else {
                 $this->getGateway()->findAll();
             }
