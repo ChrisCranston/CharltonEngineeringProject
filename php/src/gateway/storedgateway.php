@@ -82,6 +82,53 @@ class StoredGateway extends Gateway
         $result = $this->getDatabase()->executeSQL($sql, $params);
         $this->setResult($result);
     }
+    public function addPart($name, $serialNumber, $description)
+    {
+        $sql1 = "SELECT MAX(qr_id)+1 from qr_code";
+        $result1 = $this->getDatabase()->executeSQL2($sql1);
+        $resultaltered = (int)$result1[0][0];
+
+        $sql2 = "INSERT INTO storage_part (serial_number, name, description, qr_id) VALUES (:serialnumber, :name, :description, :qr_id)";
+        $params = ["serialnumber" => $serialNumber, "name" => $name, "description" => $description, "qr_id" => $resultaltered];
+        $result2 = $this->getDatabase()->executeSQL($sql2, $params);
+
+        $sql3 = "SELECT part_id from storage_part WHERE serial_number = :serialnumber";
+        $params2 = ["serialnumber" => $serialNumber];
+        $result3 = $this->getDatabase()->executeSQL2($sql3, $params2);
+        $prefix = "serial_number=";
+        $suffix = (string)$result3[0][0];
+        $prefixaltered = $prefix . $suffix ;
+
+        $sql4 = "INSERT INTO qr_code (qr_code_string) VALUES (:qrcodestring)";
+        $params3 = ["qrcodestring" => $prefixaltered];
+        $result4 = $this->getDatabase()->executeSQL($sql4, $params3);
+        $this->setResult($result4);   
+          
+    }
+
+    public function addLocation($warehouse, $location, $type)
+    {
+        $sql1 = "SELECT MAX(qr_id)+1 from qr_code";
+        $result1 = $this->getDatabase()->executeSQL2($sql1);
+        $resultaltered = (int)$result1[0][0];
+
+        $sql2 = "INSERT INTO storage_location (warehouse_number, Location_string, storage_type, qr_id) VALUES (:warehouse, :location, :type, :qr_id)";
+        $params = ["warehouse" => $warehouse, "location" => $location, "type" => $type, "qr_id" => $resultaltered];
+        $result2 = $this->getDatabase()->executeSQL($sql2, $params);
+
+        $sql3 = "SELECT storage_location_id from storage_location WHERE warehouse_number = :warehouse AND location_string = :location AND storage_type = :type";
+        $params2 = ["warehouse" => $warehouse, "location" => $location, "type" => $type];
+        $result3 = $this->getDatabase()->executeSQL2($sql3, $params2);
+        $prefix = "location=";
+        $suffix = (string)$result3[0][0];
+        $prefixaltered = $prefix . $suffix ;
+
+        $sql4 = "INSERT INTO qr_code (qr_code_string) VALUES (:qrcodestring)";
+        $params3 = ["qrcodestring" => $prefixaltered];
+        $result4 = $this->getDatabase()->executeSQL($sql4, $params3);
+        $this->setResult($result4);   
+          
+    }
 
     /**
      * findOne

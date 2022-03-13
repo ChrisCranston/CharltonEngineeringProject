@@ -74,13 +74,14 @@ class Stored extends React.Component {
 
   handleUpdateQuantityClick = (e, removeAll = false) => {
     e.preventDefault();
+    
     let url = "http://localhost/kv6002/php/stored";
     let formData = new FormData();
     formData.append("edit", this.state.edit);
     formData.append("location", this.props.stored_item.storage_location_id);
     formData.append(
       "quantity",
-      removeAll === true
+      removeAll === true || this.state.quantityUpdate > this.props.stored_item.quantity
         ? this.props.stored_item.quantity
         : this.state.quantityUpdate
     );
@@ -131,7 +132,6 @@ class Stored extends React.Component {
   };
 
   render() {
-    let filteredResults = this.state.results;
     let result = "";
     let edit = "";
     let empty = "";

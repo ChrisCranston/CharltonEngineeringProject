@@ -54,4 +54,12 @@ class Database
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function executeSQL2($sql, $params = [])
+    {
+        $stmt = $this->dbConnection->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_NUM);
+    }
 }

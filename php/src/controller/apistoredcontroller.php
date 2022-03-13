@@ -36,6 +36,12 @@ class  ApiStoredController extends Controller
         $quantity = $this->getRequest()->getParameter("quantity");
         $empty = $this->getRequest()->getParameter("empty");
         $warehouse = $this->getRequest()->getParameter("warehouse");
+        $name = $this->getRequest()->getParameter("name"); 
+        $serialNumber = $this->getRequest()->getParameter("serialNumber");
+        $description = $this->getRequest()->getParameter("description");
+        $warehouse = $this->getRequest()->getParameter("warehouse");
+        $location = $this->getRequest()->getParameter("location");
+        $type = $this->getRequest()->getParameter("type");
 
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
@@ -62,6 +68,10 @@ class  ApiStoredController extends Controller
                 $this->getGateway()->addQuantity($location, $quantity);
             } elseif ($edit == "remove") {
                 $this->getGateway()->removeQuantity($location, $quantity);
+            } elseif ($edit == "addPart") {
+                $this->getGateway()->addPart($name, $serialNumber, $description);
+            }elseif ($edit == "addLocation") {
+                $this->getGateway()->addLocation($warehouse, $location, $type);
             }
         }
         return $this->getGateway()->getResult();
