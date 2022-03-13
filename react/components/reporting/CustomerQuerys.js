@@ -1,6 +1,7 @@
 import React from "react";
 import Query from './Query.js';
 
+
 /**
  * @author Christopher Ewart
  */
@@ -9,11 +10,16 @@ class CustomerQuerys extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            results: []
+            results: [],
+            custType:"",
+            queryType:""
+
         }
+
+        
     }
 
-    
+
 
     /**
      * componentDidMount
@@ -39,21 +45,34 @@ class CustomerQuerys extends React.Component {
             .catch((err) => {
                 console.log("something went wrong ", err)
             });
+
     }
 
+    filterByCustType = (query) => {
+        if (this.props.custType === "No Filter"){
+        return (query.prospective_client_type !== null)
+        }else{
+        return ((query.prospective_client_type === this.props.custType) || (this.props.custType===""))
+        }
+    }
 
-
+    filterByQueryType = (query) => {
+        if (this.props.queryType === "No Filter"){
+        return (query.query_type_name !== null)
+        }else{
+        return ((query.query_type_name === this.props.queryType) || (this.props.queryType===""))
+        }
+    }
 
     /**
      * render
      * 
-     * return the required components depensing on the flags 
+     * return the required components depending on the flags 
      * passed into this component
      *  
      */
     render() {
 
-        console.log(this.state.results);    
         let noData = ""
 
         if (this.state.results.length === 0) {
@@ -61,6 +80,16 @@ class CustomerQuerys extends React.Component {
         }
 
         let filteredResults = this.state.results
+        
+        
+        if (this.props.custType !== undefined) {
+            filteredResults = filteredResults.filter(this.filterByCustType)
+        }  
+      
+        if (this.props.queryType !== undefined) {
+            filteredResults = filteredResults.filter(this.filterByQueryType)
+        } 
+
 
         return(
             <div>
