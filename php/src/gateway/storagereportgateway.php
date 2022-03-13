@@ -33,6 +33,21 @@ class storageReportGateway extends Gateway
         $this->setResult($result);
     }
 
+    public function getWareHouseNumbers()
+    {
+        $this->sql = "SELECT DISTINCT warehouse_number from storage_location
+        ORDER by warehouse_number;";
+        $result = $this->getDatabase()->executeSQL($this->sql);
+        $this->setResult($result);
+    }
+
+    public function getClientNames()
+    {
+        $this->sql = "SELECT client_name from client
+        Order by client_name;";
+        $result = $this->getDatabase()->executeSQL($this->sql);
+        $this->setResult($result);
+    }
     /**
      * findOne
      *

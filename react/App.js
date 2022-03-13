@@ -8,6 +8,9 @@ import StoragePage from "./components/storage/StoragePage.js";
 import AssemblyPartsPage from "./components/AssemblyParts/AssemblyPartsPage";
 import ReportingHomePage from "./components/reporting/ReportingHomePage.js";
 import CustomerReportPage from "./components/reporting/CustomerReportPage.js";
+import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
+import StorageReportPage from "./components/reporting/StorageReportPage.js";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -85,6 +88,7 @@ function App() {
             path="assembly-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <AssemblyReportPage />
                 <h1>ASSEMBLY REPORTS PAGE</h1>
               </RestrictedRoute>
             }
@@ -93,6 +97,7 @@ function App() {
             path="storage-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <StorageReportPage />
                 <h1>STORAGE REPORTS PAGE</h1>
               </RestrictedRoute>
             }

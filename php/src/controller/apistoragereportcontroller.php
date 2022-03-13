@@ -30,10 +30,16 @@ class  ApiStorageReportController extends Controller
     {
 
         $storage_id = $this->getRequest()->getParameter("storage_id");
+        $warehouse_numbers = $this->getRequest()->getParameter("warehousenumbers");
+        $client_names = $this->getRequest()->getParameter("clientnames");
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
             if (!is_null($storage_id)) {
                 $this->getGateway()->findOne($storage_id);
+            } elseif ($warehouse_numbers){
+                $this->getGateway()->getWareHouseNumbers(); 
+            } elseif ($client_names){
+                $this->getGateway()->getClientNames(); 
             } else {
                 $this->getGateway()->findAll();
             }
