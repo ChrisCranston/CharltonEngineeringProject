@@ -11,6 +11,8 @@ import CustomerReportPage from "./components/reporting/CustomerReportPage.js";
 import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
 import StorageReportPage from "./components/reporting/StorageReportPage.js";
 import AssemblyInteractionPage from "./components/reporting/AssemblyInteractionPage.js";
+import StorageInteractionPage from "./components/reporting/StorageInteractionPage.js";
+
 
 
 
@@ -113,13 +115,21 @@ function App() {
               </RestrictedRoute>
             }
           />
-
           <Route
             path="assembly-interaction-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
                 <AssemblyInteractionPage />
                 <h1>assemblyinteractionreport</h1>
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="storage-interaction-reports"
+            element={
+              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <StorageInteractionPage />
+                <h1>storageinteractionreport</h1>
               </RestrictedRoute>
             }
           />  

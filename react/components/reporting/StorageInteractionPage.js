@@ -1,5 +1,5 @@
 import React from "react";
-import AssemblyInteractions from './AssemblyInteractions.js';
+import StorageInteractions from './StorageInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
 import SearchBox from './SearchBox.js';
@@ -8,7 +8,7 @@ import SearchBox from './SearchBox.js';
  *
  * @author Chris Ewart - W18012997
  */
-class AssemblyInteractionPage extends React.Component {
+class StorageInteractionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,17 +71,17 @@ handleSearch = (e) => {
           <div>
             <div class = "filter-banner">
               <Filter options = {userNamesList} 
-              filterType = {"User ID"} 
+              filterType = {"User Type"} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
 
               <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
             </div>
-         <AssemblyInteractions userName={this.state.userName} search={this.state.search} />
+         <StorageInteractions userName={this.state.userName} search={this.state.search} />
           </div>
       </div>
     );
   }
 }
 
-export default AssemblyInteractionPage;
+export default StorageInteractionPage;
