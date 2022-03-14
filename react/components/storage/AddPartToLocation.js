@@ -1,5 +1,6 @@
 import React from "react";
 import SearchBox from "./SearchBox";
+import { QrReader } from "react-qr-reader";
 
 /**
  * SignUp
@@ -12,20 +13,56 @@ import SearchBox from "./SearchBox";
 class AddPartToLocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { results: [], clients:[], search: "" };
+    this.state = {
+      results: [],
+      clients: [],
+      search: "",
+      QRresult: "",
+      scannerEnabled: "",
+      qrButton: "Scan a part QR",
+    };
+    this.handleScan = this.handleScan.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.handleScannerClick = this.handleScannerClick.bind(this);
   }
 
   componentDidMount() {
     this.fetchData("http://localhost/kv6002/php/stored?part_add=true");
-    this.fetchData2("http://localhost/kv6002/php/stored?client_add=true")
+    this.fetchData2("http://localhost/kv6002/php/stored?client_add=true");
   }
+  handleScan = (data) => {
+    if (data !== undefined) {
+      let qr_return = data.text.split("=");
+      let part_id = qr_return[1];
+
+      this.setState({
+        QRresult: part_id,
+        scannerEnabled: "",
+        qrButton: "Scan a part QR",
+      });
+    }
+  };
+  handleError = (error) => {
+    console.log(error);
+  };
+
+  clearQRSearch = () => {
+    this.setState({ QRresult: "" });
+  };
+
+  handleScannerClick = () => {
+    if (this.state.scannerEnabled === "") {
+      this.setState({ scannerEnabled: "true", qrButton: "Close Scanner" });
+    } else {
+      this.setState({ scannerEnabled: "", qrButton: "Scan a part QR" });
+    }
+  };
 
   handleSearch = (e) => {
     this.setState({ search: e.target.value });
   };
 
-  fetchData = (url, ) => {
-    console.log(url);
+  fetchData = (url) => {
     fetch(url)
       .then((response) => {
         if (response.status === 200) {
@@ -43,8 +80,7 @@ class AddPartToLocation extends React.Component {
         console.log("something went wrong ", err);
       });
   };
-  fetchData2 = (url, ) => {
-    console.log(url);
+  fetchData2 = (url) => {
     fetch(url)
       .then((response) => {
         if (response.status === 200) {
@@ -64,6 +100,10 @@ class AddPartToLocation extends React.Component {
   };
 
   filterSearch = (s) => {
+    if (this.state.QRresult !== "") {
+      let name = s.part_id.toLowerCase().includes(this.state.QRresult);
+      return name;
+    }
     let search_string = s.serial_number
       .toLowerCase()
       .includes(this.state.search.toLowerCase());
@@ -71,39 +111,58 @@ class AddPartToLocation extends React.Component {
   };
 
   render() {
+    let qrScanner = "";
+    let clearQR = "";
+
+    if (this.state.QRresult !== "") {
+      clearQR = <button onClick={this.clearQRSearch}>Clear QR Search</button>;
+    }
+
+    if (this.state.scannerEnabled !== "") {
+      qrScanner = (
+        <QrReader onResult={this.handleScan} onError={this.handleError} />
+      );
+    } else {
+      qrScanner = clearQR;
+    }
+
     let filteredClientResults = this.state.clients;
     let filteredResults = this.state.results;
-    if (filteredResults.length > 0 && this.props.search !== "") {
+    if (filteredResults.length > 0 ) {
       filteredResults = this.state.results.filter(this.filterSearch);
     }
 
     let selectItem = (
       <div>
-        
         <div>
           <div>
-        <button> Scan Part QR</button>
-        </div>
+          <button onClick={this.handleScannerClick}>
+              {this.state.qrButton}
+            </button>
+          </div>
           <SearchBox
             name={"Search: "}
             search={this.state.search}
             placeholder={"by serial number"}
             handleSearch={this.handleSearch}
           />
-          
         </div>
         <p>Select Part:</p>
         <select onChange={this.props.handleAddPartToLocationSerial}>
-        <option value="" >Select a part </option>
-          {filteredResults.map((part, i) => (
-            <option key={i} value={part.serial_number} >{part.serial_number} </option>
-          ))}
-        </select>
+      <option value="">Select a part </option>
+        {filteredResults.map((part, i) => (
+          <option key={i} value={part.serial_number}>
+            {part.serial_number}{" "}
+          </option>
+        ))}
+      </select>
         <p>Select Client:</p>
         <select onChange={this.props.handleAddPartToLocationClient}>
-        <option value="" > Select a client</option>
+          <option value=""> Select a client</option>
           {filteredClientResults.map((client, i) => (
-            <option key={i} value={client.client_name} >{client.client_name} </option>
+            <option key={i} value={client.client_name}>
+              {client.client_name}{" "}
+            </option>
           ))}
         </select>
       </div>
@@ -112,6 +171,7 @@ class AddPartToLocation extends React.Component {
       <div className="btn-group-column">
         <h2>Add Part to location:</h2>
         <form>
+        {qrScanner}
           {selectItem}
           <p>Quantity:</p>
           <input

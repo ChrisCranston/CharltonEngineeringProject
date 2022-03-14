@@ -3,6 +3,7 @@ import LocationButtons from "./LocationButtons";
 import { ADDEditStored, REMOVEEditStored } from "./EditStored";
 import QRCode from "qrcode.react";
 import AddPartToLocation from "./AddPartToLocation";
+import AddLocation from "./AddLocation";
 
 /**
  * Stored
@@ -84,15 +85,12 @@ class Stored extends React.Component {
   };
 
   handleAddPartToLocationSerial = (e) => {
-    console.log(this.state.addSerial);
     this.setState({ addSerial: e.target.value });
   };
   handleAddPartToLocationClient = (e) => {
-    console.log(this.state.addClient);
     this.setState({ addClient: e.target.value });
   };
   handleAddPartQuantity = (e) => {
-    console.log(this.state.addQuantity);
     this.setState({ addQuantity: e.target.value });
   };
 
@@ -112,7 +110,6 @@ class Stored extends React.Component {
           formData.append("addSerial", this.state.addSerial);
           formData.append("addQuantity", this.state.addQuantity);
           formData.append("user_id", 1);
-          console.log(url);
           fetch(url, { method: "POST", headers: new Headers(), body: formData })
             .then((response) => {
               if (response.status === 200 || response.status === 204) {
@@ -162,7 +159,6 @@ class Stored extends React.Component {
         ? this.props.stored_item.quantity
         : this.state.quantityUpdate
     );
-    console.log(url);
     fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         if (response.status === 200 || response.status === 204) {

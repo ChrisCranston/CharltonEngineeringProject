@@ -3,6 +3,7 @@ import StoredManager from "./StoredManager.js";
 import SearchBox from "./SearchBox.js";
 import SelectWarehouse from "./SelectWarehouse.js";
 import AddLocation from "./AddLocation.js";
+import { QrReader } from "react-qr-reader";
 
 /**
  * PaperPage
@@ -11,7 +12,7 @@ import AddLocation from "./AddLocation.js";
  *
  * @author Chris Cranston - W18018468
  */
-class StorageManagerPage extends React.Component {
+class StorageLocationPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +27,9 @@ class StorageManagerPage extends React.Component {
       warehousenumber: "",
       type: "",
       locationName: "",
+      QRresult: "",
+      scannerEnabled: "",
+      qrButton: "Scan a location QR",
     };
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
@@ -37,7 +41,36 @@ class StorageManagerPage extends React.Component {
     this.handleLocationName = this.handleLocationName.bind(this);
     this.handleType = this.handleType.bind(this);
     this.handleAddNewClick = this.handleAddNewClick.bind(this);
+    this.handleScan = this.handleScan.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.handleScannerClick = this.handleScannerClick.bind(this);
   }
+  handleScan = (data) => {
+    if (data !== undefined) {
+      let qr_return = data.text.split("=");
+      let location_id = qr_return[1];
+
+      this.setState({
+        QRresult: location_id,
+        scannerEnabled: "",
+        qrButton: "Scan a location QR",
+      });
+    }
+  };
+  handleError = (error) => {
+    console.log(error);
+  };
+  clearQRSearch = () => {
+    this.setState({ QRresult: "" });
+  };
+  handleScannerClick = () => {
+    if (this.state.scannerEnabled === "") {
+      this.setState({ scannerEnabled: "true", qrButton: "Close Scanner" });
+    } else {
+      this.setState({ scannerEnabled: "", qrButton: "Scan a location QR" });
+    }
+  };
+
   handleSearch = (e) => {
     this.setState({ search: e.target.value });
     this.setState({ page: 1 });
@@ -74,6 +107,9 @@ class StorageManagerPage extends React.Component {
   handleWarehouseNumber = (e) => {
     this.setState({ warehousenumber: e.target.value });
   };
+  outOfEmpties = () => {
+    this.setState({empty: ""})
+  }
   handleLocationName = (e) => {
     this.setState({ locationName: e.target.value });
   };
@@ -96,7 +132,6 @@ class StorageManagerPage extends React.Component {
           formData.append("warehouse", this.state.warehousenumber);
           formData.append("location", this.state.locationName);
           formData.append("type", this.state.type);
-          console.log(url);
           fetch(url, {
             method: "POST",
             headers: new Headers(),
@@ -132,6 +167,19 @@ class StorageManagerPage extends React.Component {
     let showEmpty = "";
     let addLocation = "";
     let addNewError = "";
+    let qrScanner = "";
+    let clearQR = "";
+    
+    if (this.state.QRresult !== "") {
+      clearQR = <button onClick={this.clearQRSearch}>Clear QR Search</button>;
+    }
+    if (this.state.scannerEnabled !== "") {
+      qrScanner = (
+        <QrReader onResult={this.handleScan} onError={this.handleError} />
+      );
+    } else {
+      qrScanner = clearQR;
+    }
 
     if (this.state.addNewError !== "") {
       addNewError = <p>{this.state.addNewError}</p>;
@@ -158,8 +206,11 @@ class StorageManagerPage extends React.Component {
     return (
       <div className="main_content">
         <div className="page_item">
+        {qrScanner}
           <div>
-            <button>Scan Location QR</button>
+          <button onClick={this.handleScannerClick}>
+              {this.state.qrButton}
+            </button>
             <button onClick={this.handleAddLocation}>Add Location</button>
           </div>
           <div>
@@ -181,8 +232,10 @@ class StorageManagerPage extends React.Component {
             <StoredManager
               item_type="location"
               empty={this.state.empty}
+              outOfEmpties={this.outOfEmpties}
               warehouse={this.state.warehouse}
               search={this.state.search}
+              qrSearch={this.state.QRresult}
               page={this.state.page}
               pageSize={this.state.pageSize}
               handleNextClick={this.handleNextClick}
@@ -196,4 +249,4 @@ class StorageManagerPage extends React.Component {
   }
 }
 
-export default StorageManagerPage;
+export default StorageLocationPage;

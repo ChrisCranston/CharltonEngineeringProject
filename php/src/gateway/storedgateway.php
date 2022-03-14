@@ -33,20 +33,20 @@ class StoredGateway extends Gateway
 
     public function findAllLocation()
     {
-        $sql = "SELECT storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) ORDER BY storage_location.warehouse_number, storage_location.location_string ";
+        $sql = "SELECT storage_location.storage_location_id, storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) ORDER BY storage_location.warehouse_number, storage_location.location_string ";
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }
     public function findAllLocationWithEmpty()
     {
-        $sql = "SELECT storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) WHERE storage.quantity <= 0 OR storage.quantity IS NULL ORDER BY storage_location.warehouse_number, storage_location.location_string ";
+        $sql = "SELECT storage_location.storage_location_id, storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) WHERE storage.quantity <= 0 OR storage.quantity IS NULL ORDER BY storage_location.warehouse_number, storage_location.location_string ";
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }
 
     public function findAllLocationWithWarehouse($warehouse)
     {
-        $sql = "SELECT storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) WHERE storage_location.warehouse_number = :warehouse ORDER BY storage_location.warehouse_number, storage_location.location_string ";
+        $sql = "SELECT storage_location.storage_location_id, storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) WHERE storage_location.warehouse_number = :warehouse ORDER BY storage_location.warehouse_number, storage_location.location_string ";
         $params = ["warehouse" => $warehouse];
         $result = $this->getDatabase()->executeSQL($sql,$params);
         $this->setResult($result);
@@ -54,7 +54,7 @@ class StoredGateway extends Gateway
 
     public function findAllLocationWithWarehouseWithEmpty($warehouse)
     {
-        $sql = "SELECT storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) WHERE (storage.quantity <= 0 OR storage.quantity IS NULL) AND storage_location.warehouse_number = :warehouse  ORDER BY storage_location.warehouse_number, storage_location.location_string ";
+        $sql = "SELECT storage_location.storage_location_id, storage_location.storage_location_id, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage.quantity, storage_part.serial_number,  client.client_name, qr_code.qr_code_string FROM storage_location LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id) LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_part on (storage.part_id = storage_part.part_id) LEFT JOIN qr_code on (storage_location.qr_id = qr_code.qr_id) WHERE (storage.quantity <= 0 OR storage.quantity IS NULL) AND storage_location.warehouse_number = :warehouse  ORDER BY storage_location.warehouse_number, storage_location.location_string ";
         $params = ["warehouse" => $warehouse];
         $result = $this->getDatabase()->executeSQL($sql,$params);
         $this->setResult($result);
@@ -62,13 +62,13 @@ class StoredGateway extends Gateway
 
     public function findAllPart()
     {
-        $sql = "SELECT  storage_part.serial_number, storage_part.name, storage_part.description, storage_part.qr_id,  storage.quantity, qr_code.qr_code_string FROM storage_part LEFT JOIN storage on (storage_part.part_id = storage.part_id) LEFT JOIN qr_code on (storage_part.qr_id = qr_code.qr_id)  ORDER by storage_part.serial_number";
+        $sql = "SELECT storage_part.part_id, storage_part.serial_number, storage_part.name, storage_part.description, storage_part.qr_id,  storage.quantity, qr_code.qr_code_string FROM storage_part LEFT JOIN storage on (storage_part.part_id = storage.part_id) LEFT JOIN qr_code on (storage_part.qr_id = qr_code.qr_id)  ORDER by storage_part.serial_number";
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }
     public function findPartToAdd()
     {
-        $sql = "SELECT  storage_part.serial_number  FROM storage_part";
+        $sql = "SELECT  storage_part.part_id, storage_part.serial_number  FROM storage_part";
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }
@@ -94,10 +94,22 @@ class StoredGateway extends Gateway
         $result2 = $this->getDatabase()->executeSQL2($sql2, $params2);
         $partToAdd = (string)$result2[0][0];
 
+        $sql2 = "SELECT storage_id from storage WHERE location_id = :location_id";
+        $params2 = ["location_id" => $addLocation];
+        $result2 = $this->getDatabase()->executeSQL2($sql2, $params2);
         
+
+        if(!empty($result2)) {
+        $storage_id = (string)$result2[0][0];
         $sql3 = "UPDATE storage SET quantity = :addQuantity,  client_id= :addClient, part_id= :addPart WHERE storage.location_id = :addLocation ";
         $params3 = ["addQuantity" => $addQuantity, "addLocation" => $addLocation, "addClient" => $clientToAdd, "addPart" => $partToAdd ];
         $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
+        } else {
+        $sql3 = "INSERT INTO storage ( quantity, client_id, part_id, location_id)  VALUES (:addQuantity, :addClient, :addPart, :addLocation)";
+        $params3 = ["addQuantity" => $addQuantity, "addLocation" => $addLocation, "addClient" => $clientToAdd, "addPart" => $partToAdd ];
+        $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
+        }
+
         
         $sql2 = "SELECT storage_id from storage WHERE location_id = :location_id";
         $params2 = ["location_id" => $addLocation];

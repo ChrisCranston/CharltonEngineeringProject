@@ -100,3 +100,4 @@ The boilerplate code will have the databse we designed with some initial values 
 # Additional installs: 
 npm install qrcode.react
 npm install react-to-print
+npm install react-qr-reader

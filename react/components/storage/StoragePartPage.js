@@ -2,6 +2,7 @@ import React from "react";
 import StoredManager from "./StoredManager.js";
 import SearchBox from "./SearchBox.js";
 import AddPart from "./AddPart.js";
+import { QrReader } from "react-qr-reader";
 
 /**
  * PaperPage
@@ -24,6 +25,10 @@ class StoragePartPage extends React.Component {
       name: "",
       description: "",
       addNewError: "",
+      result: "",
+      QRresult: "",
+      scannerEnabled: "",
+      qrButton: "Scan a part QR",
     };
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
@@ -33,7 +38,39 @@ class StoragePartPage extends React.Component {
     this.handleSerialNumber = this.handleSerialNumber.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
     this.handleAddNewClick = this.handleAddNewClick.bind(this);
+    this.handleScan = this.handleScan.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.handleScannerClick = this.handleScannerClick.bind(this);
   }
+
+  handleScan = (data) => {
+    if (data !== undefined) {
+      let qr_return = data.text.split("=");
+      let part_id = qr_return[1];
+
+      this.setState({
+        QRresult: part_id,
+        scannerEnabled: "",
+        qrButton: "Scan a part QR",
+      });
+    }
+  };
+  handleError = (error) => {
+    console.log(error);
+  };
+
+  clearQRSearch = () => {
+    this.setState({ QRresult: "" });
+  };
+
+  handleScannerClick = () => {
+    if (this.state.scannerEnabled === "") {
+      this.setState({ scannerEnabled: "true", qrButton: "Close Scanner" });
+    } else {
+      this.setState({ scannerEnabled: "", qrButton: "Scan a part QR" });
+    }
+  };
+
   handleAddPartClick = () => {
     if (this.state.addPart === "") {
       this.setState({ addPart: "true" });
@@ -68,14 +105,14 @@ class StoragePartPage extends React.Component {
   handleAddNewClick = (e) => {
     e.preventDefault();
     this.fetchData();
-    this.setState({addPart:""});
+    this.setState({ addPart: "" });
   };
 
   fetchData = () => {
     if (this.state.serialNumber !== "") {
       if (this.state.name !== "") {
-        if (this.state.name === ""){
-          this.setState({description: "N/A"})
+        if (this.state.name === "") {
+          this.setState({ description: "N/A" });
         }
         let url = "http://localhost/kv6002/php/stored";
         let formData = new FormData();
@@ -83,23 +120,22 @@ class StoragePartPage extends React.Component {
         formData.append("serialNumber", this.state.serialNumber);
         formData.append("name", this.state.name);
         formData.append("description", this.state.description);
-        console.log(url)
         fetch(url, {
           method: "POST",
           headers: new Headers(),
           body: formData,
-        }).then((response) => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            throw Error(response.statusText);
-          }
         })
-        .catch((err) => {
-          console.log("something went wrong ", err);
-        });
-      }
-      else {
+          .then((response) => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              throw Error(response.statusText);
+            }
+          })
+          .catch((err) => {
+            console.log("something went wrong ", err);
+          });
+      } else {
         this.setState({
           addNewError: "No name provided please try again",
         });
@@ -114,11 +150,23 @@ class StoragePartPage extends React.Component {
   render() {
     let addPart = "";
     let addNewError = "";
+    let qrScanner = "";
+    let clearQR = "";
 
-    if( this.state.addNewError !== "") {
-      addNewError = (
-        <p>{this.state.addNewError}</p>
-      )
+    if (this.state.QRresult !== "") {
+      clearQR = <button onClick={this.clearQRSearch}>Clear QR Search</button>;
+    }
+
+    if (this.state.scannerEnabled !== "") {
+      qrScanner = (
+        <QrReader onResult={this.handleScan} onError={this.handleError} />
+      );
+    } else {
+      qrScanner = clearQR;
+    }
+
+    if (this.state.addNewError !== "") {
+      addNewError = <p>{this.state.addNewError}</p>;
     }
 
     if (this.state.addPart === "true") {
@@ -134,8 +182,11 @@ class StoragePartPage extends React.Component {
     return (
       <div className="main_content">
         <div className="page_item">
+          {qrScanner}
           <div>
-            <button> Scan Part QR</button>
+            <button onClick={this.handleScannerClick}>
+              {this.state.qrButton}
+            </button>
             <button onClick={this.handleAddPartClick}>Add New Part</button>
           </div>
           <div>
@@ -153,6 +204,7 @@ class StoragePartPage extends React.Component {
               item_type="part"
               search={this.state.search}
               page={this.state.page}
+              qrSearch={this.state.QRresult}
               pageSize={this.state.pageSize}
               handleNextClick={this.handleNextClick}
               handlePreviousClick={this.handlePreviousClick}

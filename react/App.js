@@ -4,8 +4,8 @@ import "./App.css";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/HomePage.js";
-import StoragePartPage from "./components/storage/StorageStockPage.js";
-import StorageLocationPage from "./components/storage/StorageManagerPage.js";
+import StoragePartPage from "./components/storage/StoragePartPage.js";
+import StorageLocationPage from "./components/storage/StorageLocationPage.js";
 import AssemblyPartsPage from "./components/AssemblyParts/AssemblyPartsPage";
 
 function App() {

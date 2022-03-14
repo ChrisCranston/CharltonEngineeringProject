@@ -19,7 +19,7 @@ class Parts extends React.Component {
 
   render() {
     let filteredResults = this.state.results;
-    let qr_code = <div><p>WH: {this.props.stored_item.serial_number} Name: {this.props.stored_item.name}</p><QRCode value={this.props.stored_item.qr_code_string} size={256}/></div>
+    let qr_code = <div style={{margin: '50px'}} ><p>WH: {this.props.stored_item.serial_number} Name: {this.props.stored_item.name}</p><QRCode value={this.props.stored_item.qr_code_string} size={256}/></div>
 
     let result = "";
 
