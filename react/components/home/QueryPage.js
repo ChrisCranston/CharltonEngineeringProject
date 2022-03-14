@@ -18,7 +18,7 @@ class QueryPage extends React.Component {
     super(props)
     this.state = {
         failedsubmit: false,
-        submiterror: "",
+        submiterror: "click submit!",
         name: "",
         clienttype: 0,
         email: "",
@@ -72,27 +72,40 @@ handleQuerySubmit = (e) => {
       formData.append("phonenumber", this.state.phone);
       formData.append("querytype", this.state.querytype);
       formData.append("query", this.state.query);
-      console.log(formData)
+      for (var value of formData.values()) {
+        console.log(value); 
+     }
       fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
-        //console.log(response.status)
-          if (response.status === 200 || response.status === 204) {
-              return response.json();
+        console.log("status: " + response.status)
+          if (response.status === 204) {
+             console.log("got the 204")
+              this.setState({ 
+                name: '', 
+                email: '', 
+                phone: '',
+                query: '', 
+                failedsubmit: false,
+                submiterror: "Submit successful, thank you!"
+              });
+              
           } else {
               throw Error(response.statusText);
           }
       })
       .catch((err) => {
           console.log("something went wrong, ", err);
+         
           this.setState({
-              failedSubmit: true,
-              submiterror: "Incorrect entries"
+              failedsubmit: true,
+              submiterror: "Something went wrong, please fill in the fields correctly"
           })
       })
   } else {
+    console.log("email wrong")
       this.setState({
           failedsubmit: true,
-          submiterror: "invalid email address"
+          submiterror: "Invalid email address"
       })
   }
 }

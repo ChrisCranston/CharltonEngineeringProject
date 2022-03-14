@@ -51,7 +51,10 @@ class QueryForm extends React.Component {
         });
       }
 
+
   render() {
+      let error = this.props.submiterror
+
     return (
         <form className="queryform">
             <p>Name</p>
@@ -96,6 +99,7 @@ class QueryForm extends React.Component {
            <br>
            </br>
            <button onClick={this.props.handleQuerySubmit}>Submit</button>
+           <h5 id="formResponse" > {this.state.submiterror} </h5>
         </form>
     );
   }

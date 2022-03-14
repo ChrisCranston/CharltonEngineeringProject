@@ -31,12 +31,12 @@ class HomePage extends React.Component {
               <p>Charlton Engineering specializes in... </p>
             </aside>
             <div className="services_content">
-              <Service img='Pipe Bending' text='We offer a pipe bending service to...'/> 
-              <Service img='Decanting' text='We offer a pipe bending service to...'/> 
-              <Service img='Kit Assembly' text='We offer a pipe bending service to...'/> 
-              <Service img='Packaging' text='We offer a pipe bending service to...'/> 
-              <Service img='Active Carbon Supplier' text='We offer a pipe bending service to...'/> 
-              <Service img='Stock Control' text='We offer a pipe bending service to...'/> 
+              <Service img='Pipe Bending' text='We offer a pipe bending service to client companies and...'/> 
+              <Service img='Decanting' text='We are able to decant your product into...'/> 
+              <Service img='Kit Assembly' text='We offer a service to assemble kit...'/> 
+              <Service img='Packaging' text='Items can be packaged and forwarded...'/> 
+              <Service img='Active Carbon Supplier' text='We are able to source and sell activated carbon...'/> 
+              <Service img='Stock Control' text='Our elite methods and client conenctions allow us to...'/> 
             </div>
             <div className="infoBanner">
               {/* <img src={warehouse2IMG} className="bannerimg" alt="warehouseIMG2 img" /> */}
