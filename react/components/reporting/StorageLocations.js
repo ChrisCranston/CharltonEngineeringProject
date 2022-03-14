@@ -1,5 +1,7 @@
-import React from "react";
+import React,  { useRef } from "react";
 import StorageLocation from './StorageLocation.js';
+
+
 
 
 /**
@@ -92,7 +94,9 @@ class StorageLocations extends React.Component {
        
 
         return(
-            <div>
+        <div>
+       
+           
                 <table>
                 <tr>
                  <th>Storage ID</th>

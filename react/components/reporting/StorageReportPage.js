@@ -2,6 +2,9 @@ import React from "react";
 import StorageLocations from './StorageLocations.js';
 import "./reporting.css";
 import Filter from './Filter.js';
+import PrintComponent from './PrintComponent.js';
+import ReactToPrint from "react-to-print";
+import ComponentToPrint from './ComponentToPrint.js';
 
 /**
  *
@@ -70,6 +73,36 @@ componentDidMount() {
 
 }
 
+getAppliedFiltersText = () => {
+  let tempString = "" 
+  if (this.state.warehouseNumber !== ""){
+    tempString += "WAREHOUSE NUMBER: " + this.state.warehouseNumber + " ";
+    console.log("hit 1");
+  }
+
+  if (this.state.clientName !== ""){
+      tempString += "CLIENT NAME: " + this.state.clientName;
+      console.log("hit 2");
+  }
+  
+  if ((this.state.clientName == "") && (this.state.warehouseNumber == "")){
+    tempString += "NONE"
+    console.log("hit 3");
+    console.log(this.state.clientName);
+    console.log(this.state.warehouseNumber);
+  }
+  return tempString; 
+}
+
+
+getCurrentDateText = () => {
+  const event = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  
+  let dateTime = event.toLocaleDateString(undefined, options);
+  //return dateTime.toString();
+  return dateTime;
+}
   wareHouseNumbers = [];
   clientNames = [];
 
@@ -91,12 +124,32 @@ componentDidMount() {
         clientNamesList.push(tempvar);
     }
 
-  
+    let appliedFilters = this.getAppliedFiltersText();
+    let reportDate = this.getCurrentDateText();
+
+
 
     return (
       <div className="main-content">
           <div>
+            
             <div class = "filter-banner">
+
+            <ReactToPrint
+                trigger={() => <button>Print Location QR</button>}
+                content={() => this.componentRef}
+            />
+          <div style={{ display: "none" }}>
+            <ComponentToPrint
+              ref={(el) => (this.componentRef = el)}
+              content={ <StorageLocations warehouseNumber={this.state.warehouseNumber}
+              clientName={this.state.clientName}/>}
+              filtersApplied = {appliedFilters}
+              dateTime = {reportDate}
+              reportName = {"Storage Report"}
+            />
+            </div>
+
         <Filter options = {wareHouseNumbersList} 
           filterType = {"Warehouse"} 
           custType={this.state.warehouseNumber} 
