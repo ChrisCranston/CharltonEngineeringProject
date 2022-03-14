@@ -37,7 +37,10 @@ class StorageLocation extends React.Component {
                 <td>{this.props.storageLocation.client_name}</td>
                 <td>{this.props.storageLocation.warehouse_number}</td> 
                 <td>{this.props.storageLocation.location_string}</td> 
-                <td>{this.props.storageLocation.storage_type}</td> 
+                <td>{this.props.storageLocation.storage_type}</td>
+                <td>{this.props.storageLocation.part_id}</td>
+                <td>{this.props.storageLocation.name}</td>
+                <td>{this.props.storageLocation.description}</td> 
              </tr>
       
 

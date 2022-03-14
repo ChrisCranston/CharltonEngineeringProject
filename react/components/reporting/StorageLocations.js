@@ -101,6 +101,9 @@ class StorageLocations extends React.Component {
                  <th>Warehouse Number</th>
                  <th>Location</th>
                  <th>Storage Type</th>
+                 <th>Part ID</th>
+                 <th>Name</th>
+                 <th>Description</th>
                 </tr>
 
                     {filteredResults.map((storageLocation, i) => (<StorageLocation className="StorageLocation" key={i} storageLocation={storageLocation} />))}

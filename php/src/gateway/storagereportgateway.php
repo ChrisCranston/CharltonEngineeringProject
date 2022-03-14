@@ -9,7 +9,11 @@
  */
 class storageReportGateway extends Gateway
 {
-    private $sql = "SELECT storage.storage_id , storage.quantity, client.client_name, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type FROM storage  LEFT JOIN client on (storage.client_id = client.client_id) LEFT JOIN storage_location on (storage.location_id = storage_location.storage_location_id) ";
+    private $sql = "SELECT storage.storage_id , storage.quantity, client.client_name, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage_part.part_id, storage_part.name, storage_part.description 
+    FROM storage  
+    LEFT JOIN client on (storage.client_id = client.client_id) 
+    LEFT JOIN storage_location on (storage.location_id = storage_location.storage_location_id) 
+    LEFT JOIN storage_part on (storage_part.part_id = storage.part_id)";
 
     /**
      * __construct
@@ -28,7 +32,7 @@ class storageReportGateway extends Gateway
      */
     public function findAll()
     {
-        $this->sql .= " ORDER by storage.storage_id";
+        $this->sql .= " ORDER by storage.storage_id;";
         $result = $this->getDatabase()->executeSQL($this->sql);
         $this->setResult($result);
     }
