@@ -135,6 +135,7 @@ class StoragePartPage extends React.Component {
       <div className="main_content">
         <div className="page_item">
           <div>
+            <button> Scan Part QR</button>
             <button onClick={this.handleAddPartClick}>Add New Part</button>
           </div>
           <div>

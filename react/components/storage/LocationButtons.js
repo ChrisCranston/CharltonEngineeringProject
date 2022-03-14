@@ -12,7 +12,7 @@ class LocationButtons extends React.Component {
             Add Item
           </button>
           <ReactToPrint
-            trigger={() => <button>Print QR</button>}
+            trigger={() => <button>Print Location QR</button>}
             content={() => this.componentRef}
           />
           <div style={{ display: "none" }}>
@@ -34,7 +34,7 @@ class LocationButtons extends React.Component {
           </button>
 
           <ReactToPrint
-            trigger={() => <button>Print QR</button>}
+            trigger={() => <button>Print Location QR</button>}
             content={() => this.componentRef}
           />
           <div style={{ display: "none" }}>

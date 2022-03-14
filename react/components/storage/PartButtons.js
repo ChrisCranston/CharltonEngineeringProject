@@ -8,7 +8,7 @@ class PartButtons extends React.Component {
     return (
       <div className="btn-group-column">
           <ReactToPrint
-            trigger={() => <button>Print QR</button>}
+            trigger={() => <button>Print Part QR</button>}
             content={() => this.componentRef}
           />
           <div style={{ display: "none" }}>

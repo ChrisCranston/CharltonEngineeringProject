@@ -36,12 +36,20 @@ class  ApiStoredController extends Controller
         $quantity = $this->getRequest()->getParameter("quantity");
         $empty = $this->getRequest()->getParameter("empty");
         $warehouse = $this->getRequest()->getParameter("warehouse");
-        $name = $this->getRequest()->getParameter("name"); 
+        $name = $this->getRequest()->getParameter("name");
         $serialNumber = $this->getRequest()->getParameter("serialNumber");
         $description = $this->getRequest()->getParameter("description");
         $warehouse = $this->getRequest()->getParameter("warehouse");
         $location = $this->getRequest()->getParameter("location");
         $type = $this->getRequest()->getParameter("type");
+        $user_id = $this->getRequest()->getParameter("user_id");
+        $part_add = $this->getRequest()->getParameter("part_add");
+        $client_add = $this->getRequest()->getParameter("client_add");
+        $addClient = $this->getRequest()->getParameter("addClient");
+        $addSerial = $this->getRequest()->getParameter("addSerial");
+        $addQuantity = $this->getRequest()->getParameter("addQuantity");
+        $addLocation = $this->getRequest()->getParameter("addLocation");
+
 
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
@@ -60,18 +68,24 @@ class  ApiStoredController extends Controller
                         $this->getGateway()->findAllLocation();
                     }
                 }
+            } elseif (!is_null($part_add)) {
+                $this->getGateway()->findPartToAdd();
+            } elseif (!is_null($client_add)) {
+                $this->getGateway()->findClientToAdd();
             } else {
                 $this->getGateway()->findAll();
             }
         } else {
             if ($edit == "add") {
-                $this->getGateway()->addQuantity($location, $quantity);
+                $this->getGateway()->addQuantity($location, $quantity, $user_id);
             } elseif ($edit == "remove") {
-                $this->getGateway()->removeQuantity($location, $quantity);
+                $this->getGateway()->removeQuantity($location, $quantity, $user_id);
             } elseif ($edit == "addPart") {
                 $this->getGateway()->addPart($name, $serialNumber, $description);
-            }elseif ($edit == "addLocation") {
+            } elseif ($edit == "addLocation") {
                 $this->getGateway()->addLocation($warehouse, $location, $type);
+            } elseif ($edit == "addPartToLocation") {
+                $this->getGateway()->addPartToLocation($addLocation, $addClient, $addSerial, $addQuantity, $user_id);
             }
         }
         return $this->getGateway()->getResult();

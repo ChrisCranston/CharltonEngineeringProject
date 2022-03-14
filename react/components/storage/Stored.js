@@ -2,6 +2,7 @@ import React from "react";
 import LocationButtons from "./LocationButtons";
 import { ADDEditStored, REMOVEEditStored } from "./EditStored";
 import QRCode from "qrcode.react";
+import AddPartToLocation from "./AddPartToLocation";
 
 /**
  * Stored
@@ -22,6 +23,9 @@ class Stored extends React.Component {
       updateMessage: "",
       confirmation: "",
       update: "",
+      addSerial: "",
+      addQuantity: "",
+      addClient: "",
     };
     this.handleLocationAddClick = this.handleLocationAddClick.bind(this);
     this.handleLocationRemoveClick = this.handleLocationRemoveClick.bind(this);
@@ -33,6 +37,13 @@ class Stored extends React.Component {
     this.handleRemoveAllClick = this.handleRemoveAllClick.bind(this);
     this.handleConfirmClick = this.handleConfirmClick.bind(this);
     this.handleDenyClick = this.handleDenyClick.bind(this);
+    this.handleAddPartToLocationSerial =
+      this.handleAddPartToLocationSerial.bind(this);
+    this.handleAddPartToLocationClient =
+      this.handleAddPartToLocationClient.bind(this);
+    this.handleAddPartQuantity = this.handleAddPartQuantity.bind(this);
+    this.handleAddPartToLocationSubmit =
+      this.handleAddPartToLocationSubmit.bind(this);
   }
 
   handleLocationAddClick = () => {
@@ -72,19 +83,86 @@ class Stored extends React.Component {
     this.setState({ quantityUpdate: e.target.value });
   };
 
-  handleUpdateQuantityClick = (e, removeAll = false) => {
+  handleAddPartToLocationSerial = (e) => {
+    console.log(this.state.addSerial);
+    this.setState({ addSerial: e.target.value });
+  };
+  handleAddPartToLocationClient = (e) => {
+    console.log(this.state.addClient);
+    this.setState({ addClient: e.target.value });
+  };
+  handleAddPartQuantity = (e) => {
+    console.log(this.state.addQuantity);
+    this.setState({ addQuantity: e.target.value });
+  };
+
+  handleAddPartToLocationSubmit = (e) => {
     e.preventDefault();
-    
+    if (this.state.addSerial !== "") {
+      if (this.state.addClient !== "") {
+        if (this.state.addQuantity !== "") {
+          let url = "http://localhost/kv6002/php/stored";
+          let formData = new FormData();
+          formData.append("edit", "addPartToLocation");
+          formData.append(
+            "addLocation",
+            this.props.stored_item.storage_location_id
+          );
+          formData.append("addClient", this.state.addClient);
+          formData.append("addSerial", this.state.addSerial);
+          formData.append("addQuantity", this.state.addQuantity);
+          formData.append("user_id", 1);
+          console.log(url);
+          fetch(url, { method: "POST", headers: new Headers(), body: formData })
+            .then((response) => {
+              if (response.status === 200 || response.status === 204) {
+                this.setState({ addNew: "", updateMessage: "Add Succesfull" });
+                this.props.update();
+                setTimeout(
+                  function () {
+                    this.setState({ updateMessage: "" });
+                  }.bind(this),
+                  5000
+                );
+              } else {
+                this.setState({ updateMessage: "Add Failed", addClient:"", addSerial:"", addQuantity:""  });
+                throw Error(response.statusText);
+              }
+            })
+
+            .catch((err) => {
+              console.log("something went wrong ", err);
+            });
+        } else {
+          this.setState({
+            updateMessage: "No quantity provided please try again",
+          });
+        }
+      } else {
+        this.setState({ updateMessage: "No client selected please try again" });
+      }
+    } else {
+      this.setState({
+        updateMessage: "No serial number selected please try again",
+      });
+    }
+  };
+
+  handleUpdateQuantityClick = (removeAll = false, e) => {
     let url = "http://localhost/kv6002/php/stored";
     let formData = new FormData();
     formData.append("edit", this.state.edit);
     formData.append("location", this.props.stored_item.storage_location_id);
+    formData.append("user_id", 1);
     formData.append(
       "quantity",
-      removeAll === true || this.state.quantityUpdate > this.props.stored_item.quantity
+      removeAll === true
+        ? this.props.stored_item.quantity
+        : this.state.quantityUpdate > this.props.stored_item.quantity
         ? this.props.stored_item.quantity
         : this.state.quantityUpdate
     );
+    console.log(url);
     fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         if (response.status === 200 || response.status === 204) {
@@ -171,7 +249,14 @@ class Stored extends React.Component {
     }
 
     if (this.state.addNew !== "") {
-      addNew = <p>ADD NEW TEST</p>;
+      addNew = (
+        <AddPartToLocation
+          handleAddPartToLocationSerial={this.handleAddPartToLocationSerial}
+          handleAddPartToLocationClient={this.handleAddPartToLocationClient}
+          handleAddPartQuantity={this.handleAddPartQuantity}
+          handleAddPartToLocationSubmit={this.handleAddPartToLocationSubmit}
+        />
+      );
     }
 
     if (

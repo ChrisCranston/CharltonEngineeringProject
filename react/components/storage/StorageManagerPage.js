@@ -159,6 +159,7 @@ class StorageManagerPage extends React.Component {
       <div className="main_content">
         <div className="page_item">
           <div>
+            <button>Scan Location QR</button>
             <button onClick={this.handleAddLocation}>Add Location</button>
           </div>
           <div>

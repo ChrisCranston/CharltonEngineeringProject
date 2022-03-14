@@ -66,20 +66,87 @@ class StoredGateway extends Gateway
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }
+    public function findPartToAdd()
+    {
+        $sql = "SELECT  storage_part.serial_number  FROM storage_part";
+        $result = $this->getDatabase()->executeSQL($sql);
+        $this->setResult($result);
+    }
+    public function findClientToAdd()
+    {
+        $sql = "SELECT  client.client_name FROM client";
+        $result = $this->getDatabase()->executeSQL($sql);
+        $this->setResult($result);
+    }
 
-    public function addQuantity($location, $quantity)
+
+    public function addPartToLocation($addLocation, $addClient, $addSerial, $addQuantity, $user_id)
+    {
+
+        $sql1 = "SELECT client_id from client WHERE client_name = :client";
+        $params1 = ["client" => $addClient];
+        $result1 = $this->getDatabase()->executeSQL2($sql1, $params1);
+        $clientToAdd = (string)$result1[0][0];
+        
+
+        $sql2 = "SELECT part_id from storage_part WHERE serial_number = :serial";
+        $params2 = ["serial" => $addSerial];
+        $result2 = $this->getDatabase()->executeSQL2($sql2, $params2);
+        $partToAdd = (string)$result2[0][0];
+
+        
+        $sql3 = "UPDATE storage SET quantity = :addQuantity,  client_id= :addClient, part_id= :addPart WHERE storage.location_id = :addLocation ";
+        $params3 = ["addQuantity" => $addQuantity, "addLocation" => $addLocation, "addClient" => $clientToAdd, "addPart" => $partToAdd ];
+        $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
+        
+        $sql2 = "SELECT storage_id from storage WHERE location_id = :location_id";
+        $params2 = ["location_id" => $addLocation];
+        $result2 = $this->getDatabase()->executeSQL2($sql2, $params2);
+        $storage_id = (string)$result2[0][0];
+        
+
+        $sql4 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, datetime() )";
+        $params4 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $addQuantity ];
+        $result4 = $this->getDatabase()->executeSQL($sql4, $params4);
+        $this->setResult($result4);
+
+    }
+
+    public function addQuantity($location, $quantity, $user_id)
     {
         $sql = "UPDATE storage SET quantity = quantity + :newQuantity WHERE storage.location_id = :location_id ";
         $params = ["newQuantity" => $quantity, "location_id" => $location];
         $result = $this->getDatabase()->executeSQL($sql, $params);
+        
+        $sql2 = "SELECT storage_id from storage WHERE location_id = :location_id";
+        $params2 = ["location_id" => $location];
+        $result2 = $this->getDatabase()->executeSQL2($sql2, $params2);
+        $storage_id = (string)$result2[0][0];
+        
+
+        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, datetime() )";
+        $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity ];
+        $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
         $this->setResult($result);
+
     }
 
-    public function removeQuantity($location, $quantity)
+    public function removeQuantity($location, $quantity, $user_id)
     {
         $sql = "UPDATE storage SET quantity = quantity - :newQuantity WHERE storage.location_id = :location_id ";
         $params = ["newQuantity" => $quantity, "location_id" => $location];
         $result = $this->getDatabase()->executeSQL($sql, $params);
+
+        $sql2 = "SELECT storage_id from storage WHERE location_id = :location_id";
+        $params2 = ["location_id" => $location];
+        $result2 = $this->getDatabase()->executeSQL2($sql2, $params2);
+        $storage_id = (string)$result2[0][0];
+
+        $quantity = $quantity - $quantity - $quantity;
+
+        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, datetime() )";
+        $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity ];
+        $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
         $this->setResult($result);
     }
     public function addPart($name, $serialNumber, $description)
