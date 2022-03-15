@@ -2,7 +2,6 @@ import React from "react";
 import StorageLocations from './StorageLocations.js';
 import "./reporting.css";
 import Filter from './Filter.js';
-import PrintComponent from './PrintComponent.js';
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -77,19 +76,15 @@ getAppliedFiltersText = () => {
   let tempString = "" 
   if (this.state.warehouseNumber !== ""){
     tempString += "WAREHOUSE NUMBER: " + this.state.warehouseNumber + " ";
-    console.log("hit 1");
   }
 
   if (this.state.clientName !== ""){
       tempString += "CLIENT NAME: " + this.state.clientName;
-      console.log("hit 2");
+
   }
-  
+
   if ((this.state.clientName == "") && (this.state.warehouseNumber == "")){
     tempString += "NONE"
-    console.log("hit 3");
-    console.log(this.state.clientName);
-    console.log(this.state.warehouseNumber);
   }
   return tempString; 
 }
@@ -100,7 +95,6 @@ getCurrentDateText = () => {
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   
   let dateTime = event.toLocaleDateString(undefined, options);
-  //return dateTime.toString();
   return dateTime;
 }
   wareHouseNumbers = [];
@@ -136,7 +130,7 @@ getCurrentDateText = () => {
             <div class = "filter-banner">
 
             <ReactToPrint
-                trigger={() => <button>Print Location QR</button>}
+                trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
             />
           <div style={{ display: "none" }}>

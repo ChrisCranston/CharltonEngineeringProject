@@ -3,6 +3,8 @@ import StorageInteractions from './StorageInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
 import SearchBox from './SearchBox.js';
+import ReactToPrint from "react-to-print";
+import ComponentToPrint from './ComponentToPrint.js';
 
 /**
  *
@@ -54,7 +56,34 @@ handleSearch = (e) => {
     
   
   }
+
+  getAppliedFiltersText = () => {
+    let tempString = "" 
+    if (this.state.userName !== ""){
+      tempString += "USER NAME: " + this.state.userName + " ";
+    }
   
+    if (this.state.search !== ""){
+        tempString += "SEARCH STRING: " + this.state.search;
+  
+    }
+  
+    if ((this.state.userName == "") && (this.state.search == "")){
+      tempString += "NONE"
+    }
+    return tempString; 
+  }
+  
+
+  getCurrentDateText = () => {
+    const event = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    
+    let dateTime = event.toLocaleDateString(undefined, options);
+    //return dateTime.toString();
+    return dateTime;
+  }
+
 
   render() {
  
@@ -65,11 +94,29 @@ handleSearch = (e) => {
         userNamesList.push(tempvar);
     }
   
+    let appliedFilters = this.getAppliedFiltersText();
+    let reportDate = this.getCurrentDateText();
 
     return (
       <div className="main-content">
           <div>
-            <div class = "filter-banner">
+             <div class = "filter-banner">
+
+            <ReactToPrint
+                trigger={() => <button>Genarate Report</button>}
+                content={() => this.componentRef}
+            />
+          <div style={{ display: "none" }}>
+            <ComponentToPrint
+              ref={(el) => (this.componentRef = el)}
+              content={ <StorageInteractions userName={this.state.userName} search={this.state.search} />}
+              filtersApplied = {appliedFilters}
+              dateTime = {reportDate}
+              reportName = {"Storage Interaction Report"}
+            />
+            </div>
+
+              
               <Filter options = {userNamesList} 
               filterType = {"User Type"} 
               custType={this.state.userName} 

@@ -3,6 +3,8 @@ import AssemblyInteractions from './AssemblyInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
 import SearchBox from './SearchBox.js';
+import ReactToPrint from "react-to-print";
+import ComponentToPrint from './ComponentToPrint.js';
 
 /**
  *
@@ -51,10 +53,33 @@ handleSearch = (e) => {
             console.log("something went wrong ", err)
         });
   
-    
-  
   }
   
+  getAppliedFiltersText = () => {
+    let tempString = "" 
+    if (this.state.userName !== ""){
+      tempString += "USER NAME: " + this.state.userName + " ";
+    }
+  
+    if (this.state.search !== ""){
+        tempString += "SEARCH STRING: " + this.state.search;
+  
+    }
+  
+    if ((this.state.search == "") && (this.state.userName == "")){
+      tempString += "NONE"
+    }
+    return tempString; 
+  }
+  
+  
+  getCurrentDateText = () => {
+    const event = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    
+    let dateTime = event.toLocaleDateString(undefined, options);
+    return dateTime;
+  }
 
   render() {
  
@@ -65,11 +90,27 @@ handleSearch = (e) => {
         userNamesList.push(tempvar);
     }
   
+    let appliedFilters = this.getAppliedFiltersText();
+    let reportDate = this.getCurrentDateText();
 
     return (
       <div className="main-content">
           <div>
             <div class = "filter-banner">
+
+            <ReactToPrint
+                trigger={() => <button>Genarate Report</button>}
+                content={() => this.componentRef}
+            />
+          <div style={{ display: "none" }}>
+            <ComponentToPrint
+              ref={(el) => (this.componentRef = el)}
+              content={ <AssemblyInteractions userName={this.state.userName} search={this.state.search} />}
+              filtersApplied = {appliedFilters}
+              dateTime = {reportDate}
+              reportName = {"Assembly Interactions Report"}
+            />
+            </div>
               <Filter options = {userNamesList} 
               filterType = {"User ID"} 
               custType={this.state.userName} 

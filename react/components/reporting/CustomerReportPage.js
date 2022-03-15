@@ -2,6 +2,9 @@ import React from "react";
 import CustomerQuerys from './CustomerQuerys.js';
 import "./reporting.css";
 import Filter from './Filter.js';
+import ReactToPrint from "react-to-print";
+import ComponentToPrint from './ComponentToPrint.js';
+
 
 /**
  *
@@ -69,7 +72,32 @@ handleQueryTypeSelect = (e) => {
         });
 
 }
+getAppliedFiltersText = () => {
+  let tempString = "" 
+  if (this.state.custType !== ""){
+    tempString += "CUST TYPE: " + this.state.custType + " ";
+  }
 
+  if (this.state.queryType !== ""){
+      tempString += "QUERY TYPE: " + this.state.queryType;
+
+  }
+
+  if ((this.state.custType == "") && (this.state.queryType == "")){
+    tempString += "NONE"
+  }
+  return tempString; 
+}
+
+
+getCurrentDateText = () => {
+  const event = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  
+  let dateTime = event.toLocaleDateString(undefined, options);
+  //return dateTime.toString();
+  return dateTime;
+}
   custTypes = [];
   queryTypes = [];
 
@@ -90,11 +118,29 @@ handleQueryTypeSelect = (e) => {
         queryTypesList.push(tempvar);
     }
 
+    let appliedFilters = this.getAppliedFiltersText();
+    let reportDate = this.getCurrentDateText();
     
     return (
       <div className="main-content">
           <div>
             <div class = "filter-banner">
+
+            <ReactToPrint
+                trigger={() => <button>Genarate Report</button>}
+                content={() => this.componentRef}
+            />
+          <div style={{ display: "none" }}>
+            <ComponentToPrint
+              ref={(el) => (this.componentRef = el)}
+              content={ <CustomerQuerys custType={this.state.custType}
+              queryType={this.state.queryType} />}
+              filtersApplied = {appliedFilters}
+              dateTime = {reportDate}
+              reportName = {"Customer Query Report"}
+            />
+            </div>
+
           <Filter options = {clientTypesList} 
           filterType = {"Client Type"} 
           custType={this.state.custType} 
