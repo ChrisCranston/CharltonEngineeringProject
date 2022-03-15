@@ -55,6 +55,9 @@ class HomePage extends React.Component {
                   </div>
                   <div className="infoBox GoogleMaps">
                     <MapContainer />
+                    <div id="addressbox">
+                      <a href="https://www.google.co.uk/maps/place/Charlton+Engineering+Services/@54.9014034,-1.5548096,17z/data=!3m1!4b1!4m5!3m4!1s0x487e7b047ec02325:0x7f8627ed98c4dd63!8m2!3d54.9014034!4d-1.5526209?hl=en-GB" target="_blank" >Unit 9 Crowther Industrial Estate, NE38 0AB</a>
+                    </div>
                   </div>
                 </div>
                 <div className="CEstandards">
