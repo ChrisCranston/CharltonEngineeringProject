@@ -22,13 +22,16 @@ class HomePage extends React.Component {
             {/* <img src={warehouseIMG} className="bannerimg" alt="warehouseIMG img" /> */}
             <div className="text-on-img">
                 <h3> Welcome!</h3>
-                <p> Charlton Engineering is a... </p>
+                <p> Charlton Engineering is a...
+                Etiam vel vulputate elit, at sollicitudin nisl. Donec ac tincidunt urna, ut sagittis lorem. 
+                Phasellus ultricies eget purus placerat posuere. </p>
             </div>
           </div>
           <div id="about_the_company">
             <aside id="what_we_do">
               <h3>What we do</h3>
-              <p>Charlton Engineering specializes in... </p>
+              <p>Charlton Engineering specializes in...
+              n ut neque sed felis malesuada tristique ac eleifend leo. Vestibulum non dictum erat. Donec consectetur dignissim ipsum ut luctus. Maecenas facilisis velit orci, ut placerat nisi mattis tempor. Sed a est porttitor, porttitor erat ac, elementum magna. Morbi in justo neque. Nullam sit amet nibh ac nibh luctus volutpat. </p>
             </aside>
             <div className="services_content">
               <Service img='Pipe Bending' text='We offer a pipe bending service to client companies and...'/> 
@@ -44,7 +47,8 @@ class HomePage extends React.Component {
                 <div className="information">
                   <div className="infoBox FamilyBusiness">
                      <p>Charlton Engineering is a family business, founded in 1984 and based in the North East.
-                     We work hard to...</p>
+                     We work hard to...
+                     Nam scelerisque ipsum et auctor scelerisque. Fusce gravida laoreet augue, vitae lacinia tortor. Donec eget risus a odio semper pulvinar rutrum quis velit.</p>
                   </div>
                   <div className="infoBox TwitterAPI">
                     <img src={TwitterPlaceholder} className="twitterimg" alt="twitter img" />
@@ -58,9 +62,10 @@ class HomePage extends React.Component {
                   <div className="standards">
                     <p>At CE we pride ourselves in delivering quality services to our clients and as such we work to ISO 9001 standards.
                     We have iniatives in place that allow us to comply with...</p>
-                    <p>.....</p>
-                    <p>.....</p>
-                  </div>
+                    <p>Vivamus eu suscipit justo. Aliquam sed feugiat mi. Phasellus vulputate a nulla id tincidunt.
+                    Ut ut convallis turpis. Phasellus placerat libero nec tellus lacinia feugiat. Pellentesque pretium sagittis lorem,
+                    sed vestibulum quam facilisis id. Duis condimentum, velit lacinia volutpat pretium, sem eros gravida lectus, vel porta nibh tellus sed libero. Sed gravida nec velit ut ullamcorper. </p>
+                 </div>
                 </div>
               </div>
               

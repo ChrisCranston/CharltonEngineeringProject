@@ -18,7 +18,7 @@ class QueryPage extends React.Component {
     super(props)
     this.state = {
         failedsubmit: false,
-        submiterror: "click submit!",
+        submiterror: "",
         name: "",
         clienttype: 0,
         email: "",
@@ -81,10 +81,12 @@ handleQuerySubmit = (e) => {
           if (response.status === 204) {
              console.log("got the 204")
               this.setState({ 
-                name: '', 
-                email: '', 
-                phone: '',
-                query: '', 
+                name: "",
+                clienttype: 0,
+                email: "",
+                phone: "",
+                querytype:0,
+                query: "",
                 failedsubmit: false,
                 submiterror: "Submit successful, thank you!"
               });
@@ -151,6 +153,13 @@ handleQuerySubmit = (e) => {
               handleQueryType={this.handleQueryType}
               handleQuery={this.handleQuery}
               handleQuerySubmit={this.handleQuerySubmit}
+              queryerror={this.state.submiterror}
+              name={this.state.name}
+              clienttype={this.state.clienttype}
+              email={this.state.email}
+              phone={this.state.phone}
+              querytype={this.state.querytype}
+              query={this.state.query}
               />
             </div>
           </aside>

@@ -53,7 +53,6 @@ class QueryForm extends React.Component {
 
 
   render() {
-      let error = this.props.submiterror
 
     return (
         <form className="queryform">
@@ -79,7 +78,7 @@ class QueryForm extends React.Component {
             <p>Phone</p>
             <input 
             type="text"
-            placeholder="please use country code eg.(+44)"
+            placeholder="+44"
             value={this.props.phone}
             onChange={this.props.handlePhone}
             />
@@ -99,7 +98,7 @@ class QueryForm extends React.Component {
            <br>
            </br>
            <button onClick={this.props.handleQuerySubmit}>Submit</button>
-           <h5 id="formResponse" > {this.state.submiterror} </h5>
+           <h5 id="formResponse" > {this.props.queryerror} </h5>
         </form>
     );
   }
