@@ -2,7 +2,7 @@ import React from "react";
 import StoredManager from "./StoredManager.js";
 import SearchBox from "./SearchBox.js";
 import AddPart from "./AddPart.js";
-import { QrReader } from "react-qr-reader";
+import  QrReader  from "modern-react-qr-reader";
 
 /**
  * PaperPage
@@ -44,9 +44,10 @@ class StoragePartPage extends React.Component {
   }
 
   handleScan = (data) => {
-    if (data !== undefined) {
-      let qr_return = data.text.split("=");
+    if (data !== null) {
+      let qr_return = data.split("=");
       let part_id = qr_return[1];
+      console.log(data)
 
       this.setState({
         QRresult: part_id,
@@ -159,7 +160,7 @@ class StoragePartPage extends React.Component {
 
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
-        <QrReader onResult={this.handleScan} onError={this.handleError} />
+        <QrReader onScan={this.handleScan} onError={this.handleError} facingMode={"environment"} style={{ width: '100%' }} />
       );
     } else {
       qrScanner = clearQR;

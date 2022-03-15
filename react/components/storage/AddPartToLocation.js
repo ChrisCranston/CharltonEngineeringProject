@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBox from "./SearchBox";
-import { QrReader } from "react-qr-reader";
+import QrReader  from "modern-react-qr-reader";
 
 /**
  * SignUp
@@ -30,9 +30,12 @@ class AddPartToLocation extends React.Component {
     this.fetchData("http://localhost/kv6002/php/stored?part_add=true");
     this.fetchData2("http://localhost/kv6002/php/stored?client_add=true");
   }
+  componentWillUnmount() {
+
+  }
   handleScan = (data) => {
-    if (data !== undefined) {
-      let qr_return = data.text.split("=");
+    if (data !== null) {
+      let qr_return = data.split("=");
       let part_id = qr_return[1];
 
       this.setState({
@@ -50,7 +53,8 @@ class AddPartToLocation extends React.Component {
     this.setState({ QRresult: "" });
   };
 
-  handleScannerClick = () => {
+  handleScannerClick = (e) => {
+    e.preventDefault()
     if (this.state.scannerEnabled === "") {
       this.setState({ scannerEnabled: "true", qrButton: "Close Scanner" });
     } else {
@@ -120,7 +124,7 @@ class AddPartToLocation extends React.Component {
 
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
-        <QrReader onResult={this.handleScan} onError={this.handleError} />
+        <QrReader onScan={this.handleScan} onError={this.handleError} facingMode={"environment"} style={{ width: '100%' }} />
       );
     } else {
       qrScanner = clearQR;

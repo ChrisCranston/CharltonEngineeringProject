@@ -56,7 +56,8 @@ class Stored extends React.Component {
     }
   };
 
-  handleLocationRemoveClick = () => {
+  handleLocationRemoveClick = (e) => {
+    e.preventDefault();
     if (this.state.edit === "" || this.state.edit === "add") {
       this.setState({ edit: "remove" });
     } else {
@@ -145,7 +146,7 @@ class Stored extends React.Component {
     }
   };
 
-  handleUpdateQuantityClick = (removeAll = false, e) => {
+  fetch2 = (removeAll = false) => {
     let url = "http://localhost/kv6002/php/stored";
     let formData = new FormData();
     formData.append("edit", this.state.edit);
@@ -181,6 +182,12 @@ class Stored extends React.Component {
       });
   };
 
+  handleUpdateQuantityClick = (e) => {
+    e.preventDefault();
+    this.fetch2();
+
+  }
+
   handleRemoveAllClick = (e) => {
     e.preventDefault();
     this.setState({
@@ -196,7 +203,7 @@ class Stored extends React.Component {
 
   handleConfirmClick = (e) => {
     e.preventDefault();
-    this.handleUpdateQuantityClick(true);
+    this.fetch2(true);
     this.setState({ confirmation: "" });
   };
 

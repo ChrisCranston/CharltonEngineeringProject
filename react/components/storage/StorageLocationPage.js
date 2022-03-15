@@ -3,7 +3,7 @@ import StoredManager from "./StoredManager.js";
 import SearchBox from "./SearchBox.js";
 import SelectWarehouse from "./SelectWarehouse.js";
 import AddLocation from "./AddLocation.js";
-import { QrReader } from "react-qr-reader";
+import  QrReader  from "modern-react-qr-reader";
 
 /**
  * PaperPage
@@ -46,8 +46,8 @@ class StorageLocationPage extends React.Component {
     this.handleScannerClick = this.handleScannerClick.bind(this);
   }
   handleScan = (data) => {
-    if (data !== undefined) {
-      let qr_return = data.text.split("=");
+    if (data !== null) {
+      let qr_return = data.split("=");
       let location_id = qr_return[1];
 
       this.setState({
@@ -175,7 +175,7 @@ class StorageLocationPage extends React.Component {
     }
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
-        <QrReader onResult={this.handleScan} onError={this.handleError} />
+        <QrReader onScan={this.handleScan} onError={this.handleError} facingMode={"environment"} style={{ width: '100%' }} />
       );
     } else {
       qrScanner = clearQR;
