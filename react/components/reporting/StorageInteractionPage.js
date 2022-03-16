@@ -118,7 +118,7 @@ handleSearch = (e) => {
 
               
               <Filter options = {userNamesList} 
-              filterType = {"User Type"} 
+              filterType = {"User ID: "} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
 

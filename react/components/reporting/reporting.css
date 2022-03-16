@@ -34,7 +34,7 @@ table {
 
   }
   .report-name{
-    font-size: 45px;
+    font-size: 50px;
     text-align: right;
     
     padding: 0 10px;
@@ -50,7 +50,7 @@ table {
   }
   
   .report-date{
-    font-size: 30px;
+    font-size: 20px;
     text-align: right;
     padding: 0 10px;
   }
