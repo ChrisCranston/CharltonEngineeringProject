@@ -14,13 +14,11 @@ class StoredManager extends React.Component {
   }
 
   componentDidMount() {
-    const url =
-      "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+    const url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
     this.fetchData(url);
   }
 
-  componentDidUpdate(prevProps) {
-  }
+  componentDidUpdate(prevProps) {}
 
   fetchData = (url) => {
     fetch(url)
@@ -32,6 +30,7 @@ class StoredManager extends React.Component {
         }
       })
       .then((data) => {
+        console.log(data.results);
         this.setState({ results: data.results });
       })
       .catch((err) => {
@@ -52,9 +51,7 @@ class StoredManager extends React.Component {
       <div>
         {noData}
         {filteredResults.map((stored_item, i) => (
-          <Stored
-            key={i + stored_item.stored_id}
-            stored_item={stored_item} />
+          <Stored key={i + stored_item.stored_id} stored_item={stored_item} />
         ))}
       </div>
     );

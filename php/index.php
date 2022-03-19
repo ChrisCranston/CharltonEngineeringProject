@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The main landing page of the website.
  * 
@@ -17,8 +18,8 @@ switch ($request->getPath()) {
     case 'stored':
         $controller = new ApiStoredController($request, $response);
         break;
-    case 'customerquery':
-            $controller = new ApiCustomerQueryController($request, $response);
+    case 'assembly-parts':
+        $controller = new ApiAssemblyController($request, $response);
         break;
     default:
         $controller = new ErrorController($request, $response);

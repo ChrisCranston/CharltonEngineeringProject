@@ -18,9 +18,9 @@ function jsonExceptionHandler($e)
    header("Content-Type: application/json; charset=UT-8");
    http_response_code(500);
    if (DEVELOPMENT_MODE) {
-      $errorArray = array('Error' => 'internal server error!', 'Message' => $e->getMessage(), 'File' => $e->getFile(), 'Line' => $e->getLine());
+      $errorArray = array('error' => 'internal server error!', 'message' => $e->getMessage(), 'file' => $e->getFile(), 'line' => $e->getLine());
    } else {
-      $errorArray = array('Error' => 'An error has occured please try again.', 'Message' => $e->getMessage());
+      $errorArray = array('error' => 'An error has occured please try again.', 'message' => $e->getMessage());
    }
    echo json_encode($errorArray);
 }

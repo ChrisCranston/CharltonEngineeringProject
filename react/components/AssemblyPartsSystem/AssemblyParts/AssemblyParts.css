@@ -1,0 +1,25 @@
+.parts-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.parts-table td,
+.parts-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.parts-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.parts-table tr:hover {
+  background-color: #ddd;
+}
+
+.parts-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: grey;
+  color: white;
+}

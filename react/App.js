@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { HashRouter, Routes, Route, NavLink } from "react-router-dom";
-import "./App.css";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
-import HomePage from "./components/Home/HomePage.js";
+import HomePage from "./components/HomePage.js";
 import StoragePage from "./components/storage/StoragePage.js";
-import AssemblyPartsPage from "./components/AssemblyParts/AssemblyPartsPage";
-import QueryPage from "./components/Home/QueryPage";
-
+import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
+import "./App.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,13 +33,13 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
 
-        <Route path="customerquery" element={<QueryPage/>} />
+        <Route path="contact-us" element={<h1>CONTACT US PAGE</h1>} />
 
         <Route
           path="assembly-parts"
           element={
             <RestrictedRoute isAuthenticated={isAuthenticated}>
-              <AssemblyPartsPage test="THIS IS A TEST PROP" />
+              <AssemblyPartsPage />
             </RestrictedRoute>
           }
         />
@@ -123,11 +123,9 @@ function App() {
           }
         />
       </Routes>
-
+      <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">
         <p>footer text</p>
-        <NavLink to="customerquery">Get In Touch</NavLink>
-        <a href="https://www.dnv.co.uk/services/iso-9001-quality-management-3283?gclid=CjwKCAiAvaGRBhBlEiwAiY-yMKf98yZBRrF9jrx68HRsOW-5XogtEH_yilMxir2V7v8pnGwt0Bn6FRoCho4QAvD_BwE" target="_blank" >ISO 9001 standards</a>
       </footer>
     </HashRouter>
   );

@@ -12,7 +12,7 @@ class Request
     private $basepath = LOCAL_BASEPATH;
     private $path;
     private $requestMethod;
-        
+
     /**
      * __construct
      * 
@@ -25,7 +25,7 @@ class Request
         $this->path = trim($this->path, "/");
         $this->requestMethod = $_SERVER["REQUEST_METHOD"];
     }
-    
+
     /**
      * getPath
      * 
@@ -35,7 +35,7 @@ class Request
     {
         return $this->path;
     }
-    
+
     /**
      * getRequestMethod
      * 
@@ -47,14 +47,14 @@ class Request
     {
         return $this->requestMethod;
     }
-    
+
     /**
      * getParameter
      * 
      * Sanatizes and formats the request method and returns it. 
      *
-     * @param  string $param - The request method to be sanatized and formatted.
-     * @return object $param - The param after being formatterd to INPUT_post or INPUT_GET
+     * @param  string $param - The request method to be sanitised and formatted.
+     * @return object $param - The param after being formatted to INPUT_post or INPUT_GET
      */
     public function getParameter($param)
     {
@@ -64,6 +64,11 @@ class Request
         if ($this->getRequestMethod() === "POST") {
             $param = filter_input(INPUT_POST, $param, FILTER_SANITIZE_SPECIAL_CHARS);
         }
+        if (!is_null($param)) {
+            $param = preg_replace('/\s\s+/', ' ', $param);
+            $param = trim($param);
+        }
+
         return $param;
     }
 }
