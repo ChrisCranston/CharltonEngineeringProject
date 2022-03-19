@@ -7,7 +7,7 @@
  * 
  * @author Chris Cranston - W18018468
  */
-class  ApiStoredController extends Controller
+class ApiStoredController extends Controller
 {
     /**
      * setGateway

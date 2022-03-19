@@ -28,7 +28,7 @@ class JSONResponse extends Response
      * 
      * gets the contents of the data and formats it for JSON displaying. 
      *
-     * @return object json_encode($response) - The reponse encoded to JSON formatting.
+     * @return object json_encode($response) - The response encoded to JSON formatting.
      */
     public function getData()
     {

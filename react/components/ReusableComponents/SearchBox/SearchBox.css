@@ -1,0 +1,9 @@
+.search-box-label {
+  margin-left: 0.1rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .search-box-label {
+    margin-left: 0;
+  }
+}

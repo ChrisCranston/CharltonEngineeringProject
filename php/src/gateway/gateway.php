@@ -12,7 +12,17 @@ abstract class Gateway
 
     private $database;
     private $result;
-    
+
+    /**
+     * __construct
+     *
+     * Constructor of the gateway, set's the database value
+     */
+    public function __construct()
+    {
+        $this->setDatabase(DATABASE);
+    }
+
     /**
      * setDatabase
      * 
@@ -24,11 +34,11 @@ abstract class Gateway
     {
         $this->database = new Database($database);
     }
-    
+
     /**
      * getDatabase
      * 
-     * Returns the databsae stored in the class variables.
+     * Returns the database stored in the class variables.
      *
      * @return object $this->database - The database stored in the class variable.
      */
@@ -36,7 +46,7 @@ abstract class Gateway
     {
         return $this->database;
     }
-    
+
     /**
      * setResult
      * 
@@ -48,7 +58,7 @@ abstract class Gateway
     {
         $this->result = $result;
     }
-    
+
     /**
      * getResult
      * 
@@ -59,5 +69,19 @@ abstract class Gateway
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * executeSQL
+     * 
+     * Executes the SQL query to select, insert or delete from a table and then sets the result.
+     * 
+     * @param string $sql    the SQL query to execute
+     * @param array  $params the array of params for the SQL PDO prepared statement
+     */
+    protected function executeSQL($sql, $params)
+    {
+        $result = $this->getDatabase()->executeSQL($sql, $params);
+        $this->setResult($result);
     }
 }
