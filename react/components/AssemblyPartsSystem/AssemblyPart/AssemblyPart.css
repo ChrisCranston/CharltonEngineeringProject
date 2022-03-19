@@ -1,0 +1,7 @@
+.low-stock {
+  background-color: lightyellow;
+}
+
+.out-of-stock {
+  background-color: lightcoral;
+}

@@ -1,0 +1,16 @@
+.delete-text {
+  text-align: center;
+}
+
+.delete-table {
+  padding: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.delete-table th,
+.delete-table td {
+  padding: 0.3rem;
+  text-align: left;
+  vertical-align: text-top;
+}
