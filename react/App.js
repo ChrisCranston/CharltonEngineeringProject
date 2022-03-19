@@ -4,7 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
-import HomePage from "./components/HomePage.js";
+import HomePage from "./components/home/HomePage.js";
+import QueryPage from "./components/home/QueryPage";
 import StoragePage from "./components/storage/StoragePage.js";
 import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
 import "./App.css";
@@ -33,7 +34,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
 
-        <Route path="contact-us" element={<h1>CONTACT US PAGE</h1>} />
+        <Route path="customerquery" element={<QueryPage/>} />
 
         <Route
           path="assembly-parts"

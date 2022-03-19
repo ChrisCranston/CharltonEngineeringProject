@@ -21,7 +21,7 @@ code {
   position: relative;
   height:350px;
   width: 100%;
-  background-image: url(.//components/Home/img/warehouse1.jpg);
+  background-image: url(.//components/home/img/warehouse1.jpg);
   background-size: 100% 100%;
 }
 
@@ -85,7 +85,7 @@ code {
   position: relative;
   height:480px;
   width: 100%;
-  background-image: url(.//components/Home/img/warehouse2.jpg);
+  background-image: url(.//components/home/img/warehouse2.jpg);
   background-size: 100% 100%;
 }
 
@@ -137,7 +137,7 @@ code {
   position:relative;
   height:450px;
   width:100%;
-  background-image: url(.//components/Home/img/man\ on\ phone.jpg);
+  background-image: url(.//components/home/img/man\ on\ phone.jpg);
   background-size: 100% 100%;
 }
 
