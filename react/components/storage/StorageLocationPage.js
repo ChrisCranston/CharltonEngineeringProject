@@ -3,7 +3,7 @@ import StoredManager from "./StoredManager.js";
 import SearchBox from "./SearchBox.js";
 import SelectWarehouse from "./SelectWarehouse.js";
 import AddLocation from "./AddLocation.js";
-import  QrReader  from "modern-react-qr-reader";
+import QrReader from "modern-react-qr-reader";
 
 /**
  * PaperPage
@@ -17,6 +17,7 @@ class StorageLocationPage extends React.Component {
     super(props);
     this.state = {
       auth: false,
+      key: 1,
       search: "",
       page: 1,
       maxpage: 1,
@@ -44,17 +45,21 @@ class StorageLocationPage extends React.Component {
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleScannerClick = this.handleScannerClick.bind(this);
+    this.existingcheck = this.existingcheck.bind(this);
   }
   handleScan = (data) => {
     if (data !== null) {
       let qr_return = data.split("=");
+      if (qr_return[0] === "location"){
       let location_id = qr_return[1];
+      
 
       this.setState({
         QRresult: location_id,
         scannerEnabled: "",
         qrButton: "Scan a location QR",
       });
+    }
     }
   };
   handleError = (error) => {
@@ -101,15 +106,21 @@ class StorageLocationPage extends React.Component {
     if (this.state.addLocation === "") {
       this.setState({ addLocation: "true" });
     } else {
-      this.setState({ addLocation: "" });
+      this.setState({
+        addLocation: "",
+        warehousenumber: "",
+        locationNam: "",
+        type: "",
+        addNewError: "",
+      });
     }
   };
   handleWarehouseNumber = (e) => {
     this.setState({ warehousenumber: e.target.value });
   };
   outOfEmpties = () => {
-    this.setState({empty: ""})
-  }
+    this.setState({ empty: "" });
+  };
   handleLocationName = (e) => {
     this.setState({ locationName: e.target.value });
   };
@@ -118,15 +129,58 @@ class StorageLocationPage extends React.Component {
   };
   handleAddNewClick = (e) => {
     e.preventDefault();
-    this.fetchData();
-    this.setState({addLocation:""});
+    this.setState({addNewError: ""});
+    this.existingcheck();
+  };
+
+  existingcheck = () => {
+    if (this.state.warehousenumber !== "") {
+      if (this.state.locationName !== "") {
+        if (this.state.type !== "") {
+          let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+          let formData = new FormData();
+          formData.append("edit", "checklocation");
+          formData.append("warehouse", this.state.warehousenumber);
+          formData.append("location", this.state.locationName);
+          fetch(url, {
+            method: "POST",
+            headers: new Headers(),
+            body: formData,
+          })
+            .then((response) => {
+              if (response.status === 204) {
+                this.fetchData();
+              } else {
+                this.setState({
+                  addNewError:
+                    "Location already exists, please check values and try again",
+                });
+                return false;
+              }
+            })
+            .catch((err) => {
+              console.log("something went wrong ", err);
+            });
+        } else {
+          this.setState({ addNewError: "No type provided please try again" });
+        }
+      } else {
+        this.setState({
+          addNewError: "No location Name provided please try again",
+        });
+      }
+    } else {
+      this.setState({
+        addNewError: "No warehouse number provided please try again",
+      });
+    }
   };
 
   fetchData = () => {
     if (this.state.warehousenumber !== "") {
       if (this.state.locationName !== "") {
         if (this.state.type !== "") {
-          let url = "http://localhost/kv6002/php/stored";
+          let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
           let formData = new FormData();
           formData.append("edit", "addLocation");
           formData.append("warehouse", this.state.warehousenumber);
@@ -138,9 +192,15 @@ class StorageLocationPage extends React.Component {
             body: formData,
           })
             .then((response) => {
-              if (response.status === 200) {
-                return response.json();
-                
+              if (response.status === 200 || response.status === 204) {
+                this.setState({
+                  addLocation: "",
+                  warehousenumber: "",
+                  locationNam: "",
+                  type: "",
+                  addNewError: "",
+                });
+                this.setState({ key: Math.random() });
               } else {
                 throw Error(response.statusText);
               }
@@ -153,7 +213,7 @@ class StorageLocationPage extends React.Component {
         }
       } else {
         this.setState({
-          addNewError: "No location Nnme provided please try again",
+          addNewError: "No location Name provided please try again",
         });
       }
     } else {
@@ -169,13 +229,18 @@ class StorageLocationPage extends React.Component {
     let addNewError = "";
     let qrScanner = "";
     let clearQR = "";
-    
+
     if (this.state.QRresult !== "") {
       clearQR = <button onClick={this.clearQRSearch}>Clear QR Search</button>;
     }
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
-        <QrReader onScan={this.handleScan} onError={this.handleError} facingMode={"environment"} style={{ width: '100%' }} />
+        <QrReader
+          onScan={this.handleScan}
+          onError={this.handleError}
+          facingMode={"environment"}
+          style={{ width: "100%" }}
+        />
       );
     } else {
       qrScanner = clearQR;
@@ -196,9 +261,9 @@ class StorageLocationPage extends React.Component {
     if (this.state.addLocation === "true") {
       addLocation = (
         <AddLocation
-        handleWarehouseNumber={this.handleWarehouseNumber}
-        handleLocationName={this.handleLocationName}
-        handleType={this.handleType}
+          handleWarehouseNumber={this.handleWarehouseNumber}
+          handleLocationName={this.handleLocationName}
+          handleType={this.handleType}
           handleAddNewClick={this.handleAddNewClick}
         />
       );
@@ -206,9 +271,9 @@ class StorageLocationPage extends React.Component {
     return (
       <div className="main_content">
         <div className="page_item">
-        {qrScanner}
+          {qrScanner}
           <div>
-          <button onClick={this.handleScannerClick}>
+            <button onClick={this.handleScannerClick}>
               {this.state.qrButton}
             </button>
             <button onClick={this.handleAddLocation}>Add Location</button>
@@ -230,6 +295,7 @@ class StorageLocationPage extends React.Component {
           </div>
           <div>
             <StoredManager
+            key ={this.state.key}
               item_type="location"
               empty={this.state.empty}
               outOfEmpties={this.outOfEmpties}

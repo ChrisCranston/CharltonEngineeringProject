@@ -17,7 +17,7 @@ class SelectWarehouse extends React.Component {
           value={this.props.warehouse}
           onChange={this.props.handleWarehouseSelect}
         >
-          <option value=""> </option>
+          <option value=""> show all</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>

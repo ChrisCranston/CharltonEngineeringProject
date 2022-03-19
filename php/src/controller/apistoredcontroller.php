@@ -84,6 +84,8 @@ class  ApiStoredController extends Controller
                 $this->getGateway()->addPart($name, $serialNumber, $description);
             } elseif ($edit == "addLocation") {
                 $this->getGateway()->addLocation($warehouse, $location, $type);
+            } elseif ($edit == "checklocation") {
+                $this->getGateway()->checkLocation($warehouse, $location);
             } elseif ($edit == "addPartToLocation") {
                 $this->getGateway()->addPartToLocation($addLocation, $addClient, $addSerial, $addQuantity, $user_id);
             }

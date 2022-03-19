@@ -16,7 +16,7 @@ class AddLocation extends React.Component {
         <form>
           <p>Warehouse number:</p>
           <input
-            type="text"
+            type="number"
             placeholder="WN:"
             value={this.props.warehouseNumber}
             onChange={this.props.handleWarehouseNumber}

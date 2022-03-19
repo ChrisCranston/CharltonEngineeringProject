@@ -2,7 +2,7 @@ import React from "react";
 import StoredManager from "./StoredManager.js";
 import SearchBox from "./SearchBox.js";
 import AddPart from "./AddPart.js";
-import  QrReader  from "modern-react-qr-reader";
+import QrReader from "modern-react-qr-reader";
 
 /**
  * PaperPage
@@ -46,14 +46,14 @@ class StoragePartPage extends React.Component {
   handleScan = (data) => {
     if (data !== null) {
       let qr_return = data.split("=");
-      let part_id = qr_return[1];
-      console.log(data)
-
-      this.setState({
-        QRresult: part_id,
-        scannerEnabled: "",
-        qrButton: "Scan a part QR",
-      });
+      if (qr_return[0] === "serial_number") {
+        let part_id = qr_return[1];
+        this.setState({
+          QRresult: part_id,
+          scannerEnabled: "",
+          qrButton: "Scan a part QR",
+        });
+      }
     }
   };
   handleError = (error) => {
@@ -106,7 +106,6 @@ class StoragePartPage extends React.Component {
   handleAddNewClick = (e) => {
     e.preventDefault();
     this.fetchData();
-    this.setState({ addPart: "" });
   };
 
   fetchData = () => {
@@ -115,7 +114,7 @@ class StoragePartPage extends React.Component {
         if (this.state.name === "") {
           this.setState({ description: "N/A" });
         }
-        let url = "http://localhost/kv6002/php/stored";
+        let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
         let formData = new FormData();
         formData.append("edit", "addPart");
         formData.append("serialNumber", this.state.serialNumber);
@@ -127,9 +126,19 @@ class StoragePartPage extends React.Component {
           body: formData,
         })
           .then((response) => {
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 204) {
+              this.setState({
+                addPart: "",
+                name: "",
+                serialNumber: "",
+                description: "",
+                addNewError: "",
+              });
               return response.json();
             } else {
+              this.setState({
+                addNewError: "Serial Number is not unique please try again",
+              });
               throw Error(response.statusText);
             }
           })
@@ -160,7 +169,12 @@ class StoragePartPage extends React.Component {
 
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
-        <QrReader onScan={this.handleScan} onError={this.handleError} facingMode={"environment"} style={{ width: '100%' }} />
+        <QrReader
+          onScan={this.handleScan}
+          onError={this.handleError}
+          facingMode={"environment"}
+          style={{ width: "100%" }}
+        />
       );
     } else {
       qrScanner = clearQR;

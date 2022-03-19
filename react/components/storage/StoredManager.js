@@ -31,16 +31,16 @@ class StoredManager extends React.Component {
   }
 
   clearEmptyFilter = () => {
-    this.setState({empty: ""})
-  }
+    this.setState({ empty: "" });
+  };
 
   fetchData = () => {
-    let url = "http://localhost/kv6002/php/stored";
+    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
     if (this.props.item_type === "part") {
       url += "?part_search=true";
     } else if (this.props.item_type === "location") {
       url += "?location_search=true";
-      if (this.props.empty === "true"){
+      if (this.props.empty === "true") {
         url += "&empty=" + this.props.empty;
       }
       if (this.props.warehouse !== undefined && this.props.warehouse !== "") {
@@ -49,16 +49,16 @@ class StoredManager extends React.Component {
     }
     fetch(url)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 204) {
           return response.json();
         } else if (response.status === 204) {
           if (this.props.empty === "true") {
-            this.props.outOfEmpties()
-            alert("No empty locations remain")
-          }else {
-          alert("No Results with that filter please  try again")
-        }
-        }else {
+            this.props.outOfEmpties();
+            alert("No empty locations remain");
+          } else {
+            alert("No Results with that filter please  try again");
+          }
+        } else {
           throw Error(response.statusText);
         }
       })
@@ -72,23 +72,32 @@ class StoredManager extends React.Component {
   filterSearch = (s) => {
     if (this.props.item_type === "location") {
       if (this.props.qrSearch !== "") {
-        let name = s.storage_location_id.toLowerCase().includes(this.props.qrSearch);
+        let name = false;
+        if (s.storage_location_id === this.props.qrSearch){
+          name = true;
+        }
         return name;
+      } else {
+        let search_string = s.location_string
+          .toLowerCase()
+          .includes(this.props.search.toLowerCase());
+        return search_string;
       }
-      let search_string = s.location_string
-        .toLowerCase()
-        .includes(this.props.search.toLowerCase());
-      return search_string;
+
     } else if (this.props.item_type === "part") {
       if (this.props.qrSearch !== "") {
-        let name = s.part_id.toLowerCase().includes(this.props.qrSearch);
+        let name = false;
+        if (s.part_id === this.props.qrSearch) {
+          name = true
+        }
         return name;
-      }
+      } else {
       let name = s.name.toLowerCase().includes(this.props.search.toLowerCase());
       let serial = s.serial_number
         .toLowerCase()
         .includes(this.props.search.toLowerCase());
       return name + serial;
+    }
     }
   };
 
@@ -101,7 +110,7 @@ class StoredManager extends React.Component {
       noData = <p>No data found</p>;
     }
     let filteredResults = this.state.results;
-    if (filteredResults.length > 0 ) {
+    if (filteredResults.length > 0) {
       filteredResults = this.state.results.filter(this.filterSearch);
     }
     pagesize = (
@@ -113,8 +122,7 @@ class StoredManager extends React.Component {
           <option value="30">30</option>
         </select>
       </div>
-    )
-
+    );
 
     if (this.props.page !== undefined) {
       const pageSize = this.props.pageSize;
@@ -135,7 +143,10 @@ class StoredManager extends React.Component {
           </p>
           <button
             onClick={this.props.handleNextClick}
-            disabled={this.props.page >= Math.ceil(filteredResults.length / this.props.pageSize)}
+            disabled={
+              this.props.page >=
+              Math.ceil(filteredResults.length / this.props.pageSize)
+            }
           >
             Next
           </button>
@@ -165,7 +176,7 @@ class StoredManager extends React.Component {
       display = (
         <div>
           {noData}
-          
+
           {filteredResults.map((stored_item, i) => (
             <Parts
               key={i + stored_item}

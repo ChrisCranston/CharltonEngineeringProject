@@ -27,8 +27,8 @@ class AddPartToLocation extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData("http://localhost/kv6002/php/stored?part_add=true");
-    this.fetchData2("http://localhost/kv6002/php/stored?client_add=true");
+    this.fetchData("http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?part_add=true");
+    this.fetchData2("http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?client_add=true");
   }
   componentWillUnmount() {
 
@@ -69,7 +69,7 @@ class AddPartToLocation extends React.Component {
   fetchData = (url) => {
     fetch(url)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 204) {
           return response.json();
         } else if (response.status === 204) {
           alert("No Results with that filter please try again");
@@ -87,7 +87,7 @@ class AddPartToLocation extends React.Component {
   fetchData2 = (url) => {
     fetch(url)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 204) {
           return response.json();
         } else if (response.status === 204) {
           alert("No Results with that filter please try again");
@@ -105,18 +105,24 @@ class AddPartToLocation extends React.Component {
 
   filterSearch = (s) => {
     if (this.state.QRresult !== "") {
-      let name = s.part_id.toLowerCase().includes(this.state.QRresult);
+      let name = false
+      if (s.part_id === this.state.QRresult) {
+        name = true;
+      }
       return name;
-    }
+    } else {
     let search_string = s.serial_number
       .toLowerCase()
       .includes(this.state.search.toLowerCase());
     return search_string;
+  }
   };
 
   render() {
     let qrScanner = "";
     let clearQR = "";
+    let searchandscan = "";
+
 
     if (this.state.QRresult !== "") {
       clearQR = <button onClick={this.clearQRSearch}>Clear QR Search</button>;
@@ -129,6 +135,21 @@ class AddPartToLocation extends React.Component {
     } else {
       qrScanner = clearQR;
     }
+    if (this.state.QRresult === ""){
+      searchandscan = ( <div>
+        <div>
+        <button onClick={this.handleScannerClick}>
+            {this.state.qrButton}
+          </button>
+        </div>
+        <SearchBox
+          name={"Search: "}
+          search={this.state.search}
+          placeholder={"by serial number"}
+          handleSearch={this.handleSearch}
+        />
+      </div> )
+    }
 
     let filteredClientResults = this.state.clients;
     let filteredResults = this.state.results;
@@ -138,22 +159,11 @@ class AddPartToLocation extends React.Component {
 
     let selectItem = (
       <div>
-        <div>
-          <div>
-          <button onClick={this.handleScannerClick}>
-              {this.state.qrButton}
-            </button>
-          </div>
-          <SearchBox
-            name={"Search: "}
-            search={this.state.search}
-            placeholder={"by serial number"}
-            handleSearch={this.handleSearch}
-          />
-        </div>
+        {searchandscan}
+        
         <p>Select Part:</p>
         <select onChange={this.props.handleAddPartToLocationSerial}>
-      <option value="">Select a part </option>
+      <option value="">Select a part ({filteredResults.length} parts found) </option>
         {filteredResults.map((part, i) => (
           <option key={i} value={part.serial_number}>
             {part.serial_number}{" "}

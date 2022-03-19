@@ -17,7 +17,7 @@ class SearchBox extends React.Component {
         <input
           type="text"
           placeholder={this.props.placeholder}
-          value={this.props.search}
+          value={this.props.handleSearch}
           onChange={this.props.handleSearch}
         />
       </label>

@@ -27,6 +27,7 @@ class Stored extends React.Component {
       addSerial: "",
       addQuantity: "",
       addClient: "",
+      updateError: ""
     };
     this.handleLocationAddClick = this.handleLocationAddClick.bind(this);
     this.handleLocationRemoveClick = this.handleLocationRemoveClick.bind(this);
@@ -100,7 +101,7 @@ class Stored extends React.Component {
     if (this.state.addSerial !== "") {
       if (this.state.addClient !== "") {
         if (this.state.addQuantity !== "") {
-          let url = "http://localhost/kv6002/php/stored";
+          let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
           let formData = new FormData();
           formData.append("edit", "addPartToLocation");
           formData.append(
@@ -147,7 +148,9 @@ class Stored extends React.Component {
   };
 
   fetch2 = (removeAll = false) => {
-    let url = "http://localhost/kv6002/php/stored";
+    if (this.state.quantityUpdate > 0){
+      if (this.state.quantityUpdate % 1 === 0) {
+    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
     let formData = new FormData();
     formData.append("edit", this.state.edit);
     formData.append("location", this.props.stored_item.storage_location_id);
@@ -163,7 +166,7 @@ class Stored extends React.Component {
     fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         if (response.status === 200 || response.status === 204) {
-          this.setState({ edit: "", updateMessage: "Update Succesfull" });
+          this.setState({ edit: "", updateMessage: "Update Succesfull", updateError: "" });
           setTimeout(
             function () {
               this.setState({ updateMessage: "" });
@@ -180,6 +183,12 @@ class Stored extends React.Component {
       .catch((err) => {
         console.log("something went wrong ", err);
       });
+    } else {
+      this.setState({updateError: "Quantity should not be a decimal number"})
+    }
+  } else {
+    this.setState({updateError: "Quantity should be a positive number"})
+  }
   };
 
   handleUpdateQuantityClick = (e) => {
@@ -217,7 +226,12 @@ class Stored extends React.Component {
     let edit = "";
     let empty = "";
     let addNew = "";
+    let updateError = "";
     let confirmation = this.state.confirmation;
+
+    if (this.state.updateError !== "") {
+      updateError = ( <p>{this.state.updateError}</p>);
+    }
     let qr_code = (
       <div>
         <p>
@@ -237,6 +251,8 @@ class Stored extends React.Component {
           handleQuantityUpdate={this.handleQuantityUpdate}
           handleUpdateQuantityClick={this.handleUpdateQuantityClick}
         />
+        
+
       );
     } else if (this.state.edit === "remove") {
       edit = (
@@ -302,6 +318,7 @@ class Stored extends React.Component {
         </div>
         {this.state.updateMessage}
         {edit}
+        {updateError}
         {confirmation}
         {addNew}
       </div>
