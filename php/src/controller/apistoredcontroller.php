@@ -29,17 +29,66 @@ class ApiStoredController extends Controller
     protected function processRequest()
     {
 
-        $stored_id = $this->getRequest()->getParameter("stored_id");
+        $part_search = $this->getRequest()->getParameter("part_search");
+        $location_search = $this->getRequest()->getParameter("location_search");
+        $edit = $this->getRequest()->getParameter("edit");
+        $location = $this->getRequest()->getParameter("location");
+        $quantity = $this->getRequest()->getParameter("quantity");
+        $empty = $this->getRequest()->getParameter("empty");
+        $warehouse = $this->getRequest()->getParameter("warehouse");
+        $name = $this->getRequest()->getParameter("name");
+        $serialNumber = $this->getRequest()->getParameter("serialNumber");
+        $description = $this->getRequest()->getParameter("description");
+        $warehouse = $this->getRequest()->getParameter("warehouse");
+        $location = $this->getRequest()->getParameter("location");
+        $type = $this->getRequest()->getParameter("type");
+        $user_id = $this->getRequest()->getParameter("user_id");
+        $part_add = $this->getRequest()->getParameter("part_add");
+        $client_add = $this->getRequest()->getParameter("client_add");
+        $addClient = $this->getRequest()->getParameter("addClient");
+        $addSerial = $this->getRequest()->getParameter("addSerial");
+        $addQuantity = $this->getRequest()->getParameter("addQuantity");
+        $addLocation = $this->getRequest()->getParameter("addLocation");
+
+
 
         if ($this->getRequest()->getRequestMethod() == "GET") {
-            if (!is_null($stored_id)) {
-                $this->getGateway()->findOne($stored_id);
+            if (!is_null($part_search)) {
+                $this->getGateway()->findAllPart();
+            } elseif (!is_null($location_search)) {
+                if (!is_null($warehouse)) {
+                    $this->getGateway()->findAllLocationWithWarehouse($warehouse);
+                    if (!is_null($empty)) {
+                        $this->getGateway()->findAllLocationWithWarehouseWithEmpty($warehouse);
+                    }
+                } else {
+                    if (!is_null($empty)) {
+                        $this->getGateway()->findAllLocationWithEmpty();
+                    } else {
+                        $this->getGateway()->findAllLocation();
+                    }
+                }
+            } elseif (!is_null($part_add)) {
+                $this->getGateway()->findPartToAdd();
+            } elseif (!is_null($client_add)) {
+                $this->getGateway()->findClientToAdd();
             } else {
                 $this->getGateway()->findAll();
             }
         } else {
-            $this->getResponse()->setMessage("Invalid Request Type.");
-            $this->getResponse()->setStatusCode(405);
+            if ($edit == "add") {
+                $this->getGateway()->addQuantity($location, $quantity, $user_id);
+            } elseif ($edit == "remove") {
+                $this->getGateway()->removeQuantity($location, $quantity, $user_id);
+            } elseif ($edit == "addPart") {
+                $this->getGateway()->addPart($name, $serialNumber, $description);
+            } elseif ($edit == "addLocation") {
+                $this->getGateway()->addLocation($warehouse, $location, $type);
+            } elseif ($edit == "checklocation") {
+                $this->getGateway()->checkLocation($warehouse, $location);
+            } elseif ($edit == "addPartToLocation") {
+                $this->getGateway()->addPartToLocation($addLocation, $addClient, $addSerial, $addQuantity, $user_id);
+            }
         }
         return $this->getGateway()->getResult();
     }
