@@ -8,6 +8,12 @@ import HomePage from "./components/home/HomePage.js";
 import QueryPage from "./components/home/QueryPage";
 import StoragePage from "./components/storage/StoragePage.js";
 import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
+import ReportingHomePage from "./components/reporting/ReportingHomePage.js";
+import CustomerReportPage from "./components/reporting/CustomerReportPage.js";
+import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
+import StorageReportPage from "./components/reporting/StorageReportPage.js";
+import AssemblyInteractionPage from "./components/reporting/AssemblyInteractionPage.js";
+import StorageInteractionPage from "./components/reporting/StorageInteractionPage.js";
 import "./App.css";
 
 function App() {
@@ -34,7 +40,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
 
-        <Route path="customerquery" element={<QueryPage/>} />
+        <Route path="customerquery" element={<QueryPage />} />
 
         <Route
           path="assembly-parts"
@@ -77,6 +83,7 @@ function App() {
             index
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+              <ReportingHomePage />
                 <h1>REPORTING HOMEPAGE</h1>
               </RestrictedRoute>
             }
@@ -85,6 +92,7 @@ function App() {
             path="assembly-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <AssemblyReportPage />
                 <h1>ASSEMBLY REPORTS PAGE</h1>
               </RestrictedRoute>
             }
@@ -93,7 +101,35 @@ function App() {
             path="storage-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <StorageReportPage />
                 <h1>STORAGE REPORTS PAGE</h1>
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="customer-reports"
+            element={
+              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <CustomerReportPage />
+                <h1>CUSTOMER REPORT PAGE</h1>
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="assembly-interaction-reports"
+            element={
+              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <AssemblyInteractionPage />
+                <h1>assemblyinteractionreport</h1>
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="storage-interaction-reports"
+            element={
+              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+                <StorageInteractionPage />
+                <h1>storageinteractionreport</h1>
               </RestrictedRoute>
             }
           />
