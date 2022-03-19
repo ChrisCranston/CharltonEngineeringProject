@@ -1,0 +1,66 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 6px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .report-main{
+    padding: 10px;
+
+  }
+
+  
+ 
+  .report-header{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 110px 110px;    
+  }
+
+  
+ .report-image{
+    
+    padding: 10px;
+
+  }
+  .report-name{
+    font-size: 50px;
+    text-align: right;
+    
+    padding: 0 10px;
+    margin: 0;
+   
+  }
+
+  .report-filters{
+    font-size: 20px;
+    text-align: left;
+    padding: 10px 0;
+    
+  }
+  
+  .report-date{
+    font-size: 20px;
+    text-align: right;
+    padding: 0 10px;
+  }
+
+  p {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+
+  

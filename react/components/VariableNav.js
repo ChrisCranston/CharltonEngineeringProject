@@ -54,6 +54,21 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
                             Storage Reports
                           </NavLink>
                         </li>
+                        <li>
+                          <NavLink to="/reporting/customer-reports">
+                            Customer Reports
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to="/reporting/assembly-interaction-reports">
+                          Assembly Interaction Reports
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to="/reporting/storage-interaction-reports">
+                          Storage Interaction Reports
+                          </NavLink>
+                        </li>
                       </nav>
                     )}
                   </li>
