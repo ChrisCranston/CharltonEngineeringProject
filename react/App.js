@@ -6,7 +6,8 @@ import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/home/HomePage.js";
 import QueryPage from "./components/home/QueryPage";
-import StoragePage from "./components/storage/StoragePage.js";
+import StoragePartPage from "./components/storage/StoragePartPage.js";
+import StorageLocationPage from "./components/storage/StorageLocationPage.js";
 import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
 import ReportingHomePage from "./components/reporting/ReportingHomePage.js";
 import CustomerReportPage from "./components/reporting/CustomerReportPage.js";
@@ -53,10 +54,10 @@ function App() {
 
         <Route path="storage">
           <Route
-            index
+            path="storage-manager"
             element={
               <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <h1>STORAGE HOMEPAGE</h1>
+                <StorageLocationPage />
               </RestrictedRoute>
             }
           />
@@ -64,18 +65,11 @@ function App() {
             path="storage-parts"
             element={
               <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <StoragePage />
+                <StoragePartPage />
               </RestrictedRoute>
             }
           />
-          <Route
-            path="storage-locations"
-            element={
-              <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <h1>STORAGE LOCATIONS</h1>
-              </RestrictedRoute>
-            }
-          />
+          
         </Route>
 
         <Route path="reporting">
