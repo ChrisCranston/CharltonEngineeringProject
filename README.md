@@ -94,7 +94,9 @@ I'm recommending we use seperate branches for the weeks second branch, so we are
 The boilerplate code will have the databse we designed with some initial values in but if you need to add any values or change anything you will need to use sqllite:
  * Instructions from semester 1 web : https://gist.github.com/johnrooksby/407429440a687eb3da0a62d354890743
  * installation video : https://www.youtube.com/watch?v=wXEZZ2JT3-k
- * usage video :  https://www.youtube.com/watch?v=HQKwgk6XkIA 
+ * usage video :  https://www.youtube.com/watch?v=HQKwgk6XkIA   
 
 
 
+# Kess' react imports
+npm install google-maps-react@2.0.6

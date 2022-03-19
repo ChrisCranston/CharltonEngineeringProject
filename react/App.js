@@ -1,20 +1,14 @@
 import React, { useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
-import HomePage from "./components/HomePage.js";
+import HomePage from "./components/home/HomePage.js";
+import QueryPage from "./components/home/QueryPage";
 import StoragePage from "./components/storage/StoragePage.js";
-import AssemblyPartsPage from "./components/AssemblyParts/AssemblyPartsPage";
-import ReportingHomePage from "./components/reporting/ReportingHomePage.js";
-import CustomerReportPage from "./components/reporting/CustomerReportPage.js";
-import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
-import StorageReportPage from "./components/reporting/StorageReportPage.js";
-import AssemblyInteractionPage from "./components/reporting/AssemblyInteractionPage.js";
-import StorageInteractionPage from "./components/reporting/StorageInteractionPage.js";
-
-
-
+import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
+import "./App.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,13 +34,13 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
 
-        <Route path="contact-us" element={<h1>CONTACT US PAGE</h1>} />
+        <Route path="customerquery" element={<QueryPage/>} />
 
         <Route
           path="assembly-parts"
           element={
             <RestrictedRoute isAuthenticated={isAuthenticated}>
-              <AssemblyPartsPage test="THIS IS A TEST PROP" />
+              <AssemblyPartsPage />
             </RestrictedRoute>
           }
         />
@@ -83,7 +77,6 @@ function App() {
             index
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <ReportingHomePage />
                 <h1>REPORTING HOMEPAGE</h1>
               </RestrictedRoute>
             }
@@ -92,7 +85,6 @@ function App() {
             path="assembly-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <AssemblyReportPage />
                 <h1>ASSEMBLY REPORTS PAGE</h1>
               </RestrictedRoute>
             }
@@ -101,38 +93,10 @@ function App() {
             path="storage-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <StorageReportPage />
                 <h1>STORAGE REPORTS PAGE</h1>
               </RestrictedRoute>
             }
           />
-          <Route
-            path="customer-reports"
-            element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <CustomerReportPage />
-                <h1>CUSTOMER REPORT PAGE</h1>
-              </RestrictedRoute>
-            }
-          />
-          <Route
-            path="assembly-interaction-reports"
-            element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <AssemblyInteractionPage />
-                <h1>assemblyinteractionreport</h1>
-              </RestrictedRoute>
-            }
-          />
-          <Route
-            path="storage-interaction-reports"
-            element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <StorageInteractionPage />
-                <h1>storageinteractionreport</h1>
-              </RestrictedRoute>
-            }
-          />  
         </Route>
 
         <Route
@@ -160,7 +124,7 @@ function App() {
           }
         />
       </Routes>
-
+      <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">
         <p>footer text</p>
       </footer>
