@@ -52,9 +52,11 @@ getCurrentDateText = () => {
     
     return (
       <div className="main-content">
-
+  
       <div class = "filter-banner">
-
+      <h1>ASSEMBLY REPORT</h1>
+      <div class = "inner-grid-reports">
+      <div class = "report-button">
       <ReactToPrint
           trigger={() => <button>Genarate Report</button>}
           content={() => this.componentRef}
@@ -68,15 +70,16 @@ getCurrentDateText = () => {
         reportName = {"Assembly Report"}
       />
       </div>
-          <div>
-            <div class = "filter-banner">
+      </div>
+          <div class = "filter-one">
             <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
             </div>
             </div>
+            </div>
+            
          <AssemblyParts search={this.state.search} />
           </div>
-      </div>
-
+          
     );
   }
 }

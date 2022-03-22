@@ -125,7 +125,9 @@ getCurrentDateText = () => {
       <div className="main-content">
           <div>
             <div class = "filter-banner">
-
+            <h1>CUSTOMER REPORT</h1>
+            <div class = "inner-grid-reports">
+            <div class = "report-button">
             <ReactToPrint
                 trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
@@ -140,16 +142,19 @@ getCurrentDateText = () => {
               reportName = {"Customer Query Report"}
             />
             </div>
-
+            </div>
+            <div class = "filter-one">
           <Filter options = {clientTypesList} 
-          filterType = {"Client Type"} 
+          filterType = {"Client Type: "} 
           custType={this.state.custType} 
           handleSelect={this.handleCustTypeSelect} />
 
           <Filter options = {queryTypesList} 
-          filterType = {"Query Type"} 
+          filterType = {"Query Type: "} 
           custType={this.state.queryType} 
           handleSelect={this.handleQueryTypeSelect} />
+            </div>
+            </div>
             </div>
          <CustomerQuerys custType={this.state.custType}
           queryType={this.state.queryType} />

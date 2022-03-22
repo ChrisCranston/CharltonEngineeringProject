@@ -17,7 +17,7 @@ class ReportingHomePage extends React.Component {
     return (
       <div className="main-content">
           <div>
-         jkgvhyjguvjygvjytvyjtyjtv
+       
           </div>
       </div>
     );

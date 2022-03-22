@@ -97,7 +97,9 @@ handleSearch = (e) => {
       <div className="main-content">
           <div>
             <div class = "filter-banner">
-
+            <h1>ASSEMBLY INTERACTION REPORT</h1>
+            <div class = "inner-grid-reports">
+            <div class = "report-button">
             <ReactToPrint
                 trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
@@ -111,12 +113,16 @@ handleSearch = (e) => {
               reportName = {"Assembly Interactions Report"}
             />
             </div>
+            </div>
+            <div class = "filter-one">
               <Filter options = {userNamesList} 
-              filterType = {"User ID"} 
+              filterType = {"User ID: "} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
 
               <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
+            </div>
+            </div>
             </div>
          <AssemblyInteractions userName={this.state.userName} search={this.state.search} />
           </div>
