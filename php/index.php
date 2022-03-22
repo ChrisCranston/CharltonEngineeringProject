@@ -21,6 +21,21 @@ switch ($request->getPath()) {
     case 'assembly-parts':
         $controller = new ApiAssemblyController($request, $response);
         break;
+    case 'assemblyreport':
+        $controller = new ApiAssemblyReportController($request, $response);
+        break;
+    case 'assemblyinteractionreport':
+        $controller = new ApiAssemblyInteractionReportController($request, $response);
+        break;
+    case 'storageinteractionreport':
+        $controller = new ApiStorageInteractionReportController($request, $response);
+        break;    
+    case 'storagereport':
+        $controller = new ApiStorageReportController($request, $response);
+        break;
+    case 'customerreport':
+        $controller = new ApiCustomerReportController($request, $response);
+        break;    
     default:
         $controller = new ErrorController($request, $response);
         break;
