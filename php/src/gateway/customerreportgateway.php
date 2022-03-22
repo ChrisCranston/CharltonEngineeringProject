@@ -9,7 +9,7 @@
  */
 class customerReportGateway extends Gateway
 {
-    private $sql = "SELECT query_id, date_time, name, prospective_client_type, query_type_name, email, phone_number, query
+    private $sql = "SELECT query_id, date_time, _name, prospective_client_type, query_type_name, email, phone_number, _query
         FROM prospective_client_query 
         JOIN prospective_client_type on prospective_client_query.prospective_client_type_id = prospective_client_type.prospective_client_type_id
         JOIN query_type on prospective_client_query.query_type_id = query_type.query_type_id";
