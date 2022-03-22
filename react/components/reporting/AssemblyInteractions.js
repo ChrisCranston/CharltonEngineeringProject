@@ -28,7 +28,7 @@ class AssemblyInteractions extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport"
+        let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport"
 
         fetch(url)
             .then((response) => {
