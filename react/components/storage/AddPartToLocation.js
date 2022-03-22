@@ -196,6 +196,7 @@ class AddPartToLocation extends React.Component {
           <button onClick={this.props.handleAddPartToLocationSubmit}>
             Add Part to location!
           </button>
+          <button onClick={this.props.handleClose}>Cancel</button>
         </form>
       </div>
     );

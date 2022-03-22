@@ -70,8 +70,6 @@ footer {
   flex-direction: column;
   width: 80%;
   margin: 0;
-  background-color: #6a6e6e;
-  color: white;
   text-align: center;
   border-radius: 30px 30px 30px 30px;
   margin: 20px;
@@ -92,4 +90,31 @@ footer {
 
 button {
   cursor: pointer;
+}
+
+.buttons {
+  display:flex;
+  flex-direction: column;
+}
+
+.storage-page {
+  margin: 1rem;
+  width:90%;
+  display:flex;
+  flex-direction: column;
+}
+.storage-page-block {
+  margin: auto;
+  width:auto;
+  padding-top:1%;
+  padding-bottom: 1%;
+  justify-content: center;
+}
+
+.btn-group-row {
+  margin: auto;
+  width:auto;
+  padding-top:1%;
+  padding-bottom: 1%;
+  justify-content: center;
 }

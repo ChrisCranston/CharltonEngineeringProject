@@ -22,25 +22,20 @@ class Parts extends React.Component {
     let qr_code = <div style={{margin: '50px'}} ><p>WH: {this.props.stored_item.serial_number} Name: {this.props.stored_item.name}</p><QRCode value={this.props.stored_item.qr_code_string} size={256}/></div>
 
     let result = "";
+        result = (
+            <tr>
+            <td>{this.props.stored_item.serial_number} </td>
+            <td>{this.props.stored_item.name} </td>
+            <td>{this.props.stored_item.description} </td>
+          <td className="buttons"> <PartButtons qr_code={qr_code}/></td>          
+        </tr>
 
-      let display = "";
-        display = (
-          <div>
-            <p>Serial number: {this.props.stored_item.serial_number} </p>
-            <p>Name: {this.props.stored_item.name} </p>
-            <p>Description: {this.props.stored_item.description} </p>
-            <PartButtons qr_code={qr_code}/>
-          </div>
         );
-      result = (
-        <div className="item">
-          {display}
-        </div>
-      );
 
 
-    return <div>{result}</div>;
+    return result;
   }
 }
 
 export default Parts;
+

@@ -14,6 +14,7 @@ export class ADDEditStored extends React.Component {
             onChange={this.props.handleQuantityUpdate}
           />
           <button onClick={this.props.handleUpdateQuantityClick}>Update Quantity</button>
+          <button onClick={this.props.handleClose}>Cancel</button>
         </form>
       </div>
     );
@@ -36,6 +37,7 @@ export class REMOVEEditStored extends React.Component {
           />
           <button onClick={this.props.handleUpdateQuantityClick}>Update Quantity</button>
           <br/><br/><button onClick={this.props.handleRemoveAllClick}>Remove All</button>
+          <button onClick={this.props.handleClose}>Cancel</button>
         </form>
       </div>
       );
