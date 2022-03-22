@@ -3,6 +3,7 @@ import StoredManager from "./StoredManager.js";
 import SearchBox from "./SearchBox.js";
 import AddPart from "./AddPart.js";
 import QrReader from "modern-react-qr-reader";
+import Modal from 'react-modal';
 
 /**
  * PaperPage
@@ -29,6 +30,16 @@ class StoragePartPage extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a part QR",
+      customStyles: {
+        content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },},
+        moadlIsOpen: true,
     };
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
@@ -41,6 +52,10 @@ class StoragePartPage extends React.Component {
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleScannerClick = this.handleScannerClick.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
+  }
+  handleModalClose = () => {
+    this.setState({moadlIsOpen: false,  addPart: "", addNewError: ""});
   }
 
   handleScan = (data) => {
@@ -65,16 +80,12 @@ class StoragePartPage extends React.Component {
   };
 
   handleScannerClick = () => {
-    if (this.state.scannerEnabled === "") {
-      this.setState({ scannerEnabled: "true", qrButton: "Close Scanner" });
-    } else {
-      this.setState({ scannerEnabled: "", qrButton: "Scan a part QR" });
-    }
+      this.setState({ scannerEnabled: "true", moadlIsOpen:true});
   };
 
   handleAddPartClick = () => {
     if (this.state.addPart === "") {
-      this.setState({ addPart: "true" });
+      this.setState({ addPart: "true", moadlIsOpen:true });
     } else {
       this.setState({ addPart: "" });
     }
@@ -159,7 +170,6 @@ class StoragePartPage extends React.Component {
 
   render() {
     let addPart = "";
-    let addNewError = "";
     let qrScanner = "";
     let clearQR = "";
 
@@ -169,42 +179,51 @@ class StoragePartPage extends React.Component {
 
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
+        <Modal
+        isOpen={this.state.moadlIsOpen}
+        style={this.state.customStyles}
+      >
         <QrReader
           onScan={this.handleScan}
           onError={this.handleError}
           facingMode={"environment"}
           style={{ width: "100%" }}
         />
+        <button onClick={this.handleModalClose}>Cancel</button>
+        </Modal>
       );
     } else {
       qrScanner = clearQR;
     }
 
-    if (this.state.addNewError !== "") {
-      addNewError = <p>{this.state.addNewError}</p>;
-    }
-
     if (this.state.addPart === "true") {
       addPart = (
+        <Modal
+        isOpen={this.state.moadlIsOpen}
+        style={this.state.customStyles}
+      >
         <AddPart
           handleSerialNumber={this.handleSerialNumber}
           handleName={this.handleName}
           handleDescription={this.handleDescription}
+          handleClose={this.handleModalClose}
           handleAddNewClick={this.handleAddNewClick}
+          error={this.state.addNewError}
         />
+        </Modal>
       );
     }
     return (
       <div className="main_content">
-        <div className="page_item">
+        <div className="storage-page">
           {qrScanner}
-          <div>
+          <div className="storage-page-block">
             <button onClick={this.handleScannerClick}>
               {this.state.qrButton}
             </button>
             <button onClick={this.handleAddPartClick}>Add New Part</button>
           </div>
-          <div>
+          <div className="storage-page-block">
             <SearchBox
               name={"Search: "}
               search={this.state.search}
@@ -213,18 +232,19 @@ class StoragePartPage extends React.Component {
             />
           </div>
           {addPart}
-          {addNewError}
           <div>
-            <StoredManager
-              item_type="part"
-              search={this.state.search}
-              page={this.state.page}
-              qrSearch={this.state.QRresult}
-              pageSize={this.state.pageSize}
-              handleNextClick={this.handleNextClick}
-              handlePreviousClick={this.handlePreviousClick}
-              handlePageSize={this.handlePageSize}
-            />
+            
+                <StoredManager
+                  item_type="part"
+                  search={this.state.search}
+                  page={this.state.page}
+                  qrSearch={this.state.QRresult}
+                  pageSize={this.state.pageSize}
+                  handleNextClick={this.handleNextClick}
+                  handlePreviousClick={this.handlePreviousClick}
+                  handlePageSize={this.handlePageSize}
+                />
+              
           </div>
         </div>
       </div>

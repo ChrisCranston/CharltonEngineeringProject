@@ -3,7 +3,7 @@ import LocationButtons from "./LocationButtons";
 import { ADDEditStored, REMOVEEditStored } from "./EditStored";
 import QRCode from "qrcode.react";
 import AddPartToLocation from "./AddPartToLocation";
-import AddLocation from "./AddLocation";
+import Modal from 'react-modal';
 
 /**
  * Stored
@@ -27,7 +27,17 @@ class Stored extends React.Component {
       addSerial: "",
       addQuantity: "",
       addClient: "",
-      updateError: ""
+      updateError: "",
+      moadlIsOpen: true,
+      customStyles: {
+        content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },}
     };
     this.handleLocationAddClick = this.handleLocationAddClick.bind(this);
     this.handleLocationRemoveClick = this.handleLocationRemoveClick.bind(this);
@@ -46,25 +56,19 @@ class Stored extends React.Component {
     this.handleAddPartQuantity = this.handleAddPartQuantity.bind(this);
     this.handleAddPartToLocationSubmit =
       this.handleAddPartToLocationSubmit.bind(this);
+      this.handleModalClose = this.handleModalClose.bind(this);
+  }
+
+  handleModalClose = () => {
+    this.setState({moadlIsOpen: false, edit:""});
   }
 
   handleLocationAddClick = () => {
-    if (this.state.edit === "" || this.state.edit === "remove") {
-      this.setState({ edit: "add" });
-      this.setState({ confirmation: "" });
-    } else {
-      this.setState({ edit: "" });
-    }
+      this.setState({ edit: "add", confirmation: "", moadlIsOpen: true });
   };
 
   handleLocationRemoveClick = (e) => {
-    e.preventDefault();
-    if (this.state.edit === "" || this.state.edit === "add") {
-      this.setState({ edit: "remove" });
-    } else {
-      this.setState({ edit: "" });
-      this.setState({ confirmation: "" });
-    }
+      this.setState({ edit: "remove", moadlIsOpen: true });
   };
   handlePrintLocationQRClick = () => {
     if (this.state.qr === "") {
@@ -75,11 +79,7 @@ class Stored extends React.Component {
   };
 
   handleLocationAddNewClick = () => {
-    if (this.state.addNew === "") {
-      this.setState({ addNew: "addNew" });
-    } else {
-      this.setState({ addNew: "" });
-    }
+      this.setState({ addNew: "addNew", moadlIsOpen: true  });
   };
 
   handleQuantityUpdate = (e) => {
@@ -148,7 +148,6 @@ class Stored extends React.Component {
   };
 
   fetch2 = (removeAll = false) => {
-    if (this.state.quantityUpdate > 0){
       if (this.state.quantityUpdate % 1 === 0) {
     let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
     let formData = new FormData();
@@ -186,9 +185,7 @@ class Stored extends React.Component {
     } else {
       this.setState({updateError: "Quantity should not be a decimal number"})
     }
-  } else {
-    this.setState({updateError: "Quantity should be a positive number"})
-  }
+  
   };
 
   handleUpdateQuantityClick = (e) => {
@@ -201,11 +198,16 @@ class Stored extends React.Component {
     e.preventDefault();
     this.setState({
       confirmation: (
+        <Modal
+        isOpen={this.state.moadlIsOpen}
+        style={this.state.customStyles}
+      >
         <div>
           <p>Are you sure you want to remove all items from this location?</p>
           <button onClick={this.handleConfirmClick}>Tick</button>
           <button onClick={this.handleDenyClick}>Cross</button>
         </div>
+        </Modal>
       ),
     });
   };
@@ -213,7 +215,7 @@ class Stored extends React.Component {
   handleConfirmClick = (e) => {
     e.preventDefault();
     this.fetch2(true);
-    this.setState({ confirmation: "" });
+    this.setState({ confirmation: "", moadlIsOpen: false });
   };
 
   handleDenyClick = (e) => {
@@ -244,18 +246,28 @@ class Stored extends React.Component {
 
     if (this.state.edit === "add") {
       edit = (
+        <Modal
+        isOpen={this.state.moadlIsOpen}
+        style={this.state.customStyles}
+      >
         <ADDEditStored
           warehouse={this.props.stored_item.warehouse_number}
           location={this.props.stored_item.location_string}
           qauntity={this.props.stored_item.quantity}
           handleQuantityUpdate={this.handleQuantityUpdate}
           handleUpdateQuantityClick={this.handleUpdateQuantityClick}
+          handleClose={this.handleModalClose}
         />
+        </Modal>
         
 
       );
     } else if (this.state.edit === "remove") {
       edit = (
+        <Modal
+        isOpen={this.state.moadlIsOpen}
+        style={this.state.customStyles}
+      >
         <REMOVEEditStored
           warehouse={this.props.stored_item.warehouse_number}
           location={this.props.stored_item.location_string}
@@ -263,18 +275,26 @@ class Stored extends React.Component {
           handleQuantityUpdate={this.handleQuantityUpdate}
           handleRemoveAllClick={this.handleRemoveAllClick}
           handleUpdateQuantityClick={this.handleUpdateQuantityClick}
+          handleClose={this.handleModalClose}
         />
+        </Modal>
       );
     }
 
     if (this.state.addNew !== "") {
       addNew = (
+        <Modal
+        isOpen={this.state.moadlIsOpen}
+        style={this.state.customStyles}
+      >
         <AddPartToLocation
           handleAddPartToLocationSerial={this.handleAddPartToLocationSerial}
           handleAddPartToLocationClient={this.handleAddPartToLocationClient}
           handleAddPartQuantity={this.handleAddPartQuantity}
           handleAddPartToLocationSubmit={this.handleAddPartToLocationSubmit}
+          handleClose={this.handleModalClose}
         />
+        </Modal>
       );
     }
 
@@ -298,15 +318,12 @@ class Stored extends React.Component {
     }
 
     result = (
-      <div>
-        <div className="location">
-          <div className="location_information">
-            <p>Warehouse # : {this.props.stored_item.warehouse_number} </p>
-            <p>Location: {this.props.stored_item.location_string} </p>
-            <p>Storage Type: {this.props.stored_item.storage_type} </p>
-          </div>
-          {empty}
-          <LocationButtons
+      <tr>
+            <td>{this.props.stored_item.warehouse_number} </td>
+            <td>{this.props.stored_item.location_string} </td>
+            <td>{this.props.stored_item.storage_type} </td>
+            <td>{empty}</td>
+          <td className="buttons"> <LocationButtons
             qr_code={qr_code}
             location_string={this.props.stored_item.location_string}
             quantity={this.props.stored_item.quantity}
@@ -314,17 +331,18 @@ class Stored extends React.Component {
             handleLocationRemoveClick={this.handleLocationRemoveClick}
             handlePrintLocationQRClick={this.handlePrintLocationQRClick}
             handleLocationAddNewClick={this.handleLocationAddNewClick}
-          />
-        </div>
+          /></td>
+          
+
         {this.state.updateMessage}
         {edit}
         {updateError}
         {confirmation}
         {addNew}
-      </div>
+        </tr>
     );
 
-    return <div>{result}</div>;
+    return result;
   }
 }
 

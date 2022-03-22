@@ -36,6 +36,8 @@ class AddPart extends React.Component {
             onChange={this.props.handleDescription}
           />
           <button onClick={this.props.handleAddNewClick}>Add Part!</button>
+          <button onClick={this.props.handleClose}>Cancel</button>
+          <p>{this.props.error}</p>
         </form>
       </div>
     );

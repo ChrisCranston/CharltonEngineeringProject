@@ -36,6 +36,8 @@ class AddLocation extends React.Component {
             onChange={this.props.handleType}
           />
           <button onClick={this.props.handleAddNewClick}>Add Location!</button>
+          <button onClick={this.props.handleClose}>Cancel</button>
+          <p>{this.props.error}</p>
         </form>
       </div>
     );
