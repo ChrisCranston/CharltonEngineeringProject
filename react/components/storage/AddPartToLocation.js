@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBox from "./SearchBox";
 import QrReader  from "modern-react-qr-reader";
+import Modal from 'react-modal';
 
 /**
  * SignUp
@@ -20,10 +21,23 @@ class AddPartToLocation extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a part QR",
+      QRcustomStyles: {
+        content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          height: '75%',
+          width:'75%',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },},
+        moadlIsOpen: true,
     };
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleScannerClick = this.handleScannerClick.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +62,9 @@ class AddPartToLocation extends React.Component {
   handleError = (error) => {
     console.log(error);
   };
+  handleModalClose = () => {
+    this.setState({moadlIsOpen: false, qrButton: "Scan a part QR"});
+  }
 
   clearQRSearch = () => {
     this.setState({ QRresult: "" });
@@ -130,7 +147,14 @@ class AddPartToLocation extends React.Component {
 
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
+        <Modal
+        isOpen={this.state.moadlIsOpen}
+        style={this.state.customStyles}
+      >
         <QrReader onScan={this.handleScan} onError={this.handleError} facingMode={"environment"} style={{ width: '100%' }} />
+        <button onClick={this.handleModalClose}>Cancel</button>
+
+        </Modal>
       );
     } else {
       qrScanner = clearQR;
@@ -197,6 +221,7 @@ class AddPartToLocation extends React.Component {
             Add Part to location!
           </button>
           <button onClick={this.props.handleClose}>Cancel</button>
+          <p>{this.props.error}</p>
         </form>
       </div>
     );
