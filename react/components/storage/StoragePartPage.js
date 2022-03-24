@@ -30,6 +30,17 @@ class StoragePartPage extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a part QR",
+      QRcustomStyles: {
+        content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          height: '75%',
+          width:'75%',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },},
       customStyles: {
         content: {
           top: '50%',
@@ -55,7 +66,7 @@ class StoragePartPage extends React.Component {
     this.handleModalClose = this.handleModalClose.bind(this);
   }
   handleModalClose = () => {
-    this.setState({moadlIsOpen: false,  addPart: "", addNewError: ""});
+    this.setState({moadlIsOpen: false,  addPart: "", addNewError: "", scannerEnabled: ""});
   }
 
   handleScan = (data) => {
@@ -181,7 +192,7 @@ class StoragePartPage extends React.Component {
       qrScanner = (
         <Modal
         isOpen={this.state.moadlIsOpen}
-        style={this.state.customStyles}
+        style={this.state.QRcustomStyles}
       >
         <QrReader
           onScan={this.handleScan}
