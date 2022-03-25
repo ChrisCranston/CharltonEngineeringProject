@@ -83,7 +83,7 @@ class DeletePartForm extends React.Component {
             const newData = clearFields(data);
             this.mounted && this.setState({ data: newData });
 
-            closePortal(editType, true);
+            closePortal(editType);
           } else {
             this.mounted &&
               this.setState({

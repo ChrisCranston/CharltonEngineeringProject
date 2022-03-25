@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRotateRight } from "@fortawesome/free-solid-svg-icons"; */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import AssemblyPart from "../AssemblyPart/AssemblyPart";
 import CreatePartForm from "../AssemblyPartsForms/CreatePartForm/CreatePartForm";
 import EditPartForm from "../AssemblyPartsForms/EditPartForm/EditPartForm";
@@ -56,10 +56,10 @@ class AssemblyParts extends React.Component {
     });
   };
 
-  closePartModal = (editType, submitted = false) => {
+  closePartModal = (editType) => {
     const { modalOpen } = this.state;
 
-    submitted && this.fetchData();
+    this.fetchData();
 
     this.setState({
       selectedPartID: null,
@@ -77,7 +77,6 @@ class AssemblyParts extends React.Component {
       .then((response) => {
         if (response) {
           if (response.status === 200 || response.status === 204) {
-            toast.success("Successfully retrieved assembly parts");
             this.setState({
               results: response.results.reduce(
                 (obj, variable) => ({
@@ -166,12 +165,6 @@ class AssemblyParts extends React.Component {
       }
     }
 
-    /*
-    <button onClick={() => this.fetchData()}>
-      Refresh <FontAwesomeIcon icon={faRotateRight} />
-    </button>
-    */
-
     return (
       <>
         <div>
@@ -195,7 +188,11 @@ class AssemblyParts extends React.Component {
                     <th>Notes</th>
                     <th>Low Warning</th>
                     <th>Order URL</th>
-                    <th></th>
+                    <th>
+                      <button onClick={() => this.fetchData()}>
+                        Refresh <FontAwesomeIcon icon={faRotateRight} />
+                      </button>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>

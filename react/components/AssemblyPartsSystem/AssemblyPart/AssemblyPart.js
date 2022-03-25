@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"; */
-// import DropdownButton from "./DropdownButton/DropdownButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import "./AssemblyPart.css";
 
 class AssemblyPart extends React.Component {
@@ -19,16 +18,6 @@ class AssemblyPart extends React.Component {
         ? "low-stock"
         : "";
 
-    /*
-             {orderURL ? (
-              <a href={orderURL} target="_blank" rel="noreferrer">
-                <FontAwesomeIcon icon={faUpRightFromSquare} />
-              </a>
-            ) : (
-              "N/A"
-            )} 
-        */
-
     return (
       <tr>
         <td>{assemblyPart.serial_number}</td>
@@ -39,9 +28,7 @@ class AssemblyPart extends React.Component {
         <td>
           {orderURL ? (
             <a href={orderURL} target="_blank" rel="noreferrer">
-              {orderURL.length > 25
-                ? orderURL.substring(0, 25) + "..."
-                : orderURL}
+              <FontAwesomeIcon icon={faUpRightFromSquare} />
             </a>
           ) : (
             "N/A"

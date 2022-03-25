@@ -41,7 +41,6 @@ class ChangeQuantityForm extends React.Component {
           value: null,
           default: null,
           mandatory: true,
-          allowZero: true,
           inputError: false,
         },
         modificationType: {
@@ -102,7 +101,7 @@ class ChangeQuantityForm extends React.Component {
             const newData = clearFields(data);
             this.mounted && this.setState({ data: newData });
 
-            closePortal(editType, true);
+            closePortal(editType);
           } else {
             this.mounted &&
               this.setState({
@@ -159,7 +158,14 @@ class ChangeQuantityForm extends React.Component {
                         </p>
                       )}
                       <Input
-                        label={formatString(key)}
+                        label={
+                          <span>
+                            {formatString(key)}
+                            {data[key].mandatory && (
+                              <span className="form-asterisk"> *</span>
+                            )}
+                          </span>
+                        }
                         type={data[key].type}
                         id={key}
                         value={data[key].value ?? ""}

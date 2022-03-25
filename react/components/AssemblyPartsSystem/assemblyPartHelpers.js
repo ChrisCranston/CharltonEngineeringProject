@@ -29,16 +29,15 @@ export const formatString = (string) => {
  * @param  {string}  type         the input type (string or number)
  * @param  {string}  value        the input value
  * @param  {boolean} isMandatory  whether the field is mandatory or not
- * @param  {boolean} allowZero    whether the field allows zero as an acceptable answer
  * @return {string}  OR {boolean} the error message or false if no validation errors
  */
-export const validateField = (field, type, value, isMandatory, allowZero) => {
+export const validateField = (field, type, value, isMandatory) => {
   var error = false;
   const humanReadableKey = formatString(field);
 
   if (!value && isMandatory) {
-    error = humanReadableKey + " is empty or contains text";
-  } else if (type === "number" && !allowZero && value <= 0) {
+    error = humanReadableKey + " cannot be empty";
+  } else if (type === "number" && value <= 0) {
     error = humanReadableKey + " must be greater than zero";
   }
 
@@ -59,8 +58,7 @@ export const validateFields = (data) => {
       field,
       data[field].type,
       data[field].value,
-      data[field].mandatory,
-      data[field].allowZero
+      data[field].mandatory
     );
 
     data[field].inputError = inputError;
