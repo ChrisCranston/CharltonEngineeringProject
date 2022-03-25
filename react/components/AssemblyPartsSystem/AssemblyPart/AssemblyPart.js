@@ -23,7 +23,7 @@ class AssemblyPart extends React.Component {
         <td>{assemblyPart.serial_number}</td>
         <td>{assemblyPart.name}</td>
         <td className={className}>{assemblyPart.quantity}</td>
-        <td>{assemblyPart.notes ?? "N/A"}</td>
+        <td>{assemblyPart.notes ? assemblyPart.notes : "N/A"}</td>
         <td>{assemblyPart.low_warning}</td>
         <td>
           {orderURL ? (
