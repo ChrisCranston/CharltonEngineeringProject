@@ -94,32 +94,43 @@ code {
   width:100%;
   padding:20px;
 }
-.information {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+.mapsinformation {
+  display: flex;
+  flex-direction: row;
 }
-.infoBox {
+.addressbox {
   height:250px;
   width:250px;
   background-color: white;
   margin: 20px;
   opacity: 1;
-}
-.infoBox p {
   color: black;
-  opacity: 1;
 }
+
 
 .GoogleMaps {
-  position: relative;
-}
-
-.mapimg {
   height:250px;
-  width:250px;
+  width:70%;
+  background-color: white;
+  margin: 20px;
+  opacity: 1;
+  position: relative;
+
+}
+.CEstandards {
+  display: flex;
+  flex-direction: row;
+}
+.TwitterAPI {
+  height:200px;
+  width:45%;
+  background-color: white;
+  margin: 20px;
+  opacity: 1;
 }
 .standards {
-  width:90%;
+  width:45%;
+  height: 200px;
   justify-content: center;
   background-color: white;
   opacity: 1;
