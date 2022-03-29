@@ -23,6 +23,7 @@ class QueryPage extends React.Component {
         clienttype: 0,
         email: "",
         phone: "",
+        countrycode: "",
         querytype:0,
         query: ""
     }
@@ -47,6 +48,9 @@ handleEmail = (e) => {
    console.log(e.target.value);
     this.setState({email: e.target.value});
 }
+handleCountryCode = (e) => {
+  this.setState({countrycode: e.target.value});
+}
 handlePhone = (e) => {
     this.setState({phone: e.target.value});
 }
@@ -62,9 +66,29 @@ handleQuerySubmit = (e) => {
   console.log("submitting")
   e.preventDefault();
   let pattern = /[a-zA-Z0-9]+([a-zA-Z0-9]+)?[@][a-z][a-z]/g;
-  if (pattern.test(this.state.email)) {
+  if (this.state.email === "" && this.state.phone === "") {
+    this.setState({
+      failedsubmit: true,
+      submiterror: "Please fill in either your email address or phone number"
+    });
+  } else if (this.state.query === ""){
+    this.setState({
+      failedsubmit: true,
+      submiterror: "Please fill in your query"
+    });
+  } else if (this.state.name === ""){
+    this.setState({
+      failedsubmit: true,
+      submiterror: "Please fill in your name"
+    });
+  } else if (this.state.phone !== "" && this.state.countrycode === "") {
+    this.setState({
+      failedsubmit: true,
+      submiterror: "Please give a countrycode"
+    });
+  } else if (pattern.test(this.state.email) || this.state.email === "") {
       this.setState({submiterror: ""});
-      let url = "http://localhost/kv6002/php/customerquery";
+      let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery";
       let formData = new FormData();
       formData.append("name", this.state.name);
       formData.append("businessindividual", this.state.clienttype);
@@ -82,10 +106,10 @@ handleQuerySubmit = (e) => {
              console.log("got the 204")
               this.setState({ 
                 name: "",
-                clienttype: 0,
+                clienttype: 1,
                 email: "",
                 phone: "",
-                querytype:0,
+                querytype:1,
                 query: "",
                 failedsubmit: false,
                 submiterror: "Submit successful, thank you!"
@@ -113,12 +137,13 @@ handleQuerySubmit = (e) => {
 }
 
 
-
   render() {
+    
     return (
       <div className="background">
-        <div className="main_content">
+        <div className="main">
           <div className="contactushero">
+          <div className="contactus0">
           <h1>Contact Us</h1>
             <div className="contactus1">
               <div>
@@ -129,6 +154,7 @@ handleQuerySubmit = (e) => {
                 <p> Tyne & Wear</p>
                 <p> NE38 0AB</p>
               </div>
+            </div>
             </div>
             <div className="contactus2">
               <div>
@@ -150,6 +176,7 @@ handleQuerySubmit = (e) => {
               handleClientType={this.handleClientType}
               handleEmail={this.handleEmail}
               handlePhone={this.handlePhone}
+              handleCountryCode={this.handleCountryCode}
               handleQueryType={this.handleQueryType}
               handleQuery={this.handleQuery}
               handleQuerySubmit={this.handleQuerySubmit}
@@ -158,6 +185,7 @@ handleQuerySubmit = (e) => {
               clienttype={this.state.clienttype}
               email={this.state.email}
               phone={this.state.phone}
+              countrycode={this.state.countrycode}
               querytype={this.state.querytype}
               query={this.state.query}
               />

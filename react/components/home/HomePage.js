@@ -19,7 +19,7 @@ class HomePage extends React.Component {
     
     return (
       <div className="background">
-        <div className="main_content">
+        <div className="main">
           <div className="welcome_banner">
             {/* <img src={warehouseIMG} className="bannerimg" alt="warehouseIMG img" /> */}
             <div className="text-on-img">
@@ -46,42 +46,20 @@ class HomePage extends React.Component {
             </div>
             <div className="infoBanner">
               {/* <img src={warehouse2IMG} className="bannerimg" alt="warehouseIMG2 img" /> */}
-              <div className="moreaboutCE">
-                <div className="mapsinformation">
-                  <div className="GoogleMaps">
-                    <MapContainer />
-                   
-                  </div>
-                  <div className="addressbox">
-                      <a href="https://www.google.co.uk/maps/place/Charlton+Engineering+Services/@54.9014034,-1.5548096,17z/data=!3m1!4b1!4m5!3m4!1s0x487e7b047ec02325:0x7f8627ed98c4dd63!8m2!3d54.9014034!4d-1.5526209?hl=en-GB" target="_blank" ><p> Charlton Engineering Services Limited</p>
-                <p> Unit 9, Harvey Close</p>
-                <p> Crowther Industrial Estate</p>
-                <p> Washington</p>
-                <p> Tyne & Wear</p>
-                <p> NE38 0AB</p></a>
-                  </div>
-
-                </div>
-                
-                <div className="CEstandards">
+              
                 <div className="TwitterAPI">
                   <TwitterTimelineEmbed
                       sourceType="profile"
                       screenName="isostandards"
-                      options={{height: 200}}
-                    />
-                  </div>
-                  <div className="standards">
-                    <p>At CE we pride ourselves in delivering quality services to our clients and as such we work to ISO 9001 standards.
-                    We have iniatives in place that allow us to comply with...</p>
-                    <p>Vivamus eu suscipit justo. Aliquam sed feugiat mi. Phasellus vulputate a nulla id tincidunt.
-                    Ut ut convallis turpis. Phasellus placerat libero nec tellus lacinia feugiat. Pellentesque pretium sagittis lorem,
-                    sed vestibulum quam facilisis id. Duis condimentum, velit lacinia volutpat pretium, sem eros gravida lectus, vel porta nibh tellus sed libero. Sed gravida nec velit ut ullamcorper. </p>
-                 </div>
+                      options={{height: 450}}
+                  />
                 </div>
-              </div>
-              
+                <div className="GoogleMaps">
+                  <MapContainer />
+                  
+                </div>
             </div>
+           
           </div>
         </div>
      </div>

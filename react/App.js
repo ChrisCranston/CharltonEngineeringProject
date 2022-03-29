@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import VariableNav from "./components/VariableNav";
@@ -16,6 +16,7 @@ import StorageReportPage from "./components/reporting/StorageReportPage.js";
 import AssemblyInteractionPage from "./components/reporting/AssemblyInteractionPage.js";
 import StorageInteractionPage from "./components/reporting/StorageInteractionPage.js";
 import "./App.css";
+import Footer from "./components/FooterComponent.js";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -156,7 +157,7 @@ function App() {
       </Routes>
       <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">
-        <p>footer text</p>
+      <Footer />
       </footer>
     </HashRouter>
   );
