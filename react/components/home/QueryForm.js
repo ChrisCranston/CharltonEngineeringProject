@@ -24,7 +24,7 @@ class QueryForm extends React.Component {
     }
     componentDidMount() {
         let clienttypes = [];
-        fetch('http://localhost/kv6002/php/customerquery?tabletoget=clientType', { 
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=clientType', { 
             method: "GET",
             headers: new Headers({
                 'AuthToken': 'SiteToken vbhu76545678ijfrt67ui9iuyhg',
@@ -44,10 +44,11 @@ class QueryForm extends React.Component {
             });
         });
         let querytypes = [];
-        let header = new Headers({'AuthToken': 'SiteToken vbhu76545678ijfrt67ui9iuyhg',
-        'Access-Control-Allow-Origin': '*',})
         fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType', { 
-            headers: header,
+            headers: new Headers({
+                'AuthToken': 'SiteToken vbhu76545678ijfrt67ui9iuyhg',
+                'Access-Control-Allow-Origin': '*',
+                }),
             }).then(response => {
                 return response.json();
             }).then(data => {
