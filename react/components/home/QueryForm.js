@@ -24,7 +24,7 @@ class QueryForm extends React.Component {
     }
     componentDidMount() {
         let clienttypes = [];
-        fetch('http://localhost/kv6002/php/customerquery?tabletoget=clientType')
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=clientType')
             .then(response => {
                 return response.json();
             }).then(data => {
@@ -37,7 +37,7 @@ class QueryForm extends React.Component {
             });
         });
         let querytypes = [];
-        fetch('http://localhost/kv6002/php/customerquery?tabletoget=queryType')
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType')
             .then(response => {
                 return response.json();
             }).then(data => {
@@ -56,40 +56,48 @@ class QueryForm extends React.Component {
 
     return (
         <form className="queryform">
-            <p>Name</p>
+            <p>Name:</p>
             <input 
             type="text"
             placeholder="name"
             value={this.props.name}
             onChange={this.props.handleName}
             />
-            <p>Who are you?</p>
+            <p>Are you Business or Individual?</p>
             <ClientType 
                 handleClientType={this.props.handleClientType}
                 state={this.state}
             />
-            <p>Email</p>
+            <p>Email address:</p>
             <input 
             type="text"
             placeholder="me@email.com"
             value={this.props.email}
             onChange={this.props.handleEmail}
             />
-            <p>Phone</p>
+            <p>Country code and Phone number:</p>
+            <div>
             <input 
+            style={{width:"25px"}}
             type="text"
-            placeholder="+44"
+            placeholder="+44" 
+            value={this.props.countrycode}
+            onChange={this.props.handleCountryCode}
+            />
+            <input 
+            type="number"
+            placeholder="7590153674"
             value={this.props.phone}
             onChange={this.props.handlePhone}
             />
-            
-            <p>Query Type</p>
+            </div>
+            <p>Select a query type:</p>
             <QueryType 
                 handleQueryType={this.props.handleQueryType}
                 state={this.state}
             />
             
-            <p>Query</p>
+            <p>Query:</p>
             <textarea rows="15" cols="50"
             placeholder="Please detail your query here..."
             value={this.props.query}

@@ -1,6 +1,0 @@
-npm install:
-
-@fortawesome/free-solid-svg-icons
-@fortawesome/react-fontawesome
-prop-types
-react-toastify

@@ -33,18 +33,6 @@ class StorageLocationPage extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a location QR",
-      QRcustomStyles: {
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          height: '75%',
-          width:'75%',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },},
-        qrButton: "Scan a location QR",
       customStyles: {
         content: {
           top: '50%',
@@ -251,7 +239,7 @@ class StorageLocationPage extends React.Component {
       qrScanner = (
         <Modal
         isOpen={this.state.moadlIsOpen}
-        style={this.state.QRcustomStyles}
+        style={this.state.customStyles}
       >
         <QrReader
           onScan={this.handleScan}
