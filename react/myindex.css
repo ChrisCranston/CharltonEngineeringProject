@@ -190,3 +190,9 @@ code {
 #formResponse {
   color:red;
 }
+
+
+/***********************phone css*******************/
+@media only screen and (max-width: 600px) {
+  
+}

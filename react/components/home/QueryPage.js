@@ -99,7 +99,7 @@ handleQuerySubmit = (e) => {
       for (var value of formData.values()) {
         console.log(value); 
      }
-      fetch(url, { method: "POST", headers: new Headers(), body: formData })
+      fetch(url, { method: "POST", headers: new Headers("AuthToken", "SiteToken vbhu76545678ijfrt67ui9iuyhg"), body: formData })
       .then((response) => {
         console.log("status: " + response.status)
           if (response.status === 204) {

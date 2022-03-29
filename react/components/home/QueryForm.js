@@ -24,12 +24,19 @@ class QueryForm extends React.Component {
     }
     componentDidMount() {
         let clienttypes = [];
-        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=clientType')
-            .then(response => {
+        fetch('http://localhost/kv6002/php/customerquery?tabletoget=clientType', { 
+            method: "GET",
+            headers: new Headers({
+                'AuthToken': 'SiteToken vbhu76545678ijfrt67ui9iuyhg',
+                'Access-Control-Allow-Origin': '*',
+                }),
+            }).then(response => {
                 return response.json();
             }).then(data => {
               clienttypes = data.results.map((client) => {
                 return client
+            }).catch((error) => {
+                console.log(error)
             });
             //console.log(clienttypes);
             this.setState({
@@ -37,8 +44,11 @@ class QueryForm extends React.Component {
             });
         });
         let querytypes = [];
-        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType')
-            .then(response => {
+        let header = new Headers({'AuthToken': 'SiteToken vbhu76545678ijfrt67ui9iuyhg',
+        'Access-Control-Allow-Origin': '*',})
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType', { 
+            headers: header,
+            }).then(response => {
                 return response.json();
             }).then(data => {
                 querytypes = data.results.map((query) => {
