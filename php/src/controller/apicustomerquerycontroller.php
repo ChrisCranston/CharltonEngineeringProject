@@ -28,38 +28,53 @@ class  ApiCustomerQueryController extends Controller
      */
     protected function processRequest()
     {
-        $name = $this->getRequest()->getParameter("name");
-        $businessindividual = $this->getRequest()->getParameter("businessindividual");
-        $email = $this->getRequest()->getParameter("email"); //parameters = the table column fillers
-        $phonenumber = $this->getRequest()->getParameter("phonenumber");
-        $query = $this->getRequest()->getParameter("query");
-        $querytype = $this->getRequest()->getParameter("querytype");
-
-        $tableToGet = $this->getRequest()->getParameter("tabletoget");
-        
-
-        if ($this->getRequest()->getRequestMethod() == "POST") {
-            $datetime = "2022/09/03 12:00:00"; //needs to be the current time
-            if (is_null($email)) { //if they haven't submitted an email 
-                $this->getGateway()->addQueryWOEmail($datetime, $name, $businessindividual, $phonenumber, $query, $querytype); 
-            } else if (is_null($phonenumber)) { //if they haven't submitted phone
-                    $this->getGateway()->addQueryWOPhonenumber($datetime, $name, $businessindividual, $email, $query, $querytype); 
-            } else {
-                $this->getGateway()->addQueryWAll($datetime, $name, $businessindividual, $email, $phonenumber, $query, $querytype);
+        $token = false;
+        foreach (getallheaders() as $name => $value) {
+            if ($name === "AuthToken" && $value === "SiteToken vbhu76545678ijfrt67ui9iuyhg") {
+                $token = true;
+                echo "valid token";
             }
-        } else if ($this->getRequest()->getRequestMethod() == "GET") {
-                //$this->getGateway()->getEverything();
-                if ($tableToGet == "clientType") { //if they haven't submitted phone
-                    $this->getGateway()->getClientTypes();
-                } else  if ($tableToGet == "queryType"){
-                    $this->getGateway()->getQueryTypes();
+        }
+        if ($token) {
+            $name = $this->getRequest()->getParameter("name");
+            $businessindividual = $this->getRequest()->getParameter("businessindividual");
+            $email = $this->getRequest()->getParameter("email"); //parameters = the table column fillers
+            $phonenumber = $this->getRequest()->getParameter("phonenumber");
+            $query = $this->getRequest()->getParameter("query");
+            $querytype = $this->getRequest()->getParameter("querytype");
+
+            $tableToGet = $this->getRequest()->getParameter("tabletoget");
+            
+
+            if ($this->getRequest()->getRequestMethod() == "POST") {
+                $datetime = "2022/09/03 12:00:00"; //needs to be the current time
+                if (is_null($email)) { //if they haven't submitted an email 
+                    $this->getGateway()->addQueryWOEmail($datetime, $name, $businessindividual, $phonenumber, $query, $querytype); 
+                } else if (is_null($phonenumber)) { //if they haven't submitted phone
+                        $this->getGateway()->addQueryWOPhonenumber($datetime, $name, $businessindividual, $email, $query, $querytype); 
                 } else {
-                    $this->getGateway()->getEverything();
+                    $this->getGateway()->addQueryWAll($datetime, $name, $businessindividual, $email, $phonenumber, $query, $querytype);
                 }
-        } else {
-            $this->getResponse()->setMessage("Invalid Request Type. put a type");
-            $this->getResponse()->setStatusCode(405);
-        } 
+            } else if ($this->getRequest()->getRequestMethod() == "GET") {
+                    //$this->getGateway()->getEverything();
+                    if ($tableToGet == "clientType") { //if they haven't submitted phone
+                        $this->getGateway()->getClientTypes();
+                    } else  if ($tableToGet == "queryType"){
+                        $this->getGateway()->getQueryTypes();
+                    }else  if ($tableToGet == "reviews"){
+                        $this->getGateway()->getReviews();
+                    } else {
+                        $this->getGateway()->getEverything();
+                    }
+            } else {
+                $this->getResponse()->setMessage("Invalid Request Type. put a type");
+                $this->getResponse()->setStatusCode(405);
+            } 
+        } else{
+            $this->getResponse()->setMessage("Origin of this request is invalid");
+            $this->getResponse()->setStatusCode(403);
+        }
         return $this->getGateway()->getResult();
+        
     }
 }
