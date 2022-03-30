@@ -3,12 +3,12 @@ import ClientType from "./ClientTypeClass.js"
 import QueryType from "./QueryTypeClass.js"
 
 /**
- * QueryPage
+ * QueryForm
  *
- * This simple component controls what is being shown on the homepage,
- * via the use of props it makes the shows the most simplistic version of a random paper without filter
- * with the preview video shown without needing to click a button.
- * This component calls to PaperManager.
+ * This component produces the customery query form and returns the inputs to the state in the query page
+ * When the component mounts it accesses the database twice to pull in the various client types
+ * and query types, to populate the option boxes. this is better than hardcoding in case these options expand
+ * The option boxes are generated in their own separate component classes.
  *
  * @author Kess Strongman 
  */
@@ -24,14 +24,8 @@ class QueryForm extends React.Component {
     }
     componentDidMount() {
         let clienttypes = [];
-        fetch('http://localhost/kv6002/php/customerquery?tabletoget=clientType', { 
-            method: 'GET',
-            headers: {
-                'AuthToken': 'SiteToken vbhu76545678ijfrt67ui9iuyhg',
-            },
-            origin: "*",
-            }).then(response => {
-                console.log(response)
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=clientType')
+            .then(response => {
                 return response.json();
             }).then(data => {
               clienttypes = data.results.map((client) => {
@@ -43,18 +37,14 @@ class QueryForm extends React.Component {
             });
         });
         let querytypes = [];
-        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType', { 
-            headers: {
-                'AuthToken': 'SiteToken vbhu76545678ijfrt67ui9iuyhg',
-                },
-                origin: "*",
-            }).then(response => {
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType')
+            .then(response => {
                 return response.json();
             }).then(data => {
                 querytypes = data.results.map((query) => {
                 return query
             });
-           //console.log(querytypes);
+            //console.log(querytypes);
             this.setState({
                 querytypes: querytypes,
             });

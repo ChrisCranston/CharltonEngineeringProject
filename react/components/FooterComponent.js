@@ -2,6 +2,13 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import ISOlogo from ".//iso-logo.gif"
 
+/**
+ * Footer Component
+ *
+ *
+ * 
+ * @author Kess Strongman
+ */
 class Footer extends React.Component {
  
     render () {

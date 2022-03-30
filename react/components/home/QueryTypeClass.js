@@ -1,9 +1,14 @@
 import React from 'react';
 
+/**
+ * Query Type Option box Component
+ *
+ *This component is an option box populated from the database and applied on the form
+ * 
+ * @author Kess Strongman
+ */
 class QueryType extends React.Component {
-    constructor() {
-        super();
-    }
+  
 
     render () {
         let querytypes = this.props.state.querytypes;

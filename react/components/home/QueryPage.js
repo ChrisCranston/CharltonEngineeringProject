@@ -4,10 +4,14 @@ import QueryForm from "./QueryForm"
 /**
  * QueryPage
  *
- * This simple component controls what is being shown on the homepage,
- * via the use of props it makes the shows the most simplistic version of a random paper without filter
- * with the preview video shown without needing to click a button.
- * This component calls to PaperManager.
+ * This second page is shown under the "contact us" tab. 
+ * It displays information about the company and presents a form that the customer can use to contact CE
+ * The form is generated in a separate component that returns the values to this page to be processed and
+ * sent via API to the data base. 
+ * A token is also submitted as part of the formdata. This is to prevent the database being injected with
+ * an overload of queries from a bot as the data will only be accepted from this site with the token seen.
+ * Upon a successful submit the user is shown a positive message. Should the query fail they are shown an
+ * appropriate error message.
  *
  * @author Kess Strongman 
  */
@@ -88,8 +92,9 @@ handleQuerySubmit = (e) => {
     });
   } else if (pattern.test(this.state.email) || this.state.email === "") {
       this.setState({submiterror: ""});
-      let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery";
+      let url = "http://localhost/kv6002/php/customerquery";
       let formData = new FormData();
+      formData.append("token", "SiteToken-7874857973");
       formData.append("name", this.state.name);
       formData.append("businessindividual", this.state.clienttype);
       formData.append("email", this.state.email);
@@ -99,7 +104,7 @@ handleQuerySubmit = (e) => {
       for (var value of formData.values()) {
         console.log(value); 
      }
-      fetch(url, { method: "POST", headers: new Headers("AuthToken", "SiteToken vbhu76545678ijfrt67ui9iuyhg"), body: formData })
+      fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         console.log("status: " + response.status)
           if (response.status === 204) {
@@ -120,12 +125,13 @@ handleQuerySubmit = (e) => {
           }
       })
       .catch((err) => {
+       
           console.log("something went wrong, ", err);
-         
-          this.setState({
+       
+            this.setState({
               failedsubmit: true,
-              submiterror: "Something went wrong, please fill in the fields correctly"
-          })
+              submiterror: err
+            })
       })
   } else {
     console.log("email wrong")
