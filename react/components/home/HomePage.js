@@ -68,7 +68,7 @@ class HomePage extends React.Component {
                   <TwitterTimelineEmbed
                       sourceType="profile"
                       screenName="isostandards"
-                      options={{height: 450}}
+                      options={{height: '100%'}}
                   />
                 </div>
                 <div className="GoogleMaps">
