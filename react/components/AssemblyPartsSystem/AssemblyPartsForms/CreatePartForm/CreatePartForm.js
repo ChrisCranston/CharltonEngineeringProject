@@ -141,8 +141,7 @@ class CreatePartForm extends React.Component {
           <Loading />
         ) : (
           <>
-            <h1 className="small-centre">Add New Assembly Part</h1>
-            <p className="small-centre"></p>
+            <h1 className="centred-item">Add New Assembly Part</h1>
             {createError && (
               <p className="form-error">
                 <span>

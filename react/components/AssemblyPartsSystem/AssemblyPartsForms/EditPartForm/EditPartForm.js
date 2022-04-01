@@ -143,8 +143,7 @@ class EditPartForm extends React.Component {
           <Loading />
         ) : (
           <>
-            <h1 className="small-centre">Edit Assembly Part Details</h1>
-            <p className="small-centre"></p>
+            <h1 className="centred-item">Edit Assembly Part Details</h1>
             {editError && (
               <p className="form-error">
                 <span>

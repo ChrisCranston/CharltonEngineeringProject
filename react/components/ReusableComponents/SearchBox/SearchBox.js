@@ -36,24 +36,26 @@ class SearchBox extends React.Component {
     } = this.props;
 
     return (
-      <Input
-        wrapperClassName="item-control-wrapper"
-        labelClassName="search-box-label"
-        id={id}
-        label={label}
-        placeholder={placeholder}
-        value={search}
-        icon={icon ? <FontAwesomeIcon icon={faSearch} size="sm" /> : null}
-        onChange={handleSearch}
-        cancelInput={cancelSearch}
-        onEnter={onSubmit}
-      />
+      <div className="search-box">
+        <Input
+          wrapperClassName="item-control-wrapper"
+          labelClassName="search-box-label"
+          id={id}
+          label={label}
+          placeholder={placeholder}
+          value={search}
+          icon={icon ? <FontAwesomeIcon icon={faSearch} size="sm" /> : null}
+          onChange={handleSearch}
+          cancelInput={cancelSearch}
+          onEnter={onSubmit}
+        />
+      </div>
     );
   }
 }
 
 SearchBox.defaultProps = {
-  label: "Search",
+  label: "Search: ",
   placeholder: "",
   icon: false,
   onSubmit: null,

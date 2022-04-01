@@ -1,5 +1,6 @@
-.delete-text {
+.delete-text p {
   text-align: center;
+  margin: 1rem 0;
 }
 
 .delete-table {
@@ -13,4 +14,9 @@
   padding: 0.3rem;
   text-align: left;
   vertical-align: text-top;
+  border: none;
+}
+
+.delete-table tr:nth-child(even) {
+  background-color: initial;
 }

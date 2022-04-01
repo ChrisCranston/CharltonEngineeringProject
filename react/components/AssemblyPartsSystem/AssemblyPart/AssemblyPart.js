@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUpRightFromSquare,
+  faCirclePlus,
+  faCircleMinus,
+} from "@fortawesome/free-solid-svg-icons";
 import "./AssemblyPart.css";
 
 class AssemblyPart extends React.Component {
@@ -27,26 +31,43 @@ class AssemblyPart extends React.Component {
         <td>{assemblyPart.low_warning}</td>
         <td>
           {orderURL ? (
-            <a href={orderURL} target="_blank" rel="noreferrer">
-              <FontAwesomeIcon icon={faUpRightFromSquare} />
-            </a>
+            <div className="centred-item">
+              <a
+                className="order-button"
+                href={orderURL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FontAwesomeIcon icon={faUpRightFromSquare} />
+              </a>
+            </div>
           ) : (
             "N/A"
           )}
         </td>
-        <td className="user-list__dropdown">
-          <button onClick={() => openPartModal("add", partID)}>
-            Add Stock
-          </button>
-          <button onClick={() => openPartModal("remove", partID)}>
-            Remove Stock
-          </button>
-          <button onClick={() => openPartModal("edit", partID)}>
-            Edit Part Details
-          </button>
-          <button onClick={() => openPartModal("delete", partID)}>
-            Delete Part
-          </button>
+        <td>
+          <div className="part-buttons part-quantity-buttons">
+            <button onClick={() => openPartModal("add", partID)}>
+              <FontAwesomeIcon
+                className="quantity-icon add-quantity-icon"
+                icon={faCirclePlus}
+              />
+            </button>
+            <button onClick={() => openPartModal("remove", partID)}>
+              <FontAwesomeIcon
+                className="quantity-icon remove-quantity-icon"
+                icon={faCircleMinus}
+              />
+            </button>
+          </div>
+          <div className="part-buttons part-vertical-buttons">
+            <button onClick={() => openPartModal("edit", partID)}>
+              Edit Part Details
+            </button>
+            <button onClick={() => openPartModal("delete", partID)}>
+              Delete Part
+            </button>
+          </div>
         </td>
       </tr>
     );

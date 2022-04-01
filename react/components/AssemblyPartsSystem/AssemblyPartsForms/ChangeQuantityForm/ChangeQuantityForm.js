@@ -128,8 +128,7 @@ class ChangeQuantityForm extends React.Component {
           <Loading />
         ) : (
           <>
-            <h1 className="small-centre">{formattedEditType} Stock</h1>
-            <p className="small-centre"></p>
+            <h1 className="centred-item">{formattedEditType} Stock</h1>
             {quantityError && (
               <p className="form-error">
                 <span>

@@ -109,8 +109,7 @@ class DeletePartForm extends React.Component {
           <Loading />
         ) : (
           <>
-            <h1 className="small-centre">Delete Part</h1>
-            <p className="small-centre"></p>
+            <h1 className="centred-item">Delete Part</h1>
             {deleteError && (
               <p className="form-error">
                 <span>

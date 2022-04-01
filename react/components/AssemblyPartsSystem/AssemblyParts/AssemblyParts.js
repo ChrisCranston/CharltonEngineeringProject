@@ -174,11 +174,6 @@ class AssemblyParts extends React.Component {
             <p>No data found</p>
           ) : (
             <>
-              <div>
-                <button onClick={() => this.openPartModal("create")}>
-                  Add New Part
-                </button>
-              </div>
               <table className="parts-table">
                 <thead style={{ marginBottom: "1rem" }}>
                   <tr>
@@ -189,9 +184,14 @@ class AssemblyParts extends React.Component {
                     <th>Low Warning</th>
                     <th>Order URL</th>
                     <th>
-                      <button onClick={() => this.fetchData()}>
-                        Refresh <FontAwesomeIcon icon={faRotateRight} />
-                      </button>
+                      <div className="part-buttons part-vertical-buttons">
+                        <button onClick={() => this.openPartModal("create")}>
+                          Add New Part
+                        </button>
+                        <button onClick={() => this.fetchData()}>
+                          Refresh <FontAwesomeIcon icon={faRotateRight} />
+                        </button>
+                      </div>
                     </th>
                   </tr>
                 </thead>
