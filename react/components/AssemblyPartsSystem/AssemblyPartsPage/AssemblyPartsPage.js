@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import AssemblyParts from "../AssemblyParts/AssemblyParts";
 import SearchBox from "../../ReusableComponents/SearchBox/SearchBox";
 import "./AssemblyPartsPage.css";
@@ -44,6 +45,8 @@ class AssemblyPartsPage extends React.Component {
 
   render() {
     const { search, filterBy, sortBy, page } = this.state;
+    const { simToken } = this.props;
+
     return (
       <div className="main_content">
         <section className="centred-item">
@@ -88,6 +91,7 @@ class AssemblyPartsPage extends React.Component {
         </section>
         <div className="parts-page">
           <AssemblyParts
+            simToken={simToken}
             search={search}
             filterBy={filterBy}
             sortBy={sortBy}
@@ -100,5 +104,13 @@ class AssemblyPartsPage extends React.Component {
     );
   }
 }
+
+AssemblyPartsPage.defaultProps = {
+  simToken: null,
+};
+
+AssemblyPartsPage.propTypes = {
+  simToken: PropTypes.string,
+};
 
 export default AssemblyPartsPage;

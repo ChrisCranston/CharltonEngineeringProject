@@ -98,12 +98,13 @@ class EditPartForm extends React.Component {
 
   sendData = () => {
     const { data } = this.state;
-    const { closePortal } = this.props;
+    const { closePortal, simToken } = this.props;
 
     const editValues = getInputValues(data);
 
     const formData = new FormData();
     formData.append("edit", JSON.stringify(editValues));
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
@@ -221,6 +222,7 @@ EditPartForm.defaultProps = {
 };
 
 EditPartForm.propTypes = {
+  simToken: PropTypes.string.isRequired,
   selectedPart: PropTypes.shape({
     part_id: PropTypes.string,
     serial_number: PropTypes.string,

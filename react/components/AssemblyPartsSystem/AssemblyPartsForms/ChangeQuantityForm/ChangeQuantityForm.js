@@ -81,12 +81,13 @@ class ChangeQuantityForm extends React.Component {
 
   sendData = () => {
     const { data } = this.state;
-    const { editType, closePortal } = this.props;
+    const { editType, closePortal, simToken } = this.props;
 
     const changeQuantityValues = getInputValues(data);
 
     const formData = new FormData();
     formData.append("quantity", JSON.stringify(changeQuantityValues));
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
@@ -206,6 +207,7 @@ ChangeQuantityForm.defaultProps = {
 };
 
 ChangeQuantityForm.propTypes = {
+  simToken: PropTypes.string.isRequired,
   selectedPart: PropTypes.shape({
     part_id: PropTypes.string,
     serial_number: PropTypes.string,

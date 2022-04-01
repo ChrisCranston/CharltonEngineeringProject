@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import jwt_decode from "jwt-decode";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/home/HomePage.js";
@@ -9,7 +10,6 @@ import QueryPage from "./components/home/QueryPage";
 import StoragePartPage from "./components/storage/StoragePartPage.js";
 import StorageLocationPage from "./components/storage/StorageLocationPage.js";
 import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
-import ReportingHomePage from "./components/reporting/ReportingHomePage.js";
 import CustomerReportPage from "./components/reporting/CustomerReportPage.js";
 import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
 import StorageReportPage from "./components/reporting/StorageReportPage.js";
@@ -18,23 +18,24 @@ import StorageInteractionPage from "./components/reporting/StorageInteractionPag
 import "./App.css";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [simToken, setSimToken] = useState(localStorage.getItem("simToken"));
 
-  const handleAuthentication = () => {
-    if (isAuthenticated === true) {
-      setIsAuthenticated(false);
+  const accessLevel = simToken && jwt_decode(simToken).sub;
+
+  const handleAuthentication = (token = null) => {
+    if (token) {
+      setSimToken(token);
+      localStorage.setItem("simToken", token);
     } else {
-      setIsAuthenticated(true);
+      setSimToken(null);
+      localStorage.removeItem("simToken");
     }
   };
-
-  const isManager = true; //  <-- Instead of authenticated = true/false, will need string based variables rather than booleans, so can check if === worker/manager etc. to restrict functionality
 
   return (
     <HashRouter>
       <VariableNav
-        isAuthenticated={isAuthenticated}
-        isManager={isManager}
+        accessLevel={accessLevel}
         handleAuthentication={handleAuthentication}
       />
       <Routes>
@@ -46,8 +47,12 @@ function App() {
         <Route
           path="assembly-parts"
           element={
-            <RestrictedRoute isAuthenticated={isAuthenticated}>
-              <AssemblyPartsPage />
+            <RestrictedRoute
+              isAuthenticated={
+                accessLevel === "worker" || accessLevel === "manager"
+              }
+            >
+              <AssemblyPartsPage simToken={simToken} />
             </RestrictedRoute>
           }
         />
@@ -56,7 +61,11 @@ function App() {
           <Route
             path="storage-manager"
             element={
-              <RestrictedRoute isAuthenticated={isAuthenticated}>
+              <RestrictedRoute
+                isAuthenticated={
+                  accessLevel === "worker" || accessLevel === "manager"
+                }
+              >
                 <StorageLocationPage />
               </RestrictedRoute>
             }
@@ -64,28 +73,23 @@ function App() {
           <Route
             path="storage-parts"
             element={
-              <RestrictedRoute isAuthenticated={isAuthenticated}>
+              <RestrictedRoute
+                isAuthenticated={
+                  accessLevel === "worker" || accessLevel === "manager"
+                }
+              >
                 <StoragePartPage />
               </RestrictedRoute>
             }
           />
-          
         </Route>
 
         <Route path="reporting">
-          <Route
-            index
-            element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-              <ReportingHomePage />
-                <h1>REPORTING HOMEPAGE</h1>
-              </RestrictedRoute>
-            }
-          />
+          <Route index element={<Navigate to="assembly-reports" />} />
           <Route
             path="assembly-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
                 <AssemblyReportPage />
                 <h1>ASSEMBLY REPORTS PAGE</h1>
               </RestrictedRoute>
@@ -94,36 +98,32 @@ function App() {
           <Route
             path="storage-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
                 <StorageReportPage />
-                <h1>STORAGE REPORTS PAGE</h1>
               </RestrictedRoute>
             }
           />
           <Route
             path="customer-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
                 <CustomerReportPage />
-                <h1>CUSTOMER REPORT PAGE</h1>
               </RestrictedRoute>
             }
           />
           <Route
             path="assembly-interaction-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
                 <AssemblyInteractionPage />
-                <h1>assemblyinteractionreport</h1>
               </RestrictedRoute>
             }
           />
           <Route
             path="storage-interaction-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
                 <StorageInteractionPage />
-                <h1>storageinteractionreport</h1>
               </RestrictedRoute>
             }
           />
@@ -132,7 +132,7 @@ function App() {
         <Route
           path="user-management"
           element={
-            <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+            <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
               <h1>USER MANAGEMENT PAGE</h1>
             </RestrictedRoute>
           }
@@ -141,18 +141,13 @@ function App() {
         <Route
           path="account"
           element={
-            <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
+            <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
               <h1>ACCOUNT PAGE</h1>
             </RestrictedRoute>
           }
         />
 
-        <Route
-          path="*"
-          element={
-            <h1>404 NOT FOUND GO BACK TO HOME (make this a component)</h1>
-          }
-        />
+        <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
       <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">

@@ -68,11 +68,16 @@ class AssemblyParts extends React.Component {
   };
 
   fetchData = () => {
+    const { simToken } = this.props;
     this.setState({ isLoading: true });
+
+    const formData = new FormData();
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
       headers: new Headers(),
+      body: formData,
     })
       .then((response) => {
         if (response) {
@@ -133,6 +138,7 @@ class AssemblyParts extends React.Component {
       this.state;
 
     const {
+      simToken,
       page,
       search,
       filterBy,
@@ -219,16 +225,21 @@ class AssemblyParts extends React.Component {
           )}
         </div>
         <Modal modalOpen={modalOpen[editTypes.CREATE]}>
-          <CreatePartForm closePortal={this.closePartModal} />
+          <CreatePartForm
+            simToken={simToken}
+            closePortal={this.closePartModal}
+          />
         </Modal>
         <Modal modalOpen={modalOpen[editTypes.EDIT]}>
           <EditPartForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             closePortal={this.closePartModal}
           />
         </Modal>
         <Modal modalOpen={modalOpen[editTypes.ADD]}>
           <ChangeQuantityForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             editType={editTypes.ADD}
             closePortal={this.closePartModal}
@@ -236,6 +247,7 @@ class AssemblyParts extends React.Component {
         </Modal>
         <Modal modalOpen={modalOpen[editTypes.REMOVE]}>
           <ChangeQuantityForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             editType={editTypes.REMOVE}
             closePortal={this.closePartModal}
@@ -243,6 +255,7 @@ class AssemblyParts extends React.Component {
         </Modal>
         <Modal modalOpen={modalOpen[editTypes.DELETE]}>
           <DeletePartForm
+            simToken={simToken}
             selectedPartID={results[selectedPartID]?.part_id}
             selectedPartSerialNumber={results[selectedPartID]?.serial_number}
             selectedPartName={results[selectedPartID]?.name}
@@ -264,6 +277,7 @@ AssemblyParts.defaultProps = {
 };
 
 AssemblyParts.propTypes = {
+  simToken: PropTypes.string.isRequired,
   search: PropTypes.string,
   filterBy: PropTypes.string,
   sortBy: PropTypes.string.isRequired,

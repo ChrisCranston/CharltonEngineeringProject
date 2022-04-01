@@ -1,5 +1,8 @@
 <?php
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 /**
  * Controller
  * 
@@ -13,6 +16,7 @@ abstract class Controller
     private $request;
     private $reponse;
     protected $gateway;
+    protected $accessLevel;
 
     /**
      * __construct
@@ -98,5 +102,84 @@ abstract class Controller
     protected function getGateway()
     {
         return $this->gateway;
+    }
+
+    /**
+     * setAccessLevel
+     * 
+     * Sets the user's access level.
+     * 
+     * @param string $accessLevel the user's access level
+     */
+    protected function setAccessLevel($accessLevel)
+    {
+        $this->accessLevel = $accessLevel;
+    }
+
+    /**
+     * getAccessLevel
+     * 
+     * Gets the user's access level.
+     * 
+     * @return string the user's access level
+     */
+    protected function getAccessLevel()
+    {
+        return $this->accessLevel;
+    }
+
+    /**
+     * handleJWTException
+     * 
+     * Handles exceptions deriving from the JWT class.
+     * This allows a 401 error to be returned for these exceptions while other exceptions can be returned as a 
+     * 500 error by the exception handler function.
+     * The client-facing exception message is delivered as a parameter and returned alongside the 401 status code.
+     * 
+     * @param string $message the exception message to return
+     */
+    private function handleJWTException($message)
+    {
+        $this->getResponse()->setMessage("Unauthorised - " . $message);
+        $this->getResponse()->setStatusCode(401);
+    }
+
+    /**
+     * tokenCheck
+     * 
+     * Used by controllers to check that the token is authentic. 
+     *
+     * Retrieves the user details and sets as a variable after authentication passed
+     * for use in other controllers, or sets an error message if the token is not authenticated.
+     */
+    protected function tokenCheck()
+    {
+        $token = $this->getRequest()->getParameter("token");
+
+        if (!is_null($token)) {
+
+            $key = SECRET_KEY;
+
+            try {
+                $decoded = JWT::decode($token, new Key($key, 'HS256'));
+                $accessLevel = $decoded->sub;
+
+                if (!is_null($accessLevel) && ($accessLevel === "worker" || $accessLevel === "manager")) {
+                    return $accessLevel;
+                } else {
+                    $this->getResponse()->setMessage("Unauthorised - invalid token");
+                    $this->getResponse()->setStatusCode(401);
+                }
+            } catch (\UnexpectedValueException $e) {
+                $this->handleJWTException("invalid token: " . strtolower($e->getMessage()));
+            } catch (\DomainException $e) {
+                $this->handleJWTException("domain error: " . strtolower($e->getMessage()));
+            } catch (\InvalidArgumentException $e) {
+                $this->handleJWTException(strtolower($e->getMessage()));
+            }
+        } else {
+            $this->getResponse()->setMessage("Unauthorised - a token is required to access this resource");
+            $this->getResponse()->setStatusCode(401);
+        }
     }
 }
