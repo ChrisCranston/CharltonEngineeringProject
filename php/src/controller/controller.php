@@ -16,7 +16,6 @@ abstract class Controller
     private $request;
     private $reponse;
     protected $gateway;
-    protected $accessLevel;
 
     /**
      * __construct
@@ -102,30 +101,6 @@ abstract class Controller
     protected function getGateway()
     {
         return $this->gateway;
-    }
-
-    /**
-     * setAccessLevel
-     * 
-     * Sets the user's access level.
-     * 
-     * @param string $accessLevel the user's access level
-     */
-    protected function setAccessLevel($accessLevel)
-    {
-        $this->accessLevel = $accessLevel;
-    }
-
-    /**
-     * getAccessLevel
-     * 
-     * Gets the user's access level.
-     * 
-     * @return string the user's access level
-     */
-    protected function getAccessLevel()
-    {
-        return $this->accessLevel;
     }
 
     /**
