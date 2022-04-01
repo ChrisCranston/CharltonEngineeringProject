@@ -149,18 +149,18 @@ handleQuerySubmit = (e) => {
       <div className="background">
         <div className="main">
           <div className="contactushero">
-          <div className="contactus0">
-          <h1>Contact Us</h1>
-            <div className="contactus1">
-              <div>
-                <p> Charlton Engineering Services Limited</p>
-                <p> Unit 9, Harvey Close</p>
-                <p> Crowther Industrial Estate</p>
-                <p> Washington</p>
-                <p> Tyne & Wear</p>
-                <p> NE38 0AB</p>
+            <div className="contactus0">
+            <h1>Contact Us</h1>
+              <div className="contactus1">
+                <div>
+                  <p> Charlton Engineering Services Limited</p>
+                  <p> Unit 9, Harvey Close</p>
+                  <p> Crowther Industrial Estate</p>
+                  <p> Washington</p>
+                  <p> Tyne & Wear</p>
+                  <p> NE38 0AB</p>
+                </div>
               </div>
-            </div>
             </div>
             <div className="contactus2">
               <div>

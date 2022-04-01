@@ -98,7 +98,7 @@ class QueryForm extends React.Component {
             />
             
             <p>Query:</p>
-            <textarea rows="15" cols="50"
+            <textarea rows="15" cols="50" 
             placeholder="Please detail your query here..."
             value={this.props.query}
             onChange={this.props.handleQuery}

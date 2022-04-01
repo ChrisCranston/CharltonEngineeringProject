@@ -17,9 +17,9 @@ class Service extends React.Component {
     };
     this.handleDisplay = this.handleDisplay.bind(this)
   }
-  componentDidMount() {
-    this.setState({ display: 'none'})
-  }
+  // componentDidMount() {
+  //   this.setState({ display: 'none'})
+  // }
   handleDisplay = (e) =>  {
     // console.log(e.type)
      if (e.type === "mouseenter") {
@@ -37,7 +37,7 @@ class Service extends React.Component {
         {/*onsole.log(".//img/" +this.props.img +".jpg")*/}
           <img src={require(`.//img/${this.props.img}.jpg`)} className="serviceimg" alt=" serviceimg" />
           <div className="text-on-serviceimg">
-         <h4 className="servicetitle">{ this.props.img }</h4>
+            <h4 className="servicetitle">{ this.props.img }</h4>
             <p style={{ display: this.state.display }}>{this.props.text}</p>
           </div>
         </div>
