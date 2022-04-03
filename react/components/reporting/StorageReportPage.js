@@ -124,18 +124,26 @@ getCurrentDateText = () => {
 
 
     return (
-      <div className="main-content">
+      <div className="main_content">
+       <section>
+          <h2>Storage Report</h2>
           <div>
+            <p>
+              Filter by warehouse or client name.
+            </p>
+            <p>
+            Click Genarate Report to save or print the report.
+            </p>
+          </div>
+        </section>
             
-            <div class = "filter-banner">
-            <h1>STORAGE REPORTS PAGE</h1>
-            <div class = "inner-grid-reports">
-            <div class = "report-button">
+            <section class = "filter-banner">
+            <div className="filter-element">
             <ReactToPrint
                 trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
             />
-
+            </div>
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -146,9 +154,7 @@ getCurrentDateText = () => {
               reportName = {"Storage Report"}
             />
             </div>
-            </div>
-            
-            <div class = "filter-one">
+
         <Filter options = {wareHouseNumbersList} 
           filterType = {"Warehouse: "} 
           custType={this.state.warehouseNumber} 
@@ -159,13 +165,12 @@ getCurrentDateText = () => {
           filterType = {"Client Name: "} 
           custType={this.state.clientName} 
           handleSelect={this.handleClientNameSelect} />
-            </div>
-            </div>
-            </div>
+
+            </section>
          <StorageLocations warehouseNumber={this.state.warehouseNumber}
           clientName={this.state.clientName} />
           
-          </div>
+         
       </div>
     );
   }

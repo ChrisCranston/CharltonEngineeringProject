@@ -99,7 +99,6 @@ class StorageLocations extends React.Component {
            
                 <table>
                 <tr>
-                 <th>Storage ID</th>
                  <th>Quantity</th>
                  <th>Client Name</th>
                  <th>Warehouse Number</th>

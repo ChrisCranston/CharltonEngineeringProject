@@ -93,7 +93,6 @@ class StorageInteractions extends React.Component {
             <div>
                 <table>
                 <tr>
-                 <th>Interaction ID</th>
                  <th>Amount</th>
                  <th>Description</th>
                  <th>Warehouse Number</th>

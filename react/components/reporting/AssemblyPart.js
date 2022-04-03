@@ -32,7 +32,6 @@ class AssemblyPart extends React.Component {
         return(
          
               <tr>
-                <td>{this.props.assemblyPart.part_id}</td>
                 <td>{this.props.assemblyPart.serial_number}</td>
                 <td>{this.props.assemblyPart.name}</td>
                 <td>{this.props.assemblyPart.notes}</td> 

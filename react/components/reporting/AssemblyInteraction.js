@@ -32,7 +32,6 @@ class AssemblyInteraction extends React.Component {
         return(
          
               <tr>
-                <td>{this.props.assemblyInteraction.interaction_id}</td>
                 <td>{this.props.assemblyInteraction.serial_number}</td>
                 <td>{this.props.assemblyInteraction.name}</td>
                 <td>{this.props.assemblyInteraction.amount}</td> 

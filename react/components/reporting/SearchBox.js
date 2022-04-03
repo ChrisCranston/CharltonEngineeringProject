@@ -12,6 +12,7 @@ class SearchBox extends React.Component {
 
     render() {
         return (
+            <div className="filter-element">
             <form className="search">
                 <strong>Search: </strong>
                 <input 
@@ -20,7 +21,7 @@ class SearchBox extends React.Component {
                 value={this.props.search} 
                 onChange={this.props.handleSearch} />
             </form>
-
+            </div>
         )
     }
 }

@@ -94,16 +94,25 @@ handleSearch = (e) => {
     let reportDate = this.getCurrentDateText();
 
     return (
-      <div className="main-content">
+      <div className="main_content">
+        <section>
+          <h2>Assembly Interaction Report</h2>
           <div>
-            <div class = "filter-banner">
-            <h1>ASSEMBLY INTERACTION REPORT</h1>
-            <div class = "inner-grid-reports">
-            <div class = "report-button">
+            <p>
+              Filter by user ID or search by serial No and name.
+            </p>
+            <p>
+              Click Genarate Report to save or print the report.
+            </p>
+          </div>
+        </section>
+            <section class = "filter-banner">
+            <div className="filter-element">
             <ReactToPrint
                 trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
             />
+            </div>
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -113,19 +122,12 @@ handleSearch = (e) => {
               reportName = {"Assembly Interactions Report"}
             />
             </div>
-            </div>
-            <div class = "filter-one">
               <Filter options = {userNamesList} 
               filterType = {"User ID: "} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
-
-              <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
-            </div>
-            </div>
-            </div>
+            </section>
          <AssemblyInteractions userName={this.state.userName} search={this.state.search} />
-          </div>
       </div>
     );
   }

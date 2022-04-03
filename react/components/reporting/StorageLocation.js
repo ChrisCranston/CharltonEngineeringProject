@@ -32,7 +32,6 @@ class StorageLocation extends React.Component {
         return(
          
               <tr>
-                <td>{this.props.storageLocation.storage_id}</td>
                 <td>{this.props.storageLocation.quantity}</td>
                 <td>{this.props.storageLocation.client_name}</td>
                 <td>{this.props.storageLocation.warehouse_number}</td> 

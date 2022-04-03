@@ -93,7 +93,6 @@ class AssemblyInteractions extends React.Component {
             <div>
                 <table>
                 <tr>
-                 <th>Interaction ID</th>
                  <th>Serial No</th>
                  <th>Name</th>
                  <th>Amount</th>

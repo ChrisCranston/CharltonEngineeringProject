@@ -84,7 +84,6 @@ class AssemblyParts extends React.Component {
             <div>
                 <table>
                 <tr>
-                 <th>Part ID</th>
                  <th>Serial No</th>
                  <th>Name</th>
                  <th>Notes</th>
