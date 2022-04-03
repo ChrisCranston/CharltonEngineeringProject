@@ -33,7 +33,7 @@ class Query extends React.Component {
 
         return(
          
-              <tr>
+              <tr class = "query-tr">
                 <td>{this.props.query._name}</td>
                 <td>{this.props.query.email}</td>
                 <td>{this.props.query.phone_number}</td>

@@ -98,6 +98,7 @@ class StorageLocations extends React.Component {
        
            
                 <table>
+                <thead>
                 <tr>
                  <th>Quantity</th>
                  <th>Client Name</th>
@@ -108,6 +109,7 @@ class StorageLocations extends React.Component {
                  <th>Name</th>
                  <th>Description</th>
                 </tr>
+                </thead>
 
                     {filteredResults.map((storageLocation, i) => (<StorageLocation className="StorageLocation" key={i} storageLocation={storageLocation} />))}
                     </table>

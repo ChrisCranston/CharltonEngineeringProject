@@ -31,7 +31,7 @@ class StorageLocation extends React.Component {
 
         return(
          
-              <tr>
+              <tr class="storage-loc-tr">
                 <td>{this.props.storageLocation.quantity}</td>
                 <td>{this.props.storageLocation.client_name}</td>
                 <td>{this.props.storageLocation.warehouse_number}</td> 

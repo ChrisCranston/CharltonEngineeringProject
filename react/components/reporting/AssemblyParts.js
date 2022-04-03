@@ -83,6 +83,7 @@ class AssemblyParts extends React.Component {
         return(
             <div>
                 <table>
+                <thead>
                 <tr>
                  <th>Serial No</th>
                  <th>Name</th>
@@ -91,7 +92,7 @@ class AssemblyParts extends React.Component {
                  <th>Low Warning</th>
                  <th>Order Link</th>
                 </tr>
-
+                </thead>
                     {filteredResults.map((assemblyPart, i) => (<AssemblyPart className="AssemblyPart" key={i} assemblyPart={assemblyPart} />))}
                     </table>
         </div> 

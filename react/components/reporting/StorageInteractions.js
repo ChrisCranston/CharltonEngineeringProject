@@ -92,6 +92,7 @@ class StorageInteractions extends React.Component {
         return(
             <div>
                 <table>
+                <thead>
                 <tr>
                  <th>Amount</th>
                  <th>Description</th>
@@ -104,6 +105,7 @@ class StorageInteractions extends React.Component {
                  <th>Interaction Date/Time</th>
                  <th>Email Address</th>
                 </tr>
+                </thead>
 
                     {filteredResults.map((storageInteraction, i) => (<StorageInteraction className="storageInteraction" key={i} storageInteraction={storageInteraction} />))}
                     </table>

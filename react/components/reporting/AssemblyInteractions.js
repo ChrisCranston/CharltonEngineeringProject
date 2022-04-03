@@ -92,6 +92,7 @@ class AssemblyInteractions extends React.Component {
         return(
             <div>
                 <table>
+                <thead>
                 <tr>
                  <th>Serial No</th>
                  <th>Name</th>
@@ -101,6 +102,7 @@ class AssemblyInteractions extends React.Component {
                  <th>Interaction Date/Time</th>
                  <th>Email Address</th>
                 </tr>
+                </thead>
 
                     {filteredResults.map((assemblyInteraction, i) => (<AssemblyInteraction className="assemblyInteraction" key={i} assemblyInteraction={assemblyInteraction} />))}
                     </table>
