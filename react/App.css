@@ -1,16 +1,18 @@
 body {
   font-family: "Segoe UI", "Tahoma";
 }
-
+ .logo {
+   padding: 20px;
+ }
 .top {
   justify-content: center;
   align-items: center;
   margin: auto;
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: white;
   width: 100%;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
 .top_auth {
   justify-content: center;
@@ -18,52 +20,131 @@ body {
   margin: auto;
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: rgb(255, 255, 255);
   width: 100%;
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
+
 nav {
   width: 100%;
-  padding: 15px;
+  padding: 0px;
 }
 
-nav ul {
+.nav {
   height: 2em;
+  display: flex;
+  flex-direction: row;
   margin-top: 25px;
   justify-content: center;
   width: auto;
   margin: 0 auto;
-  padding: 0;
+  padding: 10px;
   list-style: none;
-  background-color: grey;
+  color: black;
+  text-decoration: none!important;
+  background-color:white;
   text-align: center;
-  display: flex;
+  float:right;
   align-items: stretch;
-  flex-direction: row;
+}
+.nav li {
+  text-decoration: none;
+  color: black;
+  padding: 0%;
+  width: auto;
+  position: relative;
+}
+.styledNavLink {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  width:auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 20px 10px 20px;
+  font-size: 1rem;
+  display: block;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
 }
 
-nav ul .active {
-  background-color: red;
+.styledNavLink:hover {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
+
 }
+
+.styledNavLink.active {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
+  background-color:white;
+
+}
+
+nav li .navdrop {
+  display: none;
+  position: absolute;
+  margin:0;
+  width:auto;
+  padding: 20%;
+  background-color: white;
+  color:black;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.navdrop .styledNavLink:hover {
+  border-bottom: 5px solid #13658b;
+}
+nav:hover .navdrop{
+  display: block;
+}
+.navdrop .styledNavLink.active {
+  text-decoration: none;
+  background-color:#1E9BD3;
+
+}
+
 
 .main_content {
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
-
-footer {
-  background-color: #282c2d;
+.main {
+  width: 100%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
+}
+
+
+
+
+footer {
+  background-color: #1984b3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   color: white;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  padding:4%;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
+}
+.addressbox {
+  text-align: justify;
+  margin:3%;
+  width: 35%;
+}
+.usefullinks {
+  display: flex;
+  flex-direction: column;
+  width:35%;
+  margin:3%;
 }
 .page_item {
   display: flex;
@@ -77,12 +158,7 @@ footer {
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 
-.nav li {
-  text-decoration: none;
-  color: white;
-  padding: 0%;
-  flex: 1;
-}
+
 
 .item {
   border: 1px solid red;
@@ -90,8 +166,11 @@ footer {
 
 button {
   cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  background-color: #1984b3;
+  margin: 3px;
 }
-
 .buttons {
   display:flex;
   flex-direction: column;
@@ -117,4 +196,40 @@ button {
   padding-top:1%;
   padding-bottom: 1%;
   justify-content: center;
+}
+
+/***********************phone css*******************/
+@media only screen and (max-width: 600px) {
+  .top {
+    margin-top:20%;
+  }
+
+  nav {
+    margin: 0;
+    position:fixed;
+    top:0;
+    z-index: 1;
+  }
+  .nav {
+    float:left;
+    width: 100%;
+    padding: 10px;
+    height:auto;
+    flex-wrap: wrap;
+  }
+  
+  
+footer {
+  display: flex;
+  flex-direction: column;
+ }
+.addressbox {
+  width: 80%;
+}
+.usefullinks {
+  display: flex;
+  flex-direction: column;
+  width:80%;
+}
+
 }
