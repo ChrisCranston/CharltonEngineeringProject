@@ -24,11 +24,13 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
                 <NavLink to="assembly-parts" className="styledNavLink">Assembly Parts</NavLink>
               </li>
               <li>
-                <NavLink to="/storage/storage-manager" className="styledNavLink" >Storage</NavLink>
+                <NavLink to="/storage/storage-manager" className="styledNavLink">Storage</NavLink>
                 {location.split("/")[1] === "storage" && (
-                  <nav className="navdrop">
+                  <nav>
                     <li>
-                      <NavLink to="/storage/storage-manager" className="styledNavLink">Locations</NavLink>
+                      <NavLink to="/storage/storage-manager" className="styledNavLink">
+                        Locations
+                      </NavLink>
                     </li>
                     <li>
                       <NavLink to="/storage/storage-parts" className="styledNavLink">Parts</NavLink>
@@ -41,7 +43,7 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
                   <li>
                     <NavLink to="reporting" className="styledNavLink">Reporting</NavLink>
                     {location.split("/")[1] === "reporting" && (
-                      <nav className="navdrop">
+                      <nav>
                         <li>
                           <NavLink to="/reporting/assembly-reports" className="styledNavLink">
                             Assembly Reports
@@ -53,17 +55,17 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/customer-reports" className="styledNavLink">
+                          <NavLink to="/reporting/customer-reports">
                             Customer Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/assembly-interaction-reports" className="styledNavLink">
+                          <NavLink to="/reporting/assembly-interaction-reports">
                           Assembly Interaction Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/storage-interaction-reports" className="styledNavLink">
+                          <NavLink to="/reporting/storage-interaction-reports">
                           Storage Interaction Reports
                           </NavLink>
                         </li>
