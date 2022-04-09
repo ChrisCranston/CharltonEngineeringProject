@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"; */
-// import DropdownButton from "./DropdownButton/DropdownButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUpRightFromSquare,
+  faCirclePlus,
+  faCircleMinus,
+} from "@fortawesome/free-solid-svg-icons";
 import "./AssemblyPart.css";
 
 class AssemblyPart extends React.Component {
@@ -19,47 +22,52 @@ class AssemblyPart extends React.Component {
         ? "low-stock"
         : "";
 
-    /*
-             {orderURL ? (
-              <a href={orderURL} target="_blank" rel="noreferrer">
-                <FontAwesomeIcon icon={faUpRightFromSquare} />
-              </a>
-            ) : (
-              "N/A"
-            )} 
-        */
-
     return (
       <tr>
         <td>{assemblyPart.serial_number}</td>
         <td>{assemblyPart.name}</td>
         <td className={className}>{assemblyPart.quantity}</td>
-        <td>{assemblyPart.notes ?? "N/A"}</td>
+        <td>{assemblyPart.notes ? assemblyPart.notes : "N/A"}</td>
         <td>{assemblyPart.low_warning}</td>
         <td>
           {orderURL ? (
-            <a href={orderURL} target="_blank" rel="noreferrer">
-              {orderURL.length > 25
-                ? orderURL.substring(0, 25) + "..."
-                : orderURL}
-            </a>
+            <div className="centred-item">
+              <a
+                className="order-button"
+                href={orderURL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FontAwesomeIcon icon={faUpRightFromSquare} />
+              </a>
+            </div>
           ) : (
             "N/A"
           )}
         </td>
-        <td className="user-list__dropdown">
-          <button onClick={() => openPartModal("add", partID)}>
-            Add Stock
-          </button>
-          <button onClick={() => openPartModal("remove", partID)}>
-            Remove Stock
-          </button>
-          <button onClick={() => openPartModal("edit", partID)}>
-            Edit Part Details
-          </button>
-          <button onClick={() => openPartModal("delete", partID)}>
-            Delete Part
-          </button>
+        <td>
+          <div className="part-buttons part-quantity-buttons">
+            <button onClick={() => openPartModal("add", partID)}>
+              <FontAwesomeIcon
+                className="quantity-icon add-quantity-icon"
+                icon={faCirclePlus}
+              />
+            </button>
+            <button onClick={() => openPartModal("remove", partID)}>
+              <FontAwesomeIcon
+                className="quantity-icon remove-quantity-icon"
+                icon={faCircleMinus}
+              />
+            </button>
+          </div>
+          <div className="part-buttons part-vertical-buttons">
+            <button onClick={() => openPartModal("edit", partID)}>
+              Edit Part Details
+            </button>
+            <button onClick={() => openPartModal("delete", partID)}>
+              Delete Part
+            </button>
+          </div>
         </td>
       </tr>
     );

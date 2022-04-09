@@ -100,3 +100,9 @@ The boilerplate code will have the databse we designed with some initial values 
 
 # Kess' react imports
 npm install google-maps-react@2.0.6
+
+# Matthew's react imports
+npm install @fortawesome/free-solid-svg-icons
+npm install @fortawesome/react-fontawesome
+npm install prop-types
+npm install react-toastify

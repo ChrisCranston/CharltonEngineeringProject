@@ -24,7 +24,7 @@ class QueryForm extends React.Component {
     }
     componentDidMount() {
         let clienttypes = [];
-        fetch('http://localhost/kv6002/php/customerquery?tabletoget=clientType')
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=clientType')
             .then(response => {
                 return response.json();
             }).then(data => {
@@ -37,7 +37,7 @@ class QueryForm extends React.Component {
             });
         });
         let querytypes = [];
-        fetch('http://localhost/kv6002/php/customerquery?tabletoget=queryType')
+        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType')
             .then(response => {
                 return response.json();
             }).then(data => {

@@ -46,7 +46,7 @@ class AssemblyPartsPage extends React.Component {
     const { search, filterBy, sortBy, page } = this.state;
     return (
       <div className="main_content">
-        <section>
+        <section className="centred-item">
           <h2>Assembly Parts</h2>
           <div>
             <p>
@@ -58,31 +58,33 @@ class AssemblyPartsPage extends React.Component {
             </p>
           </div>
         </section>
-        <section className="item-controls">
+        <section>
           <SearchBox
             id="parts-search"
             search={search}
             handleSearch={this.handleSearch}
             cancelSearch={this.cancelSearch}
-            placeholder="Search by name/serial number"
+            placeholder="Search by name/serial number..."
             icon
           />
-          <label className="item-control-wrapper">
-            <span>Sort By:</span>
+        </section>
+        <section className="item-controls">
+          <span className="item-control-wrapper">
+            <label>Sort By:</label>
             <select value={sortBy} onChange={this.handleSortBy}>
               <option value="serial_number">Serial Number</option>
               <option value="name">Part Name</option>
             </select>
-          </label>
-          <label className="item-control-wrapper">
-            <span>Filter By Stock Level:</span>
+          </span>
+          <span className="item-control-wrapper">
+            <label>Filter By Stock Level:</label>
             <select value={filterBy} onChange={this.handleFilterBy}>
               <option value="">No Filter</option>
               <option value="in-stock">In Stock</option>
               <option value="low-warning">Low Warning</option>
               <option value="out-of-stock">Out of Stock</option>
             </select>
-          </label>
+          </span>
         </section>
         <div className="parts-page">
           <AssemblyParts

@@ -1,7 +1,53 @@
 .low-stock {
-  background-color: lightyellow;
+  background-color: #f2c846;
 }
 
 .out-of-stock {
   background-color: lightcoral;
+}
+
+.centred-item {
+  text-align: center;
+}
+
+.order-button:hover {
+  color: darkred;
+}
+
+.quantity-icon {
+  font-size: 2rem;
+}
+
+.add-quantity-icon {
+  color: green;
+}
+
+.remove-quantity-icon {
+  color: darkred;
+}
+
+.part-buttons {
+  display: flex;
+}
+
+.part-quantity-buttons {
+  margin-bottom: 2rem;
+}
+
+.part-vertical-buttons {
+  flex-direction: column;
+}
+
+.part-quantity-buttons button {
+  margin: 0 0.5rem;
+  background: none;
+  border: none;
+}
+
+.part-quantity-buttons button:hover {
+  filter: brightness(140%);
+}
+
+.part-vertical-buttons button {
+  margin-bottom: 0.5rem;
 }

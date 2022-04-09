@@ -4,11 +4,6 @@
 
 .text-input {
   padding: 0.25rem 1.5rem 0.25rem 0.25rem;
-  margin-left: -0.45rem;
-}
-
-.clear-icon {
-  cursor: pointer !important;
 }
 
 .clear-icon:focus {
@@ -29,4 +24,9 @@
   right: 1.5rem;
   width: 1rem;
   height: 1rem;
+}
+
+.clear-icon {
+  cursor: pointer !important;
+  right: 1.15rem;
 }

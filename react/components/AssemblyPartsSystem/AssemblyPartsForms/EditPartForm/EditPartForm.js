@@ -118,7 +118,7 @@ class EditPartForm extends React.Component {
             const newData = clearFields(data);
             this.mounted && this.setState({ data: newData });
 
-            closePortal(editTypes.EDIT, true);
+            closePortal(editTypes.EDIT);
           } else {
             this.mounted &&
               this.setState({
@@ -143,8 +143,7 @@ class EditPartForm extends React.Component {
           <Loading />
         ) : (
           <>
-            <h1 className="small-centre">Edit Assembly Part Details</h1>
-            <p className="small-centre"></p>
+            <h1 className="centred-item">Edit Assembly Part Details</h1>
             {editError && (
               <p className="form-error">
                 <span>
@@ -173,7 +172,14 @@ class EditPartForm extends React.Component {
                         </p>
                       )}
                       <Input
-                        label={formatString(key)}
+                        label={
+                          <span>
+                            {formatString(key)}
+                            {data[key].mandatory && (
+                              <span className="form-asterisk"> *</span>
+                            )}
+                          </span>
+                        }
                         type={data[key].type}
                         id={key}
                         value={data[key].value ?? ""}

@@ -1,3 +1,7 @@
+.form-asterisk {
+  color: #cc0000;
+}
+
 .form-error {
   color: #d81f26;
   background-color: #ffd3d4;
@@ -20,11 +24,10 @@
 }
 
 .field-input input {
-  width: 90%;
+  width: 80%;
 }
 
 @media only screen and (max-width: 768px) {
-  .small-centre,
   .form-error {
     text-align: center;
   }

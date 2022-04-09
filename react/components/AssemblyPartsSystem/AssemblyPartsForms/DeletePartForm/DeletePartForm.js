@@ -83,7 +83,7 @@ class DeletePartForm extends React.Component {
             const newData = clearFields(data);
             this.mounted && this.setState({ data: newData });
 
-            closePortal(editType, true);
+            closePortal(editType);
           } else {
             this.mounted &&
               this.setState({
@@ -109,8 +109,7 @@ class DeletePartForm extends React.Component {
           <Loading />
         ) : (
           <>
-            <h1 className="small-centre">Delete Part</h1>
-            <p className="small-centre"></p>
+            <h1 className="centred-item">Delete Part</h1>
             {deleteError && (
               <p className="form-error">
                 <span>
