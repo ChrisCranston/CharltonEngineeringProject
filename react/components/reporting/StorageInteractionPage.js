@@ -34,7 +34,7 @@ handleSearch = (e) => {
 
   componentDidMount() {
    
-    let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport?user_names=true"
+    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport?user_names=true"
   
   
     fetch(url)

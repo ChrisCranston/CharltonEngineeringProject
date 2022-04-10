@@ -11,8 +11,10 @@ import React from "react";
 class SelectWarehouse extends React.Component {
   render() {
     return (
+      <span className="item-control-wrapper">
       <label>
         Filter by Warehouse:
+        </label>
         <select
           value={this.props.warehouse}
           onChange={this.props.handleWarehouseSelect}
@@ -23,7 +25,8 @@ class SelectWarehouse extends React.Component {
           <option value="3">3</option>
           <option value="4">4</option>          
         </select>
-      </label>
+        </span>
+      
     );
   }
 }

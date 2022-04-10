@@ -1,6 +1,6 @@
 import React from "react";
 import StoredManager from "./StoredManager.js";
-import SearchBox from "./SearchBox.js";
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import SelectWarehouse from "./SelectWarehouse.js";
 import AddLocation from "./AddLocation.js";
 import QrReader from "modern-react-qr-reader";
@@ -33,29 +33,15 @@ class StorageLocationPage extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a location QR",
-      QRcustomStyles: {
-        content: {
-          top: "50%",
-          left: "50%",
-          right: "auto",
-          bottom: "auto",
-          height: "75%",
-          width: "75%",
-          marginRight: "-50%",
-          transform: "translate(-50%, -50%)",
-        },
-      },
-      qrButton: "Scan a location QR",
       customStyles: {
         content: {
-          top: "50%",
-          left: "50%",
-          right: "auto",
-          bottom: "auto",
-          marginRight: "-50%",
-          transform: "translate(-50%, -50%)",
-        },
-      },
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },},
       moadlIsOpen: true,
     };
     this.handleNextClick = this.handleNextClick.bind(this);
@@ -109,6 +95,9 @@ class StorageLocationPage extends React.Component {
   handleSearch = (e) => {
     this.setState({ search: e.target.value });
     this.setState({ page: 1 });
+  };
+  cancelSearch = () => {
+    this.setState({ search: "" });
   };
   handlePageSize = (e) => {
     this.setState({ pageSize: e.target.value });
@@ -256,15 +245,20 @@ class StorageLocationPage extends React.Component {
       qrScanner = (
         <Modal
           isOpen={this.state.moadlIsOpen}
-          style={this.state.QRcustomStyles}
+          style={this.state.customStyles}
         >
+          <div className="modal-sizing-qr">
           <QrReader
             onScan={this.handleScan}
             onError={this.handleError}
             facingMode={"environment"}
-            style={{ width: "100%" }}
+            style={{ width: "auto" }}
           />
-          <button onClick={this.handleModalClose}>Cancel</button>
+          </div>
+          <div className="modal-button">
+          <button className="red" onClick={this.handleModalClose}>Cancel</button>
+          
+          </div>
         </Modal>
       );
     } else {
@@ -295,44 +289,66 @@ class StorageLocationPage extends React.Component {
     }
     return (
       <div className="main_content">
-        <div className="storage-page">
+        <section className="centred-item">
+          <h2>Storage Locations</h2>
+          <div>
+            <p>
+              Search using the QR function, filter using the search field with
+              location name, or filter by warehouse number.
+            </p>
+            <p>
+              Update quantity in storage, or add a part to an empty storage
+              block.
+            </p>
+          </div>
+        </section>
+        <section>
+          <div className="storage-page-block">
+            <SearchBox
+              id="location-search"
+              search={this.state.search}
+              placeholder="Search by location..."
+              handleSearch={this.handleSearch}
+              cancelSearch={this.cancelSearch}
+              icon
+            />
+          </div>
+        </section>
+        <div>
+          <section className="item-controls">
+            <SelectWarehouse
+              warehouse={this.state.warehouse}
+              handleWarehouseSelect={this.handleWarehouseSelect}
+            />
+            <span className="item-control-wrapper">{showEmpty}</span>
+            {addLocation}
+          </section>
           {qrScanner}
+          <section className="item-controls">
           <div className="storage-page-block">
             <button onClick={this.handleScannerClick}>
               {this.state.qrButton}
             </button>
             <button onClick={this.handleAddLocation}>Add Location</button>
           </div>
-          <div className="storage-page-block">
-            <SearchBox
-              name={"Search: "}
-              search={this.state.search}
-              placeholder={"by location"}
-              handleSearch={this.handleSearch}
-            />
-            <SelectWarehouse
-              warehouse={this.state.warehouse}
-              handleWarehouseSelect={this.handleWarehouseSelect}
-            />
-            {showEmpty}
-            {addLocation}
-          </div>
-          <div>
-            <StoredManager
-              key={this.state.key}
-              item_type="location"
-              empty={this.state.empty}
-              outOfEmpties={this.outOfEmpties}
-              warehouse={this.state.warehouse}
-              search={this.state.search}
-              qrSearch={this.state.QRresult}
-              page={this.state.page}
-              pageSize={this.state.pageSize}
-              handleNextClick={this.handleNextClick}
-              handlePreviousClick={this.handlePreviousClick}
-              handlePageSize={this.handlePageSize}
-            />
-          </div>
+          </section>
+        </div>
+
+        <div className="storage-page">
+          <StoredManager
+            key={this.state.key}
+            item_type="location"
+            empty={this.state.empty}
+            outOfEmpties={this.outOfEmpties}
+            warehouse={this.state.warehouse}
+            search={this.state.search}
+            qrSearch={this.state.QRresult}
+            page={this.state.page}
+            pageSize={this.state.pageSize}
+            handleNextClick={this.handleNextClick}
+            handlePreviousClick={this.handlePreviousClick}
+            handlePageSize={this.handlePageSize}
+          />
         </div>
       </div>
     );

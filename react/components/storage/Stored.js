@@ -213,8 +213,8 @@ class Stored extends React.Component {
         <Modal isOpen={this.state.moadlIsOpen} style={this.state.customStyles}>
           <div>
             <p>Are you sure you want to remove all items from this location?</p>
-            <button onClick={this.handleConfirmClick}>Tick</button>
-            <button onClick={this.handleDenyClick}>Cross</button>
+            <button className="green" onClick={this.handleConfirmClick}>Yes</button>
+            <button className="red" onClick={this.handleDenyClick}>No</button>
           </div>
         </Modal>
       ),

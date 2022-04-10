@@ -11,9 +11,10 @@ import React from "react";
 class AddPart extends React.Component {
   render() {
     return (
-      <div className="btn-group-column">
-        <h2>Add New Part:</h2>
-        <form>
+      <div className="modal-sizing">
+        <div className="modal-contents">
+        <h2 className="modal-spacer">Add New Part:</h2>
+        <form className="modal-form"> 
           <p>Serial Number:</p>
           <input
             type="text"
@@ -35,10 +36,13 @@ class AddPart extends React.Component {
             value={this.props.description}
             onChange={this.props.handleDescription}
           />
+          <div className="modal-button">
           <button onClick={this.props.handleAddNewClick}>Add Part!</button>
-          <button onClick={this.props.handleClose}>Cancel</button>
+          <button className="red" onClick={this.props.handleClose}>Cancel</button>
+          </div>
           <p>{this.props.error}</p>
         </form>
+        </div>
       </div>
     );
   }

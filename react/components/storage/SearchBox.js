@@ -12,7 +12,7 @@ import React from "react";
 class SearchBox extends React.Component {
   render() {
     return (
-      <label>
+      <label className="modal-form">
         {this.props.name}
         <input
           type="text"

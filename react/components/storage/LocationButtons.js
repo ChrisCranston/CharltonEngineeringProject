@@ -1,6 +1,11 @@
 import React from "react";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from "./ComponentToPrint";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCirclePlus,
+  faCircleMinus,
+} from "@fortawesome/free-solid-svg-icons";
 
 class LocationButtons extends React.Component {
   render() {
@@ -25,14 +30,22 @@ class LocationButtons extends React.Component {
       );
     } else {
       buttons = (
-        <div className="buttons">
+        <div className="">
+        <div className="part-buttons part-quantity-buttons">
           <button onClick={this.props.handleLocationAddClick}>
-            Add Quantity
+            <FontAwesomeIcon
+            className="quantity-icon add-quantity-icon"
+          icon={faCirclePlus}
+          />
           </button>
           <button onClick={this.props.handleLocationRemoveClick}>
-            Remove Quantity
+          <FontAwesomeIcon
+          className="quantity-icon remove-quantity-icon"
+            icon={faCircleMinus}
+            />
           </button>
-
+        </div>
+        <div >
           <ReactToPrint
             trigger={() => <button>Print Location QR</button>}
             content={() => this.componentRef}
@@ -44,6 +57,8 @@ class LocationButtons extends React.Component {
             />
           </div>
         </div>
+        </div>
+
       );
     }
     return <div>{buttons}</div>;

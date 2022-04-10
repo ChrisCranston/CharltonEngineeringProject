@@ -21,18 +21,15 @@ class AddPartToLocation extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a part QR",
-      QRcustomStyles: {
+      customStyles: {
         content: {
-          top: "50%",
-          left: "50%",
-          right: "auto",
-          bottom: "auto",
-          height: "75%",
-          width: "75%",
-          marginRight: "-50%",
-          transform: "translate(-50%, -50%)",
-        },
-      },
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },},
       moadlIsOpen: true,
     };
     this.handleScan = this.handleScan.bind(this);
@@ -150,13 +147,18 @@ class AddPartToLocation extends React.Component {
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
         <Modal isOpen={this.state.moadlIsOpen} style={this.state.customStyles}>
+          <div className="modal-sizing-qr">
           <QrReader
             onScan={this.handleScan}
             onError={this.handleError}
             facingMode={"environment"}
-            style={{ width: "100%" }}
+            style={{ width: "auto" }}
           />
-          <button onClick={this.handleModalClose}>Cancel</button>
+          </div>
+          <div className="modal-button">
+          <button className="red" onClick={this.handleModalClose}>Cancel</button>
+          </div>
+          
         </Modal>
       );
     } else {
@@ -164,8 +166,8 @@ class AddPartToLocation extends React.Component {
     }
     if (this.state.QRresult === "") {
       searchandscan = (
-        <div>
-          <div>
+        <div className="modal-spacer" >
+          <div className="modal-form">
             <button onClick={this.handleScannerClick}>
               {this.state.qrButton}
             </button>
@@ -187,7 +189,7 @@ class AddPartToLocation extends React.Component {
     }
 
     let selectItem = (
-      <div>
+      <div className="modal-scanner">
         {searchandscan}
 
         <p>Select Part:</p>
@@ -213,9 +215,10 @@ class AddPartToLocation extends React.Component {
       </div>
     );
     return (
-      <div className="btn-group-column">
-        <h2>Add Part to location:</h2>
-        <form>
+      <div className="modal-sizing">
+        <div className="modal-contents">
+        <h2 className="modal-spacer">Add Part to location:</h2>
+        <form className="modal-form">
           {qrScanner}
           {selectItem}
           <p>Quantity:</p>
@@ -224,12 +227,15 @@ class AddPartToLocation extends React.Component {
             placeholder="quantity"
             onChange={this.props.handleAddPartQuantity}
           />
+          <div className="modal-button">
           <button onClick={this.props.handleAddPartToLocationSubmit}>
             Add Part to location!
           </button>
-          <button onClick={this.props.handleClose}>Cancel</button>
+          <button className="red" onClick={this.props.handleClose}>Cancel</button>
+          </div>
           <p>{this.props.error}</p>
         </form>
+        </div>
       </div>
     );
   }

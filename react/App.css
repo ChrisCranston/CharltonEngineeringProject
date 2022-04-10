@@ -65,6 +65,13 @@ nav {
   border-bottom: 3px solid transparent;
   transition: 0.3s;
 }
+p {
+  display: block;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
 
 .styledNavLink:hover {
   text-decoration: none;
@@ -102,6 +109,10 @@ nav:hover .navdrop{
 
 }
 
+.remove-all {
+  background-color: darkred;
+}
+
 
 .main_content {
   width: 90%;
@@ -120,6 +131,51 @@ nav:hover .navdrop{
   align-items: center;
   justify-content: center;
   /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
+}
+
+.modal-sizing {
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-around;
+}
+
+.modal-contents {
+  width: 300px;
+}
+
+.modal-sizing-qr {
+  width: 500px;
+  height:500px;
+  display:block;
+}
+
+.modal-spacer {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 5px solid #3498db;
+}
+.modal-scanner {
+  display: grid;
+}
+
+.modal-button {
+  padding-top:15px;
+}
+.modal-button button {
+  width:100%;
+}
+
+.modal-form {
+  display: grid;
+}
+.green {
+  background-color:green;
+}
+.red {
+  background-color: darkred;
 }
 
 
