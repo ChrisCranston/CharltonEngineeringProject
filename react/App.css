@@ -301,11 +301,6 @@ footer {
 }
 
 
-
-@media 
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
-
 /* Force table to not be like tables anymore */
 table, thead, tbody, th, td, tr { 
   display: block; 
@@ -328,7 +323,7 @@ td {
   border: none;
   border-bottom: 1px solid #eee;
   position: relative;
-  padding-left: 50%; 
+
   min-height: 12pt;
 
 }
@@ -344,10 +339,14 @@ td:before {
   white-space: nowrap;
 }
 
+.parts-page {
+  width: 100%;
+}
+
 .parts-table td,
   .parts-table th {
     border: 1px solid #ddd;
-    padding-left: 50%
+    padding-left: 40%
   }
 
   .storage-location-tr td:nth-of-type(1):before { content: "Warehouse No:"; }
@@ -361,5 +360,4 @@ td:before {
   .storage-parts-tr td:nth-of-type(3):before { content: "Description:"; }
   .storage-parts-tr td:nth-of-type(4):before { content: "Controls"; }
 
-}
 }
