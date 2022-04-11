@@ -30,36 +30,33 @@ class HomePage extends React.Component {
           <div className="welcome_banner">
             <div className="text-on-img">
                 <h3> Welcome!</h3>
-                <p> Charlton Engineering is a...
-                Etiam vel vulputate elit, at sollicitudin nisl. Donec ac tincidunt urna, ut sagittis lorem. 
-                Phasellus ultricies eget purus placerat posuere. </p>
+                <p> Charlton Engineering is a family business, founded in 1984 and based in the North East. At CE we aim to save you time and money in all aspects of assembly and manufacturing. </p>
             </div>
           </div>
           <div id="about_the_company">
             <aside id="what_we_do">
               <h3>What we do</h3>
-              <p>Charlton Engineering is a family business, founded in 1984 and based in the North East.
-                     We work hard to...
-              n ut neque sed felis malesuada tristique ac eleifend leo. Vestibulum non dictum erat. Donec consectetur dignissim ipsum ut luctus. Maecenas facilisis velit orci, ut placerat nisi mattis tempor. Sed a est porttitor, porttitor erat ac, elementum magna. Morbi in justo neque. Nullam sit amet nibh ac nibh luctus volutpat. </p>
+              <p> At Charlton Engineering we look after our customers and provide an array of services to make work for you cost and time effective.
+                     We work hard to provide solutions to all manufacturing and assembly needs whilst maintaining good recycling habits and clear, helpful routes of communication and customer service for out clients.</p>
             </aside>
             <div className="services_content">
               <Service 
-              img='Pipe Bending' text='We offer a pipe bending service to client companies and...'
+              img='Pipe Bending' text='We offer a pipe bending service to client companies covering all aspects of instrumentation pipe bending.'
               /> 
               <Service 
-              img='Decanting' text='We are able to decant your product into...'
+              img='Decanting' text='We will buy large quantities of your product and are able to decant your product into smaller, more managable sizes for resale.'
               /> 
               <Service  
-              img='Kit Assembly' text='We offer a service to assemble kit...'
+              img='Kit Assembly' text='We offer a service to build all aspects of assembly and sub assembly parts, svaing you and your employees time and energy.'
               /> 
               <Service 
-              img='Packaging' text='Items can be packaged and forwarded...'
+              img='Packaging' text='Items can be packaged and forwarded directly to your customers from our depot.'
               /> 
               <Service 
-              img='Active Carbon Supplier' text='We are able to source and sell activated carbon...'
+              img='Active Carbon Supplier' text='We are able to supply and store various grades of activated carbon for filtration purposes.'
               /> 
               <Service 
-              img='Stock Control' text='Our elite methods and client conenctions allow us to...'
+              img='Stock Control' text='Our elite methods and client conenctions allow us to store and control your stock on our site whilst maintaining stock quality. Stock reports can be sent to you on request.'
               /> 
             </div>
             <div className="infoBanner">
