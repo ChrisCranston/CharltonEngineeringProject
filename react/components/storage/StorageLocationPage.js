@@ -187,6 +187,7 @@ class StorageLocationPage extends React.Component {
 
   fetchData = () => {
     if (this.state.warehousenumber !== "") {
+      if (this.state.warehousenumber > 0) {
       if (this.state.locationName !== "") {
         if (this.state.type !== "") {
           let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
@@ -225,6 +226,11 @@ class StorageLocationPage extends React.Component {
           addNewError: "No location Name provided please try again",
         });
       }
+    } else {
+      this.setState({
+        addNewError: "Warehouse number cannot be a negative number",
+      });
+    }
     } else {
       this.setState({
         addNewError: "No warehouse number provided please try again",
@@ -334,7 +340,7 @@ class StorageLocationPage extends React.Component {
           </section>
         </div>
 
-        <div className="storage-page">
+        <div className="parts-page">
           <StoredManager
             key={this.state.key}
             item_type="location"

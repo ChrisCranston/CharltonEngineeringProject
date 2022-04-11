@@ -35,10 +35,10 @@ export class REMOVEEditStored extends React.Component {
         <h2 className="modal-spacer">Remove from Warehouse: {this.props.warehouse} Location: {this.props.location}</h2>
         <p>Current Quantity: {this.props.qauntity}</p>
         <form className="modal-form">
-          <p>Number removed:</p>
+          <p>Number to remove:</p>
           <input
             type="number"
-            placeholder="# to add"
+            placeholder="# to remove"
             onChange={this.props.handleQuantityUpdate}
           />
           <div className="modal-button">

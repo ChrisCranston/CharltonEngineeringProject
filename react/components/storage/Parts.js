@@ -23,7 +23,7 @@ class Parts extends React.Component {
 
     let result = "";
         result = (
-            <tr>
+            <tr class="storage-parts-tr">
             <td>{this.props.stored_item.serial_number} </td>
             <td>{this.props.stored_item.name} </td>
             <td>{this.props.stored_item.description} </td>

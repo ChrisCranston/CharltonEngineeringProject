@@ -1,6 +1,8 @@
 import React from "react";
 import Stored from "./Stored";
 import Parts from "./Parts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../ReusableComponents/Pagination/Pagination"
 
 /**
@@ -128,9 +130,9 @@ class StoredManager extends React.Component {
                   pageSize={this.props.pageSize}
                   page={this.props.page}
                   pageNumbers={Math.ceil(filteredResults.length / this.props.pageSize)}
-                  handlePageSizeChange={this.handlePageSize}
+                  handlePageSizeChange={this.props.handlePageSize}
                   handleNextClick={this.props.handleNextClick}
-                  handlePreviousClick={this.props.handleNextClick}
+                  handlePreviousClick={this.props.handlePreviousClick}
                 />
       );
       filteredResults = filteredResults.slice(pageMin, pageMax);
@@ -148,7 +150,9 @@ class StoredManager extends React.Component {
                 <th>Location Name:</th>
                 <th>Type: </th>
                 <th>Stored: </th>
-                <th></th>
+                <th><button onClick={() => this.fetchData()}>
+                          Refresh <FontAwesomeIcon icon={faRotateRight} />
+                        </button></th>
               </tr>
             </thead>
             <tbody>
@@ -175,7 +179,9 @@ class StoredManager extends React.Component {
                 <th>Serial #:</th>
                 <th>Name:</th>
                 <th>Description: </th>
-                <th></th>
+                <th><button onClick={() => this.fetchData()}>
+                          Refresh <FontAwesomeIcon icon={faRotateRight} />
+                        </button></th>
               </tr>
             </thead>
             <tbody>

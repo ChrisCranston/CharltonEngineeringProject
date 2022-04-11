@@ -258,7 +258,7 @@ class StoragePartPage extends React.Component {
           {addPart}
           </div>
           </section>
-          <div className="storage-page">
+          <div className="-page">
             
                 <StoredManager
                   item_type="part"

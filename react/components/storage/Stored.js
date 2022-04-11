@@ -61,7 +61,7 @@ class Stored extends React.Component {
   }
 
   handleModalClose = () => {
-    this.setState({ moadlIsOpen: false, edit: "" });
+    this.setState({ moadlIsOpen: false, edit: "", updateMessage: "", updateError: "" });
   };
 
   handleLocationAddClick = () => {
@@ -101,7 +101,7 @@ class Stored extends React.Component {
     e.preventDefault();
     if (this.state.addSerial !== "") {
       if (this.state.addClient !== "") {
-        if (this.state.addQuantity !== "") {
+        if (this.state.addQuantity !== "" & this.state.addQuantity > 0) {
           let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
           let formData = new FormData();
           formData.append("edit", "addPartToLocation");
@@ -140,7 +140,7 @@ class Stored extends React.Component {
             });
         } else {
           this.setState({
-            updateMessage: "No quantity provided please try again",
+            updateMessage: "No / invalid quantity provided please try again",
           });
         }
       } else {
@@ -153,10 +153,11 @@ class Stored extends React.Component {
     }
   };
 
-  fetch2 = (removeAll = false) => {
-    if (this.state.quantityUpdate % 1 === 0) {
-      if (this.state.quantityUpdate > 0) {
+  fetch2 = (removeAll) => {
+    if (this.state.quantityUpdate % 1 === 0 || removeAll === true ) {
+      if (this.state.quantityUpdate > 0 || removeAll === true) {
       let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+      console.log(removeAll)
       let formData = new FormData();
       formData.append("edit", this.state.edit);
       formData.append("location", this.props.stored_item.storage_location_id);
@@ -176,6 +177,7 @@ class Stored extends React.Component {
               edit: "",
               updateMessage: "Update Succesfull",
               updateError: "",
+              quantityUpdate: 0 
             });
             setTimeout(
               function () {
@@ -203,7 +205,7 @@ class Stored extends React.Component {
 
   handleUpdateQuantityClick = (e) => {
     e.preventDefault();
-    this.fetch2();
+    this.fetch2(false);
   };
 
   handleRemoveAllClick = (e) => {
@@ -314,7 +316,7 @@ class Stored extends React.Component {
     }
 
     result = (
-      <tr>
+      <tr class="storage-location-tr">
         <td>{this.props.stored_item.warehouse_number} </td>
         <td>{this.props.stored_item.location_string} </td>
         <td>{this.props.stored_item.storage_type} </td>

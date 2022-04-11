@@ -12,7 +12,7 @@ class LocationButtons extends React.Component {
     let buttons = "";
     if (this.props.quantity <= 0 || this.props.quantity == null) {
       buttons = (
-        <div className="buttons">
+        <div className="part-buttons part-vertical-buttons">
           <button onClick={this.props.handleLocationAddNewClick}>
             Add Item
           </button>
