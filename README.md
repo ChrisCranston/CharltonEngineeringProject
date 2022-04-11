@@ -97,8 +97,12 @@ The boilerplate code will have the databse we designed with some initial values 
  * usage video :  https://www.youtube.com/watch?v=HQKwgk6XkIA   
 
 
+# Chris C's react imports
+npm install qrcode.react
+npm install react-to-print
+npm install modern-react-qr-reader --force                          (ignore errors on this one, due to react version )
 
-# Kess' react imports
+# Kess's react imports
 npm install google-maps-react@2.0.6
 
 # Matthew's react imports
