@@ -288,4 +288,78 @@ footer {
   width:80%;
 }
 
+.modal-sizing {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-around;
+}
+
+.modal-sizing-qr {
+  display:block;
+}
+
+
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+/* Force table to not be like tables anymore */
+table, thead, tbody, th, td, tr { 
+  display: block; 
+}
+
+thead tr { 
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+tr { 
+  border: 1px solid #ccc;
+  margin-bottom: 6px;
+
+}
+
+td { 
+  /* Behave  like a "row" */
+  border: none;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  padding-left: 50%; 
+  min-height: 12pt;
+
+}
+
+td:before { 
+  /* Now like a table header */
+  position: absolute;
+  /* Top/left values mimic padding */
+  top: 6px;
+  left: 6px;
+  width: 60%; 
+  padding-right: 10px; 
+  white-space: nowrap;
+}
+
+.parts-table td,
+  .parts-table th {
+    border: 1px solid #ddd;
+    padding-left: 50%
+  }
+
+  .storage-location-tr td:nth-of-type(1):before { content: "Warehouse No:"; }
+  .storage-location-tr td:nth-of-type(2):before { content: "Location Name:"; }
+  .storage-location-tr td:nth-of-type(3):before { content: "Storage Type:"; }
+  .storage-location-tr td:nth-of-type(4):before { content: "Stored"; }
+  .storage-location-tr td:nth-of-type(5):before { content: "Controls"; }
+
+  .storage-parts-tr td:nth-of-type(1):before { content: "Serial No:"; }
+  .storage-parts-tr td:nth-of-type(2):before { content: "Part Name:"; }
+  .storage-parts-tr td:nth-of-type(3):before { content: "Description:"; }
+  .storage-parts-tr td:nth-of-type(4):before { content: "Controls"; }
+
+}
 }
