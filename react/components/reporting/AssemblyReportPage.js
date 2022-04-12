@@ -1,7 +1,7 @@
 import React from "react";
 import AssemblyParts from './AssemblyParts.js';
 import "./reporting.css";
-import SearchBox from './SearchBox.js';
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -25,6 +25,9 @@ class AssemblyReportPage extends React.Component {
   handleSearch = (e) => {
     this.setState({search:e.target.value})
 }
+cancelSearch = () => {
+  this.setState({ search: "" });
+};
 
 getAppliedFiltersText = () => {
   let tempString = "" 
@@ -79,8 +82,16 @@ getCurrentDateText = () => {
         reportName = {"Assembly Report"}
       />
       </div>
-            <SearchBox search={this.state.search} handleSearch={this.handleSearch} />         
+            <SearchBox
+            id="parts-search"
+            search={this.state.search}
+            handleSearch={this.handleSearch}
+            cancelSearch={this.cancelSearch}
+            placeholder="Search by name/serial No"
+            icon
+          />
             </section>
+
             
          <AssemblyParts search={this.state.search} />
           </div>

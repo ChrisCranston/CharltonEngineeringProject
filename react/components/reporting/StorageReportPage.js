@@ -34,7 +34,6 @@ componentDidMount() {
    
   let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport?warehousenumbers=true"
 
-
   fetch(url)
       .then((response) => {
           if (response.status === 200) {

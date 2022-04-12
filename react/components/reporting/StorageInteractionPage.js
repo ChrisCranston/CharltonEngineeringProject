@@ -2,7 +2,7 @@ import React from "react";
 import StorageInteractions from './StorageInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
-import SearchBox from './SearchBox.js';
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -31,6 +31,9 @@ class StorageInteractionPage extends React.Component {
 handleSearch = (e) => {
   this.setState({search:e.target.value})
 }
+cancelSearch = () => {
+  this.setState({ search: "" });
+};
 
   componentDidMount() {
    
@@ -129,7 +132,14 @@ handleSearch = (e) => {
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
 
-              <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
+          <SearchBox
+            id="parts-search"
+            search={this.state.search}
+            handleSearch={this.handleSearch}
+            cancelSearch={this.cancelSearch}
+            placeholder="Search by name/serial No"
+            icon
+          />
             </section>
          <StorageInteractions userName={this.state.userName} search={this.state.search} />
          

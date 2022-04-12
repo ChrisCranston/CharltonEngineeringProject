@@ -92,7 +92,7 @@ class CustomerQuerys extends React.Component {
 
 
         return(
-            <div>
+            <div className="reporting_table_wrapper">
                 <table>
                 <thead>
                 <tr>

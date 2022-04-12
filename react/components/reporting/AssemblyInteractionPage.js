@@ -2,7 +2,7 @@ import React from "react";
 import AssemblyInteractions from './AssemblyInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
-import SearchBox from './SearchBox.js';
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -31,6 +31,10 @@ class AssemblyInteractionPage extends React.Component {
 handleSearch = (e) => {
   this.setState({search:e.target.value})
 }
+
+cancelSearch = () => {
+  this.setState({ search: "" });
+};
 
   componentDidMount() {
    
@@ -126,6 +130,16 @@ handleSearch = (e) => {
               filterType = {"User ID: "} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
+            
+            <SearchBox
+            id="parts-search"
+            search={this.state.search}
+            handleSearch={this.handleSearch}
+            cancelSearch={this.cancelSearch}
+            placeholder="Search by name/serial No"
+            icon
+          />
+
             </section>
          <AssemblyInteractions userName={this.state.userName} search={this.state.search} />
       </div>
