@@ -1,7 +1,19 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 export class ADDEditStored extends React.Component {
   render() {
+    let error = ""
+    if (this.props.error !== "") {
+      error = (<p className="form-error">
+      <FontAwesomeIcon
+        className="form-error-icon error-icon"
+        icon={faExclamationTriangle}
+      />
+    {this.props.error}</p>)
+    }
+
     return (
       <div className="modal-sizing">
         <div className="modal-contents">
@@ -17,7 +29,7 @@ export class ADDEditStored extends React.Component {
           <div className="modal-button">
           <button onClick={this.props.handleUpdateQuantityClick}>Update Quantity</button>
           <button className="red" onClick={this.props.handleClose}>Cancel</button>
-          <p>{this.props.error}</p>
+          {error}
           </div>
         </form>
       </div>
@@ -29,6 +41,16 @@ export class ADDEditStored extends React.Component {
 
 export class REMOVEEditStored extends React.Component {
     render() {
+      let error = ""
+    if (this.props.error !== "") {
+      error = (<p className="form-error">
+      <FontAwesomeIcon
+        className="form-error-icon error-icon"
+        icon={faExclamationTriangle}
+      />
+    {this.props.error}</p>)
+    }
+
       return (
         <div className="modal-sizing">
           <div className="modal-contents">
@@ -46,7 +68,7 @@ export class REMOVEEditStored extends React.Component {
           <br/><br/><button className="remove-all" onClick={this.props.handleRemoveAllClick}>Remove All</button>
           <button className="red" onClick={this.props.handleClose}>Cancel</button>
           </div>
-          <p>{this.props.error}</p>
+          {error}
         </form>
         </div>
       </div>

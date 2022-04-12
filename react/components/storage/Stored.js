@@ -281,7 +281,7 @@ class Stored extends React.Component {
       );
     }
 
-    if (this.state.addNew !== "") {
+    if (this.state.addNew !== "" & this.state.edit === "") {
       addNew = (
         <Modal isOpen={this.state.moadlIsOpen} style={this.state.customStyles}>
           <AddPartToLocation

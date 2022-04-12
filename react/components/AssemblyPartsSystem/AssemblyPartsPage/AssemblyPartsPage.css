@@ -21,6 +21,10 @@
     flex-direction: column;
   }
 
+  .parts-page {
+    width: 50%;
+  }
+
   .item-control-wrapper {
     flex-direction: column;
     align-items: center;
@@ -31,3 +35,8 @@
     margin-bottom: 0.5rem;
   }
 }
+
+
+
+
+

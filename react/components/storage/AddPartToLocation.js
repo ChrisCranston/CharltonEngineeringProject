@@ -2,6 +2,8 @@ import React from "react";
 import SearchBox from "./SearchBox";
 import QrReader from "modern-react-qr-reader";
 import Modal from "react-modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * SignUp
@@ -140,6 +142,16 @@ class AddPartToLocation extends React.Component {
     let clearQR = "";
     let searchandscan = "";
 
+    let error = ""
+    if (this.props.error !== "") {
+      error = (<p className="form-error">
+      <FontAwesomeIcon
+        className="form-error-icon error-icon"
+        icon={faExclamationTriangle}
+      />
+    {this.props.error}</p>)
+    }
+
     if (this.state.QRresult !== "") {
       clearQR = <button onClick={this.clearQRSearch}>Clear QR Search</button>;
     }
@@ -233,7 +245,7 @@ class AddPartToLocation extends React.Component {
           </button>
           <button className="red" onClick={this.props.handleClose}>Cancel</button>
           </div>
-          <p>{this.props.error}</p>
+          {error}
         </form>
         </div>
       </div>
