@@ -18,6 +18,15 @@ import {
 } from "../../assemblyPartHelpers";
 import { ASSEMBLY_PARTS_URL } from "../../assemblyPartConstants";
 
+/**
+ * ChangeQuantityForm class component
+ *
+ * Form to edit the quantity of an assembly part.
+ * Dynamically renders the form to either add or
+ * remove stock quantity.
+ *
+ * @author Matthew William Dawson W18002221
+ */
 class ChangeQuantityForm extends React.Component {
   constructor(props) {
     super(props);
@@ -123,79 +132,83 @@ class ChangeQuantityForm extends React.Component {
     const { closePortal, editType } = this.props;
 
     return (
-      <div>
-        {isSubmitting ? (
-          <Loading />
-        ) : (
-          <>
-            <h1 className="centred-item">{formattedEditType} Stock</h1>
-            {quantityError && (
-              <p className="form-error">
-                <span>
-                  <FontAwesomeIcon
-                    className="form-error-icon error-icon"
-                    icon={faExclamationTriangle}
-                  />
-                </span>
-                <span>{quantityError}</span>
-              </p>
-            )}
-            <div className="form">
-              {Object.keys(data).map(
-                (key) =>
-                  !data[key].hidden && (
-                    <div key={key}>
-                      {data[key].inputError && (
-                        <p className="form-error">
-                          <span>
-                            <FontAwesomeIcon
-                              className="form-error-icon error-icon"
-                              icon={faExclamationTriangle}
-                            />
-                          </span>
-                          <span>Input Error: {data[key].inputError}</span>
-                        </p>
-                      )}
-                      <Input
-                        label={
-                          <span>
-                            {formatString(key)}
-                            {data[key].mandatory && (
-                              <span className="form-asterisk"> *</span>
-                            )}
-                          </span>
-                        }
-                        type={data[key].type}
-                        id={key}
-                        value={data[key].value ?? ""}
-                        onChange={(e) => {
-                          const newData = handleTextEntry(
-                            data,
-                            e.target.value,
-                            key
-                          );
-                          this.mounted && this.setState({ data: newData });
-                        }}
-                        cancelInput={() => {
-                          const newData = cancelText(data, key);
-                          this.mounted && this.setState({ data: newData });
-                        }}
-                        onEnter={this.handleSubmit}
-                        wrapperClassName="field-input"
-                        labelClassName="field-label"
+      <div className="modal-sizing">
+        <div className="modal-contents">
+          {isSubmitting ? (
+            <Loading />
+          ) : (
+            <>
+              <h2 className="modal-spacer">{formattedEditType} Stock</h2>
+              <div className="modal-form">
+                {quantityError && (
+                  <p className="form-error">
+                    <span>
+                      <FontAwesomeIcon
+                        className="form-error-icon"
+                        icon={faExclamationTriangle}
                       />
-                    </div>
-                  )
-              )}
-            </div>
-            <ModalFooter
-              disabled={isSubmitting}
-              submitText={`${formattedEditType} Stock`}
-              onClose={() => closePortal(editType)}
-              onSubmit={this.handleSubmit}
-            />
-          </>
-        )}
+                    </span>
+                    <span>{quantityError}</span>
+                  </p>
+                )}
+                <div className="form">
+                  {Object.keys(data).map(
+                    (key) =>
+                      !data[key].hidden && (
+                        <div key={key}>
+                          {data[key].inputError && (
+                            <p className="form-error">
+                              <span>
+                                <FontAwesomeIcon
+                                  className="form-error-icon"
+                                  icon={faExclamationTriangle}
+                                />
+                              </span>
+                              <span>Input Error: {data[key].inputError}</span>
+                            </p>
+                          )}
+                          <Input
+                            label={
+                              <span>
+                                {formatString(key)}
+                                {data[key].mandatory && (
+                                  <span className="form-asterisk"> *</span>
+                                )}
+                              </span>
+                            }
+                            type={data[key].type}
+                            id={key}
+                            value={data[key].value ?? ""}
+                            onChange={(e) => {
+                              const newData = handleTextEntry(
+                                data,
+                                e.target.value,
+                                key
+                              );
+                              this.mounted && this.setState({ data: newData });
+                            }}
+                            cancelInput={() => {
+                              const newData = cancelText(data, key);
+                              this.mounted && this.setState({ data: newData });
+                            }}
+                            onEnter={this.handleSubmit}
+                            wrapperClassName="field-input"
+                            labelClassName="field-label"
+                          />
+                        </div>
+                      )
+                  )}
+                </div>
+                <ModalFooter
+                  disabled={isSubmitting}
+                  submitText={`${formattedEditType} Stock`}
+                  onClose={() => closePortal(editType)}
+                  onSubmit={this.handleSubmit}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     );
   }

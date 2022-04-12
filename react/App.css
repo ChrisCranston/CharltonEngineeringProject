@@ -1,16 +1,18 @@
 body {
   font-family: "Segoe UI", "Tahoma";
 }
-
+.logo {
+  padding: 20px;
+}
 .top {
   justify-content: center;
   align-items: center;
   margin: auto;
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: white;
   width: 100%;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
 .top_auth {
   justify-content: center;
@@ -18,52 +20,198 @@ body {
   margin: auto;
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: rgb(255, 255, 255);
   width: 100%;
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
+
 nav {
   width: 100%;
-  padding: 15px;
+  padding: 0px;
 }
 
-nav ul {
+.nav {
   height: 2em;
+  display: flex;
+  flex-direction: row;
   margin-top: 25px;
   justify-content: center;
   width: auto;
   margin: 0 auto;
-  padding: 0;
+  padding: 10px;
   list-style: none;
-  background-color: grey;
+  color: black;
+  text-decoration: none !important;
+  background-color: white;
   text-align: center;
-  display: flex;
+  float: right;
   align-items: stretch;
-  flex-direction: row;
+}
+.nav li {
+  text-decoration: none;
+  color: black;
+  padding: 0%;
+  width: auto;
+  position: relative;
+}
+.styledNavLink {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 20px 10px 20px;
+  font-size: 1rem;
+  display: block;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+p {
+  display: block;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
-nav ul .active {
-  background-color: red;
+.styledNavLink:hover {
+  text-decoration: none;
+  border-bottom: 5px solid #1e9bd3;
+}
+
+.styledNavLink.active {
+  text-decoration: none;
+  border-bottom: 5px solid #1e9bd3;
+  background-color: white;
+}
+
+nav li .navdrop {
+  display: none;
+  position: absolute;
+  margin: 0;
+  width: auto;
+  padding: 20%;
+  background-color: white;
+  color: black;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.navdrop .styledNavLink:hover {
+  border-bottom: 5px solid #13658b;
+}
+nav:hover .navdrop {
+  display: block;
+}
+.navdrop .styledNavLink.active {
+  text-decoration: none;
+  background-color: #1e9bd3;
+}
+
+.remove-all {
+  background-color: darkred;
 }
 
 .main_content {
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
-
-footer {
-  background-color: #282c2d;
+.main {
+  width: 100%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
+}
+
+.modal-sizing {
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-around;
+}
+
+.modal-contents {
+  width: 300px;
+}
+
+.modal-sizing-wide {
+  width: 600px;
+}
+
+.modal-contents-wide {
+  width: 500px;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal-sizing-wide {
+    width: 400px;
+  }
+
+  .modal-contents-wide {
+    width: 300px;
+  }
+}
+
+.modal-sizing-qr {
+  width: 500px;
+  height: 500px;
+  display: block;
+}
+
+.modal-spacer {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 5px solid #3498db;
+}
+.modal-scanner {
+  display: grid;
+}
+
+.modal-button {
+  padding-top: 15px;
+}
+.modal-button button {
+  width: 100%;
+}
+
+.modal-form {
+  display: grid;
+}
+.green {
+  background-color: green;
+}
+.red {
+  background-color: darkred;
+}
+
+footer {
+  background-color: #1984b3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   color: white;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  padding: 4%;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
+}
+.addressbox {
+  text-align: justify;
+  margin: 3%;
+  width: 35%;
+}
+.usefullinks {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  margin: 3%;
 }
 .page_item {
   display: flex;
@@ -77,44 +225,166 @@ footer {
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 
-.nav li {
-  text-decoration: none;
-  color: white;
-  padding: 0%;
-  flex: 1;
-}
-
 .item {
   border: 1px solid red;
 }
 
 button {
   cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  background-color: #1984b3;
+  margin: 3px;
 }
-
 .buttons {
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
 .storage-page {
   margin: 1rem;
-  width:90%;
-  display:flex;
+  width: 90%;
+  display: flex;
   flex-direction: column;
 }
 .storage-page-block {
   margin: auto;
-  width:auto;
-  padding-top:1%;
+  width: auto;
+  padding-top: 1%;
   padding-bottom: 1%;
   justify-content: center;
 }
 
 .btn-group-row {
   margin: auto;
-  width:auto;
-  padding-top:1%;
+  width: auto;
+  padding-top: 1%;
   padding-bottom: 1%;
   justify-content: center;
+}
+
+/***********************phone css*******************/
+@media only screen and (max-width: 600px) {
+  .top {
+    margin-top: 20%;
+  }
+
+  nav {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+  }
+  .nav {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    height: auto;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+  }
+  .addressbox {
+    width: 80%;
+  }
+  .usefullinks {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+
+  .modal-sizing {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
+  }
+
+  .modal-sizing-qr {
+    display: block;
+  }
+
+  /* Force table to not be like tables anymore */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+    margin-bottom: 6px;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+
+    min-height: 12pt;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 60%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  .parts-page {
+    width: 100%;
+  }
+
+  .parts-table td,
+  .parts-table th {
+    border: 1px solid #ddd;
+    padding-left: 40%;
+  }
+
+  .storage-location-tr td:nth-of-type(1):before {
+    content: "Warehouse No:";
+  }
+  .storage-location-tr td:nth-of-type(2):before {
+    content: "Location Name:";
+  }
+  .storage-location-tr td:nth-of-type(3):before {
+    content: "Storage Type:";
+  }
+  .storage-location-tr td:nth-of-type(4):before {
+    content: "Stored";
+  }
+  .storage-location-tr td:nth-of-type(5):before {
+    content: "Controls";
+  }
+
+  .storage-parts-tr td:nth-of-type(1):before {
+    content: "Serial No:";
+  }
+  .storage-parts-tr td:nth-of-type(2):before {
+    content: "Part Name:";
+  }
+  .storage-parts-tr td:nth-of-type(3):before {
+    content: "Description:";
+  }
+  .storage-parts-tr td:nth-of-type(4):before {
+    content: "Controls";
+  }
 }
