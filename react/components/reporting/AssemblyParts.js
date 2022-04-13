@@ -93,8 +93,9 @@ class AssemblyParts extends React.Component {
                  <th>Order Link</th>
                 </tr>
                 </thead>
+                <tbody>
                     {filteredResults.map((assemblyPart, i) => (<AssemblyPart className="AssemblyPart" key={i} assemblyPart={assemblyPart} />))}
-                    </table>
+                    </tbody></table>
         </div> 
 
         );

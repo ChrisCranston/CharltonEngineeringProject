@@ -109,9 +109,11 @@ class StorageLocations extends React.Component {
                  <th>Description</th>
                 </tr>
                 </thead>
+                <tbody>
 
                     {filteredResults.map((storageLocation, i) => (<StorageLocation className="StorageLocation" key={i} storageLocation={storageLocation} />))}
-                    </table>
+                    </tbody>
+                     </table>
         </div> 
 
         );

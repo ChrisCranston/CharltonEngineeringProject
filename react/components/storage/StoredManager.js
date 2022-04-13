@@ -146,7 +146,7 @@ class StoredManager extends React.Component {
           <table className="assembly-parts-table">
             <thead style={{ marginBottom: "1rem" }}>
               <tr>
-                <th>Warehouse #:</th>
+                <th>Warehouse Number:</th>
                 <th>Location Name:</th>
                 <th>Type: </th>
                 <th>Stored: </th>
@@ -176,7 +176,7 @@ class StoredManager extends React.Component {
           <table className="assembly-parts-table">
             <thead style={{ marginBottom: "1rem" }}>
               <tr>
-                <th>Serial #:</th>
+                <th>Serial Number:</th>
                 <th>Name:</th>
                 <th>Description: </th>
                 <th className="refresh"><button onClick={() => this.fetchData()}>

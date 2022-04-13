@@ -1,19 +1,8 @@
 
-  
-  tr:nth-child(even) {
-    background-color: #eee;
-  }
-
-  tr:hover {
-    background-color: #bbb;
-  }
   .report-main{
     padding: 10px;
 
   }
-
-  
- 
   .report-header{
     display: grid;
     grid-template-columns: 40% 60%;

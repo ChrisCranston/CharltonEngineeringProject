@@ -103,9 +103,10 @@ class AssemblyInteractions extends React.Component {
                  <th>Email Address</th>
                 </tr>
                 </thead>
+                <tbody>
 
                     {filteredResults.map((assemblyInteraction, i) => (<AssemblyInteraction className="assemblyInteraction" key={i} assemblyInteraction={assemblyInteraction} />))}
-                    </table>
+                    </tbody></table>
         </div> 
 
         );

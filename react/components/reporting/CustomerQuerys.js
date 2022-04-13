@@ -104,8 +104,10 @@ class CustomerQuerys extends React.Component {
                  <th>Date/Time recived</th>
                 </tr>
                 </thead>
+                <tbody>
 
                     {filteredResults.map((query, i) => (<Query className="Query" key={i} query={query} />))}
+                    </tbody>
                     </table>
         </div> 
 
