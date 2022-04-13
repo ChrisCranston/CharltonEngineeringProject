@@ -133,7 +133,7 @@ class StoragePartPage extends React.Component {
         formData.append("edit", "addPart");
         formData.append("serialNumber", this.state.serialNumber);
         formData.append("name", this.state.name);
-        formData.append("description", this.state.description);
+        formData.append("description", this.state.description === "" ? "N/A" : this.state.description );
         fetch(url, {
           method: "POST",
           headers: new Headers(),
@@ -148,7 +148,7 @@ class StoragePartPage extends React.Component {
                 description: "",
                 addNewError: "",
               });
-              return response.json();
+              
             } else {
               this.setState({
                 addNewError: "Serial Number is not unique please try again",

@@ -16,15 +16,18 @@ class LocationButtons extends React.Component {
           <button onClick={this.props.handleLocationAddNewClick}>
             Add Item
           </button>
+          <div className="part-buttons part-vertical-buttons" >
           <ReactToPrint
             trigger={() => <button>Print Location QR</button>}
             content={() => this.componentRef}
           />
+          
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
               content={this.props.qr_code}
             />
+          </div>
           </div>
         </div>
       );
@@ -45,7 +48,7 @@ class LocationButtons extends React.Component {
             />
           </button>
         </div>
-        <div >
+        <div className="part-buttons part-vertical-buttons" >
           <ReactToPrint
             trigger={() => <button>Print Location QR</button>}
             content={() => this.componentRef}

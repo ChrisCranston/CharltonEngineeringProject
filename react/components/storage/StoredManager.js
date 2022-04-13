@@ -143,14 +143,14 @@ class StoredManager extends React.Component {
     if (this.props.item_type === "location") {
       display = (        
         <div>
-          <table className="parts-table">
+          <table className="assembly-parts-table">
             <thead style={{ marginBottom: "1rem" }}>
               <tr>
                 <th>Warehouse #:</th>
                 <th>Location Name:</th>
                 <th>Type: </th>
                 <th>Stored: </th>
-                <th><button onClick={() => this.fetchData()}>
+                <th className="refresh"><button onClick={() => this.fetchData()}>
                           Refresh <FontAwesomeIcon icon={faRotateRight} />
                         </button></th>
               </tr>
@@ -173,13 +173,13 @@ class StoredManager extends React.Component {
     } else if (this.props.item_type === "part") {
       display = (
         <div>
-          <table className="parts-table">
+          <table className="assembly-parts-table">
             <thead style={{ marginBottom: "1rem" }}>
               <tr>
                 <th>Serial #:</th>
                 <th>Name:</th>
                 <th>Description: </th>
-                <th><button onClick={() => this.fetchData()}>
+                <th className="refresh"><button onClick={() => this.fetchData()}>
                           Refresh <FontAwesomeIcon icon={faRotateRight} />
                         </button></th>
               </tr>

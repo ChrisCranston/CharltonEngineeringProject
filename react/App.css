@@ -86,6 +86,10 @@ p {
 
 }
 
+.parts-table tr:hover {
+  background-color: #ddd;
+}
+
 nav li .navdrop {
   display: none;
   position: absolute;
@@ -144,6 +148,10 @@ nav:hover .navdrop{
 
 .modal-contents {
   width: 300px;
+}
+
+.modal-contents-add {
+  width:100%;
 }
 
 .modal-sizing-qr {
@@ -215,6 +223,9 @@ footer {
 }
 
 
+.refresh {
+  text-align:center
+}
 
 .item {
   border: 1px solid red;
@@ -254,7 +265,32 @@ button {
   justify-content: center;
 }
 
-/***********************phone css*******************/
+@media only screen and (max-width: 780px) {
+  .parts-page {
+    width: 100%;
+  }
+  
+  
+  .parts-table td,
+    .parts-table th {
+      border: 1px solid #ddd;
+      padding-left: 40%
+    }
+  
+    .storage-location-tr td:nth-of-type(1):before { content: "Warehouse No:"; }
+    .storage-location-tr td:nth-of-type(2):before { content: "Location Name:"; }
+    .storage-location-tr td:nth-of-type(3):before { content: "Storage Type:"; }
+    .storage-location-tr td:nth-of-type(4):before { content: "Stored"; }
+    .storage-location-tr td:nth-of-type(5):before { content: "Controls"; }
+  
+    .storage-parts-tr td:nth-of-type(1):before { content: "Serial No:"; }
+    .storage-parts-tr td:nth-of-type(2):before { content: "Part Name:"; }
+    .storage-parts-tr td:nth-of-type(3):before { content: "Description:"; }
+    .storage-parts-tr td:nth-of-type(4):before { content: "Controls"; }
+  
+  }
+  
+  /***********************phone css*******************/
 @media only screen and (max-width: 600px) {
   .top {
     margin-top:20%;
@@ -342,6 +378,7 @@ td:before {
 .parts-page {
   width: 100%;
 }
+
 
 .parts-table td,
   .parts-table th {

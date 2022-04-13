@@ -36,7 +36,7 @@ class AddLocation extends React.Component {
           <p>Type:</p>
           <input
             type="text"
-            placeholder="pallet / shelf / bin"
+            placeholder="e.g. pallet / shelf / bin"
             value={this.props.description}
             onChange={this.props.handleType}
           />

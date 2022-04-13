@@ -144,6 +144,7 @@ class StorageLocationPage extends React.Component {
 
   existingcheck = () => {
     if (this.state.warehousenumber !== "") {
+      if (this.state.warehousenumber < 4) {
       if (this.state.locationName !== "") {
         if (this.state.type !== "") {
           let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
@@ -178,6 +179,11 @@ class StorageLocationPage extends React.Component {
           addNewError: "No location Name provided please try again",
         });
       }
+    } else {
+      this.setState({
+        addNewError: "Warehouse must be between 1-4",
+      });
+    }
     } else {
       this.setState({
         addNewError: "No warehouse number provided please try again",

@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBox from "./SearchBox";
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox"
 import QrReader from "modern-react-qr-reader";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -70,6 +70,9 @@ class AddPartToLocation extends React.Component {
 
   clearQRSearch = () => {
     this.setState({ QRresult: "" });
+  };
+  cancelSearch = () => {
+    this.setState({ search: "" });
   };
 
   handleScannerClick = (e) => {
@@ -185,10 +188,12 @@ class AddPartToLocation extends React.Component {
             </button>
           </div>
           <SearchBox
-            name={"Search: "}
+            id="stored-parts-search"
             search={this.state.search}
+            cancelSearch={this.cancelSearch}
             placeholder={"by serial number"}
             handleSearch={this.handleSearch}
+            icon
           />
         </div>
       );
@@ -228,7 +233,7 @@ class AddPartToLocation extends React.Component {
     );
     return (
       <div className="modal-sizing">
-        <div className="modal-contents">
+        <div className="modal-contents-add">
         <h2 className="modal-spacer">Add Part to location:</h2>
         <form className="modal-form">
           {qrScanner}
@@ -240,7 +245,7 @@ class AddPartToLocation extends React.Component {
             onChange={this.props.handleAddPartQuantity}
           />
           <div className="modal-button">
-          <button onClick={this.props.handleAddPartToLocationSubmit}>
+          <button type="submit" onClick={this.props.handleAddPartToLocationSubmit}>
             Add Part to location!
           </button>
           <button className="red" onClick={this.props.handleClose}>Cancel</button>
