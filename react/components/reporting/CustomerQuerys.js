@@ -29,7 +29,6 @@ class CustomerQuerys extends React.Component {
     componentDidMount() {
         let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerreport"
 
-
         fetch(url)
             .then((response) => {
                 if (response.status === 200) {
