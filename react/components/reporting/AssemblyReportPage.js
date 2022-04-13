@@ -35,7 +35,7 @@ getAppliedFiltersText = () => {
     tempString += "SEARCH STRING: " + this.state.search + " ";
   }
   
-  if ((this.state.custType == "")){
+  if ((this.state.custType === "")){
     tempString += "NONE"
   }
   return tempString; 
