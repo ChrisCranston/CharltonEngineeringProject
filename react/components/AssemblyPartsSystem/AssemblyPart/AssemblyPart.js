@@ -6,8 +6,18 @@ import {
   faCirclePlus,
   faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
+import { editTypes } from "../assemblyPartConstants";
 import "./AssemblyPart.css";
 
+/**
+ * AssemblyPart class component
+ *
+ * Dynamically renders a row in the Assembly Parts table.
+ * Triggers callback functions to open the edit, quantity
+ * and delete modals.
+ *
+ * @author Matthew William Dawson W18002221
+ */
 class AssemblyPart extends React.Component {
   render() {
     const { assemblyPart, openPartModal } = this.props;
@@ -23,37 +33,39 @@ class AssemblyPart extends React.Component {
         : "";
 
     return (
-      <tr>
+      <tr className="assembly-part-tr">
         <td>{assemblyPart.serial_number}</td>
         <td>{assemblyPart.name}</td>
         <td className={className}>{assemblyPart.quantity}</td>
         <td>{assemblyPart.notes ? assemblyPart.notes : "N/A"}</td>
         <td>{assemblyPart.low_warning}</td>
         <td>
-          {orderURL ? (
-            <div className="centred-item">
-              <a
-                className="order-button"
-                href={orderURL}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faUpRightFromSquare} />
-              </a>
-            </div>
-          ) : (
-            "N/A"
-          )}
+          <div className="order-button-div">
+            {orderURL ? (
+              <div>
+                <a
+                  className="order-button"
+                  href={orderURL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FontAwesomeIcon icon={faUpRightFromSquare} />
+                </a>
+              </div>
+            ) : (
+              "N/A"
+            )}
+          </div>
         </td>
         <td>
           <div className="part-buttons part-quantity-buttons">
-            <button onClick={() => openPartModal("add", partID)}>
+            <button onClick={() => openPartModal(editTypes.ADD, partID)}>
               <FontAwesomeIcon
                 className="quantity-icon add-quantity-icon"
                 icon={faCirclePlus}
               />
             </button>
-            <button onClick={() => openPartModal("remove", partID)}>
+            <button onClick={() => openPartModal(editTypes.REMOVE, partID)}>
               <FontAwesomeIcon
                 className="quantity-icon remove-quantity-icon"
                 icon={faCircleMinus}
@@ -61,10 +73,10 @@ class AssemblyPart extends React.Component {
             </button>
           </div>
           <div className="part-buttons part-vertical-buttons">
-            <button onClick={() => openPartModal("edit", partID)}>
+            <button onClick={() => openPartModal(editTypes.EDIT, partID)}>
               Edit Part Details
             </button>
-            <button onClick={() => openPartModal("delete", partID)}>
+            <button onClick={() => openPartModal(editTypes.DELETE, partID)}>
               Delete Part
             </button>
           </div>

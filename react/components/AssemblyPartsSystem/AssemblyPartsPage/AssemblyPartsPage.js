@@ -3,6 +3,15 @@ import AssemblyParts from "../AssemblyParts/AssemblyParts";
 import SearchBox from "../../ReusableComponents/SearchBox/SearchBox";
 import "./AssemblyPartsPage.css";
 
+/**
+ * AssemblyPartsPage class component
+ *
+ * Wrapper page encompassing the Assembly Parts
+ * subsystem. Renders the sort and filter options
+ * to pass down to the AssemblyParts component.
+ *
+ * @author Matthew William Dawson W18002221
+ */
 class AssemblyPartsPage extends React.Component {
   constructor(props) {
     super(props);

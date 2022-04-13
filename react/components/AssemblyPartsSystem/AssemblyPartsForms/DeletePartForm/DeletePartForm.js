@@ -16,6 +16,14 @@ import {
 import { ASSEMBLY_PARTS_URL, editTypes } from "../../assemblyPartConstants";
 import "./DeletePartForm.css";
 
+/**
+ * DeletePartForm class component
+ *
+ * Prompt to delete an assembly part from the system.
+ * Offers the user the chance to cancel before submitting.
+ *
+ * @author Matthew William Dawson W18002221
+ */
 class DeletePartForm extends React.Component {
   constructor(props) {
     super(props);
@@ -104,49 +112,51 @@ class DeletePartForm extends React.Component {
       this.props;
 
     return (
-      <div>
-        {isSubmitting ? (
-          <Loading />
-        ) : (
-          <>
-            <h1 className="centred-item">Delete Part</h1>
-            {deleteError && (
-              <p className="form-error">
-                <span>
-                  <FontAwesomeIcon
-                    className="form-error-icon error-icon"
-                    icon={faExclamationTriangle}
-                  />
-                </span>
-                <span>{deleteError}</span>
-              </p>
-            )}
-            <div className="delete-text">
-              <p>You are about to delete the following part:</p>
-              <table className="delete-table">
-                <tbody>
-                  <tr>
-                    <th>Part Name:</th>
-                    <td> {selectedPartName}</td>
-                  </tr>
-                  <tr>
-                    <th>Serial Number:</th>
-                    <td>{selectedPartSerialNumber}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                Are you sure you wish to proceed? This action cannot be undone.
-              </p>
-            </div>
-            <ModalFooter
-              disabled={isSubmitting}
-              submitText="Delete Part"
-              onClose={() => closePortal(editTypes.DELETE)}
-              onSubmit={this.handleSubmit}
-            />
-          </>
-        )}
+      <div className="modal-sizing">
+        <div className="modal-contents">
+          {isSubmitting ? (
+            <Loading />
+          ) : (
+            <>
+              <h2 className="modal-spacer">Delete Part</h2>
+              <div className="modal-form">
+                {deleteError && (
+                  <p className="form-error">
+                    <span>
+                      <FontAwesomeIcon
+                        className="form-error-icon"
+                        icon={faExclamationTriangle}
+                      />
+                    </span>
+                    <span>{deleteError}</span>
+                  </p>
+                )}
+                <div className="delete-text">
+                  <p>You are about to delete the following part:</p>
+                  <table className="delete-table">
+                    <tbody>
+                      <tr>
+                        <td> {selectedPartName}</td>
+                        <td>{selectedPartSerialNumber}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div className="modal-spacer" />
+                  <p>
+                    Are you sure you wish to proceed? This action cannot be
+                    undone.
+                  </p>
+                </div>
+                <ModalFooter
+                  disabled={isSubmitting}
+                  submitText="Delete Part"
+                  onClose={() => closePortal(editTypes.DELETE)}
+                  onSubmit={this.handleSubmit}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     );
   }
