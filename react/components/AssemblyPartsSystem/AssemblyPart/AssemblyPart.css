@@ -69,13 +69,13 @@
     content: "Quantity:";
   }
   .assembly-part-tr td:nth-of-type(4):before {
-    content: "Notes";
+    content: "Notes:";
   }
   .assembly-part-tr td:nth-of-type(5):before {
-    content: "Low Warning";
+    content: "Low Warning:";
   }
   .assembly-part-tr td:nth-of-type(6):before {
-    content: "Order URL";
+    content: "Order URL:";
   }
   .assembly-part-tr td:nth-of-type(7):before {
     content: "Actions:";

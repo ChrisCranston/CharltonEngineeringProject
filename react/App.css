@@ -73,6 +73,12 @@ p {
     margin-right: 3px;
 }
 
+table {
+  width: 100%;
+}
+
+
+
 .styledNavLink:hover {
   text-decoration: none;
   border-bottom: 5px solid #1E9BD3;
@@ -87,7 +93,7 @@ p {
 }
 
 .parts-table tr:hover {
-  background-color: #ddd;
+  background-color: #bbb;
 }
 
 nav li .navdrop {
@@ -225,9 +231,8 @@ footer {
 th {
   background-color: grey;
     color: #fff;
-    padding-bottom: 12px;
-    padding-top: 12px;
     text-align: center;
+    padding: 12px;
 }
 
 
@@ -292,12 +297,15 @@ button {
     padding: 10px 0px 10px 0px;
     text-align: center;
   }
+
+
   
   
   .parts-table td,
     .parts-table th {
       border: 1px solid #ddd;
-      padding-left: 40%
+      padding-left: 40%;
+      margin-bottom: 3px;
     }
   
     .storage-location-tr td:nth-of-type(1):before { content: "Warehouse No:"; }
@@ -434,7 +442,7 @@ td:before {
   /* Now like a table header */
   position: absolute;
   /* Top/left values mimic padding */
-  top: 6px;
+  top: 0px;
   left: 6px;
   width: 60%; 
   padding-right: 10px; 

@@ -1,19 +1,4 @@
-table {
-    font-family: arial, sans-serif;
-    font-size: 10pt;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-   
-    border: 1px solid #ddd;
-    padding: 8px;
-    word-wrap: break-word;
-    /* border: 1px solid #8fcae4;
-    text-align: left;
-    padding: 6px; */
-  }
+
   
   tr:nth-child(even) {
     background-color: #eee;
@@ -64,13 +49,7 @@ table {
     padding: 0 10px;
   }
 
-  p {
-    display: block;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 3px;
-    margin-right: 3px;
-  }
+
 
   .filter-banner{
     display: flex;
