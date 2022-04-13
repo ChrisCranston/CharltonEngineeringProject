@@ -31,8 +31,7 @@ class StorageInteraction extends React.Component {
 
         return(
          
-              <tr>
-                <td>{this.props.storageInteraction.interaction_id}</td>
+              <tr class = "storage-int-tr">
                 <td>{this.props.storageInteraction.amount}</td>
                 <td>{this.props.storageInteraction.description}</td>
                 <td>{this.props.storageInteraction.warehouse_number}</td> 

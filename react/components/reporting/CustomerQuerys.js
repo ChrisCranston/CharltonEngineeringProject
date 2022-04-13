@@ -29,7 +29,6 @@ class CustomerQuerys extends React.Component {
     componentDidMount() {
         let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerreport"
 
-
         fetch(url)
             .then((response) => {
                 if (response.status === 200) {
@@ -92,8 +91,9 @@ class CustomerQuerys extends React.Component {
 
 
         return(
-            <div>
+            <div className="reporting_table_wrapper">
                 <table>
+                <thead>
                 <tr>
                  <th>Name</th>
                  <th>Email</th>
@@ -103,6 +103,7 @@ class CustomerQuerys extends React.Component {
                  <th>Query Type</th>
                  <th>Date/Time recived</th>
                 </tr>
+                </thead>
 
                     {filteredResults.map((query, i) => (<Query className="Query" key={i} query={query} />))}
                     </table>

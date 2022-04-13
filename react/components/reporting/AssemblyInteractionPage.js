@@ -2,7 +2,7 @@ import React from "react";
 import AssemblyInteractions from './AssemblyInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
-import SearchBox from './SearchBox.js';
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -31,6 +31,10 @@ class AssemblyInteractionPage extends React.Component {
 handleSearch = (e) => {
   this.setState({search:e.target.value})
 }
+
+cancelSearch = () => {
+  this.setState({ search: "" });
+};
 
   componentDidMount() {
    
@@ -94,14 +98,25 @@ handleSearch = (e) => {
     let reportDate = this.getCurrentDateText();
 
     return (
-      <div className="main-content">
+      <div className="main_content">
+        <section>
+          <h2>Assembly Interaction Report</h2>
           <div>
-            <div class = "filter-banner">
-
+            <p>
+              Filter by user ID or search by serial No and name.
+            </p>
+            <p>
+              Click Genarate Report to save or print the report.
+            </p>
+          </div>
+        </section>
+            <section class = "filter-banner">
+            <div className="filter-element">
             <ReactToPrint
                 trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
             />
+            </div>
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -112,14 +127,21 @@ handleSearch = (e) => {
             />
             </div>
               <Filter options = {userNamesList} 
-              filterType = {"User ID"} 
+              filterType = {"User ID: "} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
+            
+            <SearchBox
+            id="parts-search"
+            search={this.state.search}
+            handleSearch={this.handleSearch}
+            cancelSearch={this.cancelSearch}
+            placeholder="Search by name/serial No"
+            icon
+          />
 
-              <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
-            </div>
+            </section>
          <AssemblyInteractions userName={this.state.userName} search={this.state.search} />
-          </div>
       </div>
     );
   }

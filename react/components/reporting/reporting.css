@@ -1,19 +1,27 @@
 table {
     font-family: arial, sans-serif;
+    font-size: 10pt;
     border-collapse: collapse;
     width: 100%;
   }
   
   td, th {
-    border: 1px solid #dddddd;
+   
+    border: 1px solid #ddd;
+    padding: 8px;
+    word-wrap: break-word;
+    /* border: 1px solid #8fcae4;
     text-align: left;
-    padding: 6px;
+    padding: 6px; */
   }
   
   tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #eee;
   }
 
+  tr:hover {
+    background-color: #bbb;
+  }
   .report-main{
     padding: 10px;
 
@@ -34,7 +42,7 @@ table {
 
   }
   .report-name{
-    font-size: 50px;
+    font-size: 40px;
     text-align: right;
     
     padding: 0 10px;
@@ -49,6 +57,7 @@ table {
     
   }
   
+
   .report-date{
     font-size: 20px;
     text-align: right;
@@ -63,4 +72,127 @@ table {
     margin-right: 3px;
   }
 
+  .filter-banner{
+    display: flex;
+    width: 1150px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .filter-element{
+    padding: 10px;
+   
+
+ }
+
+  .report-button{
+    padding: 0px auto 0px auto;
+    text-align: center;
+
+  }
+
+  .filter-one{
+    padding: 0px auto 0px auto;
+    text-align: center;
+  }
+
+  .reporting_table_wrapper{
+width: 100%;
+  }
+
+  @media 
+only screen and (max-width: 920px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  .filter-banner{
+    display: flex;
+    flex-direction: column;
+    width: 1150px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+  }
+
+/* Force table to not be like tables anymore */
+table, thead, tbody, th, td, tr { 
+  display: block; 
+}
+
+thead tr { 
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+tr { 
+  border: 1px solid rgb(0, 0, 0);
+  margin-bottom: 6px;
   
+}
+
+td { 
+  /* Behave  like a "row" */
+  border: none;
+  border-bottom: 1px solid rgb(161, 161, 161);
+  position: relative;
+  padding-left: 50%; 
+  min-height: 12pt;
+  
+}
+
+td:before { 
+  /* Now like a table header */
+  position: absolute;
+  /* Top/left values mimic padding */
+  top: 6px;
+  left: 6px;
+  width: 60%; 
+  padding-right: 10px; 
+  white-space: nowrap;
+}
+
+  .storage-int-tr td:nth-of-type(1):before { content: "Amount"; }
+	.storage-int-tr td:nth-of-type(2):before { content: "Description"; }
+	.storage-int-tr td:nth-of-type(3):before { content: "Warehouse No"; }
+	.storage-int-tr td:nth-of-type(4):before { content: "Location"; }
+	.storage-int-tr td:nth-of-type(5):before { content: "Storage Type"; }
+	.storage-int-tr td:nth-of-type(6):before { content: "Name"; }
+	.storage-int-tr td:nth-of-type(7):before { content: "First Name"; }
+  .storage-int-tr td:nth-of-type(8):before { content: "Last Name"; }
+  .storage-int-tr td:nth-of-type(9):before { content: "Int Date/Time"; }
+  .storage-int-tr td:nth-of-type(10):before { content: "Email"; }
+
+  .assembly-tr td:nth-of-type(1):before { content: "Serial No"; }
+  .assembly-tr td:nth-of-type(2):before { content: "Name"; }
+  .assembly-tr td:nth-of-type(3):before { content: "Notes"; }
+  .assembly-tr td:nth-of-type(4):before { content: "Quantity"; }
+  .assembly-tr td:nth-of-type(5):before { content: "Low Warning"; }
+  .assembly-tr td:nth-of-type(6):before { content: "Order Link"; }
+
+  .storage-loc-tr td:nth-of-type(1):before { content: "Quantity"; }
+  .storage-loc-tr td:nth-of-type(2):before { content: "Client Name"; }
+  .storage-loc-tr td:nth-of-type(3):before { content: "Warehouse Number"; }
+  .storage-loc-tr td:nth-of-type(4):before { content: "Location"; }
+  .storage-loc-tr td:nth-of-type(5):before { content: "Storage Type"; }
+  .storage-loc-tr td:nth-of-type(6):before { content: "Part ID"; }
+  .storage-loc-tr td:nth-of-type(7):before { content: "Name"; }
+  .storage-loc-tr td:nth-of-type(8):before { content: "Description"; }
+
+  .query-tr td:nth-of-type(1):before { content: "Name"; }
+  .query-tr td:nth-of-type(2):before { content: "Email"; }
+  .query-tr td:nth-of-type(3):before { content: "Tel"; }
+  .query-tr td:nth-of-type(4):before { content: "Location"; }
+  .query-tr td:nth-of-type(5):before { content: "Customer Type"; }
+  .query-tr td:nth-of-type(6):before { content: "Query"; }
+  .query-tr td:nth-of-type(7):before { content: "Date/Time recived"; }
+
+  .assembly-int-tr td:nth-of-type(1):before { content: "Serial No"; }
+  .assembly-int-tr td:nth-of-type(2):before { content: "Name"; }
+  .assembly-int-tr td:nth-of-type(3):before { content: "Amount"; }
+  .assembly-int-tr td:nth-of-type(4):before { content: "First Name"; }
+  .assembly-int-tr td:nth-of-type(5):before { content: "Last Name"; }
+  .assembly-int-tr td:nth-of-type(6):before { content: "Interaction Date/Time"; }
+  .assembly-int-tr td:nth-of-type(7):before { content: "Email"; }
+}

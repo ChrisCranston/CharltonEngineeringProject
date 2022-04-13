@@ -34,7 +34,6 @@ componentDidMount() {
    
   let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport?warehousenumbers=true"
 
-
   fetch(url)
       .then((response) => {
           if (response.status === 200) {
@@ -124,15 +123,26 @@ getCurrentDateText = () => {
 
 
     return (
-      <div className="main-content">
+      <div className="main_content">
+       <section>
+          <h2>Storage Report</h2>
           <div>
+            <p>
+              Filter by warehouse or client name.
+            </p>
+            <p>
+            Click Genarate Report to save or print the report.
+            </p>
+          </div>
+        </section>
             
-            <div class = "filter-banner">
-
+            <section class = "filter-banner">
+            <div className="filter-element">
             <ReactToPrint
                 trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
             />
+            </div>
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -145,18 +155,21 @@ getCurrentDateText = () => {
             </div>
 
         <Filter options = {wareHouseNumbersList} 
-          filterType = {"Warehouse"} 
+          filterType = {"Warehouse: "} 
           custType={this.state.warehouseNumber} 
           handleSelect={this.handlewarehouseNumberSelect} />
-
+         
+          
         <Filter options = {clientNamesList} 
-          filterType = {"Client Name"} 
+          filterType = {"Client Name: "} 
           custType={this.state.clientName} 
           handleSelect={this.handleClientNameSelect} />
-            </div>
+
+            </section>
          <StorageLocations warehouseNumber={this.state.warehouseNumber}
           clientName={this.state.clientName} />
-          </div>
+          
+         
       </div>
     );
   }

@@ -31,14 +31,13 @@ class AssemblyPart extends React.Component {
 
         return(
          
-              <tr>
-                <td>{this.props.assemblyPart.part_id}</td>
+              <tr class="assembly-tr">
                 <td>{this.props.assemblyPart.serial_number}</td>
                 <td>{this.props.assemblyPart.name}</td>
                 <td>{this.props.assemblyPart.notes}</td> 
                 <td>{this.props.assemblyPart.quantity}</td> 
                 <td>{this.props.assemblyPart.low_warning}</td> 
-                <td>{this.props.assemblyPart.order_url}</td> 
+                <td><a href={this.props.assemblyPart.order_url} target="_blank">{this.props.assemblyPart.order_url}</a></td> 
              </tr>
       
 

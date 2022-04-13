@@ -31,7 +31,6 @@ class StorageLocations extends React.Component {
     componentDidMount() {
         let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport"
 
-
         fetch(url)
             .then((response) => {
                 if (response.status === 200) {
@@ -94,12 +93,12 @@ class StorageLocations extends React.Component {
        
 
         return(
-        <div>
+        <div className="reporting_table_wrapper">
        
            
                 <table>
+                <thead>
                 <tr>
-                 <th>Storage ID</th>
                  <th>Quantity</th>
                  <th>Client Name</th>
                  <th>Warehouse Number</th>
@@ -109,6 +108,7 @@ class StorageLocations extends React.Component {
                  <th>Name</th>
                  <th>Description</th>
                 </tr>
+                </thead>
 
                     {filteredResults.map((storageLocation, i) => (<StorageLocation className="StorageLocation" key={i} storageLocation={storageLocation} />))}
                     </table>

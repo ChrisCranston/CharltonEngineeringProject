@@ -2,7 +2,7 @@ import React from "react";
 import StorageInteractions from './StorageInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
-import SearchBox from './SearchBox.js';
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -31,6 +31,9 @@ class StorageInteractionPage extends React.Component {
 handleSearch = (e) => {
   this.setState({search:e.target.value})
 }
+cancelSearch = () => {
+  this.setState({ search: "" });
+};
 
   componentDidMount() {
    
@@ -98,10 +101,19 @@ handleSearch = (e) => {
     let reportDate = this.getCurrentDateText();
 
     return (
-      <div className="main-content">
+      <div className="main_content">
+         <section>
+          <h2>Storage Interaction Report</h2>
           <div>
-             <div class = "filter-banner">
-
+            <p>
+              Filter by user ID or search by description and name.
+            </p>
+            <p>
+            Click Genarate Report to save or print the report.
+            </p>
+          </div>
+        </section>
+             <section class = "filter-banner">
             <ReactToPrint
                 trigger={() => <button>Genarate Report</button>}
                 content={() => this.componentRef}
@@ -115,17 +127,22 @@ handleSearch = (e) => {
               reportName = {"Storage Interaction Report"}
             />
             </div>
-
-              
               <Filter options = {userNamesList} 
               filterType = {"User ID: "} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
 
-              <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
-            </div>
+          <SearchBox
+            id="parts-search"
+            search={this.state.search}
+            handleSearch={this.handleSearch}
+            cancelSearch={this.cancelSearch}
+            placeholder="Search by name/serial No"
+            icon
+          />
+            </section>
          <StorageInteractions userName={this.state.userName} search={this.state.search} />
-          </div>
+         
       </div>
     );
   }

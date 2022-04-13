@@ -90,10 +90,10 @@ class AssemblyInteractions extends React.Component {
         }
 
         return(
-            <div>
+            <div className="reporting_table_wrapper">
                 <table>
+                <thead>
                 <tr>
-                 <th>Interaction ID</th>
                  <th>Serial No</th>
                  <th>Name</th>
                  <th>Amount</th>
@@ -102,6 +102,7 @@ class AssemblyInteractions extends React.Component {
                  <th>Interaction Date/Time</th>
                  <th>Email Address</th>
                 </tr>
+                </thead>
 
                     {filteredResults.map((assemblyInteraction, i) => (<AssemblyInteraction className="assemblyInteraction" key={i} assemblyInteraction={assemblyInteraction} />))}
                     </table>
