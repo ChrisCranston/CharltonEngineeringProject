@@ -1,16 +1,18 @@
 body {
   font-family: "Segoe UI", "Tahoma";
 }
-
+ .logo {
+   padding: 20px;
+ }
 .top {
   justify-content: center;
   align-items: center;
   margin: auto;
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: white;
   width: 100%;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
 .top_auth {
   justify-content: center;
@@ -18,60 +20,207 @@ body {
   margin: auto;
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: rgb(255, 255, 255);
   width: 100%;
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
+
 nav {
   width: 100%;
-  padding: 15px;
+  padding: 0px;
 }
 
-nav ul {
+.nav {
   height: 2em;
+  display: flex;
+  flex-direction: row;
   margin-top: 25px;
   justify-content: center;
   width: auto;
   margin: 0 auto;
-  padding: 0;
+  padding: 10px;
   list-style: none;
-  background-color: grey;
+  color: black;
+  text-decoration: none!important;
+  background-color:white;
   text-align: center;
-  display: flex;
+  float:right;
   align-items: stretch;
-  flex-direction: row;
+}
+.nav li {
+  text-decoration: none;
+  color: black;
+  padding: 0%;
+  width: auto;
+  position: relative;
+}
+.styledNavLink {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  width:auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 20px 10px 20px;
+  font-size: 1rem;
+  display: block;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+p {
+  display: block;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
-nav ul .active {
-  background-color: red;
+table {
+  width: 100%;
 }
+
+
+
+.styledNavLink:hover {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
+
+}
+
+.styledNavLink.active {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
+  background-color:white;
+
+}
+
+.parts-table tr:hover {
+  background-color: #bbb;
+}
+
+nav li .navdrop {
+  display: none;
+  position: absolute;
+  margin:0;
+  width:auto;
+  padding: 20%;
+  background-color: white;
+  color:black;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.navdrop .styledNavLink:hover {
+  border-bottom: 5px solid #13658b;
+}
+nav:hover .navdrop{
+  display: block;
+}
+.navdrop .styledNavLink.active {
+  text-decoration: none;
+  background-color:#1E9BD3;
+
+}
+
+.remove-all {
+  background-color: darkred;
+}
+
 
 .main_content {
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
-
-footer {
-  background-color: #282c2d;
+.main {
+  width: 100%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
+}
+
+.modal-sizing {
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-around;
+}
+
+.modal-contents {
+  width: 300px;
+}
+
+.modal-contents-add {
+  width:100%;
+}
+
+.modal-sizing-qr {
+  width: 500px;
+  height:500px;
+  display:block;
+}
+
+.modal-spacer {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 5px solid #3498db;
+}
+.modal-scanner {
+  display: grid;
+}
+
+.modal-button {
+  padding-top:15px;
+}
+.modal-button button {
+  width:100%;
+}
+
+.modal-form {
+  display: grid;
+}
+.green {
+  background-color:green;
+}
+.red {
+  background-color: darkred;
+}
+
+
+
+
+footer {
+  background-color: #1984b3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   color: white;
-  box-shadow: 0 0.25rem 0.75rem #282c2d;
+  padding:4%;
+  /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
+}
+.addressbox {
+  text-align: justify;
+  margin:3%;
+  width: 35%;
+}
+.usefullinks {
+  display: flex;
+  flex-direction: column;
+  width:35%;
+  margin:3%;
 }
 .page_item {
   display: flex;
   flex-direction: column;
   width: 80%;
   margin: 0;
-  background-color: #6a6e6e;
-  color: white;
   text-align: center;
   border-radius: 30px 30px 30px 30px;
   margin: 20px;
@@ -79,11 +228,11 @@ footer {
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 
-.nav li {
-  text-decoration: none;
-  color: white;
-  padding: 0%;
-  flex: 1;
+
+
+
+.refresh {
+  text-align:center
 }
 
 .item {
@@ -92,4 +241,333 @@ footer {
 
 button {
   cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  background-color: #1984b3;
+  margin: 3px;
+}
+.buttons {
+  display:flex;
+  flex-direction: column;
+}
+
+.storage-page {
+  margin: 1rem;
+  width:90%;
+  display:flex;
+  flex-direction: column;
+}
+.storage-page-block {
+  margin: auto;
+  width:auto;
+  padding-top:1%;
+  padding-bottom: 1%;
+  justify-content: center;
+}
+
+.btn-group-row {
+  margin: auto;
+  width:auto;
+  padding-top:1%;
+  padding-bottom: 1%;
+  justify-content: center;
+}
+
+.reporting_table_wrapper {
+  margin-bottom: 25px;
+}
+
+
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+}
+
+ tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+ tr:hover {
+  background-color: #bbb;
+}
+
+ th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: grey;
+  color: white;
+  text-align: center;
+}
+td:before {
+  left: 6px;
+}
+
+.delete-table tr:hover {
+  background-color:white ;
+}
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 780px) {
+  .parts-page {
+    width: 100%;
+  }
+  .filter-banner{
+    display: flex;
+    flex-direction: column;
+    width: 1150px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+  }
+/* Force table to not be like tables anymore */
+table, thead, tbody, th, td, tr { 
+  display: block; 
+}
+
+thead tr { 
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+tr { 
+  border: 1px solid #ccc;
+  margin-bottom: 6px;
+
+}
+
+td { 
+  /* Behave  like a "row" */
+  border: none;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  padding-left: 50%; 
+  min-height: 12pt;
+  word-wrap: break-word;
+
+}
+
+
+
+td:before { 
+  /* Now like a table header */
+  position: absolute;
+  /* Top/left values mimic padding */
+  top: 0px;
+  left: 6px;
+  padding-right: 10px; 
+  white-space: nowrap;
+}
+
+  
+  
+  .parts-table td,
+    .parts-table th {
+      border: 1px solid #ddd;
+      padding-left: 40%;
+      margin-bottom: 3px;
+      
+    }
+    td, th {
+      border: 1px solid #ddd;
+    }
+
+
+  
+    .storage-location-tr td:nth-of-type(1):before { content: "Warehouse No:"; }
+    .storage-location-tr td:nth-of-type(2):before { content: "Location Name:"; }
+    .storage-location-tr td:nth-of-type(3):before { content: "Storage Type:"; }
+    .storage-location-tr td:nth-of-type(4):before { content: "Stored"; }
+    .storage-location-tr td:nth-of-type(5):before { content: "Controls"; }
+  
+    .storage-parts-tr td:nth-of-type(1):before { content: "Serial No:"; }
+    .storage-parts-tr td:nth-of-type(2):before { content: "Part Name:"; }
+    .storage-parts-tr td:nth-of-type(3):before { content: "Description:"; }
+    .storage-parts-tr td:nth-of-type(4):before { content: "Controls"; }
+
+    .storage-int-tr td:nth-of-type(1):before { content: "Amount:"; }
+	.storage-int-tr td:nth-of-type(2):before { content: "Description:"; }
+	.storage-int-tr td:nth-of-type(3):before { content: "Warehouse No:"; }
+	.storage-int-tr td:nth-of-type(4):before { content: "Location:"; }
+	.storage-int-tr td:nth-of-type(5):before { content: "Storage Type:"; }
+	.storage-int-tr td:nth-of-type(6):before { content: "Name:"; }
+	.storage-int-tr td:nth-of-type(7):before { content: "First Name:"; }
+  .storage-int-tr td:nth-of-type(8):before { content: "Last Name:"; }
+  .storage-int-tr td:nth-of-type(9):before { content: "Int Date/Time:"; }
+  .storage-int-tr td:nth-of-type(10):before { content: "Email:"; }
+
+  .assembly-tr td:nth-of-type(1):before { content: "Serial No:"; }
+  .assembly-tr td:nth-of-type(2):before { content: "Name:"; }
+  .assembly-tr td:nth-of-type(3):before { content: "Notes:"; }
+  .assembly-tr td:nth-of-type(4):before { content: "Quantity:"; }
+  .assembly-tr td:nth-of-type(5):before { content: "Low Warning:"; }
+  .assembly-tr td:nth-of-type(6):before { content: "Order Link:"; }
+
+  .storage-loc-tr td:nth-of-type(1):before { content: "Quantity:"; }
+  .storage-loc-tr td:nth-of-type(2):before { content: "Client Name:"; }
+  .storage-loc-tr td:nth-of-type(3):before { content: "Warehouse Number:"; }
+  .storage-loc-tr td:nth-of-type(4):before { content: "Location:"; }
+  .storage-loc-tr td:nth-of-type(5):before { content: "Storage Type:"; }
+  .storage-loc-tr td:nth-of-type(6):before { content: "Part ID:"; }
+  .storage-loc-tr td:nth-of-type(7):before { content: "Name:"; }
+  .storage-loc-tr td:nth-of-type(8):before { content: "Description:"; }
+
+  .query-tr td:nth-of-type(1):before { content: "Name:"; }
+  .query-tr td:nth-of-type(2):before { content: "Email:"; }
+  .query-tr td:nth-of-type(3):before { content: "Tel:"; }
+  .query-tr td:nth-of-type(4):before { content: "Location:"; }
+  .query-tr td:nth-of-type(5):before { content: "Customer Type:"; }
+  .query-tr td:nth-of-type(6):before { content: "Query:"; }
+  .query-tr td:nth-of-type(7):before { content: "Date/Time recived:"; }
+
+  .assembly-int-tr td:nth-of-type(1):before { content: "Serial No;"; }
+  .assembly-int-tr td:nth-of-type(2):before { content: "Name:"; }
+  .assembly-int-tr td:nth-of-type(3):before { content: "Amount:"; }
+  .assembly-int-tr td:nth-of-type(4):before { content: "First Name:"; }
+  .assembly-int-tr td:nth-of-type(5):before { content: "Last Name:"; }
+  .assembly-int-tr td:nth-of-type(6):before { content: "Interaction Date/Time:"; }
+  .assembly-int-tr td:nth-of-type(7):before { content: "Email:"; }
+  
+  }
+  
+  /***********************phone css*******************/
+@media only screen and (max-width: 600px) {
+  .top {
+    margin-top:20%;
+  }
+
+  nav {
+    margin: 0;
+    position:fixed;
+    top:0;
+    z-index: 1;
+  }
+  .nav {
+    float:left;
+    width: 100%;
+    padding: 10px;
+    height:auto;
+    flex-wrap: wrap;
+  }
+  
+  
+footer {
+  display: flex;
+  flex-direction: column;
+ }
+.addressbox {
+  width: 80%;
+}
+.usefullinks {
+  display: flex;
+  flex-direction: column;
+  width:80%;
+}
+
+.modal-sizing {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-around;
+}
+
+.modal-sizing-qr {
+  display:block;
+}
+
+
+
+.delete-table td:before{
+  top: initial;
+}
+.delete-table tr:hover {
+  background-color: white ;
+}
+
+
+.parts-page {
+  width: 100%;
+}
+
+
+.parts-table td,
+  .parts-table th {
+    border: 1px solid #ddd;
+    padding-left: 40%
+  }
+  td, th {
+    border: 1px solid #ddd;
+  }
+
+  .storage-location-tr td:nth-of-type(1):before { content: "Warehouse No:"; }
+  .storage-location-tr td:nth-of-type(2):before { content: "Location Name:"; }
+  .storage-location-tr td:nth-of-type(3):before { content: "Storage Type:"; }
+  .storage-location-tr td:nth-of-type(4):before { content: "Stored"; }
+  .storage-location-tr td:nth-of-type(5):before { content: "Controls"; }
+
+  .storage-parts-tr td:nth-of-type(1):before { content: "Serial No:"; }
+  .storage-parts-tr td:nth-of-type(2):before { content: "Part Name:"; }
+  .storage-parts-tr td:nth-of-type(3):before { content: "Description:"; }
+  .storage-parts-tr td:nth-of-type(4):before { content: "Controls"; }
+
+  .storage-int-tr td:nth-of-type(1):before { content: "Amount:"; }
+	.storage-int-tr td:nth-of-type(2):before { content: "Description:"; }
+	.storage-int-tr td:nth-of-type(3):before { content: "Warehouse No:"; }
+	.storage-int-tr td:nth-of-type(4):before { content: "Location:"; }
+	.storage-int-tr td:nth-of-type(5):before { content: "Storage Type:"; }
+	.storage-int-tr td:nth-of-type(6):before { content: "Name:"; }
+	.storage-int-tr td:nth-of-type(7):before { content: "First Name:"; }
+  .storage-int-tr td:nth-of-type(8):before { content: "Last Name:"; }
+  .storage-int-tr td:nth-of-type(9):before { content: "Int Date/Time:"; }
+  .storage-int-tr td:nth-of-type(10):before { content: "Email:"; }
+
+  .assembly-tr td:nth-of-type(1):before { content: "Serial No:"; }
+  .assembly-tr td:nth-of-type(2):before { content: "Name:"; }
+  .assembly-tr td:nth-of-type(3):before { content: "Notes:"; }
+  .assembly-tr td:nth-of-type(4):before { content: "Quantity:"; }
+  .assembly-tr td:nth-of-type(5):before { content: "Low Warning:"; }
+  .assembly-tr td:nth-of-type(6):before { content: "Order Link:"; }
+
+  .storage-loc-tr td:nth-of-type(1):before { content: "Quantity:"; }
+  .storage-loc-tr td:nth-of-type(2):before { content: "Client Name:"; }
+  .storage-loc-tr td:nth-of-type(3):before { content: "Warehouse Number:"; }
+  .storage-loc-tr td:nth-of-type(4):before { content: "Location:"; }
+  .storage-loc-tr td:nth-of-type(5):before { content: "Storage Type:"; }
+  .storage-loc-tr td:nth-of-type(6):before { content: "Part ID:"; }
+  .storage-loc-tr td:nth-of-type(7):before { content: "Name:"; }
+  .storage-loc-tr td:nth-of-type(8):before { content: "Description:"; }
+
+  .query-tr td:nth-of-type(1):before { content: "Name:"; }
+  .query-tr td:nth-of-type(2):before { content: "Email:"; }
+  .query-tr td:nth-of-type(3):before { content: "Tel:"; }
+  .query-tr td:nth-of-type(4):before { content: "Location:"; }
+  .query-tr td:nth-of-type(5):before { content: "Customer Type:"; }
+  .query-tr td:nth-of-type(6):before { content: "Query:"; }
+  .query-tr td:nth-of-type(7):before { content: "Date/Time recived:"; }
+
+  .assembly-int-tr td:nth-of-type(1):before { content: "Serial No:"; }
+  .assembly-int-tr td:nth-of-type(2):before { content: "Name:"; }
+  .assembly-int-tr td:nth-of-type(3):before { content: "Amount:"; }
+  .assembly-int-tr td:nth-of-type(4):before { content: "First Name:"; }
+  .assembly-int-tr td:nth-of-type(5):before { content: "Last Name:"; }
+  .assembly-int-tr td:nth-of-type(6):before { content: "Interaction Date/Time:"; }
+  .assembly-int-tr td:nth-of-type(7):before { content: "Email:"; }
+
 }

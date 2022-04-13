@@ -31,7 +31,6 @@ class QueryForm extends React.Component {
               clienttypes = data.results.map((client) => {
                 return client
             });
-            //console.log(clienttypes);
             this.setState({
                 clienttypes: clienttypes,
             });
@@ -44,7 +43,6 @@ class QueryForm extends React.Component {
                 querytypes = data.results.map((query) => {
                 return query
             });
-           //console.log(querytypes);
             this.setState({
                 querytypes: querytypes,
             });

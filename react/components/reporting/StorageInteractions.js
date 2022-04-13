@@ -39,7 +39,6 @@ class StorageInteractions extends React.Component {
                 }
             })
             .then((data) => {
-                console.log(data)
                 this.setState({ results: data.results })
             })
             .catch((err) => {
@@ -106,7 +105,7 @@ class StorageInteractions extends React.Component {
                  <th>Email Address</th>
                 </tr>
                 </thead>
-
+                    {noData}
                     {filteredResults.map((storageInteraction, i) => (<StorageInteraction className="storageInteraction" key={i} storageInteraction={storageInteraction} />))}
                     </table>
         </div> 
