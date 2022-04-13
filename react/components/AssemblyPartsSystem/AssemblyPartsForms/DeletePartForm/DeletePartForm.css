@@ -21,6 +21,7 @@
 }
 
 .delete-table,
+.delete-table tbody,
 .delete-table th,
 .delete-table td,
 .delete-table tr {
