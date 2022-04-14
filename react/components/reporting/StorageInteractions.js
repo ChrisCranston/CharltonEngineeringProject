@@ -28,7 +28,7 @@ class StorageInteractions extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/storageinteractionreport"
+        let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storageinteractionreport"
 
         fetch(url)
             .then((response) => {
@@ -39,7 +39,6 @@ class StorageInteractions extends React.Component {
                 }
             })
             .then((data) => {
-                console.log(data)
                 this.setState({ results: data.results })
             })
             .catch((err) => {
@@ -90,10 +89,10 @@ class StorageInteractions extends React.Component {
         }
 
         return(
-            <div>
+            <div className="reporting_table_wrapper">
                 <table>
+                <thead>
                 <tr>
-                 <th>Interaction ID</th>
                  <th>Amount</th>
                  <th>Description</th>
                  <th>Warehouse Number</th>
@@ -105,7 +104,8 @@ class StorageInteractions extends React.Component {
                  <th>Interaction Date/Time</th>
                  <th>Email Address</th>
                 </tr>
-
+                </thead>
+                    {noData}
                     {filteredResults.map((storageInteraction, i) => (<StorageInteraction className="storageInteraction" key={i} storageInteraction={storageInteraction} />))}
                     </table>
         </div> 

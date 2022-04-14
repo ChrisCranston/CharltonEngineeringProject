@@ -32,8 +32,7 @@ handleClientNameSelect = (e) => {
 
 componentDidMount() {
    
-  let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/storagereport?warehousenumbers=true"
-
+  let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport?warehousenumbers=true"
 
   fetch(url)
       .then((response) => {
@@ -44,14 +43,13 @@ componentDidMount() {
           }
       })
       .then((data) => {
-          console.log(data)
           this.setState({ wareHouseNumbers: data.results })
       })
       .catch((err) => {
           console.log("something went wrong ", err)
       });
 
-   let url2 = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/storagereport?clientnames=true"
+   let url2 = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport?clientnames=true"
 
 
   fetch(url2)
@@ -63,7 +61,6 @@ componentDidMount() {
           }
       })
       .then((data) => {
-          console.log(data)
           this.setState({ clientNames: data.results })
       })
       .catch((err) => {
@@ -83,7 +80,7 @@ getAppliedFiltersText = () => {
 
   }
 
-  if ((this.state.clientName == "") && (this.state.warehouseNumber == "")){
+  if ((this.state.clientName === "") && (this.state.warehouseNumber === "")){
     tempString += "NONE"
   }
   return tempString; 
@@ -112,9 +109,9 @@ getCurrentDateText = () => {
  
 
     let clientNamesList = [];
-    for (var x in this.state.clientNames){
+    for (var y in this.state.clientNames){
         let tempvar = "";
-        tempvar = this.state.clientNames[x].client_name;
+        tempvar = this.state.clientNames[y].client_name;
         clientNamesList.push(tempvar);
     }
 
@@ -124,15 +121,21 @@ getCurrentDateText = () => {
 
 
     return (
-      <div className="main-content">
+      <div className="main_content">
+       <section>
+          <h2>Storage Report</h2>
           <div>
+            <p>
+              Filter by warehouse or client name.
+            </p>
+            <p>
+            Click Generate Report to save or print the report.
+            </p>
+          </div>
+        </section>
             
-            <div class = "filter-banner">
-
-            <ReactToPrint
-                trigger={() => <button>Genarate Report</button>}
-                content={() => this.componentRef}
-            />
+            <section class = "filter-banner">
+            
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -145,18 +148,27 @@ getCurrentDateText = () => {
             </div>
 
         <Filter options = {wareHouseNumbersList} 
-          filterType = {"Warehouse"} 
+          filterType = {"Warehouse: "} 
           custType={this.state.warehouseNumber} 
           handleSelect={this.handlewarehouseNumberSelect} />
-
+         
+          
         <Filter options = {clientNamesList} 
-          filterType = {"Client Name"} 
+          filterType = {"Client Name: "} 
           custType={this.state.clientName} 
           handleSelect={this.handleClientNameSelect} />
+
+        <div className="filter-element">
+            <ReactToPrint
+                trigger={() => <button>Generate Report</button>}
+                content={() => this.componentRef}
+            />
             </div>
+            </section>
          <StorageLocations warehouseNumber={this.state.warehouseNumber}
           clientName={this.state.clientName} />
-          </div>
+          
+         
       </div>
     );
   }

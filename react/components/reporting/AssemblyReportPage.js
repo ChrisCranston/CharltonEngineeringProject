@@ -1,7 +1,7 @@
 import React from "react";
 import AssemblyParts from './AssemblyParts.js';
 import "./reporting.css";
-import SearchBox from './SearchBox.js';
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -25,6 +25,9 @@ class AssemblyReportPage extends React.Component {
   handleSearch = (e) => {
     this.setState({search:e.target.value})
 }
+cancelSearch = () => {
+  this.setState({ search: "" });
+};
 
 getAppliedFiltersText = () => {
   let tempString = "" 
@@ -32,7 +35,7 @@ getAppliedFiltersText = () => {
     tempString += "SEARCH STRING: " + this.state.search + " ";
   }
   
-  if ((this.state.custType == "")){
+  if ((this.state.custType === "")){
     tempString += "NONE"
   }
   return tempString; 
@@ -51,14 +54,20 @@ getCurrentDateText = () => {
     let reportDate = this.getCurrentDateText();
     
     return (
-      <div className="main-content">
-
-      <div class = "filter-banner">
-
-      <ReactToPrint
-          trigger={() => <button>Genarate Report</button>}
-          content={() => this.componentRef}
-      />
+      <div className="main_content">
+   <section>
+          <h2>Assembly Report</h2>
+          <div>
+            <p>
+              Search for assembly parts by serial number or part name.
+            </p>
+            <p>
+              Click Generate Report to save or print the report.
+            </p>
+          </div>
+        </section>
+      <section class = "filter-banner">
+      
     <div style={{ display: "none" }}>
       <ComponentToPrint
         ref={(el) => (this.componentRef = el)}
@@ -68,15 +77,26 @@ getCurrentDateText = () => {
         reportName = {"Assembly Report"}
       />
       </div>
-          <div>
-            <div class = "filter-banner">
-            <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
-            </div>
-            </div>
+            <SearchBox
+            id="parts-search"
+            search={this.state.search}
+            handleSearch={this.handleSearch}
+            cancelSearch={this.cancelSearch}
+            placeholder="Search by name/serial number"
+            icon
+          />
+          <div className="filter-element">
+      <ReactToPrint
+          trigger={() => <button>Generate Report</button>}
+          content={() => this.componentRef}
+      />
+    </div>
+            </section>
+
+            
          <AssemblyParts search={this.state.search} />
           </div>
-      </div>
-
+          
     );
   }
 }

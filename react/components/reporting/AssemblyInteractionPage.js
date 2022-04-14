@@ -2,7 +2,7 @@ import React from "react";
 import AssemblyInteractions from './AssemblyInteractions.js';
 import "./reporting.css";
 import Filter from './Filter.js';
-import SearchBox from './SearchBox.js';
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
 
@@ -32,9 +32,13 @@ handleSearch = (e) => {
   this.setState({search:e.target.value})
 }
 
+cancelSearch = () => {
+  this.setState({ search: "" });
+};
+
   componentDidMount() {
    
-    let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport?user_names=true"
+    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport?user_names=true"
   
   
     fetch(url)
@@ -46,7 +50,6 @@ handleSearch = (e) => {
             }
         })
         .then((data) => {
-            console.log(data)
             this.setState({ userNames: data.results })
         })
         .catch((err) => {
@@ -66,7 +69,7 @@ handleSearch = (e) => {
   
     }
   
-    if ((this.state.search == "") && (this.state.userName == "")){
+    if ((this.state.search === "") && (this.state.userName === "")){
       tempString += "NONE"
     }
     return tempString; 
@@ -94,14 +97,20 @@ handleSearch = (e) => {
     let reportDate = this.getCurrentDateText();
 
     return (
-      <div className="main-content">
+      <div className="main_content">
+        <section>
+          <h2>Assembly Interaction Report</h2>
           <div>
-            <div class = "filter-banner">
-
-            <ReactToPrint
-                trigger={() => <button>Genarate Report</button>}
-                content={() => this.componentRef}
-            />
+            <p>
+              Filter by user ID or search by serial No and name.
+            </p>
+            <p>
+              Click Generate Report to save or print the report.
+            </p>
+          </div>
+        </section>
+            <section class = "filter-banner">
+           
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -112,14 +121,26 @@ handleSearch = (e) => {
             />
             </div>
               <Filter options = {userNamesList} 
-              filterType = {"User ID"} 
+              filterType = {"User ID: "} 
               custType={this.state.userName} 
               handleSelect={this.handleUserNameSelect} />
-
-              <SearchBox search={this.state.search} handleSearch={this.handleSearch} />
+            
+            <SearchBox
+            id="parts-search"
+            search={this.state.search}
+            handleSearch={this.handleSearch}
+            cancelSearch={this.cancelSearch}
+            placeholder="Search by name/serial number"
+            icon
+          />
+            <div className="filter-element">
+            <ReactToPrint
+                trigger={() => <button>Generate Report</button>}
+                content={() => this.componentRef}
+            />
             </div>
+            </section>
          <AssemblyInteractions userName={this.state.userName} search={this.state.search} />
-          </div>
       </div>
     );
   }

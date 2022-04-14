@@ -28,7 +28,7 @@ class AssemblyInteractions extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport"
+        let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport"
 
         fetch(url)
             .then((response) => {
@@ -39,7 +39,6 @@ class AssemblyInteractions extends React.Component {
                 }
             })
             .then((data) => {
-                console.log(data)
                 this.setState({ results: data.results })
             })
             .catch((err) => {
@@ -90,10 +89,11 @@ class AssemblyInteractions extends React.Component {
         }
 
         return(
-            <div>
+            
+            <div className="reporting_table_wrapper">
                 <table>
+                <thead>
                 <tr>
-                 <th>Interaction ID</th>
                  <th>Serial No</th>
                  <th>Name</th>
                  <th>Amount</th>
@@ -102,7 +102,8 @@ class AssemblyInteractions extends React.Component {
                  <th>Interaction Date/Time</th>
                  <th>Email Address</th>
                 </tr>
-
+                </thead>
+                {noData}
                     {filteredResults.map((assemblyInteraction, i) => (<AssemblyInteraction className="assemblyInteraction" key={i} assemblyInteraction={assemblyInteraction} />))}
                     </table>
         </div> 

@@ -1,26 +1,8 @@
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 6px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
 
   .report-main{
     padding: 10px;
 
   }
-
-  
- 
   .report-header{
     display: grid;
     grid-template-columns: 40% 60%;
@@ -34,7 +16,7 @@ table {
 
   }
   .report-name{
-    font-size: 50px;
+    font-size: 40px;
     text-align: right;
     
     padding: 0 10px;
@@ -49,18 +31,42 @@ table {
     
   }
   
+
   .report-date{
     font-size: 20px;
     text-align: right;
     padding: 0 10px;
   }
 
-  p {
-    display: block;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 3px;
-    margin-right: 3px;
+
+
+  .filter-banner{
+    display: flex;
+    width: 1150px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
-  
+  .filter-element{
+    padding: 10px;
+   
+
+ }
+
+  .report-button{
+    padding: 0px auto 0px auto;
+    text-align: center;
+
+  }
+
+  .filter-one{
+    padding: 0px auto 0px auto;
+    text-align: center;
+  }
+
+  .reporting_table_wrapper{
+width: 100%;
+  }
+
+

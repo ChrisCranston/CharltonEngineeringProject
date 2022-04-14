@@ -9,11 +9,12 @@
  */
 class storageReportGateway extends Gateway
 {
-    private $sql = "SELECT storage.storage_id , storage.quantity, client.client_name, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage_part.part_id, storage_part.name, storage_part.description 
-    FROM storage  
-    LEFT JOIN client on (storage.client_id = client.client_id) 
-    LEFT JOIN storage_location on (storage.location_id = storage_location.storage_location_id) 
-    LEFT JOIN storage_part on (storage_part.part_id = storage.part_id)";
+private $sql = "SELECT storage.storage_id , storage.quantity, client.client_name, storage_location.warehouse_number, storage_location.location_string, storage_location.storage_type, storage_part.part_id, storage_part.name, storage_part.description 
+FROM storage_location
+LEFT JOIN storage on (storage_location.storage_location_id = storage.location_id)
+LEFT JOIN storage_part on (storage_part.part_id = storage.part_id)
+LEFT JOIN client on (storage.client_id = client.client_id)";
+
 
     /**
      * __construct

@@ -33,12 +33,12 @@ class Query extends React.Component {
 
         return(
          
-              <tr>
-                <td>{this.props.query.name}</td>
+              <tr class = "query-tr">
+                <td>{this.props.query._name}</td>
                 <td>{this.props.query.email}</td>
                 <td>{this.props.query.phone_number}</td>
                 <td>{this.props.query.prospective_client_type}</td> 
-                <td>{this.props.query.query}</td> 
+                <td>{this.props.query._query}</td> 
                 <td>{this.props.query.query_type_name}</td> 
                 <td>{this.props.query.date_time}</td> 
              </tr>

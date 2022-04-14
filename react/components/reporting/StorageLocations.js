@@ -1,4 +1,4 @@
-import React,  { useRef } from "react";
+import React from "react";
 import StorageLocation from './StorageLocation.js';
 
 
@@ -29,8 +29,7 @@ class StorageLocations extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/storagereport"
-
+        let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport"
 
         fetch(url)
             .then((response) => {
@@ -41,7 +40,6 @@ class StorageLocations extends React.Component {
                 }
             })
             .then((data) => {
-                console.log(data)
                 this.setState({ results: data.results })
             })
             .catch((err) => {
@@ -94,12 +92,12 @@ class StorageLocations extends React.Component {
        
 
         return(
-        <div>
+        <div className="reporting_table_wrapper">
        
            
                 <table>
+                <thead>
                 <tr>
-                 <th>Storage ID</th>
                  <th>Quantity</th>
                  <th>Client Name</th>
                  <th>Warehouse Number</th>
@@ -109,7 +107,8 @@ class StorageLocations extends React.Component {
                  <th>Name</th>
                  <th>Description</th>
                 </tr>
-
+                </thead>
+                    {noData}
                     {filteredResults.map((storageLocation, i) => (<StorageLocation className="StorageLocation" key={i} storageLocation={storageLocation} />))}
                     </table>
         </div> 

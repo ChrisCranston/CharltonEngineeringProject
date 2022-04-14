@@ -15,14 +15,15 @@ class Filter extends React.Component {
 
 
         return (
+            <div className="filter-element">
             <form className="dropdown">
                <strong>{this.props.filterType}</strong>
                 <select value={this.props.custType} onChange={this.props.handleSelect}>
                     <option value="">No Filter</option>
                     {options.map(( index) => <option value={index} >{index}</option>)}
             </select>
-               
             </form>
+            </div>
                 
         )
     }

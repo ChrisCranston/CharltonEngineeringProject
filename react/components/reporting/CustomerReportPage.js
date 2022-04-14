@@ -33,7 +33,7 @@ handleQueryTypeSelect = (e) => {
 }
   componentDidMount() {
    
-    let url = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/customerreport?clientTypes=true"
+    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerreport?clientTypes=true"
 
 
     fetch(url)
@@ -45,14 +45,13 @@ handleQueryTypeSelect = (e) => {
             }
         })
         .then((data) => {
-            console.log(data)
             this.setState({ clientTypes: data.results })
         })
         .catch((err) => {
             console.log("something went wrong ", err)
         });
 
-     let url2 = "http://unn-w18012997.newnumyspace.co.uk/kv6002/php/customerreport?queryTypes=true"
+     let url2 = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerreport?queryTypes=true"
 
 
     fetch(url2)
@@ -64,7 +63,6 @@ handleQueryTypeSelect = (e) => {
             }
         })
         .then((data) => {
-            console.log(data)
             this.setState({ queryTypes: data.results })
         })
         .catch((err) => {
@@ -83,7 +81,7 @@ getAppliedFiltersText = () => {
 
   }
 
-  if ((this.state.custType == "") && (this.state.queryType == "")){
+  if ((this.state.custType === "") && (this.state.queryType === "")){
     tempString += "NONE"
   }
   return tempString; 
@@ -112,9 +110,9 @@ getCurrentDateText = () => {
     }
 
     let queryTypesList = [];
-    for (var x in this.state.queryTypes){
+    for (var y in this.state.queryTypes){
         let tempvar = "";
-        tempvar = this.state.queryTypes[x].query_type_name;
+        tempvar = this.state.queryTypes[y].query_type_name;
         queryTypesList.push(tempvar);
     }
 
@@ -122,14 +120,20 @@ getCurrentDateText = () => {
     let reportDate = this.getCurrentDateText();
     
     return (
-      <div className="main-content">
+      <div className="main_content">
+        <section>
+          <h2>Customer Report</h2>
           <div>
-            <div class = "filter-banner">
-
-            <ReactToPrint
-                trigger={() => <button>Genarate Report</button>}
-                content={() => this.componentRef}
-            />
+            <p>
+              Filter by client type or query type.
+            </p>
+            <p>
+            Click Generate Report to save or print the report.
+            </p>
+          </div>
+        </section>
+            <section class = "filter-banner">
+            
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -140,20 +144,26 @@ getCurrentDateText = () => {
               reportName = {"Customer Query Report"}
             />
             </div>
-
           <Filter options = {clientTypesList} 
-          filterType = {"Client Type"} 
+          filterType = {"Client Type: "} 
           custType={this.state.custType} 
           handleSelect={this.handleCustTypeSelect} />
 
           <Filter options = {queryTypesList} 
-          filterType = {"Query Type"} 
+          filterType = {"Query Type: "} 
           custType={this.state.queryType} 
           handleSelect={this.handleQueryTypeSelect} />
-            </div>
+           
+           <div className="filter-element">
+            <ReactToPrint
+                trigger={() => <button>Generate Report</button>}
+                content={() => this.componentRef}
+            />
+            </div> 
+            </section>
          <CustomerQuerys custType={this.state.custType}
           queryType={this.state.queryType} />
-          </div>
+        
       </div>
     );
   }

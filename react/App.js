@@ -95,7 +95,6 @@ function App() {
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
                 <AssemblyReportPage />
-                <h1>ASSEMBLY REPORTS PAGE</h1>
               </RestrictedRoute>
             }
           />
@@ -104,7 +103,6 @@ function App() {
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
                 <StorageReportPage />
-                <h1>STORAGE REPORTS PAGE</h1>
               </RestrictedRoute>
             }
           />
@@ -113,7 +111,6 @@ function App() {
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
                 <CustomerReportPage />
-                <h1>CUSTOMER REPORT PAGE</h1>
               </RestrictedRoute>
             }
           />
@@ -122,7 +119,6 @@ function App() {
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
                 <AssemblyInteractionPage />
-                <h1>assemblyinteractionreport</h1>
               </RestrictedRoute>
             }
           />
@@ -131,8 +127,7 @@ function App() {
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
                 <StorageInteractionPage />
-                <h1>storageinteractionreport</h1>
-              </RestrictedRoute>
+                            </RestrictedRoute>
             }
           />
         </Route>
