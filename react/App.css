@@ -1,9 +1,9 @@
 body {
   font-family: "Segoe UI", "Tahoma";
 }
-.logo {
-  padding: 20px;
-}
+ .logo {
+   padding: 20px;
+ }
 .top {
   justify-content: center;
   align-items: center;
@@ -41,10 +41,10 @@ nav {
   padding: 10px;
   list-style: none;
   color: black;
-  text-decoration: none !important;
-  background-color: white;
+  text-decoration: none!important;
+  background-color:white;
   text-align: center;
-  float: right;
+  float:right;
   align-items: stretch;
 }
 .nav li {
@@ -57,7 +57,7 @@ nav {
 .styledNavLink {
   text-decoration: none;
   color: rgb(0, 0, 0);
-  width: auto;
+  width:auto;
   font-family: Arial, Helvetica, sans-serif;
   padding: 10px 20px 10px 20px;
   font-size: 1rem;
@@ -65,50 +65,43 @@ nav {
   border-bottom: 3px solid transparent;
   transition: 0.3s;
 }
-p {
-  display: block;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  margin-left: 3px;
-  margin-right: 3px;
-}
 
 .styledNavLink:hover {
   text-decoration: none;
-  border-bottom: 5px solid #1e9bd3;
+  border-bottom: 5px solid #1E9BD3;
+
 }
 
 .styledNavLink.active {
   text-decoration: none;
-  border-bottom: 5px solid #1e9bd3;
-  background-color: white;
+  border-bottom: 5px solid #1E9BD3;
+  background-color:white;
+
 }
 
 nav li .navdrop {
   display: none;
   position: absolute;
-  margin: 0;
-  width: auto;
+  margin:0;
+  width:auto;
   padding: 20%;
   background-color: white;
-  color: black;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  color:black;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 .navdrop .styledNavLink:hover {
   border-bottom: 5px solid #13658b;
 }
-nav:hover .navdrop {
+nav:hover .navdrop{
   display: block;
 }
 .navdrop .styledNavLink.active {
   text-decoration: none;
-  background-color: #1e9bd3;
+  background-color:#1E9BD3;
+
 }
 
-.remove-all {
-  background-color: darkred;
-}
 
 .main_content {
   width: 90%;
@@ -129,68 +122,8 @@ nav:hover .navdrop {
   /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
 
-.modal-sizing {
-  width: 400px;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: space-around;
-}
 
-.modal-contents {
-  width: 300px;
-}
 
-.modal-sizing-wide {
-  width: 600px;
-}
-
-.modal-contents-wide {
-  width: 500px;
-}
-
-@media only screen and (max-width: 600px) {
-  .modal-sizing-wide {
-    width: 400px;
-  }
-
-  .modal-contents-wide {
-    width: 300px;
-  }
-}
-
-.modal-sizing-qr {
-  width: 500px;
-  height: 500px;
-  display: block;
-}
-
-.modal-spacer {
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  border-bottom: 5px solid #3498db;
-}
-.modal-scanner {
-  display: grid;
-}
-
-.modal-button {
-  padding-top: 15px;
-}
-.modal-button button {
-  width: 100%;
-}
-
-.modal-form {
-  display: grid;
-}
-.green {
-  background-color: green;
-}
-.red {
-  background-color: darkred;
-}
 
 footer {
   background-color: #1984b3;
@@ -199,19 +132,19 @@ footer {
   align-items: center;
   justify-content: center;
   color: white;
-  padding: 4%;
+  padding:4%;
   /* box-shadow: 0 0.25rem 0.75rem #282c2d; */
 }
 .addressbox {
   text-align: justify;
-  margin: 3%;
+  margin:3%;
   width: 35%;
 }
 .usefullinks {
   display: flex;
   flex-direction: column;
-  width: 35%;
-  margin: 3%;
+  width:35%;
+  margin:3%;
 }
 .page_item {
   display: flex;
@@ -225,6 +158,8 @@ footer {
   box-shadow: 0 0.25rem 0.75rem #282c2d;
 }
 
+
+
 .item {
   border: 1px solid red;
 }
@@ -237,28 +172,28 @@ button {
   margin: 3px;
 }
 .buttons {
-  display: flex;
+  display:flex;
   flex-direction: column;
 }
 
 .storage-page {
   margin: 1rem;
-  width: 90%;
-  display: flex;
+  width:90%;
+  display:flex;
   flex-direction: column;
 }
 .storage-page-block {
   margin: auto;
-  width: auto;
-  padding-top: 1%;
+  width:auto;
+  padding-top:1%;
   padding-bottom: 1%;
   justify-content: center;
 }
 
 .btn-group-row {
   margin: auto;
-  width: auto;
-  padding-top: 1%;
+  width:auto;
+  padding-top:1%;
   padding-bottom: 1%;
   justify-content: center;
 }
@@ -266,125 +201,35 @@ button {
 /***********************phone css*******************/
 @media only screen and (max-width: 600px) {
   .top {
-    margin-top: 20%;
+    margin-top:20%;
   }
 
   nav {
     margin: 0;
-    position: fixed;
-    top: 0;
+    position:fixed;
+    top:0;
     z-index: 1;
   }
   .nav {
-    float: left;
+    float:left;
     width: 100%;
     padding: 10px;
-    height: auto;
+    height:auto;
     flex-wrap: wrap;
   }
+  
+  
+footer {
+  display: flex;
+  flex-direction: column;
+ }
+.addressbox {
+  width: 80%;
+}
+.usefullinks {
+  display: flex;
+  flex-direction: column;
+  width:80%;
+}
 
-  footer {
-    display: flex;
-    flex-direction: column;
-  }
-  .addressbox {
-    width: 80%;
-  }
-  .usefullinks {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-  }
-
-  .modal-sizing {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-content: space-around;
-  }
-
-  .modal-sizing-qr {
-    display: block;
-  }
-
-  /* Force table to not be like tables anymore */
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
-  }
-
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  tr {
-    border: 1px solid #ccc;
-    margin-bottom: 6px;
-  }
-
-  td {
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-
-    min-height: 12pt;
-  }
-
-  td:before {
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 6px;
-    left: 6px;
-    width: 60%;
-    padding-right: 10px;
-    white-space: nowrap;
-  }
-
-  .parts-page {
-    width: 100%;
-  }
-
-  .parts-table td,
-  .parts-table th {
-    border: 1px solid #ddd;
-    padding-left: 40%;
-  }
-
-  .storage-location-tr td:nth-of-type(1):before {
-    content: "Warehouse No:";
-  }
-  .storage-location-tr td:nth-of-type(2):before {
-    content: "Location Name:";
-  }
-  .storage-location-tr td:nth-of-type(3):before {
-    content: "Storage Type:";
-  }
-  .storage-location-tr td:nth-of-type(4):before {
-    content: "Stored";
-  }
-  .storage-location-tr td:nth-of-type(5):before {
-    content: "Controls";
-  }
-
-  .storage-parts-tr td:nth-of-type(1):before {
-    content: "Serial No:";
-  }
-  .storage-parts-tr td:nth-of-type(2):before {
-    content: "Part Name:";
-  }
-  .storage-parts-tr td:nth-of-type(3):before {
-    content: "Description:";
-  }
-  .storage-parts-tr td:nth-of-type(4):before {
-    content: "Controls";
-  }
 }

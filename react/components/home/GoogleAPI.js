@@ -4,9 +4,21 @@ import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 const mapStyles = {
     position:'absolute',
   width: '100%',
-  height: '90%'
+  height: '100%'
 };
 
+/**
+ * Google Maps Component
+ *
+ * This component is generated to display a map showing the company's location on the home page
+ * The API key is owned by Kess Strongman and would be dellegated to ownership from the company
+ *
+ * code is sourced from npmjs: https://www.npmjs.com/package/google-maps-react (2020)
+ * version installed is 2.0.6
+ * accessed 2022 March
+ * 
+ * @author Kess Strongman
+ */
 export class MapContainer extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +27,8 @@ export class MapContainer extends Component {
             activeMarker: {},          // Shows the active marker upon click
             selectedPlace: {}          // Shows the InfoWindow to the selected place upon a marker
       };
+      this.onMarkerClick = this.onMarkerClick.bind(this)
+      this.onClose = this.onClose.bind(this)
     }
     onMarkerClick = (props, marker, e) =>
     this.setState({

@@ -11,48 +11,27 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
       <nav>
         <ul className="nav">
           <li>
-            <NavLink to="/" className="styledNavLink">
-              Home
-            </NavLink>
+            <NavLink to="/" className="styledNavLink">Home</NavLink>
           </li>
           {!isAuthenticated && (
             <li>
-              <NavLink to="customerquery" className="styledNavLink">
-                Contact Us
-              </NavLink>
+              <NavLink to="customerquery"   className="styledNavLink" >Contact Us</NavLink>
             </li>
           )}
           {isAuthenticated && (
             <>
               <li>
-                <NavLink to="assembly-parts" className="styledNavLink">
-                  Assembly Parts
-                </NavLink>
+                <NavLink to="assembly-parts" className="styledNavLink">Assembly Parts</NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/storage/storage-manager"
-                  className="styledNavLink"
-                >
-                  Storage
-                </NavLink>
+                <NavLink to="/storage/storage-manager" className="styledNavLink" >Storage</NavLink>
                 {location.split("/")[1] === "storage" && (
-                  <nav>
+                  <nav className="navdrop">
                     <li>
-                      <NavLink
-                        to="/storage/storage-manager"
-                        className="styledNavLink"
-                      >
-                        Locations
-                      </NavLink>
+                      <NavLink to="/storage/storage-manager" className="styledNavLink">Locations</NavLink>
                     </li>
                     <li>
-                      <NavLink
-                        to="/storage/storage-parts"
-                        className="styledNavLink"
-                      >
-                        Parts
-                      </NavLink>
+                      <NavLink to="/storage/storage-parts" className="styledNavLink">Parts</NavLink>
                     </li>
                   </nav>
                 )}
@@ -60,54 +39,42 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
               {isManager && (
                 <>
                   <li>
-                    <NavLink to="reporting" className="styledNavLink">
-                      Reporting
-                    </NavLink>
+                    <NavLink to="reporting" className="styledNavLink">Reporting</NavLink>
                     {location.split("/")[1] === "reporting" && (
-                      <nav>
+                      <nav className="navdrop">
                         <li>
-                          <NavLink
-                            to="/reporting/assembly-reports"
-                            className="styledNavLink"
-                          >
+                          <NavLink to="/reporting/assembly-reports" className="styledNavLink">
                             Assembly Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            to="/reporting/storage-reports"
-                            className="styledNavLink"
-                          >
+                          <NavLink to="/reporting/storage-reports" className="styledNavLink">
                             Storage Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/customer-reports">
+                          <NavLink to="/reporting/customer-reports" className="styledNavLink">
                             Customer Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/assembly-interaction-reports">
-                            Assembly Interaction Reports
+                          <NavLink to="/reporting/assembly-interaction-reports" className="styledNavLink">
+                          Assembly Interaction Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/storage-interaction-reports">
-                            Storage Interaction Reports
+                          <NavLink to="/reporting/storage-interaction-reports" className="styledNavLink">
+                          Storage Interaction Reports
                           </NavLink>
                         </li>
                       </nav>
                     )}
                   </li>
                   <li>
-                    <NavLink to="user-management" className="styledNavLink">
-                      User Management
-                    </NavLink>
+                    <NavLink to="user-management" className="styledNavLink">User Management</NavLink>
                   </li>
                   <li>
-                    <NavLink to="account" className="styledNavLink">
-                      My Account
-                    </NavLink>
+                    <NavLink to="account" className="styledNavLink">My Account</NavLink>
                   </li>
                 </>
               )}
