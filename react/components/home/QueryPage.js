@@ -92,7 +92,7 @@ handleQuerySubmit = (e) => {
     });
   } else if (pattern.test(this.state.email) || this.state.email === "") {
       this.setState({submiterror: ""});
-      let url = "http://localhost/kv6002/php/customerquery";
+      let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery";
       let formData = new FormData();
       formData.append("token", "SiteToken-7874857973");
       formData.append("name", this.state.name);
