@@ -20,7 +20,7 @@ export class ADDEditStored extends React.Component {
         <h2 className="modal-spacer">Add to Warehouse: {this.props.warehouse} Location: {this.props.location}</h2>
         <p>Current Quantity: {this.props.qauntity}</p>
         <form className="modal-form">
-          <p>Number to add:</p>
+          <p>Number to add<span className="form-asterisk">*</span>:</p>
           <input
             type="number"
             placeholder="# to add"
@@ -57,7 +57,7 @@ export class REMOVEEditStored extends React.Component {
         <h2 className="modal-spacer">Remove from Warehouse: {this.props.warehouse} Location: {this.props.location}</h2>
         <p>Current Quantity: {this.props.qauntity}</p>
         <form className="modal-form">
-          <p>Number to remove:</p>
+          <p>Number to remove<span className="form-asterisk">*</span>:</p>
           <input
             type="number"
             placeholder="# to remove"
@@ -65,7 +65,7 @@ export class REMOVEEditStored extends React.Component {
           />
           <div className="modal-button">
           <button onClick={this.props.handleUpdateQuantityClick}>Update Quantity</button>
-          <br/><br/><button className="remove-all" onClick={this.props.handleRemoveAllClick}>Remove All</button>
+          <br/><br/><button className="red" onClick={this.props.handleRemoveAllClick}>Remove All</button>
           <button className="red" onClick={this.props.handleClose}>Cancel</button>
           </div>
           {error}

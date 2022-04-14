@@ -337,6 +337,15 @@ button {
 button:hover {
   background-color: #0f5877
 }
+
+.red:hover {
+  background-color: #3a0303
+}
+
+.green:hover {
+  background-color: #022905
+}
+
 .buttons {
   display:flex;
   flex-direction: column;

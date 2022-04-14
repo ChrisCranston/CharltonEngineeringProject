@@ -19,21 +19,21 @@ class AddLocation extends React.Component {
         <div className="modal-contents">
         <h2 className="modal-spacer">Add New Location:</h2>
         <form className="modal-form">
-          <p>Warehouse number:</p>
+          <p>Warehouse number<span className="form-asterisk">*</span>:</p>
           <input
             type="number"
             placeholder="WN:"
             value={this.props.warehouseNumber}
             onChange={this.props.handleWarehouseNumber}
           />
-          <p>Location Name:</p>
+          <p>Location Name<span className="form-asterisk">*</span>:</p>
           <input
             type="text"
             placeholder="Location name"
             value={this.props.name}
             onChange={this.props.handleLocationName}
           />
-          <p>Type:</p>
+          <p>Type<span className="form-asterisk">*</span>:</p>
           <input
             type="text"
             placeholder="e.g. pallet / shelf / bin"
