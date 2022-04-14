@@ -105,9 +105,10 @@ class StorageInteractions extends React.Component {
                  <th>Email Address</th>
                 </tr>
                 </thead>
+                <tbody>
                     {noData}
                     {filteredResults.map((storageInteraction, i) => (<StorageInteraction className="storageInteraction" key={i} storageInteraction={storageInteraction} />))}
-                    </table>
+                    </tbody></table>
         </div> 
 
         );
