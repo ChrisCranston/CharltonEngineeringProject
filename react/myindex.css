@@ -71,7 +71,7 @@ code {
 }
 
 .text-on-serviceimg{
-  margin: 5%;
+  margin: 5.5%;
   position:absolute;
   width:auto;
   top:0px;
@@ -201,6 +201,34 @@ code {
 }
 #formResponse {
   color:red;
+}
+
+@media only screen and (max-width: 895px) {
+  .contactushero {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contactus0 {
+    margin-top: 13%;
+    margin-left: 0%;
+    width: 100%;
+  }
+  
+  .contactushero h1 {
+    margin-left: 6%;
+  }
+  
+  
+  .contactus2 {
+    margin-top: 0%;
+    margin-left: 0%;
+    height: 10%;
+    background-color: black;
+    opacity: 0.7;
+    color: white;
+    padding: 20px;
+  }
 }
 
 
