@@ -62,8 +62,10 @@ class QueryPage extends React.Component {
   };
 
   handleQuerySubmit = (e) => {
+    
     e.preventDefault();
-    let pattern = /[a-zA-Z0-9]+([a-zA-Z0-9]+)?[@][a-z][a-z]/g;
+    let pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    let countrycodePattern = /^[+]{0,1}[0-9]{1,4}$/g;
     if (this.state.email === "" && this.state.phone === "") {
       this.setState({
         failedsubmit: true,
@@ -79,48 +81,50 @@ class QueryPage extends React.Component {
         failedsubmit: true,
         submiterror: "Please fill in your name",
       });
-    } else if (this.state.phone !== "" && this.state.countrycode === "") {
+    } else if (this.state.phone !== "" && (this.state.countrycode === "" || !countrycodePattern.test(this.state.countrycode))) {
       this.setState({
         failedsubmit: true,
-        submiterror: "Please give a countrycode",
+        submiterror: "Please give a valid countrycode",
       });
-    } else if (pattern.test(this.state.email) || this.state.email === "") {
-      this.setState({ submiterror: "" });
-      let url =
-        "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery";
-      let formData = new FormData();
-      formData.append("token", "SiteToken-7874857973");
-      formData.append("name", this.state.name);
-      formData.append("businessindividual", this.state.clienttype);
-      formData.append("email", this.state.email);
-      formData.append("phonenumber", this.state.phone);
-      formData.append("querytype", this.state.querytype);
-      formData.append("query", this.state.query);
-      fetch(url, { method: "POST", headers: new Headers(), body: formData })
-        .then((response) => {
-          if (response.status === 204) {
-            this.setState({
-              name: "",
-              clienttype: 1,
-              email: "",
-              phone: "",
-              querytype: 1,
-              query: "",
-              failedsubmit: false,
-              submiterror: "Submit successful, thank you!",
+    }  else if (pattern.test(this.state.email) || this.state.email === "") {
+          let phoneNumber = this.state.countrycode + this.state.phone;
+          this.setState({ submiterror: "" });
+          let url =
+            "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery";
+          let formData = new FormData();
+          formData.append("token", "SiteToken-7874857973");
+          formData.append("name", this.state.name);
+          formData.append("businessindividual", this.state.clienttype);
+          formData.append("email", this.state.email);
+          formData.append("phonenumber", phoneNumber);
+          formData.append("querytype", this.state.querytype);
+          formData.append("query", this.state.query);
+          fetch(url, { method: "POST", headers: new Headers(), body: formData })
+            .then((response) => {
+              if (response.status === 204) {
+                this.setState({
+                  name: "",
+                  clienttype: 1,
+                  email: "",
+                  phone: "",
+                  countrycode: "",
+                  querytype: 1,
+                  query: "",
+                  failedsubmit: false,
+                  submiterror: "Submit successful, thank you!",
+                });
+              } else {
+                throw Error(response.statusText);
+              }
+            })
+            .catch((err) => {
+              console.log("something went wrong, ", err);
+    
+              this.setState({
+                failedsubmit: true,
+                submiterror: err,
+              });
             });
-          } else {
-            throw Error(response.statusText);
-          }
-        })
-        .catch((err) => {
-          console.log("something went wrong, ", err);
-
-          this.setState({
-            failedsubmit: true,
-            submiterror: err,
-          });
-        });
     } else {
       this.setState({
         failedsubmit: true,

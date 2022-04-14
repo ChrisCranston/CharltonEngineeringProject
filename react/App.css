@@ -65,6 +65,28 @@ nav {
   border-bottom: 3px solid transparent;
   transition: 0.3s;
 }
+.styledNavLinkStorage {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  width:auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 20px 10px 20px;
+  font-size: 1rem;
+  display: block;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+.styledNavLinkReporting {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  width:auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 20px 10px 20px;
+  font-size: 1rem;
+  display: block;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
 p {
   display: block;
     margin-top: 3px;
@@ -77,6 +99,14 @@ table {
   width: 100%;
 }
 
+a {
+  color: #0000EE
+}
+
+a:hover {
+  color: #0303b9
+}
+
 
 
 .styledNavLink:hover {
@@ -84,19 +114,37 @@ table {
   border-bottom: 5px solid #1E9BD3;
 
 }
-
 .styledNavLink.active {
   text-decoration: none;
   border-bottom: 5px solid #1E9BD3;
   background-color:white;
 
 }
+.styledNavLinkStorage:hover {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
 
-.parts-table tr:hover {
-  background-color: #bbb;
+}
+.styledNavLinkStorage.active {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
+  background-color:white;
+
+}
+.styledNavLinkReporting:hover {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
+
+}
+.styledNavLinkReporting.active {
+  text-decoration: none;
+  border-bottom: 5px solid #1E9BD3;
+  background-color:white;
 }
 
-nav li .navdrop {
+
+
+nav li .navdropstorage {
   display: none;
   position: absolute;
   margin:0;
@@ -107,17 +155,57 @@ nav li .navdrop {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
-.navdrop .styledNavLink:hover {
+.navdropstorage .styledNavLinkStorage:hover {
   border-bottom: 5px solid #13658b;
 }
-nav:hover .navdrop{
+#storagedropdown:hover > .navdropstorage{
   display: block;
 }
-.navdrop .styledNavLink.active {
+.navdropstorage .styledNavLinkStorage.active {
   text-decoration: none;
   background-color:#1E9BD3;
 
 }
+
+nav li .navdropreporting {
+  display: none;
+  position: absolute;
+  margin:0;
+  width:auto;
+  padding: 20%;
+  background-color: white;
+  color:black;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.navdropreporting .styledNavLinkReporting:hover {
+  border-bottom: 5px solid #13658b;
+}
+#reportingdropdown:hover .navdropreporting{
+  display: block;
+}
+.navdropreporting .styledNavLinkReporting.active {
+  text-decoration: none;
+  background-color:#1E9BD3;
+
+}
+
+
+
+
+
+
+
+.parts-table tr:hover {
+  background-color: #bbb;
+}
+
+.ISOlogo {
+  width:20%;
+}
+
+
+
 
 .remove-all {
   background-color: darkred;
@@ -245,6 +333,9 @@ button {
   border-radius: 10px;
   background-color: #1984b3;
   margin: 3px;
+}
+button:hover {
+  background-color: #0f5877
 }
 .buttons {
   display:flex;

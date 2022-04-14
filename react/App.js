@@ -82,15 +82,6 @@ function App() {
 
         <Route path="reporting">
           <Route
-            index
-            element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <ReportingHomePage />
-                <h1>REPORTING HOMEPAGE</h1>
-              </RestrictedRoute>
-            }
-          />
-          <Route
             path="assembly-reports"
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
@@ -132,24 +123,7 @@ function App() {
           />
         </Route>
 
-        <Route
-          path="user-management"
-          element={
-            <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-              <h1>USER MANAGEMENT PAGE</h1>
-            </RestrictedRoute>
-          }
-        />
-
-        <Route
-          path="account"
-          element={
-            <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-              <h1>ACCOUNT PAGE</h1>
-            </RestrictedRoute>
-          }
-        />
-
+        
         <Route
           path="*"
           element={
