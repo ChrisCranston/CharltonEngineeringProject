@@ -29,16 +29,15 @@ export const formatString = (string) => {
  * @param  {string}  type         the input type (string or number)
  * @param  {string}  value        the input value
  * @param  {boolean} isMandatory  whether the field is mandatory or not
- * @param  {boolean} allowZero    whether the field allows zero as an acceptable answer
  * @return {string}  OR {boolean} the error message or false if no validation errors
  */
-export const validateField = (field, type, value, isMandatory, allowZero) => {
+export const validateField = (field, type, value, isMandatory) => {
   var error = false;
   const humanReadableKey = formatString(field);
 
   if (!value && isMandatory) {
-    error = humanReadableKey + " is empty or contains text";
-  } else if (type === "number" && !allowZero && value <= 0) {
+    error = humanReadableKey + " cannot be empty";
+  } else if (type === "number" && value <= 0) {
     error = humanReadableKey + " must be greater than zero";
   }
 
@@ -59,8 +58,7 @@ export const validateFields = (data) => {
       field,
       data[field].type,
       data[field].value,
-      data[field].mandatory,
-      data[field].allowZero
+      data[field].mandatory
     );
 
     data[field].inputError = inputError;
@@ -69,11 +67,30 @@ export const validateFields = (data) => {
   return data;
 };
 
+/**
+ * handleTextEntry
+ *
+ * sets the input object's value and resets any inputErrors when the user enters text into the input
+ *
+ * @param  {object} data  object of input values featuring input type, input value and input error
+ * @param  {string} value the new value the user has entered
+ * @param  {string} field the key of the current input value
+ * @return {object}       updated object of input values with inputted text added
+ */
 export const handleTextEntry = (data, value, field) => ({
   ...data,
   [field]: { ...data[field], value, inputError: false },
 });
 
+/**
+ * cancelText
+ *
+ * resets the current input field to its default value when the user clears the input field
+ *
+ * @param  {object} data  object of input values featuring input type, input value and input error
+ * @param  {string} field the key of the current input value
+ * @return {object}       updated object of input values with value reset to default
+ */
 export const cancelText = (data, field) => ({
   ...data,
   [field]: {
@@ -83,6 +100,14 @@ export const cancelText = (data, field) => ({
   },
 });
 
+/**
+ * clearFields
+ *
+ * resets all input fields to their default values.
+ *
+ * @param  {object} data  object of input values featuring input type, input value and input error
+ * @return {object}       updated object of input values with all values reset to default
+ */
 export const clearFields = (data) => {
   Object.keys(data).forEach((field) => {
     data[field].value = data[field].default;
@@ -92,6 +117,14 @@ export const clearFields = (data) => {
   return data;
 };
 
+/**
+ * resetInputErrors
+ *
+ * clears all input errors.
+ *
+ * @param  {object} data  object of input values featuring input type, input value and input error
+ * @return {object}       updated object of input values with all input errors cleared
+ */
 export const resetInputErrors = (data) => {
   Object.keys(data).forEach((field) => {
     data[field].inputError = false;
@@ -100,6 +133,14 @@ export const resetInputErrors = (data) => {
   return data;
 };
 
+/**
+ * resetInputErrors
+ *
+ * retrieves all input values
+ *
+ * @param  {object} data  object of input values featuring input type, input value and input error
+ * @return {object}       object of input values only
+ */
 export const getInputValues = (data) => {
   Object.keys(data).forEach((field) => {
     data = { ...data, [field]: data[field].value };
@@ -108,9 +149,23 @@ export const getInputValues = (data) => {
   return data;
 };
 
+/**
+ * getAssemblyPartPageSize
+ *
+ * retrieves the assembly part page size from localStorage
+ *
+ * @return {string} the assembly part page size
+ */
 export const getAssemblyPartPageSize = () =>
   localStorage.getItem("assemblyPartPageSize");
 
+/**
+ * setAssemblyPartPageSize
+ *
+ * sets the assembly part page size in localStorage
+ *
+ * @param {string} pageSize the new assembly part page size
+ */
 export const setAssemblyPartPageSize = (pageSize) =>
   localStorage.setItem("assemblyPartPageSize", pageSize);
 

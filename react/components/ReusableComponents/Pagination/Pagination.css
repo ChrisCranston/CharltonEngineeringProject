@@ -9,10 +9,6 @@
   justify-content: space-evenly;
 }
 
-.pagination button {
-  width: 60px;
-}
-
 .pagination button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
@@ -21,6 +17,7 @@
 .page-numbers {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .page-numbers-contents {

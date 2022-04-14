@@ -18,6 +18,14 @@ import StorageInteractionPage from "./components/reporting/StorageInteractionPag
 import "./App.css";
 import Footer from "./components/FooterComponent.js";
 
+/**
+ * App function component
+ *
+ * Base component for the system. Handles authentication,
+ * navigation and routing to the various application pages.
+ *
+ * @author KV6002 Group 2
+ */
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -70,7 +78,6 @@ function App() {
               </RestrictedRoute>
             }
           />
-          
         </Route>
 
         <Route path="reporting">
@@ -78,7 +85,7 @@ function App() {
             index
             element={
               <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-              <ReportingHomePage />
+                <ReportingHomePage />
                 <h1>REPORTING HOMEPAGE</h1>
               </RestrictedRoute>
             }

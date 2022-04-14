@@ -1,25 +1,124 @@
-.parts-table {
+.assembly-parts-table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.parts-table td,
-.parts-table th {
+.assembly-parts-table td,
+.assembly-parts-table th {
   border: 1px solid #ddd;
-  padding: 8px;
 }
 
-.parts-table tr:nth-child(even) {
+.assembly-parts-table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.parts-table tr:hover {
-  background-color: #ddd;
+.assembly-parts-table tr:hover {
+  background-color: #bbb;
 }
 
-.parts-table th {
+.assembly-parts-table th {
   padding-top: 12px;
   padding-bottom: 12px;
   background-color: grey;
   color: white;
+  text-align: center;
+}
+
+.mobile-buttons {
+  display: none;
+}
+
+@media only screen and (max-width: 780px) {
+  .mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin-bottom: 2rem;
+  }
+
+  .part-buttons {
+    width: 45%;
+  }
+
+  .mobile-buttons {
+    margin-left: auto;
+  }
+
+  .mobile-buttons,
+  .part-buttons {
+    margin-right: auto;
+  }
+
+  /* Force table to not be like tables anymore */
+  .assembly-parts-table,
+  .assembly-parts-table thead,
+  .assembly-parts-table tbody,
+  .assembly-parts-table th,
+  .assembly-parts-table td,
+  .assembly-parts-table tr {
+    display: block;
+  }
+
+  .assembly-parts-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .assembly-parts-table tr {
+    border: 1px solid #ccc;
+    margin-bottom: 6px;
+  }
+
+  .assembly-parts-table td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+
+    min-height: 12pt;
+  }
+
+  .assembly-parts-table td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 60%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  .assembly-parts-table {
+    width: 100%;
+  }
+
+  .assembly-parts-table td,
+  .assembly-parts-table th {
+    border: 1px solid #ddd;
+    padding-left: 40%;
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .part-buttons {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 490px) {
+  .mobile-buttons {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .part-buttons {
+    width: 100%;
+  }
+
+  .mobile-buttons {
+    width: 80%;
+  }
 }

@@ -1,8 +1,17 @@
+.form-asterisk {
+  color: #cc0000;
+}
+
 .form-error {
   color: #d81f26;
   background-color: #ffd3d4;
   display: flex;
   padding: 0.75rem 1rem 0.75rem 1rem;
+  text-align: center;
+}
+
+.form-error-icon {
+  margin-right: 0.5rem;
 }
 
 .field-label {
@@ -20,16 +29,17 @@
 }
 
 .field-input input {
-  width: 90%;
+  width: 80%;
 }
 
 @media only screen and (max-width: 768px) {
-  .small-centre,
-  .form-error {
-    text-align: center;
-  }
-
   .field-label {
     margin-left: 0;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  .field-input {
+    flex-direction: column;
   }
 }

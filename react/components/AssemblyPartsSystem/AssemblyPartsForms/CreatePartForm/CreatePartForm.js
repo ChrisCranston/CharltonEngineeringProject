@@ -19,6 +19,16 @@ import {
 import { ASSEMBLY_PARTS_URL, editTypes } from "../../assemblyPartConstants";
 import "../AssemblyPartForm.css";
 
+/**
+ * CreatePartForm class component
+ *
+ * Form to add a new assembly part to the system.
+ * Dynamically renders the form with optional values.
+ * Validates each field and returns input errors to
+ * the user.
+ *
+ * @author Matthew William Dawson W18002221
+ */
 class CreatePartForm extends React.Component {
   constructor(props) {
     super(props);
@@ -116,7 +126,7 @@ class CreatePartForm extends React.Component {
             const newData = clearFields(data);
             this.mounted && this.setState({ data: newData });
 
-            closePortal(editTypes.CREATE, true);
+            closePortal(editTypes.CREATE);
           } else {
             this.mounted &&
               this.setState({
@@ -136,70 +146,81 @@ class CreatePartForm extends React.Component {
     const { closePortal } = this.props;
 
     return (
-      <div>
-        {isSubmitting ? (
-          <Loading />
-        ) : (
-          <>
-            <h1 className="small-centre">Add New Assembly Part</h1>
-            <p className="small-centre"></p>
-            {createError && (
-              <p className="form-error">
-                <span>
-                  <FontAwesomeIcon
-                    className="form-error-icon error-icon"
-                    icon={faExclamationTriangle}
-                  />
-                </span>
-                <span>{createError}</span>
-              </p>
-            )}
-            <div className="form">
-              {Object.keys(data).map((key) => (
-                <div key={key}>
-                  {data[key].inputError && (
-                    <p className="form-error">
-                      <span>
-                        <FontAwesomeIcon
-                          className="form-error-icon error-icon"
-                          icon={faExclamationTriangle}
-                        />
-                      </span>
-                      <span>Input Error: {data[key].inputError}</span>
-                    </p>
-                  )}
-                  <Input
-                    label={formatString(key)}
-                    type={data[key].type}
-                    id={key}
-                    value={data[key].value ?? ""}
-                    onChange={(e) => {
-                      const newData = handleTextEntry(
-                        data,
-                        e.target.value,
-                        key
-                      );
-                      this.mounted && this.setState({ data: newData });
-                    }}
-                    cancelInput={() => {
-                      const newData = cancelText(data, key);
-                      this.mounted && this.setState({ data: newData });
-                    }}
-                    onEnter={this.handleSubmit}
-                    wrapperClassName="field-input"
-                    labelClassName="field-label"
-                  />
+      <div className="modal-sizing modal-sizing-wide">
+        <div className="modal-contents modal-contents-wide">
+          {isSubmitting ? (
+            <Loading />
+          ) : (
+            <>
+              <h2 className="modal-spacer">Add New Assembly Part</h2>
+              <div className="modal-form">
+                {createError && (
+                  <p className="form-error">
+                    <span>
+                      <FontAwesomeIcon
+                        className="form-error-icon"
+                        icon={faExclamationTriangle}
+                      />
+                    </span>
+                    <span>{createError}</span>
+                  </p>
+                )}
+                <div className="form">
+                  {Object.keys(data).map((key) => (
+                    <div key={key}>
+                      {data[key].inputError && (
+                        <p className="form-error">
+                          <span>
+                            <FontAwesomeIcon
+                              className="form-error-icon"
+                              icon={faExclamationTriangle}
+                            />
+                          </span>
+                          <span>Input Error: {data[key].inputError}</span>
+                        </p>
+                      )}
+                      <Input
+                        label={
+                          <span>
+                            {formatString(key)}
+                            {data[key].mandatory && (
+                              <span className="form-asterisk"> *</span>
+                            )}
+                            :
+                          </span>
+                        }
+                        type={data[key].type}
+                        id={key}
+                        value={data[key].value ?? ""}
+                        onChange={(e) => {
+                          const newData = handleTextEntry(
+                            data,
+                            e.target.value,
+                            key
+                          );
+                          this.mounted && this.setState({ data: newData });
+                        }}
+                        cancelInput={() => {
+                          const newData = cancelText(data, key);
+                          this.mounted && this.setState({ data: newData });
+                        }}
+                        onEnter={this.handleSubmit}
+                        wrapperClassName="field-input"
+                        labelClassName="field-label"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <ModalFooter
-              disabled={isSubmitting}
-              submitText="Create New Part"
-              onClose={() => closePortal(editTypes.CREATE)}
-              onSubmit={this.handleSubmit}
-            />
-          </>
-        )}
+                <ModalFooter
+                  disabled={isSubmitting}
+                  submitText="Create New Part"
+                  onClose={() => closePortal(editTypes.CREATE)}
+                  onSubmit={this.handleSubmit}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     );
   }
