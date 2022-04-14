@@ -157,7 +157,6 @@ class Stored extends React.Component {
     if (this.state.quantityUpdate % 1 === 0 || removeAll === true ) {
       if (this.state.quantityUpdate > 0 || removeAll === true) {
       let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
-      console.log(removeAll)
       let formData = new FormData();
       formData.append("edit", this.state.edit);
       formData.append("location", this.props.stored_item.storage_location_id);
