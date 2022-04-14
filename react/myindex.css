@@ -275,6 +275,8 @@ flex-direction: column;
 }
 
 .formArea {
+  margin-left:auto;
+  margin-right:auto;
   padding:20px;
   width: 80%;
 }

@@ -101,7 +101,7 @@ cancelSearch = () => {
 
     return (
       <div className="main_content">
-         <section>
+         <section className="text-center">
           <h2>Storage Interaction Report</h2>
           <div>
             <p>

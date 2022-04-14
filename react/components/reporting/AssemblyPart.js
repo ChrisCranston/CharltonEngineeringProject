@@ -26,7 +26,10 @@ class AssemblyPart extends React.Component {
      *  
      */
     render() {
-
+        let notes = this.props.assemblyPart.notes
+        if (this.props.assemblyPart.notes === null) {
+            notes = "N/A"
+        }
 
 
         return(
@@ -34,7 +37,7 @@ class AssemblyPart extends React.Component {
               <tr class="assembly-tr">
                 <td>{this.props.assemblyPart.serial_number}</td>
                 <td>{this.props.assemblyPart.name}</td>
-                <td>{this.props.assemblyPart.notes}</td> 
+                <td>{notes}</td> 
                 <td>{this.props.assemblyPart.quantity}</td> 
                 <td>{this.props.assemblyPart.low_warning}</td> 
                 <td><a href={this.props.assemblyPart.order_url} target="_blank">{this.props.assemblyPart.order_url}</a></td> 

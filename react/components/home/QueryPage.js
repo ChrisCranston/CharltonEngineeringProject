@@ -95,8 +95,8 @@ class QueryPage extends React.Component {
           formData.append("token", "SiteToken-7874857973");
           formData.append("name", this.state.name);
           formData.append("businessindividual", this.state.clienttype);
-          formData.append("email", this.state.email);
-          formData.append("phonenumber", phoneNumber);
+          formData.append("email", this.state.email === "" ? "n/a" : this.state.email);
+          formData.append("phonenumber", phoneNumber === "" ? "n/a" : phoneNumber);
           formData.append("querytype", this.state.querytype);
           formData.append("query", this.state.query);
           fetch(url, { method: "POST", headers: new Headers(), body: formData })

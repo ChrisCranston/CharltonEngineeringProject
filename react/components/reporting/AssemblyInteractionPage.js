@@ -98,7 +98,7 @@ cancelSearch = () => {
 
     return (
       <div className="main_content">
-        <section>
+        <section className="text-center">
           <h2>Assembly Interaction Report</h2>
           <div>
             <p>

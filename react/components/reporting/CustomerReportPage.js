@@ -121,7 +121,7 @@ getCurrentDateText = () => {
     
     return (
       <div className="main_content">
-        <section>
+        <section className="text-center">
           <h2>Customer Report</h2>
           <div>
             <p>
