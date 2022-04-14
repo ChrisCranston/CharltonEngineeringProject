@@ -18,7 +18,7 @@ class ModalFooter extends React.Component {
     return (
       <div className="modal-footer">
         {onClose && (
-          <button disabled={disabled} className="button" onClick={onClose}>
+          <button disabled={disabled} className="button red" onClick={onClose}>
             {closeText}
           </button>
         )}

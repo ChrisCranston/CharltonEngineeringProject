@@ -1,10 +1,14 @@
 import React from 'react';
 
+/**
+ * Client Type Option box Component
+ *
+ *This component is an option box populated from the database and applied on the form
+ * 
+ * @author Kess Strongman
+ */
 class ClientType extends React.Component {
-    constructor() {
-        super();
-    }
-
+ 
     render () {
         let clienttypes = this.props.state.clienttypes;
         let optionItems = clienttypes.map((clienttype) =>

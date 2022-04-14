@@ -27,11 +27,17 @@ switch ($request->getPath()) {
     case 'assemblyinteractionreport':
         $controller = new ApiAssemblyInteractionReportController($request, $response);
         break;
+    case 'customerquery':
+        $controller = new ApiCustomerQueryController($request, $response);
+        break;
     case 'storageinteractionreport':
         $controller = new ApiStorageInteractionReportController($request, $response);
         break;    
     case 'storagereport':
         $controller = new ApiStorageReportController($request, $response);
+        break;
+    case "customerquery":
+        $controller = new ApiCustomerQueryController($request, $response);
         break;
     case 'customerreport':
         $controller = new ApiCustomerReportController($request, $response);

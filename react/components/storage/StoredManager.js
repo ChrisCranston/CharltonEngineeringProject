@@ -73,7 +73,7 @@ class StoredManager extends React.Component {
     if (this.props.item_type === "location") {
       if (this.props.qrSearch !== "") {
         let name = false;
-        if (s.storage_location_id === this.props.qrSearch){
+        if (s.storage_location_id === this.props.qrSearch) {
           name = true;
         }
         return name;
@@ -83,21 +83,22 @@ class StoredManager extends React.Component {
           .includes(this.props.search.toLowerCase());
         return search_string;
       }
-
     } else if (this.props.item_type === "part") {
       if (this.props.qrSearch !== "") {
         let name = false;
         if (s.part_id === this.props.qrSearch) {
-          name = true
+          name = true;
         }
         return name;
       } else {
-      let name = s.name.toLowerCase().includes(this.props.search.toLowerCase());
-      let serial = s.serial_number
-        .toLowerCase()
-        .includes(this.props.search.toLowerCase());
-      return name + serial;
-    }
+        let name = s.name
+          .toLowerCase()
+          .includes(this.props.search.toLowerCase());
+        let serial = s.serial_number
+          .toLowerCase()
+          .includes(this.props.search.toLowerCase());
+        return name + serial;
+      }
     }
   };
 
@@ -114,13 +115,15 @@ class StoredManager extends React.Component {
       filteredResults = this.state.results.filter(this.filterSearch);
     }
     pagesize = (
-      <div className="btn-group-row">
+      <div className="storage-page-block">
+        <div>
         <p>results per page: </p>
         <select name="Results Per Page " onChange={this.props.handlePageSize}>
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="30">30</option>
         </select>
+      </div>
       </div>
     );
 
@@ -130,7 +133,7 @@ class StoredManager extends React.Component {
       let pageMin = pageMax - pageSize;
 
       buttons = (
-        <div className="btn-group-row">
+        <div className="pagination">
           <button
             onClick={this.props.handlePreviousClick}
             disabled={this.props.page <= 1}
@@ -160,32 +163,63 @@ class StoredManager extends React.Component {
     if (this.props.item_type === "location") {
       display = (
         <div>
-          {noData}
-          {filteredResults.map((stored_item, i) => (
-            <Stored
-              key={i + stored_item}
-              stored_item={stored_item}
-              update={this.fetchData}
-            />
-          ))}
-          {pagesize}
+        {pagesize}
+        <div>
+          <table className="parts-table">
+            <thead style={{ marginBottom: "1rem" }}>
+              <tr>
+                <th>Warehouse #:</th>
+                <th>Location Name:</th>
+                <th>Type: </th>
+                <th>Stored: </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {noData}
+              {filteredResults.map((stored_item, i) => (
+                <Stored
+                  key={i + stored_item}
+                  stored_item={stored_item}
+                  update={this.fetchData}
+                />
+              ))}
+            </tbody>
+          </table>
+          
           {buttons}
+        </div>
         </div>
       );
     } else if (this.props.item_type === "part") {
       display = (
         <div>
-          {noData}
-
-          {filteredResults.map((stored_item, i) => (
-            <Parts
-              key={i + stored_item}
-              stored_item={stored_item}
-              onChange={this.handleChange}
-            />
-          ))}
           {pagesize}
+        <div>
+          <table className="parts-table">
+            <thead style={{ marginBottom: "1rem" }}>
+              <tr>
+                <th>Serial #:</th>
+                <th>Name:</th>
+                <th>Description: </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {noData}
+              {filteredResults.map((stored_item, i) => (
+                <Parts
+                  key={i + stored_item}
+                  stored_item={stored_item}
+                  onChange={this.handleChange}
+                />
+              ))}
+            </tbody>
+          </table>
+
+          
           {buttons}
+        </div>
         </div>
       );
     }

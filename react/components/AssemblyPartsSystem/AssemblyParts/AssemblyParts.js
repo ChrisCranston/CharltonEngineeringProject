@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRotateRight } from "@fortawesome/free-solid-svg-icons"; */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import AssemblyPart from "../AssemblyPart/AssemblyPart";
 import CreatePartForm from "../AssemblyPartsForms/CreatePartForm/CreatePartForm";
 import EditPartForm from "../AssemblyPartsForms/EditPartForm/EditPartForm";
@@ -10,7 +10,7 @@ import ChangeQuantityForm from "../AssemblyPartsForms/ChangeQuantityForm/ChangeQ
 import DeletePartForm from "../AssemblyPartsForms/DeletePartForm/DeletePartForm";
 import Loading from "../../ReusableComponents/Loading/Loading";
 import Pagination from "../../ReusableComponents/Pagination/Pagination";
-import Modal from "../../ReusableComponents/Modal/Modal";
+import Modal from "react-modal";
 import {
   fetchResource,
   getAssemblyPartPageSize,
@@ -23,6 +23,16 @@ import {
 } from "../assemblyPartConstants";
 import "./AssemblyParts.css";
 
+/**
+ * AssemblyParts class component
+ *
+ * Filters, sorts and displays the assembly parts
+ * table. Also renders the create, edit, quantity
+ * and delete part modal functionality. Also renders
+ * the pagination functionality.
+ *
+ * @author Matthew William Dawson W18002221
+ */
 class AssemblyParts extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +40,16 @@ class AssemblyParts extends React.Component {
       results: {},
       isLoading: false,
       selectedPartID: null,
+      customStyles: {
+        content: {
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+        },
+      },
       modalOpen: {
         create: false,
         add: false,
@@ -56,10 +76,10 @@ class AssemblyParts extends React.Component {
     });
   };
 
-  closePartModal = (editType, submitted = false) => {
+  closePartModal = (editType) => {
     const { modalOpen } = this.state;
 
-    submitted && this.fetchData();
+    this.fetchData();
 
     this.setState({
       selectedPartID: null,
@@ -77,7 +97,6 @@ class AssemblyParts extends React.Component {
       .then((response) => {
         if (response) {
           if (response.status === 200 || response.status === 204) {
-            toast.success("Successfully retrieved assembly parts");
             this.setState({
               results: response.results.reduce(
                 (obj, variable) => ({
@@ -130,8 +149,14 @@ class AssemblyParts extends React.Component {
   };
 
   render() {
-    const { results, isLoading, modalOpen, selectedPartID, pageSize } =
-      this.state;
+    const {
+      results,
+      isLoading,
+      modalOpen,
+      selectedPartID,
+      pageSize,
+      customStyles,
+    } = this.state;
 
     const {
       page,
@@ -166,12 +191,6 @@ class AssemblyParts extends React.Component {
       }
     }
 
-    /*
-    <button onClick={() => this.fetchData()}>
-      Refresh <FontAwesomeIcon icon={faRotateRight} />
-    </button>
-    */
-
     return (
       <>
         <div>
@@ -181,12 +200,15 @@ class AssemblyParts extends React.Component {
             <p>No data found</p>
           ) : (
             <>
-              <div>
-                <button onClick={() => this.openPartModal("create")}>
+              <div className="mobile-buttons">
+                <button onClick={() => this.openPartModal(editTypes.CREATE)}>
                   Add New Part
                 </button>
+                <button onClick={() => this.fetchData()}>
+                  Refresh <FontAwesomeIcon icon={faRotateRight} />
+                </button>
               </div>
-              <table className="parts-table">
+              <table className="assembly-parts-table">
                 <thead style={{ marginBottom: "1rem" }}>
                   <tr>
                     <th>Serial Number</th>
@@ -195,7 +217,18 @@ class AssemblyParts extends React.Component {
                     <th>Notes</th>
                     <th>Low Warning</th>
                     <th>Order URL</th>
-                    <th></th>
+                    <th>
+                      <div className="part-buttons part-vertical-buttons">
+                        <button
+                          onClick={() => this.openPartModal(editTypes.CREATE)}
+                        >
+                          Add New Part
+                        </button>
+                        <button onClick={() => this.fetchData()}>
+                          Refresh <FontAwesomeIcon icon={faRotateRight} />
+                        </button>
+                      </div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -221,30 +254,30 @@ class AssemblyParts extends React.Component {
             </>
           )}
         </div>
-        <Modal modalOpen={modalOpen[editTypes.CREATE]}>
+        <Modal isOpen={modalOpen[editTypes.CREATE]} style={customStyles}>
           <CreatePartForm closePortal={this.closePartModal} />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.EDIT]}>
+        <Modal isOpen={modalOpen[editTypes.EDIT]} style={customStyles}>
           <EditPartForm
             selectedPart={results[selectedPartID]}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.ADD]}>
+        <Modal isOpen={modalOpen[editTypes.ADD]} style={customStyles}>
           <ChangeQuantityForm
             selectedPart={results[selectedPartID]}
             editType={editTypes.ADD}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.REMOVE]}>
+        <Modal isOpen={modalOpen[editTypes.REMOVE]} style={customStyles}>
           <ChangeQuantityForm
             selectedPart={results[selectedPartID]}
             editType={editTypes.REMOVE}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.DELETE]}>
+        <Modal isOpen={modalOpen[editTypes.DELETE]} style={customStyles}>
           <DeletePartForm
             selectedPartID={results[selectedPartID]?.part_id}
             selectedPartSerialNumber={results[selectedPartID]?.serial_number}

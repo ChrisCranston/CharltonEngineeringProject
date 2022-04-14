@@ -1,5 +1,5 @@
 export const ASSEMBLY_PARTS_URL =
-  "http://unn-w18002221.newnumyspace.co.uk/kv6002/php/assembly-parts";
+  "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assembly-parts";
 
 export const DEFAULT_ASSEMBLY_PART_PAGE_SIZE = 15;
 

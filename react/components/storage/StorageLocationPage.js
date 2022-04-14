@@ -4,6 +4,7 @@ import SearchBox from "./SearchBox.js";
 import SelectWarehouse from "./SelectWarehouse.js";
 import AddLocation from "./AddLocation.js";
 import QrReader from "modern-react-qr-reader";
+import Modal from "react-modal";
 
 /**
  * PaperPage
@@ -26,11 +27,36 @@ class StorageLocationPage extends React.Component {
       empty: "",
       addLocation: "",
       warehousenumber: "",
+      addNewError: "",
       type: "",
       locationName: "",
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a location QR",
+      QRcustomStyles: {
+        content: {
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          height: "75%",
+          width: "75%",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+        },
+      },
+      qrButton: "Scan a location QR",
+      customStyles: {
+        content: {
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+        },
+      },
+      moadlIsOpen: true,
     };
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
@@ -46,20 +72,28 @@ class StorageLocationPage extends React.Component {
     this.handleError = this.handleError.bind(this);
     this.handleScannerClick = this.handleScannerClick.bind(this);
     this.existingcheck = this.existingcheck.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
+  handleModalClose = () => {
+    this.setState({
+      moadlIsOpen: false,
+      scannerEnabled: "",
+      addLocation: "",
+      addNewError: "",
+    });
+  };
   handleScan = (data) => {
     if (data !== null) {
       let qr_return = data.split("=");
-      if (qr_return[0] === "location"){
-      let location_id = qr_return[1];
-      
+      if (qr_return[0] === "location") {
+        let location_id = qr_return[1];
 
-      this.setState({
-        QRresult: location_id,
-        scannerEnabled: "",
-        qrButton: "Scan a location QR",
-      });
-    }
+        this.setState({
+          QRresult: location_id,
+          scannerEnabled: "",
+          qrButton: "Scan a location QR",
+        });
+      }
     }
   };
   handleError = (error) => {
@@ -69,11 +103,7 @@ class StorageLocationPage extends React.Component {
     this.setState({ QRresult: "" });
   };
   handleScannerClick = () => {
-    if (this.state.scannerEnabled === "") {
-      this.setState({ scannerEnabled: "true", qrButton: "Close Scanner" });
-    } else {
-      this.setState({ scannerEnabled: "", qrButton: "Scan a location QR" });
-    }
+    this.setState({ scannerEnabled: "true", moadlIsOpen: true });
   };
 
   handleSearch = (e) => {
@@ -103,17 +133,7 @@ class StorageLocationPage extends React.Component {
     }
   };
   handleAddLocation = () => {
-    if (this.state.addLocation === "") {
-      this.setState({ addLocation: "true" });
-    } else {
-      this.setState({
-        addLocation: "",
-        warehousenumber: "",
-        locationNam: "",
-        type: "",
-        addNewError: "",
-      });
-    }
+    this.setState({ addLocation: "true", moadlIsOpen: true });
   };
   handleWarehouseNumber = (e) => {
     this.setState({ warehousenumber: e.target.value });
@@ -129,7 +149,7 @@ class StorageLocationPage extends React.Component {
   };
   handleAddNewClick = (e) => {
     e.preventDefault();
-    this.setState({addNewError: ""});
+    this.setState({ addNewError: "" });
     this.existingcheck();
   };
 
@@ -226,7 +246,6 @@ class StorageLocationPage extends React.Component {
   render() {
     let showEmpty = "";
     let addLocation = "";
-    let addNewError = "";
     let qrScanner = "";
     let clearQR = "";
 
@@ -235,19 +254,21 @@ class StorageLocationPage extends React.Component {
     }
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
-        <QrReader
-          onScan={this.handleScan}
-          onError={this.handleError}
-          facingMode={"environment"}
-          style={{ width: "100%" }}
-        />
+        <Modal
+          isOpen={this.state.moadlIsOpen}
+          style={this.state.QRcustomStyles}
+        >
+          <QrReader
+            onScan={this.handleScan}
+            onError={this.handleError}
+            facingMode={"environment"}
+            style={{ width: "100%" }}
+          />
+          <button onClick={this.handleModalClose}>Cancel</button>
+        </Modal>
       );
     } else {
       qrScanner = clearQR;
-    }
-
-    if (this.state.addNewError !== "") {
-      addNewError = <p>{this.state.addNewError}</p>;
     }
 
     if (this.state.empty === "") {
@@ -260,25 +281,29 @@ class StorageLocationPage extends React.Component {
 
     if (this.state.addLocation === "true") {
       addLocation = (
-        <AddLocation
-          handleWarehouseNumber={this.handleWarehouseNumber}
-          handleLocationName={this.handleLocationName}
-          handleType={this.handleType}
-          handleAddNewClick={this.handleAddNewClick}
-        />
+        <Modal isOpen={this.state.moadlIsOpen} style={this.state.customStyles}>
+          <AddLocation
+            handleWarehouseNumber={this.handleWarehouseNumber}
+            handleLocationName={this.handleLocationName}
+            handleType={this.handleType}
+            handleAddNewClick={this.handleAddNewClick}
+            handleClose={this.handleModalClose}
+            error={this.state.addNewError}
+          />
+        </Modal>
       );
     }
     return (
       <div className="main_content">
-        <div className="page_item">
+        <div className="storage-page">
           {qrScanner}
-          <div>
+          <div className="storage-page-block">
             <button onClick={this.handleScannerClick}>
               {this.state.qrButton}
             </button>
             <button onClick={this.handleAddLocation}>Add Location</button>
           </div>
-          <div>
+          <div className="storage-page-block">
             <SearchBox
               name={"Search: "}
               search={this.state.search}
@@ -291,11 +316,10 @@ class StorageLocationPage extends React.Component {
             />
             {showEmpty}
             {addLocation}
-            {addNewError}
           </div>
           <div>
             <StoredManager
-            key ={this.state.key}
+              key={this.state.key}
               item_type="location"
               empty={this.state.empty}
               outOfEmpties={this.outOfEmpties}

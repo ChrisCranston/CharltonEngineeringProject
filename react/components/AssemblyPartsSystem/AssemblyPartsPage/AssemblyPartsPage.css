@@ -1,3 +1,33 @@
 .parts-page {
   margin: 1rem;
 }
+
+.item-controls {
+  display: flex;
+}
+
+.item-control-wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem;
+}
+
+.item-control-wrapper label {
+  margin-right: 1rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .item-controls {
+    flex-direction: column;
+  }
+
+  .item-control-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-control-wrapper label {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}

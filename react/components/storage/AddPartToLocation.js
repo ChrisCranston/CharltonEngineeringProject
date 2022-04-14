@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBox from "./SearchBox";
-import QrReader  from "modern-react-qr-reader";
+import QrReader from "modern-react-qr-reader";
+import Modal from "react-modal";
 
 /**
  * SignUp
@@ -20,19 +21,35 @@ class AddPartToLocation extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a part QR",
+      QRcustomStyles: {
+        content: {
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          height: "75%",
+          width: "75%",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+        },
+      },
+      moadlIsOpen: true,
     };
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleScannerClick = this.handleScannerClick.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   componentDidMount() {
-    this.fetchData("http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?part_add=true");
-    this.fetchData2("http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?client_add=true");
+    this.fetchData(
+      "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?part_add=true"
+    );
+    this.fetchData2(
+      "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?client_add=true"
+    );
   }
-  componentWillUnmount() {
-
-  }
+  componentWillUnmount() {}
   handleScan = (data) => {
     if (data !== null) {
       let qr_return = data.split("=");
@@ -48,13 +65,16 @@ class AddPartToLocation extends React.Component {
   handleError = (error) => {
     console.log(error);
   };
+  handleModalClose = () => {
+    this.setState({ moadlIsOpen: false, qrButton: "Scan a part QR" });
+  };
 
   clearQRSearch = () => {
     this.setState({ QRresult: "" });
   };
 
   handleScannerClick = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (this.state.scannerEnabled === "") {
       this.setState({ scannerEnabled: "true", qrButton: "Close Scanner" });
     } else {
@@ -105,17 +125,17 @@ class AddPartToLocation extends React.Component {
 
   filterSearch = (s) => {
     if (this.state.QRresult !== "") {
-      let name = false
+      let name = false;
       if (s.part_id === this.state.QRresult) {
         name = true;
       }
       return name;
     } else {
-    let search_string = s.serial_number
-      .toLowerCase()
-      .includes(this.state.search.toLowerCase());
-    return search_string;
-  }
+      let search_string = s.serial_number
+        .toLowerCase()
+        .includes(this.state.search.toLowerCase());
+      return search_string;
+    }
   };
 
   render() {
@@ -123,53 +143,64 @@ class AddPartToLocation extends React.Component {
     let clearQR = "";
     let searchandscan = "";
 
-
     if (this.state.QRresult !== "") {
       clearQR = <button onClick={this.clearQRSearch}>Clear QR Search</button>;
     }
 
     if (this.state.scannerEnabled !== "") {
       qrScanner = (
-        <QrReader onScan={this.handleScan} onError={this.handleError} facingMode={"environment"} style={{ width: '100%' }} />
+        <Modal isOpen={this.state.moadlIsOpen} style={this.state.customStyles}>
+          <QrReader
+            onScan={this.handleScan}
+            onError={this.handleError}
+            facingMode={"environment"}
+            style={{ width: "100%" }}
+          />
+          <button onClick={this.handleModalClose}>Cancel</button>
+        </Modal>
       );
     } else {
       qrScanner = clearQR;
     }
-    if (this.state.QRresult === ""){
-      searchandscan = ( <div>
+    if (this.state.QRresult === "") {
+      searchandscan = (
         <div>
-        <button onClick={this.handleScannerClick}>
-            {this.state.qrButton}
-          </button>
+          <div>
+            <button onClick={this.handleScannerClick}>
+              {this.state.qrButton}
+            </button>
+          </div>
+          <SearchBox
+            name={"Search: "}
+            search={this.state.search}
+            placeholder={"by serial number"}
+            handleSearch={this.handleSearch}
+          />
         </div>
-        <SearchBox
-          name={"Search: "}
-          search={this.state.search}
-          placeholder={"by serial number"}
-          handleSearch={this.handleSearch}
-        />
-      </div> )
+      );
     }
 
     let filteredClientResults = this.state.clients;
     let filteredResults = this.state.results;
-    if (filteredResults.length > 0 ) {
+    if (filteredResults.length > 0) {
       filteredResults = this.state.results.filter(this.filterSearch);
     }
 
     let selectItem = (
       <div>
         {searchandscan}
-        
+
         <p>Select Part:</p>
         <select onChange={this.props.handleAddPartToLocationSerial}>
-      <option value="">Select a part ({filteredResults.length} parts found) </option>
-        {filteredResults.map((part, i) => (
-          <option key={i} value={part.serial_number}>
-            {part.serial_number}{" "}
+          <option value="">
+            Select a part ({filteredResults.length} parts found){" "}
           </option>
-        ))}
-      </select>
+          {filteredResults.map((part, i) => (
+            <option key={i} value={part.serial_number}>
+              {part.serial_number}{" "}
+            </option>
+          ))}
+        </select>
         <p>Select Client:</p>
         <select onChange={this.props.handleAddPartToLocationClient}>
           <option value=""> Select a client</option>
@@ -185,7 +216,7 @@ class AddPartToLocation extends React.Component {
       <div className="btn-group-column">
         <h2>Add Part to location:</h2>
         <form>
-        {qrScanner}
+          {qrScanner}
           {selectItem}
           <p>Quantity:</p>
           <input
@@ -196,6 +227,8 @@ class AddPartToLocation extends React.Component {
           <button onClick={this.props.handleAddPartToLocationSubmit}>
             Add Part to location!
           </button>
+          <button onClick={this.props.handleClose}>Cancel</button>
+          <p>{this.props.error}</p>
         </form>
       </div>
     );
