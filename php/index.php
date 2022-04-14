@@ -36,6 +36,9 @@ switch ($request->getPath()) {
     case 'storagereport':
         $controller = new ApiStorageReportController($request, $response);
         break;
+    case "customerquery":
+        $controller = new ApiCustomerQueryController($request, $response);
+        break;
     case 'customerreport':
         $controller = new ApiCustomerReportController($request, $response);
         break;    
