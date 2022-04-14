@@ -49,7 +49,6 @@ cancelSearch = () => {
             }
         })
         .then((data) => {
-            console.log(data)
             this.setState({ userNames: data.results })
         })
         .catch((err) => {
@@ -71,7 +70,7 @@ cancelSearch = () => {
   
     }
   
-    if ((this.state.userName == "") && (this.state.search == "")){
+    if ((this.state.userName === "") && (this.state.search === "")){
       tempString += "NONE"
     }
     return tempString; 
@@ -109,15 +108,12 @@ cancelSearch = () => {
               Filter by user ID or search by description and name.
             </p>
             <p>
-            Click Genarate Report to save or print the report.
+            Click Generate Report to save or print the report.
             </p>
           </div>
         </section>
              <section class = "filter-banner">
-            <ReactToPrint
-                trigger={() => <button>Genarate Report</button>}
-                content={() => this.componentRef}
-            />
+            
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -137,9 +133,15 @@ cancelSearch = () => {
             search={this.state.search}
             handleSearch={this.handleSearch}
             cancelSearch={this.cancelSearch}
-            placeholder="Search by name/serial No"
+            placeholder="Search by name/serial number"
             icon
           />
+          <div className="filter-element">
+          <ReactToPrint
+                trigger={() => <button>Generate Report</button>}
+                content={() => this.componentRef}
+            />
+            </div>
             </section>
          <StorageInteractions userName={this.state.userName} search={this.state.search} />
          

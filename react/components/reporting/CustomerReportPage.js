@@ -45,7 +45,6 @@ handleQueryTypeSelect = (e) => {
             }
         })
         .then((data) => {
-            console.log(data)
             this.setState({ clientTypes: data.results })
         })
         .catch((err) => {
@@ -64,7 +63,6 @@ handleQueryTypeSelect = (e) => {
             }
         })
         .then((data) => {
-            console.log(data)
             this.setState({ queryTypes: data.results })
         })
         .catch((err) => {
@@ -83,7 +81,7 @@ getAppliedFiltersText = () => {
 
   }
 
-  if ((this.state.custType == "") && (this.state.queryType == "")){
+  if ((this.state.custType === "") && (this.state.queryType === "")){
     tempString += "NONE"
   }
   return tempString; 
@@ -112,9 +110,9 @@ getCurrentDateText = () => {
     }
 
     let queryTypesList = [];
-    for (var x in this.state.queryTypes){
+    for (var y in this.state.queryTypes){
         let tempvar = "";
-        tempvar = this.state.queryTypes[x].query_type_name;
+        tempvar = this.state.queryTypes[y].query_type_name;
         queryTypesList.push(tempvar);
     }
 
@@ -130,17 +128,12 @@ getCurrentDateText = () => {
               Filter by client type or query type.
             </p>
             <p>
-            Click Genarate Report to save or print the report.
+            Click Generate Report to save or print the report.
             </p>
           </div>
         </section>
             <section class = "filter-banner">
-            <div className="filter-element">
-            <ReactToPrint
-                trigger={() => <button>Genarate Report</button>}
-                content={() => this.componentRef}
-            />
-            </div>
+            
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -160,6 +153,13 @@ getCurrentDateText = () => {
           filterType = {"Query Type: "} 
           custType={this.state.queryType} 
           handleSelect={this.handleQueryTypeSelect} />
+           
+           <div className="filter-element">
+            <ReactToPrint
+                trigger={() => <button>Generate Report</button>}
+                content={() => this.componentRef}
+            />
+            </div> 
             </section>
          <CustomerQuerys custType={this.state.custType}
           queryType={this.state.queryType} />

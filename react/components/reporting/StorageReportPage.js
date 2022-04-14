@@ -43,7 +43,6 @@ componentDidMount() {
           }
       })
       .then((data) => {
-          console.log(data)
           this.setState({ wareHouseNumbers: data.results })
       })
       .catch((err) => {
@@ -62,7 +61,6 @@ componentDidMount() {
           }
       })
       .then((data) => {
-          console.log(data)
           this.setState({ clientNames: data.results })
       })
       .catch((err) => {
@@ -82,7 +80,7 @@ getAppliedFiltersText = () => {
 
   }
 
-  if ((this.state.clientName == "") && (this.state.warehouseNumber == "")){
+  if ((this.state.clientName === "") && (this.state.warehouseNumber === "")){
     tempString += "NONE"
   }
   return tempString; 
@@ -111,9 +109,9 @@ getCurrentDateText = () => {
  
 
     let clientNamesList = [];
-    for (var x in this.state.clientNames){
+    for (var y in this.state.clientNames){
         let tempvar = "";
-        tempvar = this.state.clientNames[x].client_name;
+        tempvar = this.state.clientNames[y].client_name;
         clientNamesList.push(tempvar);
     }
 
@@ -131,18 +129,13 @@ getCurrentDateText = () => {
               Filter by warehouse or client name.
             </p>
             <p>
-            Click Genarate Report to save or print the report.
+            Click Generate Report to save or print the report.
             </p>
           </div>
         </section>
             
             <section class = "filter-banner">
-            <div className="filter-element">
-            <ReactToPrint
-                trigger={() => <button>Genarate Report</button>}
-                content={() => this.componentRef}
-            />
-            </div>
+            
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
@@ -165,6 +158,12 @@ getCurrentDateText = () => {
           custType={this.state.clientName} 
           handleSelect={this.handleClientNameSelect} />
 
+        <div className="filter-element">
+            <ReactToPrint
+                trigger={() => <button>Generate Report</button>}
+                content={() => this.componentRef}
+            />
+            </div>
             </section>
          <StorageLocations warehouseNumber={this.state.warehouseNumber}
           clientName={this.state.clientName} />

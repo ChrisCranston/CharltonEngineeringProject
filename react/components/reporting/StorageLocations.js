@@ -1,4 +1,4 @@
-import React,  { useRef } from "react";
+import React from "react";
 import StorageLocation from './StorageLocation.js';
 
 
@@ -40,7 +40,6 @@ class StorageLocations extends React.Component {
                 }
             })
             .then((data) => {
-                console.log(data)
                 this.setState({ results: data.results })
             })
             .catch((err) => {
@@ -109,11 +108,9 @@ class StorageLocations extends React.Component {
                  <th>Description</th>
                 </tr>
                 </thead>
-                <tbody>
-
+                    {noData}
                     {filteredResults.map((storageLocation, i) => (<StorageLocation className="StorageLocation" key={i} storageLocation={storageLocation} />))}
-                    </tbody>
-                     </table>
+                    </table>
         </div> 
 
         );

@@ -51,7 +51,7 @@ class  ApiCustomerQueryController extends Controller
         if ($token) {
             //Respondes to the request type
             if ($this->getRequest()->getRequestMethod() == "POST") {
-                date_default_timezone_set("United Kingdom/London");
+                date_default_timezone_set("Europe/London");
                 $datetime = date("Y/m/d H:i");//current time
                 if (is_null($email)) { //if they haven't submitted an email 
                     $this->getGateway()->addQueryWOEmail($datetime, $name, $businessindividual, $phonenumber, $query, $querytype); 

@@ -39,7 +39,6 @@ class AssemblyInteractions extends React.Component {
                 }
             })
             .then((data) => {
-                console.log(data)
                 this.setState({ results: data.results })
             })
             .catch((err) => {
@@ -90,6 +89,7 @@ class AssemblyInteractions extends React.Component {
         }
 
         return(
+            
             <div className="reporting_table_wrapper">
                 <table>
                 <thead>
@@ -103,10 +103,9 @@ class AssemblyInteractions extends React.Component {
                  <th>Email Address</th>
                 </tr>
                 </thead>
-                <tbody>
-
+                {noData}
                     {filteredResults.map((assemblyInteraction, i) => (<AssemblyInteraction className="assemblyInteraction" key={i} assemblyInteraction={assemblyInteraction} />))}
-                    </tbody></table>
+                    </table>
         </div> 
 
         );

@@ -39,7 +39,6 @@ class AssemblyParts extends React.Component {
                 }
             })
             .then((data) => {
-                console.log(data)
                 this.setState({ results: data.results })
             })
             .catch((err) => {
@@ -93,9 +92,9 @@ class AssemblyParts extends React.Component {
                  <th>Order Link</th>
                 </tr>
                 </thead>
-                <tbody>
+                    {noData}
                     {filteredResults.map((assemblyPart, i) => (<AssemblyPart className="AssemblyPart" key={i} assemblyPart={assemblyPart} />))}
-                    </tbody></table>
+                    </table>
         </div> 
 
         );

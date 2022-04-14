@@ -17,6 +17,7 @@
 .page-numbers {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .page-numbers-contents {

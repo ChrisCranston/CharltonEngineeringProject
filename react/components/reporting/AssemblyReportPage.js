@@ -35,7 +35,7 @@ getAppliedFiltersText = () => {
     tempString += "SEARCH STRING: " + this.state.search + " ";
   }
   
-  if ((this.state.custType == "")){
+  if ((this.state.custType === "")){
     tempString += "NONE"
   }
   return tempString; 
@@ -62,17 +62,12 @@ getCurrentDateText = () => {
               Search for assembly parts by serial number or part name.
             </p>
             <p>
-              Click Genarate Report to save or print the report.
+              Click Generate Report to save or print the report.
             </p>
           </div>
         </section>
       <section class = "filter-banner">
-      <div className="filter-element">
-      <ReactToPrint
-          trigger={() => <button>Genarate Report</button>}
-          content={() => this.componentRef}
-      />
-    </div>
+      
     <div style={{ display: "none" }}>
       <ComponentToPrint
         ref={(el) => (this.componentRef = el)}
@@ -87,9 +82,15 @@ getCurrentDateText = () => {
             search={this.state.search}
             handleSearch={this.handleSearch}
             cancelSearch={this.cancelSearch}
-            placeholder="Search by name/serial No"
+            placeholder="Search by name/serial number"
             icon
           />
+          <div className="filter-element">
+      <ReactToPrint
+          trigger={() => <button>Generate Report</button>}
+          content={() => this.componentRef}
+      />
+    </div>
             </section>
 
             
