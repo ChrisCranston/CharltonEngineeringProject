@@ -23,11 +23,11 @@ class QueryPage extends React.Component {
       failedsubmit: false,
       submiterror: "",
       name: "",
-      clienttype: 0,
+      clienttype: 1,
       email: "",
       phone: "",
       countrycode: "",
-      querytype: 0,
+      querytype: 1,
       query: "",
     };
     this.handleName = this.handleName.bind(this);
