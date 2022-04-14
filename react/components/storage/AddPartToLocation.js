@@ -209,7 +209,7 @@ class AddPartToLocation extends React.Component {
       <div className="modal-scanner">
         {searchandscan}
 
-        <p>Select Part<span className="form-asterisk">*</span>:</p>
+        <p>Select Part<span className="form-asterisk"> *</span>:</p>
         <select onChange={this.props.handleAddPartToLocationSerial}>
           <option value="">
             Select a part ({filteredResults.length} parts found){" "}
@@ -220,7 +220,7 @@ class AddPartToLocation extends React.Component {
             </option>
           ))}
         </select>
-        <p>Select Client<span className="form-asterisk">*</span>:</p>
+        <p>Select Client<span className="form-asterisk"> *</span>:</p>
         <select onChange={this.props.handleAddPartToLocationClient}>
           <option value=""> Select a client</option>
           {filteredClientResults.map((client, i) => (
@@ -238,7 +238,7 @@ class AddPartToLocation extends React.Component {
         <form className="modal-form">
           {qrScanner}
           {selectItem}
-          <p>Quantity<span className="form-asterisk">*</span>:</p>
+          <p>Quantity<span className="form-asterisk"> *</span>:</p>
           <input
             type="number"
             placeholder="quantity"

@@ -18,14 +18,14 @@ class AddPart extends React.Component {
         <div className="modal-contents">
         <h2 className="modal-spacer">Add New Part:</h2>
         <form className="modal-form"> 
-          <p>Serial Number<span className="form-asterisk">*</span>:</p>
+          <p>Serial Number<span className="form-asterisk"> *</span>:</p>
           <input
             type="text"
             placeholder="SN:"
             value={this.props.serialNumber}
             onChange={this.props.handleSerialNumber}
           />
-          <p>Part Name<span className="form-asterisk">*</span>:</p>
+          <p>Part Name<span className="form-asterisk"> *</span>:</p>
           <input
             type="text"
             placeholder="name"

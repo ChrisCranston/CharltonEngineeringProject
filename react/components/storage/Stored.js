@@ -242,8 +242,8 @@ class Stored extends React.Component {
     let qr_code = (
       <div>
         <p>
-          WH: {this.props.stored_item.warehouse_number}:{" "}
-          {this.props.stored_item.location_string}
+          WH: {this.props.stored_item.warehouse_number} {" "}
+          Location: {this.props.stored_item.location_string}
         </p>
         <QRCode value={this.props.stored_item.qr_code_string} size={256} />
       </div>
