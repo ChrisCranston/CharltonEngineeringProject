@@ -1,19 +1,23 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
-/**
- * SignUp
- *
- * This simple component displays the sign up buttons along with props to handle
- * submit and typing into the form. It is used in the ViewingListPage component.
- *
- * @author Chris Cranston - W18018468
- */
 class AddPart extends React.Component {
   render() {
+    let error = ""
+    if (this.props.error !== "") {
+      error = (<p className="form-error">
+      <FontAwesomeIcon
+        className="form-error-icon error-icon"
+        icon={faExclamationTriangle}
+      />
+    {this.props.error}</p>)
+    }
     return (
-      <div className="btn-group-column">
-        <h2>Add New Part:</h2>
-        <form>
+      <div className="modal-sizing">
+        <div className="modal-contents">
+        <h2 className="modal-spacer">Add New Part:</h2>
+        <form className="modal-form"> 
           <p>Serial Number:</p>
           <input
             type="text"
@@ -35,10 +39,13 @@ class AddPart extends React.Component {
             value={this.props.description}
             onChange={this.props.handleDescription}
           />
+          <div className="modal-button">
           <button onClick={this.props.handleAddNewClick}>Add Part!</button>
-          <button onClick={this.props.handleClose}>Cancel</button>
-          <p>{this.props.error}</p>
+          <button className="red" onClick={this.props.handleClose}>Cancel</button>
+          </div>
+          {error}
         </form>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import StoredManager from "./StoredManager.js";
-import SearchBox from "./SearchBox.js";
+import SearchBox from "../ReusableComponents/SearchBox/SearchBox"
 import AddPart from "./AddPart.js";
 import QrReader from "modern-react-qr-reader";
 import Modal from 'react-modal';
@@ -30,17 +30,6 @@ class StoragePartPage extends React.Component {
       QRresult: "",
       scannerEnabled: "",
       qrButton: "Scan a part QR",
-      QRcustomStyles: {
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          height: '75%',
-          width:'75%',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },},
       customStyles: {
         content: {
           top: '50%',
@@ -105,6 +94,9 @@ class StoragePartPage extends React.Component {
     this.setState({ search: e.target.value });
     this.setState({ page: 1 });
   };
+  cancelSearch = () => {
+    this.setState({ search: "" });
+  };
   handlePageSize = (e) => {
     this.setState({ pageSize: e.target.value });
     this.setState({ page: 1 });
@@ -141,7 +133,7 @@ class StoragePartPage extends React.Component {
         formData.append("edit", "addPart");
         formData.append("serialNumber", this.state.serialNumber);
         formData.append("name", this.state.name);
-        formData.append("description", this.state.description);
+        formData.append("description", this.state.description === "" ? "N/A" : this.state.description );
         fetch(url, {
           method: "POST",
           headers: new Headers(),
@@ -156,7 +148,7 @@ class StoragePartPage extends React.Component {
                 description: "",
                 addNewError: "",
               });
-              return response.json();
+              
             } else {
               this.setState({
                 addNewError: "Serial Number is not unique please try again",
@@ -192,15 +184,20 @@ class StoragePartPage extends React.Component {
       qrScanner = (
         <Modal
         isOpen={this.state.moadlIsOpen}
-        style={this.state.QRcustomStyles}
+        style={this.state.customStyles}
       >
+        <div className="modal-sizing-qr">
         <QrReader
           onScan={this.handleScan}
           onError={this.handleError}
+          style={{ width: "auto" }}
           facingMode={"environment"}
-          style={{ width: "100%" }}
         />
-        <button onClick={this.handleModalClose}>Cancel</button>
+        </div>
+        <div className="modal-button">
+        <button className="red" onClick={this.handleModalClose}>Cancel</button>
+        
+        </div>
         </Modal>
       );
     } else {
@@ -226,7 +223,30 @@ class StoragePartPage extends React.Component {
     }
     return (
       <div className="main_content">
-        <div className="storage-page">
+        <section className="centred-item">
+          <h2>Storage Parts</h2>
+          <div>
+            <p>
+              Search and sort by serial number or part name and add parts for line feeding, print QR's for regularly used parts.
+            </p>
+          </div>
+        </section>
+        <section>
+        <div className="storage-page-block">
+            <SearchBox
+              id="stored-parts-search"
+              search={this.state.search}
+              cancelSearch={this.cancelSearch}
+              handleSearch={this.handleSearch}
+              placeholder="Search by name/serial number..."
+              icon
+              
+            />
+          </div>
+        </section>
+        <section className="item-controls">
+        
+        <div >
           {qrScanner}
           <div className="storage-page-block">
             <button onClick={this.handleScannerClick}>
@@ -234,16 +254,11 @@ class StoragePartPage extends React.Component {
             </button>
             <button onClick={this.handleAddPartClick}>Add New Part</button>
           </div>
-          <div className="storage-page-block">
-            <SearchBox
-              name={"Search: "}
-              search={this.state.search}
-              placeholder={"by serial number or name"}
-              handleSearch={this.handleSearch}
-            />
-          </div>
+          
           {addPart}
-          <div>
+          </div>
+          </section>
+          <div className="parts-page">
             
                 <StoredManager
                   item_type="part"
@@ -257,7 +272,7 @@ class StoragePartPage extends React.Component {
                 />
               
           </div>
-        </div>
+        
       </div>
     );
   }

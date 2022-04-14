@@ -1,6 +1,9 @@
 import React from "react";
 import Stored from "./Stored";
 import Parts from "./Parts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import Pagination from "../ReusableComponents/Pagination/Pagination"
 
 /**
  * StoredManager
@@ -105,7 +108,6 @@ class StoredManager extends React.Component {
   render() {
     let noData = "";
     let buttons = "";
-    let pagesize = "";
 
     if (this.state.results.length === 0) {
       noData = <p>No data found</p>;
@@ -114,46 +116,24 @@ class StoredManager extends React.Component {
     if (filteredResults.length > 0) {
       filteredResults = this.state.results.filter(this.filterSearch);
     }
-    pagesize = (
-      <div className="storage-page-block">
-        <div>
-        <p>results per page: </p>
-        <select name="Results Per Page " onChange={this.props.handlePageSize}>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </select>
-      </div>
-      </div>
-    );
+
 
     if (this.props.page !== undefined) {
       const pageSize = this.props.pageSize;
       let pageMax = this.props.page * pageSize;
       let pageMin = pageMax - pageSize;
 
+      
+
       buttons = (
-        <div className="pagination">
-          <button
-            onClick={this.props.handlePreviousClick}
-            disabled={this.props.page <= 1}
-          >
-            Previous
-          </button>
-          <p>
-            page {this.props.page} of
-            {Math.ceil(filteredResults.length / this.props.pageSize)}
-          </p>
-          <button
-            onClick={this.props.handleNextClick}
-            disabled={
-              this.props.page >=
-              Math.ceil(filteredResults.length / this.props.pageSize)
-            }
-          >
-            Next
-          </button>
-        </div>
+        <Pagination
+                  pageSize={this.props.pageSize}
+                  page={this.props.page}
+                  pageNumbers={Math.ceil(filteredResults.length / this.props.pageSize)}
+                  handlePageSizeChange={this.props.handlePageSize}
+                  handleNextClick={this.props.handleNextClick}
+                  handlePreviousClick={this.props.handlePreviousClick}
+                />
       );
       filteredResults = filteredResults.slice(pageMin, pageMax);
     }
@@ -161,18 +141,18 @@ class StoredManager extends React.Component {
     let display = "";
 
     if (this.props.item_type === "location") {
-      display = (
+      display = (        
         <div>
-        {pagesize}
-        <div>
-          <table className="parts-table">
+          <table className="assembly-parts-table">
             <thead style={{ marginBottom: "1rem" }}>
               <tr>
-                <th>Warehouse #:</th>
+                <th>Warehouse Number:</th>
                 <th>Location Name:</th>
                 <th>Type: </th>
                 <th>Stored: </th>
-                <th></th>
+                <th className="refresh"><button onClick={() => this.fetchData()}>
+                          Refresh <FontAwesomeIcon icon={faRotateRight} />
+                        </button></th>
               </tr>
             </thead>
             <tbody>
@@ -189,20 +169,19 @@ class StoredManager extends React.Component {
           
           {buttons}
         </div>
-        </div>
       );
     } else if (this.props.item_type === "part") {
       display = (
         <div>
-          {pagesize}
-        <div>
-          <table className="parts-table">
+          <table className="assembly-parts-table">
             <thead style={{ marginBottom: "1rem" }}>
               <tr>
-                <th>Serial #:</th>
+                <th>Serial Number:</th>
                 <th>Name:</th>
                 <th>Description: </th>
-                <th></th>
+                <th className="refresh"><button onClick={() => this.fetchData()}>
+                          Refresh <FontAwesomeIcon icon={faRotateRight} />
+                        </button></th>
               </tr>
             </thead>
             <tbody>
@@ -219,7 +198,6 @@ class StoredManager extends React.Component {
 
           
           {buttons}
-        </div>
         </div>
       );
     }

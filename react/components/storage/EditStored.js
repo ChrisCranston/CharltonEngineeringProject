@@ -1,22 +1,38 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 export class ADDEditStored extends React.Component {
   render() {
+    let error = ""
+    if (this.props.error !== "") {
+      error = (<p className="form-error">
+      <FontAwesomeIcon
+        className="form-error-icon error-icon"
+        icon={faExclamationTriangle}
+      />
+    {this.props.error}</p>)
+    }
+
     return (
-      <div className="btn-group-column">
-        <h2>Add to Warehouse: {this.props.warehouse} Location: {this.props.location}</h2>
+      <div className="modal-sizing">
+        <div className="modal-contents">
+        <h2 className="modal-spacer">Add to Warehouse: {this.props.warehouse} Location: {this.props.location}</h2>
         <p>Current Quantity: {this.props.qauntity}</p>
-        <form>
-          <p>Number added:</p>
+        <form className="modal-form">
+          <p>Number to add:</p>
           <input
             type="number"
             placeholder="# to add"
             onChange={this.props.handleQuantityUpdate}
           />
+          <div className="modal-button">
           <button onClick={this.props.handleUpdateQuantityClick}>Update Quantity</button>
-          <button onClick={this.props.handleClose}>Cancel</button>
-          <p>{this.props.error}</p>
+          <button className="red" onClick={this.props.handleClose}>Cancel</button>
+          {error}
+          </div>
         </form>
+      </div>
       </div>
     );
   }
@@ -25,22 +41,36 @@ export class ADDEditStored extends React.Component {
 
 export class REMOVEEditStored extends React.Component {
     render() {
+      let error = ""
+    if (this.props.error !== "") {
+      error = (<p className="form-error">
+      <FontAwesomeIcon
+        className="form-error-icon error-icon"
+        icon={faExclamationTriangle}
+      />
+    {this.props.error}</p>)
+    }
+
       return (
-        <div className="btn-group-column">
-        <h2>Remove from Warehouse: {this.props.warehouse} Location: {this.props.location}</h2>
+        <div className="modal-sizing">
+          <div className="modal-contents">
+        <h2 className="modal-spacer">Remove from Warehouse: {this.props.warehouse} Location: {this.props.location}</h2>
         <p>Current Quantity: {this.props.qauntity}</p>
-        <form>
-          <p>Number removed:</p>
+        <form className="modal-form">
+          <p>Number to remove:</p>
           <input
             type="number"
-            placeholder="# to add"
+            placeholder="# to remove"
             onChange={this.props.handleQuantityUpdate}
           />
+          <div className="modal-button">
           <button onClick={this.props.handleUpdateQuantityClick}>Update Quantity</button>
-          <br/><br/><button onClick={this.props.handleRemoveAllClick}>Remove All</button>
-          <button onClick={this.props.handleClose}>Cancel</button>
-          <p>{this.props.error}</p>
+          <br/><br/><button className="remove-all" onClick={this.props.handleRemoveAllClick}>Remove All</button>
+          <button className="red" onClick={this.props.handleClose}>Cancel</button>
+          </div>
+          {error}
         </form>
+        </div>
       </div>
       );
     }

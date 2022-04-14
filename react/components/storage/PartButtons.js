@@ -6,7 +6,7 @@ import ComponentToPrint from "./ComponentToPrint";
 class PartButtons extends React.Component {
   render() {
     return (
-      <div className="btn-group-column">
+      <div>
           <ReactToPrint
             trigger={() => <button>Print Part QR</button>}
             content={() => this.componentRef}
