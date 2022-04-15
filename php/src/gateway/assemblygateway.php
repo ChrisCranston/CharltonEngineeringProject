@@ -21,7 +21,7 @@ class AssemblyGateway extends Gateway
     private $deletePartSQL = "DELETE FROM assembly_part WHERE assembly_part.part_id = :partID";
 
     private $createInteractionSQL = "INSERT INTO assembly_interaction (part_id, user_id, amount, interaction_datetime)
-        VALUES (:partID, :userID, :amount, datetime())";
+        VALUES (:partID, :userID, :amount, now())";
 
     private $deleteInteractionSQL = "DELETE FROM assembly_interaction WHERE assembly_interaction.part_id = :partID";
 

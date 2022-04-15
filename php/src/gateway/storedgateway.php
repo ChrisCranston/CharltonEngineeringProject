@@ -125,7 +125,7 @@ class StoredGateway extends Gateway
         $storage_id = (string)$result2[0][0];
 
 
-        $sql4 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, datetime() )";
+        $sql4 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, now() )";
         $params4 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $addQuantity];
         $result4 = $this->getDatabase()->executeSQL($sql4, $params4);
         $this->setResult($result4);
@@ -143,7 +143,7 @@ class StoredGateway extends Gateway
         $storage_id = (string)$result2[0][0];
 
 
-        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, datetime() )";
+        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, now() )";
         $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity];
         $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
         $this->setResult($result);
@@ -162,7 +162,7 @@ class StoredGateway extends Gateway
 
         $quantity = $quantity - $quantity - $quantity;
 
-        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, datetime() )";
+        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, now() )";
         $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity];
         $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
         $this->setResult($result);
