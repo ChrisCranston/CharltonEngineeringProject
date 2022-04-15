@@ -7,7 +7,7 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
 
   return (
     <div className="top">
-      <img src={Logo} className="logo" alt="Website Logo" />
+      <NavLink to="/" ><img src={Logo} className="logo" alt="Website Logo" /></NavLink>
       <nav>
         <ul className="nav">
           <li>

@@ -42,10 +42,10 @@ class AddPartToLocation extends React.Component {
 
   componentDidMount() {
     this.fetchData(
-      "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?part_add=true"
+      "https://charltonengineeringdemo.com/kv6002/php/stored?part_add=true"
     );
     this.fetchData2(
-      "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored?client_add=true"
+      "https://charltonengineeringdemo.com/kv6002/php/stored?client_add=true"
     );
   }
   componentWillUnmount() {}

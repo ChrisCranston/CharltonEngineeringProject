@@ -38,7 +38,7 @@ class StoredManager extends React.Component {
   };
 
   fetchData = () => {
-    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+    let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
     if (this.props.item_type === "part") {
       url += "?part_search=true";
     } else if (this.props.item_type === "location") {

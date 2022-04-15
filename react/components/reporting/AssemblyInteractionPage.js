@@ -38,7 +38,7 @@ cancelSearch = () => {
 
   componentDidMount() {
    
-    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport?user_names=true"
+    let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport?user_names=true"
   
   
     fetch(url)

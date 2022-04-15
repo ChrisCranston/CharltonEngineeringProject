@@ -32,7 +32,7 @@ handleClientNameSelect = (e) => {
 
 componentDidMount() {
    
-  let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport?warehousenumbers=true"
+  let url = "https://charltonengineeringdemo.com/kv6002/php/storagereport?warehousenumbers=true"
 
   fetch(url)
       .then((response) => {
@@ -49,7 +49,7 @@ componentDidMount() {
           console.log("something went wrong ", err)
       });
 
-   let url2 = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/storagereport?clientnames=true"
+   let url2 = "https://charltonengineeringdemo.com/kv6002/php/storagereport?clientnames=true"
 
 
   fetch(url2)

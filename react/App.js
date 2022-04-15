@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { HashRouter, Routes, Route} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -127,7 +128,7 @@ function App() {
         <Route
           path="*"
           element={
-            <h1>404 NOT FOUND GO BACK TO HOME (make this a component)</h1>
+            <h1 className="p403">404 Page not found, try going  <NavLink to="/" className="homelink">HOME</NavLink> </h1>
           }
         />
       </Routes>

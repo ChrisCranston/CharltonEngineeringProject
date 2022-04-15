@@ -30,6 +30,17 @@ nav {
   width: 100%;
   padding: 0px;
 }
+.p403 {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 5%;
+  text-align: center;
+  border: 3px solid #1e9bd3;
+  
+
+}
 
 .nav {
   height: 2em;
@@ -62,6 +73,18 @@ nav {
   font-family: Arial, Helvetica, sans-serif;
   padding: 10px 20px 10px 20px;
   font-size: 1rem;
+  display: block;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.homelink {
+  text-decoration: underline;
+  color: #3498db;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 20px 10px 20px;
+  font-size: 2rem;
   display: block;
   border-bottom: 3px solid transparent;
   transition: 0.3s;
@@ -799,7 +822,7 @@ td:before {
     content: "Query:";
   }
   .query-tr td:nth-of-type(7):before {
-    content: "Date/Time recived:";
+    content: "Date/Time recieved:";
   }
 
   .assembly-int-tr td:nth-of-type(1):before {

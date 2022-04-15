@@ -147,7 +147,7 @@ class StorageLocationPage extends React.Component {
       if (this.state.warehousenumber < 4) {
       if (this.state.locationName !== "") {
         if (this.state.type !== "") {
-          let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+          let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
           let formData = new FormData();
           formData.append("edit", "checklocation");
           formData.append("warehouse", this.state.warehousenumber);
@@ -196,7 +196,7 @@ class StorageLocationPage extends React.Component {
       if (this.state.warehousenumber > 0) {
       if (this.state.locationName !== "") {
         if (this.state.type !== "") {
-          let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+          let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
           let formData = new FormData();
           formData.append("edit", "addLocation");
           formData.append("warehouse", this.state.warehousenumber);

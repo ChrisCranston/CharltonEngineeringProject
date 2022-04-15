@@ -90,7 +90,7 @@ class QueryPage extends React.Component {
           let phoneNumber = this.state.countrycode + this.state.phone;
           this.setState({ submiterror: "" });
           let url =
-            "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery";
+            "https://charltonengineeringdemo.com/kv6002/php/customerquery";
           let formData = new FormData();
           formData.append("token", "SiteToken-7874857973");
           formData.append("name", this.state.name);

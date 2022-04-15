@@ -29,6 +29,7 @@ class AssemblyInteraction extends React.Component {
 
 
 
+
         return(
          
               <tr class = "assembly-int-tr">
