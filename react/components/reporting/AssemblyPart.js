@@ -27,8 +27,13 @@ class AssemblyPart extends React.Component {
      */
     render() {
         let notes = this.props.assemblyPart.notes
-        if (this.props.assemblyPart.notes === null) {
+        let orderURL = <a href={this.props.assemblyPart.order_url} target="_blank">{this.props.assemblyPart.order_url}</a>
+        if (this.props.assemblyPart.notes === null || this.props.assemblyPart.notes === "") {
             notes = "N/A"
+        }
+
+        if (this.props.assemblyPart.order_url === null || this.props.assemblyPart.order_url === ""){
+            orderURL = "N/A"
         }
 
 
@@ -40,7 +45,7 @@ class AssemblyPart extends React.Component {
                 <td>{notes}</td> 
                 <td>{this.props.assemblyPart.quantity}</td> 
                 <td>{this.props.assemblyPart.low_warning}</td> 
-                <td><a href={this.props.assemblyPart.order_url} target="_blank">{this.props.assemblyPart.order_url}</a></td> 
+                <td>{orderURL}</td> 
              </tr>
       
 

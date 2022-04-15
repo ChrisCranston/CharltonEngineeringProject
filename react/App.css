@@ -131,6 +131,10 @@ a:hover {
   color: #0303b9;
 }
 
+.input-icon:hover {
+  background-color: initial;
+}
+
 .styledNavLink:hover {
   text-decoration: none;
   border-bottom: 5px solid #1e9bd3;
