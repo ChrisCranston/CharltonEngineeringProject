@@ -96,14 +96,17 @@ The boilerplate code will have the databse we designed with some initial values 
  * installation video : https://www.youtube.com/watch?v=wXEZZ2JT3-k
  * usage video :  https://www.youtube.com/watch?v=HQKwgk6XkIA   
 
+npm install react-router-dom
 
 # Chris C's react imports
 npm install qrcode.react
 npm install react-to-print
+npm install react-modal --force
 npm install modern-react-qr-reader --force                          (ignore errors on this one, due to react version )
 
 # Kess's react imports
 npm install google-maps-react@2.0.6
+npm install react-twitter-embed
 
 # Matthew's react imports
 npm install @fortawesome/free-solid-svg-icons
