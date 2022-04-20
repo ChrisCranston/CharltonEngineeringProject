@@ -71,12 +71,13 @@ class DeletePartForm extends React.Component {
 
   sendData = () => {
     const { data } = this.state;
-    const { editType, closePortal } = this.props;
+    const { editType, closePortal, simToken } = this.props;
 
     const deleteValue = getInputValues(data);
 
     const formData = new FormData();
     formData.append("delete", JSON.stringify(deleteValue));
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
@@ -169,6 +170,7 @@ DeletePartForm.defaultProps = {
 };
 
 DeletePartForm.propTypes = {
+  simToken: PropTypes.string.isRequired,
   selectedPartID: PropTypes.string,
   selectedPartSerialNumber: PropTypes.string,
   selectedPartName: PropTypes.string,

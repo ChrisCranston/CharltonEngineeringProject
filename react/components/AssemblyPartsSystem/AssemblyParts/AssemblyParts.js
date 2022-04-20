@@ -10,7 +10,7 @@ import ChangeQuantityForm from "../AssemblyPartsForms/ChangeQuantityForm/ChangeQ
 import DeletePartForm from "../AssemblyPartsForms/DeletePartForm/DeletePartForm";
 import Loading from "../../ReusableComponents/Loading/Loading";
 import Pagination from "../../ReusableComponents/Pagination/Pagination";
-import Modal from "react-modal";
+import Modal from "../../ReusableComponents/Modal/Modal";
 import {
   fetchResource,
   getAssemblyPartPageSize,
@@ -23,16 +23,6 @@ import {
 } from "../assemblyPartConstants";
 import "./AssemblyParts.css";
 
-/**
- * AssemblyParts class component
- *
- * Filters, sorts and displays the assembly parts
- * table. Also renders the create, edit, quantity
- * and delete part modal functionality. Also renders
- * the pagination functionality.
- *
- * @author Matthew William Dawson W18002221
- */
 class AssemblyParts extends React.Component {
   constructor(props) {
     super(props);
@@ -40,16 +30,6 @@ class AssemblyParts extends React.Component {
       results: {},
       isLoading: false,
       selectedPartID: null,
-      customStyles: {
-        content: {
-          top: "50%",
-          left: "50%",
-          right: "auto",
-          bottom: "auto",
-          marginRight: "-50%",
-          transform: "translate(-50%, -50%)",
-        },
-      },
       modalOpen: {
         create: false,
         add: false,
@@ -88,11 +68,16 @@ class AssemblyParts extends React.Component {
   };
 
   fetchData = () => {
+    const { simToken } = this.props;
     this.setState({ isLoading: true });
+
+    const formData = new FormData();
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
       headers: new Headers(),
+      body: formData,
     })
       .then((response) => {
         if (response) {
@@ -149,16 +134,11 @@ class AssemblyParts extends React.Component {
   };
 
   render() {
-    const {
-      results,
-      isLoading,
-      modalOpen,
-      selectedPartID,
-      pageSize,
-      customStyles,
-    } = this.state;
+    const { results, isLoading, modalOpen, selectedPartID, pageSize } =
+      this.state;
 
     const {
+      simToken,
       page,
       search,
       filterBy,
@@ -200,15 +180,7 @@ class AssemblyParts extends React.Component {
             <p>No data found</p>
           ) : (
             <>
-              <div className="mobile-buttons">
-                <button onClick={() => this.openPartModal(editTypes.CREATE)}>
-                  Add New Part
-                </button>
-                <button onClick={() => this.fetchData()}>
-                  Refresh <FontAwesomeIcon icon={faRotateRight} />
-                </button>
-              </div>
-              <table className="assembly-parts-table">
+              <table className="parts-table">
                 <thead style={{ marginBottom: "1rem" }}>
                   <tr>
                     <th>Serial Number</th>
@@ -219,9 +191,7 @@ class AssemblyParts extends React.Component {
                     <th>Order URL</th>
                     <th>
                       <div className="part-buttons part-vertical-buttons">
-                        <button
-                          onClick={() => this.openPartModal(editTypes.CREATE)}
-                        >
+                        <button onClick={() => this.openPartModal("create")}>
                           Add New Part
                         </button>
                         <button onClick={() => this.fetchData()}>
@@ -254,31 +224,38 @@ class AssemblyParts extends React.Component {
             </>
           )}
         </div>
-        <Modal isOpen={modalOpen[editTypes.CREATE]} style={customStyles}>
-          <CreatePartForm closePortal={this.closePartModal} />
+        <Modal modalOpen={modalOpen[editTypes.CREATE]}>
+          <CreatePartForm
+            simToken={simToken}
+            closePortal={this.closePartModal}
+          />
         </Modal>
-        <Modal isOpen={modalOpen[editTypes.EDIT]} style={customStyles}>
+        <Modal modalOpen={modalOpen[editTypes.EDIT]}>
           <EditPartForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal isOpen={modalOpen[editTypes.ADD]} style={customStyles}>
+        <Modal modalOpen={modalOpen[editTypes.ADD]}>
           <ChangeQuantityForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             editType={editTypes.ADD}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal isOpen={modalOpen[editTypes.REMOVE]} style={customStyles}>
+        <Modal modalOpen={modalOpen[editTypes.REMOVE]}>
           <ChangeQuantityForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             editType={editTypes.REMOVE}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal isOpen={modalOpen[editTypes.DELETE]} style={customStyles}>
+        <Modal modalOpen={modalOpen[editTypes.DELETE]}>
           <DeletePartForm
+            simToken={simToken}
             selectedPartID={results[selectedPartID]?.part_id}
             selectedPartSerialNumber={results[selectedPartID]?.serial_number}
             selectedPartName={results[selectedPartID]?.name}
@@ -300,6 +277,7 @@ AssemblyParts.defaultProps = {
 };
 
 AssemblyParts.propTypes = {
+  simToken: PropTypes.string.isRequired,
   search: PropTypes.string,
   filterBy: PropTypes.string,
   sortBy: PropTypes.string.isRequired,
