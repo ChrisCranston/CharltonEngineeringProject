@@ -315,7 +315,7 @@ class Stored extends React.Component {
     }
 
     result = (
-      <tr class="storage-location-tr">
+      <tr className="storage-location-tr">
         <td>{this.props.stored_item.warehouse_number} </td>
         <td>{this.props.stored_item.location_string} </td>
         <td>{this.props.stored_item.storage_type} </td>

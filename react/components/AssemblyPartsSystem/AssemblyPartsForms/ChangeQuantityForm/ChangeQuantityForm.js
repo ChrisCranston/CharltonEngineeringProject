@@ -16,7 +16,7 @@ import {
   resetInputErrors,
   validateFields,
 } from "../../assemblyPartHelpers";
-import { ASSEMBLY_PARTS_URL } from "../../assemblyPartConstants";
+import { ASSEMBLY_PARTS_URL, editTypes } from "../../assemblyPartConstants";
 
 /**
  * ChangeQuantityForm class component
@@ -74,11 +74,17 @@ class ChangeQuantityForm extends React.Component {
 
   handleSubmit = () => {
     const { data } = this.state;
+    const { editType, selectedPart } = this.props;
 
     const newData = resetInputErrors(data);
     this.setState({ data: newData, isSubmitting: true, editError: false });
 
     const validatedData = validateFields(data);
+
+    if (editType === editTypes.REMOVE && selectedPart.quantity === "0") {
+      validatedData.quantity.inputError = "Cannot remove when out of stock";
+    }
+
     this.setState({ data: validatedData });
 
     if (!Object.values(data).some((field) => field.inputError)) {
@@ -90,9 +96,15 @@ class ChangeQuantityForm extends React.Component {
 
   sendData = () => {
     const { data } = this.state;
-    const { editType, closePortal } = this.props;
+    const { editType, closePortal, selectedPart } = this.props;
 
     const changeQuantityValues = getInputValues(data);
+
+    changeQuantityValues.quantity =
+      editType === editTypes.REMOVE &&
+      changeQuantityValues.quantity > selectedPart.quantity
+        ? selectedPart.quantity
+        : changeQuantityValues.quantity;
 
     const formData = new FormData();
     formData.append("quantity", JSON.stringify(changeQuantityValues));
