@@ -18,6 +18,16 @@ import {
 } from "../../assemblyPartHelpers";
 import { ASSEMBLY_PARTS_URL, editTypes } from "../../assemblyPartConstants";
 
+/**
+ * ChangeQuantityForm class component
+ *
+ * Form to edit the quantity of an assembly part.
+ * Dynamically renders the form to either add or
+ * remove stock quantity.
+ *
+ * @author Matthew William Dawson W18002221
+ */
+
 class ChangeQuantityForm extends React.Component {
   constructor(props) {
     super(props);
