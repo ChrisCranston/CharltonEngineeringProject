@@ -10,7 +10,7 @@ import ChangeQuantityForm from "../AssemblyPartsForms/ChangeQuantityForm/ChangeQ
 import DeletePartForm from "../AssemblyPartsForms/DeletePartForm/DeletePartForm";
 import Loading from "../../ReusableComponents/Loading/Loading";
 import Pagination from "../../ReusableComponents/Pagination/Pagination";
-import Modal from "../../ReusableComponents/Modal/Modal";
+import Modal from "react-modal";
 import {
   fetchResource,
   getAssemblyPartPageSize,
@@ -23,6 +23,17 @@ import {
 } from "../assemblyPartConstants";
 import "./AssemblyParts.css";
 
+/**
+ * AssemblyParts class component
+ *
+ * Filters, sorts and displays the assembly parts
+ * table. Also renders the create, edit, quantity
+ * and delete part modal functionality. Also renders
+ * the pagination functionality.
+ *
+ * @author Matthew William Dawson W18002221
+ */
+
 class AssemblyParts extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +41,16 @@ class AssemblyParts extends React.Component {
       results: {},
       isLoading: false,
       selectedPartID: null,
+      customStyles: {
+        content: {
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+        },
+      },
       modalOpen: {
         create: false,
         add: false,
@@ -134,7 +155,7 @@ class AssemblyParts extends React.Component {
   };
 
   render() {
-    const { results, isLoading, modalOpen, selectedPartID, pageSize } =
+    const { results, isLoading, modalOpen, selectedPartID, pageSize, customStyles } =
       this.state;
 
     const {
@@ -180,7 +201,15 @@ class AssemblyParts extends React.Component {
             <p>No data found</p>
           ) : (
             <>
-              <table className="parts-table">
+              <div className="mobile-buttons">
+                <button onClick={() => this.openPartModal(editTypes.CREATE)}>
+                  Add New Part
+                </button>
+                <button onClick={() => this.fetchData()}>
+                  Refresh <FontAwesomeIcon icon={faRotateRight} />
+                </button>
+              </div>
+              <table className="assembly-parts-table">
                 <thead style={{ marginBottom: "1rem" }}>
                   <tr>
                     <th>Serial Number</th>
@@ -191,7 +220,9 @@ class AssemblyParts extends React.Component {
                     <th>Order URL</th>
                     <th>
                       <div className="part-buttons part-vertical-buttons">
-                        <button onClick={() => this.openPartModal("create")}>
+                      <button
+                          onClick={() => this.openPartModal(editTypes.CREATE)}
+                        >
                           Add New Part
                         </button>
                         <button onClick={() => this.fetchData()}>
@@ -224,20 +255,20 @@ class AssemblyParts extends React.Component {
             </>
           )}
         </div>
-        <Modal modalOpen={modalOpen[editTypes.CREATE]}>
+        <Modal isOpen={modalOpen[editTypes.CREATE]} style={customStyles}>
           <CreatePartForm
             simToken={simToken}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.EDIT]}>
+        <Modal isOpen={modalOpen[editTypes.EDIT]} style={customStyles}>
           <EditPartForm
             simToken={simToken}
             selectedPart={results[selectedPartID]}
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.ADD]}>
+        <Modal isOpen={modalOpen[editTypes.ADD]} style={customStyles}>
           <ChangeQuantityForm
             simToken={simToken}
             selectedPart={results[selectedPartID]}
@@ -245,7 +276,7 @@ class AssemblyParts extends React.Component {
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.REMOVE]}>
+        <Modal isOpen={modalOpen[editTypes.REMOVE]} style={customStyles}>
           <ChangeQuantityForm
             simToken={simToken}
             selectedPart={results[selectedPartID]}
@@ -253,7 +284,7 @@ class AssemblyParts extends React.Component {
             closePortal={this.closePartModal}
           />
         </Modal>
-        <Modal modalOpen={modalOpen[editTypes.DELETE]}>
+        <Modal isOpen={modalOpen[editTypes.DELETE]} style={customStyles}>
           <DeletePartForm
             simToken={simToken}
             selectedPartID={results[selectedPartID]?.part_id}

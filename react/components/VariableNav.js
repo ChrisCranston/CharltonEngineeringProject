@@ -35,7 +35,7 @@ const VariableNav = ({ accessLevel, handleAuthentication }) => {
                   Assembly Parts
                 </NavLink>
               </li>
-              <li>
+              <li id="storagedropdown">
                 <NavLink
                   to="/storage/storage-manager"
                   className="styledNavLink"
@@ -43,11 +43,11 @@ const VariableNav = ({ accessLevel, handleAuthentication }) => {
                   Storage
                 </NavLink>
                 {location.split("/")[1] === "storage" && (
-                  <nav>
+                  <nav className="navdropstorage">
                     <li>
                       <NavLink
                         to="/storage/storage-manager"
-                        className="styledNavLink"
+                        className="styledNavLinkStorage"
                       >
                         Locations
                       </NavLink>
@@ -55,7 +55,7 @@ const VariableNav = ({ accessLevel, handleAuthentication }) => {
                     <li>
                       <NavLink
                         to="/storage/storage-parts"
-                        className="styledNavLink"
+                        className="styledNavLinkStorage"
                       >
                         Parts
                       </NavLink>
@@ -65,16 +65,16 @@ const VariableNav = ({ accessLevel, handleAuthentication }) => {
               </li>
               {accessLevel === "manager" && (
                 <>
-                  <li>
+                  <li id="reportingdropdown">
                     <NavLink to="reporting" className="styledNavLink">
                       Reporting
                     </NavLink>
                     {location.split("/")[1] === "reporting" && (
-                      <nav>
+                      <nav className="navdropreporting">
                         <li>
                           <NavLink
                             to="/reporting/assembly-reports"
-                            className="styledNavLink"
+                            className="styledNavLinkReporting"
                           >
                             Assembly Reports
                           </NavLink>
@@ -82,38 +82,28 @@ const VariableNav = ({ accessLevel, handleAuthentication }) => {
                         <li>
                           <NavLink
                             to="/reporting/storage-reports"
-                            className="styledNavLink"
+                            className="styledNavLinkReporting"
                           >
                             Storage Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/customer-reports">
+                          <NavLink to="/reporting/customer-reports" className="styledNavLinkReporting">
                             Customer Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/assembly-interaction-reports">
+                          <NavLink to="/reporting/assembly-interaction-reports" className="styledNavLinkReporting">
                             Assembly Interaction Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/storage-interaction-reports">
+                          <NavLink to="/reporting/storage-interaction-reports" className="styledNavLinkReporting">
                             Storage Interaction Reports
                           </NavLink>
                         </li>
                       </nav>
                     )}
-                  </li>
-                  <li>
-                    <NavLink to="user-management" className="styledNavLink">
-                      User Management
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="account" className="styledNavLink">
-                      My Account
-                    </NavLink>
                   </li>
                 </>
               )}

@@ -97,6 +97,7 @@ The boilerplate code will have the databse we designed with some initial values 
  * usage video :  https://www.youtube.com/watch?v=HQKwgk6XkIA   
 
 npm install react-router-dom
+npm install jwt-decode
 
 # Chris C's react imports
 npm install qrcode.react

@@ -15,6 +15,7 @@ import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
 import StorageReportPage from "./components/reporting/StorageReportPage.js";
 import AssemblyInteractionPage from "./components/reporting/AssemblyInteractionPage.js";
 import StorageInteractionPage from "./components/reporting/StorageInteractionPage.js";
+import Footer from "./components/FooterComponent.js";
 import "./App.css";
 
 function App() {
@@ -151,7 +152,7 @@ function App() {
       </Routes>
       <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">
-        <p>footer text</p>
+      <Footer />
       </footer>
     </HashRouter>
   );
