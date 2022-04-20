@@ -11,7 +11,7 @@ class StorageInteractionReportGateway extends Gateway
 {
     private $sql = "SELECT interaction_id, storage_interaction.amount, storage_part.description, warehouse_number, location_string, storage_type, storage_part.name, firstname, lastname, storage_interaction.interaction_datetime, email_address
     FROM storage_interaction
-    JOIN storage ON storage_interaction.storage_id = storage.part_id
+    JOIN storage ON storage_interaction.storage_id = storage.storage_id
     JOIN storage_location ON storage.location_id = storage_location.storage_location_id
     JOIN storage_part on storage.part_id = storage_part.part_id
     JOIN user ON storage_interaction.user_id = user.user_id";

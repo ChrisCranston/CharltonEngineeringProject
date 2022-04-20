@@ -32,8 +32,9 @@ class  ApiStorageReportController extends Controller
         $storage_id = $this->getRequest()->getParameter("storage_id");
         $warehouse_numbers = $this->getRequest()->getParameter("warehousenumbers");
         $client_names = $this->getRequest()->getParameter("clientnames");
-
-        if ($this->getRequest()->getRequestMethod() == "GET") {
+        $accessLevel = $this->tokenCheck();
+        if ($accessLevel === "manager") {
+            if ($this->getRequest()->getRequestMethod() == "POST") {
             if (!is_null($storage_id)) {
                 $this->getGateway()->findOne($storage_id);
             } elseif ($warehouse_numbers){
@@ -47,6 +48,7 @@ class  ApiStorageReportController extends Controller
             $this->getResponse()->setMessage("Invalid Request Type.");
             $this->getResponse()->setStatusCode(405);
         }
+    }
         return $this->getGateway()->getResult();
     }
 }
