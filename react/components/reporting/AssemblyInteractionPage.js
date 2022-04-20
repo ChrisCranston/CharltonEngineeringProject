@@ -38,10 +38,11 @@ cancelSearch = () => {
 
   componentDidMount() {
    
-    let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport?user_names=true"
-  
-  
-    fetch(url)
+    let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport"
+    let formData = new FormData();
+    formData.append("token", this.props.simToken);
+    formData.append("user_names",true);
+    fetch(url, { method: "POST", headers: new Headers(), body: formData })
         .then((response) => {
             if (response.status === 200) {
                 return response.json()
@@ -140,7 +141,7 @@ cancelSearch = () => {
             />
             </div>
             </section>
-         <AssemblyInteractions userName={this.state.userName} search={this.state.search} />
+         <AssemblyInteractions simToken={this.props.simToken} userName={this.state.userName} search={this.state.search} />
       </div>
     );
   }

@@ -29,8 +29,9 @@ class StorageInteractions extends React.Component {
      */
     componentDidMount() {
         let url = "https://charltonengineeringdemo.com/kv6002/php/storageinteractionreport"
-
-        fetch(url)
+        let formData = new FormData();
+        formData.append("token", this.props.simToken);
+        fetch(url, { method: "POST", headers: new Headers(), body: formData })
             .then((response) => {
                 if (response.status === 200) {
                     return response.json()

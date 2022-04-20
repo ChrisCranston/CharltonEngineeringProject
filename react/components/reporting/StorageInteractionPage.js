@@ -37,10 +37,11 @@ cancelSearch = () => {
 
   componentDidMount() {
    
-    let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport?user_names=true"
-  
-  
-    fetch(url)
+    let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport"
+    let formData = new FormData();
+    formData.append("token", this.props.simToken);
+    formData.append("user_name",true);
+    fetch(url, { method: "POST", headers: new Headers(), body: formData })
         .then((response) => {
             if (response.status === 200) {
                 return response.json()
@@ -117,7 +118,7 @@ cancelSearch = () => {
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
-              content={ <StorageInteractions userName={this.state.userName} search={this.state.search} />}
+              content={ <StorageInteractions simToken={this.props.simToken} userName={this.state.userName} search={this.state.search} />}
               filtersApplied = {appliedFilters}
               dateTime = {reportDate}
               reportName = {"Storage Interaction Report"}
@@ -143,7 +144,7 @@ cancelSearch = () => {
             />
             </div>
             </section>
-         <StorageInteractions userName={this.state.userName} search={this.state.search} />
+         <StorageInteractions simToken={this.props.simToken} userName={this.state.userName} search={this.state.search} />
          
       </div>
     );

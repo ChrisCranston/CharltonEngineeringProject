@@ -71,7 +71,7 @@ getCurrentDateText = () => {
     <div style={{ display: "none" }}>
       <ComponentToPrint
         ref={(el) => (this.componentRef = el)}
-        content={<AssemblyParts search={this.state.search} />}
+        content={<AssemblyParts simToken={this.props.simToken} search={this.state.search} />}
         filtersApplied = {appliedFilters}
         dateTime = {reportDate}
         reportName = {"Assembly Report"}
@@ -94,7 +94,7 @@ getCurrentDateText = () => {
             </section>
 
             
-         <AssemblyParts search={this.state.search} />
+         <AssemblyParts simToken={this.props.simToken} search={this.state.search} />
           </div>
           
     );
