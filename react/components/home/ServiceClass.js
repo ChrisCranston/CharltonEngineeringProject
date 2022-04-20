@@ -21,7 +21,6 @@ class Service extends React.Component {
   //   this.setState({ display: 'none'})
   // }
   handleDisplay = (e) =>  {
-    // console.log(e.type)
      if (e.type === "mouseenter") {
        this.setState({ display: 'block'})
      } else if (e.type === "mouseleave") {

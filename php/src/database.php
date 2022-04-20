@@ -11,7 +11,8 @@
 class Database
 {
     private $dbConnection;
-    
+
+
     /**
      * __construct
      * 
@@ -24,7 +25,7 @@ class Database
     {
         $this->setDbConnection($dbName);
     }
-    
+
     /**
      * setDbConnection
      * 
@@ -34,11 +35,15 @@ class Database
      */
     private function setDbConnection($dbName)
     {
-        $this->dbConnection = new PDO('sqlite:' . $dbName);
+        $dbhost = "localhost";
+        $dbuser = "charlemo";
+        $dbpass = "charltonEngineering";
+
+        $this->dbConnection = new PDO("mysql:host=$dbhost;dbname=$dbName", $dbuser, $dbpass);
         $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    
+
     /**
      * executeSQL
      * 

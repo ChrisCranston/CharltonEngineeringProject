@@ -37,7 +37,7 @@ cancelSearch = () => {
 
   componentDidMount() {
    
-    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assemblyinteractionreport?user_names=true"
+    let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport?user_names=true"
   
   
     fetch(url)
@@ -101,7 +101,7 @@ cancelSearch = () => {
 
     return (
       <div className="main_content">
-         <section>
+         <section className="text-center">
           <h2>Storage Interaction Report</h2>
           <div>
             <p>

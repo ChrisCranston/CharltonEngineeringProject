@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 /**
  * RestrictedRoute function component
@@ -13,7 +14,7 @@ const RestrictedRoute = ({ children, isAuthenticated, ...props }) => {
   return isAuthenticated ? (
     children
   ) : (
-    <h1>403 FORBIDDEN COMPONENT LINK BACK TO HOME PAGE</h1>
+    <h1 className="p403">You do not have the correct access rights for this page, please login and try again or return <NavLink to="/" className="homelink">HOME</NavLink> </h1>
   );
 };
 

@@ -190,6 +190,7 @@ class EditPartForm extends React.Component {
                                 {data[key].mandatory && (
                                   <span className="form-asterisk"> *</span>
                                 )}
+                                :
                               </span>
                             }
                             type={data[key].type}

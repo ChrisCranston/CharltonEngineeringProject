@@ -24,27 +24,25 @@ class QueryForm extends React.Component {
     }
     componentDidMount() {
         let clienttypes = [];
-        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=clientType')
+        fetch('https://charltonengineeringdemo.com/kv6002/php/customerquery?tabletoget=clientType')
             .then(response => {
                 return response.json();
             }).then(data => {
               clienttypes = data.results.map((client) => {
                 return client
             });
-            //console.log(clienttypes);
             this.setState({
                 clienttypes: clienttypes,
             });
         });
         let querytypes = [];
-        fetch('http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerquery?tabletoget=queryType')
+        fetch('https://charltonengineeringdemo.com/kv6002/php/customerquery?tabletoget=queryType')
             .then(response => {
                 return response.json();
             }).then(data => {
                 querytypes = data.results.map((query) => {
                 return query
             });
-            //console.log(querytypes);
             this.setState({
                 querytypes: querytypes,
             });

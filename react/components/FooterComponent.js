@@ -29,12 +29,12 @@ class Footer extends React.Component {
                     <h4>Useful links</h4>
                     <p><NavLink to="customerquery">Get In Touch</NavLink></p>
                     <p>
-                        <a href="https://www.dnv.co.uk/services/iso-9001-quality-management-3283?gclid=CjwKCAiAvaGRBhBlEiwAiY-yMKf98yZBRrF9jrx68HRsOW-5XogtEH_yilMxir2V7v8pnGwt0Bn6FRoCho4QAvD_BwE" target="_blank" rel="noreferrer">ISO 9001 standards</a>
+                        <a href="https://www.iso.org/iso-9001-quality-management.html" target="_blank" rel="noreferrer">ISO 9001 standards</a>
                     </p>
                     <p>Photos sourced from <a href="https://unsplash.com/" target="_blank" rel="noreferrer">unsplash.com</a> <br></br>(inspect image for specific credits)</p>
 
-                </div><div>
-                    <img src={ISOlogo} height="20%" width="20%" alt="ISO img" />
+                </div><div >
+                    <img class="ISOlogo"  src={ISOlogo}  alt="ISO img" />
                 </div></>
       
         )

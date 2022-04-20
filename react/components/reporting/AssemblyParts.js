@@ -27,7 +27,7 @@ class AssemblyParts extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/assemblyreport"
+        let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyreport"
 
 
         fetch(url)

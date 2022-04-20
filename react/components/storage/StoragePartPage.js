@@ -128,7 +128,7 @@ class StoragePartPage extends React.Component {
         if (this.state.name === "") {
           this.setState({ description: "N/A" });
         }
-        let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/stored";
+        let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
         let formData = new FormData();
         formData.append("edit", "addPart");
         formData.append("serialNumber", this.state.serialNumber);

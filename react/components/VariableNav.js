@@ -7,7 +7,7 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
 
   return (
     <div className="top">
-      <img src={Logo} className="logo" alt="Website Logo" />
+      <NavLink to="/" ><img src={Logo} className="logo" alt="Website Logo" /></NavLink>
       <nav>
         <ul className="nav">
           <li>
@@ -23,59 +23,54 @@ const VariableNav = ({ isAuthenticated, isManager, handleAuthentication }) => {
               <li>
                 <NavLink to="assembly-parts" className="styledNavLink">Assembly Parts</NavLink>
               </li>
-              <li>
-                <NavLink to="/storage/storage-manager" className="styledNavLink" >Storage</NavLink>
+              <li id="storagedropdown">
+                <NavLink to="/storage/storage-manager" className="styledNavLinkStorage" >Storage</NavLink>
                 {location.split("/")[1] === "storage" && (
-                  <nav className="navdrop">
+                  <nav className="navdropstorage">
                     <li>
-                      <NavLink to="/storage/storage-manager" className="styledNavLink">Locations</NavLink>
+                      <NavLink to="/storage/storage-manager" className="styledNavLinkStorage">Locations</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/storage/storage-parts" className="styledNavLink">Parts</NavLink>
+                      <NavLink to="/storage/storage-parts" className="styledNavLinkStorage">Parts</NavLink>
                     </li>
                   </nav>
                 )}
               </li>
               {isManager && (
                 <>
-                  <li>
-                    <NavLink to="reporting" className="styledNavLink">Reporting</NavLink>
+                  <li id="reportingdropdown">
+                    <NavLink to="/reporting/assembly-reports" className="styledNavLinkReporting">Reporting</NavLink>
                     {location.split("/")[1] === "reporting" && (
-                      <nav className="navdrop">
+                      <nav className="navdropreporting">
                         <li>
-                          <NavLink to="/reporting/assembly-reports" className="styledNavLink">
+                          <NavLink to="/reporting/assembly-reports" className="styledNavLinkReporting">
                             Assembly Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/storage-reports" className="styledNavLink">
+                          <NavLink to="/reporting/storage-reports" className="styledNavLinkReporting">
                             Storage Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/customer-reports" className="styledNavLink">
+                          <NavLink to="/reporting/customer-reports" className="styledNavLinkReporting">
                             Customer Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/assembly-interaction-reports" className="styledNavLink">
+                          <NavLink to="/reporting/assembly-interaction-reports" className="styledNavLinkReporting">
                           Assembly Interaction Reports
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/reporting/storage-interaction-reports" className="styledNavLink">
+                          <NavLink to="/reporting/storage-interaction-reports" className="styledNavLinkReporting">
                           Storage Interaction Reports
                           </NavLink>
                         </li>
                       </nav>
                     )}
                   </li>
-                  <li>
-                    <NavLink to="user-management" className="styledNavLink">User Management</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="account" className="styledNavLink">My Account</NavLink>
-                  </li>
+                  
                 </>
               )}
             </>

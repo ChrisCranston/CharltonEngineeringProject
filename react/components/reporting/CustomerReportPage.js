@@ -33,7 +33,7 @@ handleQueryTypeSelect = (e) => {
 }
   componentDidMount() {
    
-    let url = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerreport?clientTypes=true"
+    let url = "https://charltonengineeringdemo.com/kv6002/php/customerreport?clientTypes=true"
 
 
     fetch(url)
@@ -51,7 +51,7 @@ handleQueryTypeSelect = (e) => {
             console.log("something went wrong ", err)
         });
 
-     let url2 = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/customerreport?queryTypes=true"
+     let url2 = "https://charltonengineeringdemo.com/kv6002/php/customerreport?queryTypes=true"
 
 
     fetch(url2)
@@ -121,7 +121,7 @@ getCurrentDateText = () => {
     
     return (
       <div className="main_content">
-        <section>
+        <section className="text-center">
           <h2>Customer Report</h2>
           <div>
             <p>

@@ -68,7 +68,9 @@ export class MapContainer extends Component {
           onClose={this.onClose}
         >
           <div>
-            <h4>{this.state.selectedPlace.name}</h4>
+          <a href="https://www.google.co.uk/maps/place/Charlton+Engineering+Services/@54.9014034,-1.5548096,17z/data=!3m1!4b1!4m5!3m4!1s0x487e7b047ec02325:0x7f8627ed98c4dd63!8m2!3d54.9014034!4d-1.5526209?hl=en-GB" target="_blank" rel="noreferrer">
+            <h4>
+                    Charlton Engineering Services Limited</h4></a>
           </div>
         </InfoWindow>
         </Map>
