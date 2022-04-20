@@ -134,6 +134,7 @@ class StoragePartPage extends React.Component {
         formData.append("serialNumber", this.state.serialNumber);
         formData.append("name", this.state.name);
         formData.append("description", this.state.description === "" ? "N/A" : this.state.description );
+        formData.append("token", this.props.simToken);
         fetch(url, {
           method: "POST",
           headers: new Headers(),
@@ -261,6 +262,7 @@ class StoragePartPage extends React.Component {
           <div className="parts-page">
             
                 <StoredManager
+                  simToken={this.props.simToken}
                   item_type="part"
                   search={this.state.search}
                   page={this.state.page}

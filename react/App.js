@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/home/HomePage.js";
+
 import QueryPage from "./components/home/QueryPage";
 import StoragePartPage from "./components/storage/StoragePartPage.js";
 import StorageLocationPage from "./components/storage/StorageLocationPage.js";
@@ -67,7 +69,7 @@ function App() {
                   accessLevel === "worker" || accessLevel === "manager"
                 }
               >
-                <StorageLocationPage />
+                <StorageLocationPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
@@ -79,7 +81,7 @@ function App() {
                   accessLevel === "worker" || accessLevel === "manager"
                 }
               >
-                <StoragePartPage />
+                <StoragePartPage  simToken={simToken}/>
               </RestrictedRoute>
             }
           />
@@ -88,19 +90,18 @@ function App() {
         <Route path="reporting">
           <Route index element={<Navigate to="assembly-reports" />} />
           <Route
-            path="assembly-reports"
-            element={
-              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
-                <AssemblyReportPage />
-                <h1>ASSEMBLY REPORTS PAGE</h1>
-              </RestrictedRoute>
-            }
-          />
-          <Route
+          path="assembly-reports"
+          element={
+            <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
+              <AssemblyReportPage simToken={simToken}/>
+            </RestrictedRoute>
+          }
+        />
+        <Route
             path="storage-reports"
             element={
               <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
-                <StorageReportPage />
+                <StorageReportPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
@@ -108,7 +109,7 @@ function App() {
             path="customer-reports"
             element={
               <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
-                <CustomerReportPage />
+                <CustomerReportPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
@@ -116,7 +117,7 @@ function App() {
             path="assembly-interaction-reports"
             element={
               <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
-                <AssemblyInteractionPage />
+                <AssemblyInteractionPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
@@ -124,31 +125,13 @@ function App() {
             path="storage-interaction-reports"
             element={
               <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
-                <StorageInteractionPage />
+                <StorageInteractionPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
         </Route>
 
-        <Route
-          path="user-management"
-          element={
-            <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
-              <h1>USER MANAGEMENT PAGE</h1>
-            </RestrictedRoute>
-          }
-        />
-
-        <Route
-          path="account"
-          element={
-            <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
-              <h1>ACCOUNT PAGE</h1>
-            </RestrictedRoute>
-          }
-        />
-
-        <Route path="*" element={<h1>404 Not Found</h1>} />
+        <Route path="*" element={<h1 className="p403">404 Page not found, try going  <NavLink to="/" className="homelink">HOME</NavLink> </h1>} />
       </Routes>
       <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">

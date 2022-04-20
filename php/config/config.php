@@ -13,6 +13,7 @@ spl_autoload_register("autoloader");
 set_exception_handler('jsonExceptionHandler');
 set_error_handler('errorHandler');
 
+date_default_timezone_set("Europe/London");
 define('SECRET_KEY', "@'v0^oaO.HfQtc51?i@^|xiO?3yS_x");
 define('LOCAL_BASEPATH', '/kv6002/php/');
 // define('BASEPATH_ABSOLUTE', 'http://unn-w18018468.newnumyspace.co.uk/kv6002/php/' );

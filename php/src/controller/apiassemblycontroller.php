@@ -42,6 +42,7 @@ class ApiAssemblyController extends Controller
 
             $accessLevel = $this->tokenCheck();
             $userID = 1; // <--  TEMPORARY until authentication is completed
+            $datetime = date("Y/m/d H:i");//current time
 
             if (($accessLevel === "worker" || $accessLevel === "manager")) {
                 if (!is_null($id)) {
@@ -62,7 +63,7 @@ class ApiAssemblyController extends Controller
                                 if ($partDetails["quantity"] > 0) {
                                     if (!empty($partDetails["name"])) {
                                         if ($partDetails["low_warning"] > 0) {
-                                            $this->getGateway()->createPart($partDetails, $userID);
+                                            $this->getGateway()->createPart($partDetails, $userID, $datetime);
                                             $this->getResponse()->setMessage("Part created successfully");
                                             $this->getResponse()->setStatusCode(201);
                                         } else {
@@ -144,7 +145,7 @@ class ApiAssemblyController extends Controller
 
                                 if ($modificationType === "add" || $modificationType === "remove") {
                                     if (!empty($partDetails["quantity"])) {
-                                        $this->getGateway()->addOrRemoveStock($partDetails, $userID);
+                                        $this->getGateway()->addOrRemoveStock($partDetails, $userID, $datetime);
                                         $this->getResponse()->setMessage("Quantity modified successfully");
                                         $this->getResponse()->setStatusCode(200);
                                     } else {

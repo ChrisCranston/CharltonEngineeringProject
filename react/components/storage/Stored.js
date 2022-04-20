@@ -113,6 +113,7 @@ class Stored extends React.Component {
           formData.append("addSerial", this.state.addSerial);
           formData.append("addQuantity", this.state.addQuantity);
           formData.append("user_id", 1);
+          formData.append("token", this.props.simToken);
           fetch(url, { method: "POST", headers: new Headers(), body: formData })
             .then((response) => {
               if (response.status === 200 || response.status === 204) {
@@ -161,6 +162,7 @@ class Stored extends React.Component {
       formData.append("edit", this.state.edit);
       formData.append("location", this.props.stored_item.storage_location_id);
       formData.append("user_id", 1);
+      formData.append("token", this.props.simToken);
       formData.append(
         "quantity",
         removeAll === true
@@ -284,6 +286,7 @@ class Stored extends React.Component {
       addNew = (
         <Modal isOpen={this.state.moadlIsOpen} style={this.state.customStyles}>
           <AddPartToLocation
+            simToken={this.props.simToken}
             handleAddPartToLocationSerial={this.handleAddPartToLocationSerial}
             handleAddPartToLocationClient={this.handleAddPartToLocationClient}
             handleAddPartQuantity={this.handleAddPartQuantity}
