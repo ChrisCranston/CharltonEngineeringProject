@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { HashRouter, Routes, Route} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +10,6 @@ import QueryPage from "./components/home/QueryPage";
 import StoragePartPage from "./components/storage/StoragePartPage.js";
 import StorageLocationPage from "./components/storage/StorageLocationPage.js";
 import AssemblyPartsPage from "./components/AssemblyPartsSystem/AssemblyPartsPage/AssemblyPartsPage";
-import ReportingHomePage from "./components/reporting/ReportingHomePage.js";
 import CustomerReportPage from "./components/reporting/CustomerReportPage.js";
 import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
 import StorageReportPage from "./components/reporting/StorageReportPage.js";

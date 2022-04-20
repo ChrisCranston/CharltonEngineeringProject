@@ -34,7 +34,7 @@ class Footer extends React.Component {
                     <p>Photos sourced from <a href="https://unsplash.com/" target="_blank" rel="noreferrer">unsplash.com</a> <br></br>(inspect image for specific credits)</p>
 
                 </div><div >
-                    <img class="ISOlogo"  src={ISOlogo}  alt="ISO img" />
+                    <img className="ISOlogo"  src={ISOlogo}  alt="ISO img" />
                 </div></>
       
         )
