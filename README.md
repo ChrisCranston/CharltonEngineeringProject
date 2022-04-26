@@ -1,22 +1,38 @@
 # CharltonEngineeringProject
 ## Team 2 - KV6002 project repository
 
-Required NPM installs:
+## Required NPM installs:
 
 npm install react-router-dom
+
 npm install jwt-decode
+
 npm install qrcode.react
+
 npm install react-to-print
+
 npm install react-modal --force
+
 npm install modern-react-qr-reader --force                        
+
 npm install google-maps-react@2.0.6
+
 npm install react-twitter-embed
+
 npm install @fortawesome/free-solid-svg-icons
+
 npm install @fortawesome/react-fontawesome
+
 npm install prop-types
+
 npm install react-toastify
 
 
+
+
+
+
+## Teammember instructions
 
 To install git follow this video to the 14:00 mark. You DO NOT need to set up a repository as you will clone this one when the time comes. 
 note: you will need to create a github account if you don't have one already. 
