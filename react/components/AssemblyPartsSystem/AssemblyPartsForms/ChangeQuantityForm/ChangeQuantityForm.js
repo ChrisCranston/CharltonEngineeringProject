@@ -27,6 +27,7 @@ import { ASSEMBLY_PARTS_URL, editTypes } from "../../assemblyPartConstants";
  *
  * @author Matthew William Dawson W18002221
  */
+
 class ChangeQuantityForm extends React.Component {
   constructor(props) {
     super(props);
@@ -80,11 +81,9 @@ class ChangeQuantityForm extends React.Component {
     this.setState({ data: newData, isSubmitting: true, editError: false });
 
     const validatedData = validateFields(data);
-
     if (editType === editTypes.REMOVE && selectedPart.quantity === "0") {
       validatedData.quantity.inputError = "Cannot remove when out of stock";
     }
-
     this.setState({ data: validatedData });
 
     if (!Object.values(data).some((field) => field.inputError)) {
@@ -96,7 +95,7 @@ class ChangeQuantityForm extends React.Component {
 
   sendData = () => {
     const { data } = this.state;
-    const { editType, closePortal, selectedPart } = this.props;
+    const { editType, closePortal, selectedPart, simToken } = this.props;
 
     const changeQuantityValues = getInputValues(data);
 
@@ -108,6 +107,7 @@ class ChangeQuantityForm extends React.Component {
 
     const formData = new FormData();
     formData.append("quantity", JSON.stringify(changeQuantityValues));
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
@@ -231,6 +231,7 @@ ChangeQuantityForm.defaultProps = {
 };
 
 ChangeQuantityForm.propTypes = {
+  simToken: PropTypes.string.isRequired,
   selectedPart: PropTypes.shape({
     part_id: PropTypes.string,
     serial_number: PropTypes.string,

@@ -42,10 +42,10 @@ class AddPartToLocation extends React.Component {
 
   componentDidMount() {
     this.fetchData(
-      "https://charltonengineeringdemo.com/kv6002/php/stored?part_add=true"
+      "https://charltonengineeringdemo.com/kv6002/php/stored"
     );
     this.fetchData2(
-      "https://charltonengineeringdemo.com/kv6002/php/stored?client_add=true"
+      "https://charltonengineeringdemo.com/kv6002/php/stored"
     );
   }
   componentWillUnmount() {}
@@ -89,7 +89,11 @@ class AddPartToLocation extends React.Component {
   };
 
   fetchData = (url) => {
-    fetch(url)
+    let formData = new FormData();
+    formData.append("token", this.props.simToken);
+    formData.append("part_add",true);
+    formData.append("simulate_get", "GET")
+    fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         if (response.status === 200 || response.status === 204) {
           return response.json();
@@ -107,7 +111,11 @@ class AddPartToLocation extends React.Component {
       });
   };
   fetchData2 = (url) => {
-    fetch(url)
+    let formData = new FormData();
+    formData.append("token", this.props.simToken);
+    formData.append("client_add",true);
+    formData.append("simulate_get", "GET")
+    fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         if (response.status === 200 || response.status === 204) {
           return response.json();

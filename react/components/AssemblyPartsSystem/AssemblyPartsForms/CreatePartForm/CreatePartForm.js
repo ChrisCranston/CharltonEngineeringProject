@@ -106,12 +106,13 @@ class CreatePartForm extends React.Component {
 
   sendData = () => {
     const { data } = this.state;
-    const { closePortal } = this.props;
+    const { closePortal, simToken } = this.props;
 
     const createValues = getInputValues(data);
 
     const formData = new FormData();
     formData.append("create", JSON.stringify(createValues));
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
@@ -227,6 +228,7 @@ class CreatePartForm extends React.Component {
 }
 
 CreatePartForm.propTypes = {
+  simToken: PropTypes.string.isRequired,
   closePortal: PropTypes.func.isRequired,
 };
 

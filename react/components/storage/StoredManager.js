@@ -39,18 +39,22 @@ class StoredManager extends React.Component {
 
   fetchData = () => {
     let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
+    let formData = new FormData();
     if (this.props.item_type === "part") {
-      url += "?part_search=true";
+      formData.append("part_search", true);
     } else if (this.props.item_type === "location") {
-      url += "?location_search=true";
+      formData.append("location_search",true);
       if (this.props.empty === "true") {
-        url += "&empty=" + this.props.empty;
+        formData.append("empty", this.props.empty);
       }
       if (this.props.warehouse !== undefined && this.props.warehouse !== "") {
-        url += "&warehouse=" + this.props.warehouse;
+        formData.append("warehouse", this.props.warehouse);
       }
     }
-    fetch(url)
+    
+    formData.append("token", this.props.simToken);
+    formData.append("simulate_get", "GET")
+    fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
         if (response.status === 200 || response.status === 204) {
           return response.json();
@@ -159,6 +163,7 @@ class StoredManager extends React.Component {
               {noData}
               {filteredResults.map((stored_item, i) => (
                 <Stored
+                  simToken={this.props.simToken}
                   key={i + stored_item}
                   stored_item={stored_item}
                   update={this.fetchData}
@@ -188,6 +193,7 @@ class StoredManager extends React.Component {
               {noData}
               {filteredResults.map((stored_item, i) => (
                 <Parts
+                  simToken={this.props.simToken}
                   key={i + stored_item}
                   stored_item={stored_item}
                   onChange={this.handleChange}

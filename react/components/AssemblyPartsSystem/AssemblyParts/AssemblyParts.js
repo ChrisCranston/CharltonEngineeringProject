@@ -33,6 +33,7 @@ import "./AssemblyParts.css";
  *
  * @author Matthew William Dawson W18002221
  */
+
 class AssemblyParts extends React.Component {
   constructor(props) {
     super(props);
@@ -88,11 +89,16 @@ class AssemblyParts extends React.Component {
   };
 
   fetchData = () => {
+    const { simToken } = this.props;
     this.setState({ isLoading: true });
+
+    const formData = new FormData();
+    formData.append("token", simToken);
 
     fetchResource(ASSEMBLY_PARTS_URL, {
       method: "POST",
       headers: new Headers(),
+      body: formData,
     })
       .then((response) => {
         if (response) {
@@ -149,16 +155,11 @@ class AssemblyParts extends React.Component {
   };
 
   render() {
-    const {
-      results,
-      isLoading,
-      modalOpen,
-      selectedPartID,
-      pageSize,
-      customStyles,
-    } = this.state;
+    const { results, isLoading, modalOpen, selectedPartID, pageSize, customStyles } =
+      this.state;
 
     const {
+      simToken,
       page,
       search,
       filterBy,
@@ -219,7 +220,7 @@ class AssemblyParts extends React.Component {
                     <th>Order URL</th>
                     <th>
                       <div className="part-buttons part-vertical-buttons">
-                        <button
+                      <button
                           onClick={() => this.openPartModal(editTypes.CREATE)}
                         >
                           Add New Part
@@ -255,16 +256,21 @@ class AssemblyParts extends React.Component {
           )}
         </div>
         <Modal isOpen={modalOpen[editTypes.CREATE]} style={customStyles}>
-          <CreatePartForm closePortal={this.closePartModal} />
+          <CreatePartForm
+            simToken={simToken}
+            closePortal={this.closePartModal}
+          />
         </Modal>
         <Modal isOpen={modalOpen[editTypes.EDIT]} style={customStyles}>
           <EditPartForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             closePortal={this.closePartModal}
           />
         </Modal>
         <Modal isOpen={modalOpen[editTypes.ADD]} style={customStyles}>
           <ChangeQuantityForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             editType={editTypes.ADD}
             closePortal={this.closePartModal}
@@ -272,6 +278,7 @@ class AssemblyParts extends React.Component {
         </Modal>
         <Modal isOpen={modalOpen[editTypes.REMOVE]} style={customStyles}>
           <ChangeQuantityForm
+            simToken={simToken}
             selectedPart={results[selectedPartID]}
             editType={editTypes.REMOVE}
             closePortal={this.closePartModal}
@@ -279,6 +286,7 @@ class AssemblyParts extends React.Component {
         </Modal>
         <Modal isOpen={modalOpen[editTypes.DELETE]} style={customStyles}>
           <DeletePartForm
+            simToken={simToken}
             selectedPartID={results[selectedPartID]?.part_id}
             selectedPartSerialNumber={results[selectedPartID]?.serial_number}
             selectedPartName={results[selectedPartID]?.name}
@@ -300,6 +308,7 @@ AssemblyParts.defaultProps = {
 };
 
 AssemblyParts.propTypes = {
+  simToken: PropTypes.string.isRequired,
   search: PropTypes.string,
   filterBy: PropTypes.string,
   sortBy: PropTypes.string.isRequired,

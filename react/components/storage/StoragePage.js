@@ -18,7 +18,7 @@ class StoragePage extends React.Component {
     return (
       <div className="main_content">
         <div className="page_item">
-          <StoredManager />
+          <StoredManager simtoken={this.props.simtoken}/>
         </div>
       </div>
     );

@@ -33,10 +33,11 @@ handleQueryTypeSelect = (e) => {
 }
   componentDidMount() {
    
-    let url = "https://charltonengineeringdemo.com/kv6002/php/customerreport?clientTypes=true"
-
-
-    fetch(url)
+    let url = "https://charltonengineeringdemo.com/kv6002/php/customerreport"
+    let formData = new FormData();
+    formData.append("token", this.props.simToken);
+    formData.append("clientTypes",true);
+    fetch(url, { method: "POST", headers: new Headers(), body: formData })
         .then((response) => {
             if (response.status === 200) {
                 return response.json()
@@ -51,10 +52,11 @@ handleQueryTypeSelect = (e) => {
             console.log("something went wrong ", err)
         });
 
-     let url2 = "https://charltonengineeringdemo.com/kv6002/php/customerreport?queryTypes=true"
-
-
-    fetch(url2)
+    let url2 = "https://charltonengineeringdemo.com/kv6002/php/customerreport"
+    let formData2 = new FormData();
+    formData2.append("token", this.props.simToken);
+    formData2.append("queryTypes","true");
+    fetch(url2, { method: "POST", headers: new Headers(), body: formData2 })     
         .then((response) => {
             if (response.status === 200) {
                 return response.json()
@@ -137,7 +139,7 @@ getCurrentDateText = () => {
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
-              content={ <CustomerQuerys custType={this.state.custType}
+              content={ <CustomerQuerys simToken={this.props.simToken} custType={this.state.custType}
               queryType={this.state.queryType} />}
               filtersApplied = {appliedFilters}
               dateTime = {reportDate}
@@ -161,7 +163,7 @@ getCurrentDateText = () => {
             />
             </div> 
             </section>
-         <CustomerQuerys custType={this.state.custType}
+         <CustomerQuerys simToken={this.props.simToken} custType={this.state.custType}
           queryType={this.state.queryType} />
         
       </div>

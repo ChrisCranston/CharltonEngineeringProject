@@ -30,8 +30,9 @@ class StorageLocations extends React.Component {
      */
     componentDidMount() {
         let url = "https://charltonengineeringdemo.com/kv6002/php/storagereport"
-
-        fetch(url)
+        let formData = new FormData();
+        formData.append("token", this.props.simToken);
+        fetch(url, { method: "POST", headers: new Headers(), body: formData })
             .then((response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -110,7 +111,7 @@ class StorageLocations extends React.Component {
                 </thead>
                 <tbody>
                     {noData}
-                    {filteredResults.map((storageLocation, i) => (<StorageLocation className="StorageLocation" key={i} storageLocation={storageLocation} />))}
+                    {filteredResults.map((storageLocation, i) => (<StorageLocation simToken={this.props.simToken} className="StorageLocation" key={i} storageLocation={storageLocation} />))}
                     </tbody></table>
         </div> 
 

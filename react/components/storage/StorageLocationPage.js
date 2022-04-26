@@ -152,6 +152,7 @@ class StorageLocationPage extends React.Component {
           formData.append("edit", "checklocation");
           formData.append("warehouse", this.state.warehousenumber);
           formData.append("location", this.state.locationName);
+          formData.append("token", this.props.simToken);
           fetch(url, {
             method: "POST",
             headers: new Headers(),
@@ -202,6 +203,7 @@ class StorageLocationPage extends React.Component {
           formData.append("warehouse", this.state.warehousenumber);
           formData.append("location", this.state.locationName);
           formData.append("type", this.state.type);
+          formData.append("token", this.props.simToken);
           fetch(url, {
             method: "POST",
             headers: new Headers(),
@@ -348,6 +350,7 @@ class StorageLocationPage extends React.Component {
 
         <div className="parts-page">
           <StoredManager
+            simToken={this.props.simToken}
             key={this.state.key}
             item_type="location"
             empty={this.state.empty}

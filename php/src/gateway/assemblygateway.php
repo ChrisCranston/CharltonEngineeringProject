@@ -21,7 +21,7 @@ class AssemblyGateway extends Gateway
     private $deletePartSQL = "DELETE FROM assembly_part WHERE assembly_part.part_id = :partID";
 
     private $createInteractionSQL = "INSERT INTO assembly_interaction (part_id, user_id, amount, interaction_datetime)
-        VALUES (:partID, :userID, :amount, now())";
+        VALUES (:partID, :userID, :amount, :date_time)";
 
     private $deleteInteractionSQL = "DELETE FROM assembly_interaction WHERE assembly_interaction.part_id = :partID";
 
@@ -171,9 +171,9 @@ class AssemblyGateway extends Gateway
      * @param int    $partID the array of params for the Assembly Part Select SQL PDO prepared statement
      * @param string $orderBy the column to order the results by
      */
-    private function insertInteraction($partID, $userID, $amount)
+    private function insertInteraction($partID, $userID, $amount, $datetime)
     {
-        $params = ["partID" => $partID, "userID" => $userID, "amount" => $amount];
+        $params = ["partID" => $partID, "userID" => $userID, "amount" => $amount, "date_time" => $datetime];
         $this->executeSQL($this->getCreateInteractionSQL(), $params);
     }
 
@@ -238,7 +238,7 @@ class AssemblyGateway extends Gateway
      * @param array $partDetails array of part details used to create the new part
      * @param int   $userID      the user ID of the user who is creating the new part
      */
-    public function createPart($partDetails, $userID)
+    public function createPart($partDetails, $userID, $datetime)
     {
         $serialNumber = $partDetails["serial_number"];
         $this->executeSQL($this->getCreatePartSQL(), $partDetails);
@@ -247,7 +247,7 @@ class AssemblyGateway extends Gateway
         $findBySerialNumberGateway->findBySerialNumber($serialNumber);
         $createdPart = $findBySerialNumberGateway->getResult()[0];
 
-        $this->insertInteraction($createdPart["part_id"], $userID, $createdPart["quantity"]);
+        $this->insertInteraction($createdPart["part_id"], $userID, $createdPart["quantity"], $datetime);
     }
 
     /**
@@ -286,7 +286,7 @@ class AssemblyGateway extends Gateway
      * @param array $stockDetails array featuring the part ID the quantity, and the modification type ("add" or "remove")
      * @param int   $userID   the user ID of the user who is modifying the stock
      */
-    public function addOrRemoveStock($stockDetails, $userID)
+    public function addOrRemoveStock($stockDetails, $userID, $datetime)
     {
         $isAdd = $stockDetails["modificationType"] === "add";
 
@@ -301,6 +301,6 @@ class AssemblyGateway extends Gateway
 
         $params = ["quantity" => $quantity, "part_id" => $partID];
         $this->editPart($params);
-        $this->insertInteraction($partID, $userID, $isAdd ? $quantity : -$quantity);
+        $this->insertInteraction($partID, $userID, $isAdd ? $quantity : -$quantity, $datetime);
     }
 }

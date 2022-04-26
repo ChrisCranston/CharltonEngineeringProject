@@ -20,7 +20,7 @@ import "./AssemblyPart.css";
  */
 class AssemblyPart extends React.Component {
   render() {
-    const { assemblyPart, openPartModal } = this.props;
+    const { assemblyPart, openPartModal, simToken } = this.props;
 
     const partID = assemblyPart.part_id;
     const orderURL = assemblyPart.order_url;

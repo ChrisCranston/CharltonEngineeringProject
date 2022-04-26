@@ -32,9 +32,9 @@ class  ApiCustomerReportController extends Controller
         $storage_id = $this->getRequest()->getParameter("query_id");
         $clientTypes = $this->getRequest()->getParameter("clientTypes");
         $queryTypes = $this->getRequest()->getParameter("queryTypes");
-
-
-        if ($this->getRequest()->getRequestMethod() == "GET") {
+        $accessLevel = $this->tokenCheck();
+        if ($accessLevel === "manager") {
+            if ($this->getRequest()->getRequestMethod() == "POST") {
             if (!is_null($storage_id)) {
                 $this->getGateway()->findOne($storage_id);
              } elseif ($clientTypes){
@@ -48,6 +48,7 @@ class  ApiCustomerReportController extends Controller
             $this->getResponse()->setMessage("Invalid Request Type.");
             $this->getResponse()->setStatusCode(405);
         }
+    }
         return $this->getGateway()->getResult();
     }
 }

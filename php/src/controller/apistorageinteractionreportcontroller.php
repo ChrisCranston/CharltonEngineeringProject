@@ -30,8 +30,9 @@ class  ApiStorageInteractionReportController extends Controller
     {
 
         $interaction_id = $this->getRequest()->getParameter("interaction_id");
-
-        if ($this->getRequest()->getRequestMethod() == "GET") {
+        $accessLevel = $this->tokenCheck();
+        if ($accessLevel === "manager") {
+            if ($this->getRequest()->getRequestMethod() == "POST") {
             if (!is_null($interaction_id)) {
                 $this->getGateway()->findOne($interaction_id);
             } else {
@@ -41,6 +42,7 @@ class  ApiStorageInteractionReportController extends Controller
             $this->getResponse()->setMessage("Invalid Request Type.");
             $this->getResponse()->setStatusCode(405);
         }
+    }
         return $this->getGateway()->getResult();
     }
 }

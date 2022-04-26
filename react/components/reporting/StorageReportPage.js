@@ -32,9 +32,11 @@ handleClientNameSelect = (e) => {
 
 componentDidMount() {
    
-  let url = "https://charltonengineeringdemo.com/kv6002/php/storagereport?warehousenumbers=true"
-
-  fetch(url)
+  let url = "https://charltonengineeringdemo.com/kv6002/php/storagereport"
+  let formData = new FormData();
+  formData.append("token", this.props.simToken);
+  formData.append("warehousenumbers",true);
+  fetch(url, { method: "POST", headers: new Headers(), body: formData })
       .then((response) => {
           if (response.status === 200) {
               return response.json()
@@ -49,10 +51,11 @@ componentDidMount() {
           console.log("something went wrong ", err)
       });
 
-   let url2 = "https://charltonengineeringdemo.com/kv6002/php/storagereport?clientnames=true"
-
-
-  fetch(url2)
+   let url2 = "https://charltonengineeringdemo.com/kv6002/php/storagereport"
+   let formData2 = new FormData();
+  formData2.append("token", this.props.simToken);
+  formData2.append("clientnames",true);
+  fetch(url2, { method: "POST", headers: new Headers(), body: formData2 })
       .then((response) => {
           if (response.status === 200) {
               return response.json()
@@ -139,7 +142,7 @@ getCurrentDateText = () => {
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
-              content={ <StorageLocations warehouseNumber={this.state.warehouseNumber}
+              content={ <StorageLocations simToken={this.props.simToken} warehouseNumber={this.state.warehouseNumber}
               clientName={this.state.clientName}/>}
               filtersApplied = {appliedFilters}
               dateTime = {reportDate}
@@ -165,7 +168,7 @@ getCurrentDateText = () => {
             />
             </div>
             </section>
-         <StorageLocations warehouseNumber={this.state.warehouseNumber}
+         <StorageLocations simToken={this.props.simToken} warehouseNumber={this.state.warehouseNumber}
           clientName={this.state.clientName} />
           
          

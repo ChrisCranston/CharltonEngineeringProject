@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { HashRouter, Routes, Route} from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import jwt_decode from "jwt-decode";
 import VariableNav from "./components/VariableNav";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import HomePage from "./components/home/HomePage.js";
+
 import QueryPage from "./components/home/QueryPage";
 import StoragePartPage from "./components/storage/StoragePartPage.js";
 import StorageLocationPage from "./components/storage/StorageLocationPage.js";
@@ -15,35 +17,28 @@ import AssemblyReportPage from "./components/reporting/AssemblyReportPage.js";
 import StorageReportPage from "./components/reporting/StorageReportPage.js";
 import AssemblyInteractionPage from "./components/reporting/AssemblyInteractionPage.js";
 import StorageInteractionPage from "./components/reporting/StorageInteractionPage.js";
-import "./App.css";
 import Footer from "./components/FooterComponent.js";
+import "./App.css";
 
-/**
- * App function component
- *
- * Base component for the system. Handles authentication,
- * navigation and routing to the various application pages.
- *
- * @author KV6002 Group 2
- */
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [simToken, setSimToken] = useState(localStorage.getItem("simToken"));
 
-  const handleAuthentication = () => {
-    if (isAuthenticated === true) {
-      setIsAuthenticated(false);
+  const accessLevel = simToken && jwt_decode(simToken).sub;
+
+  const handleAuthentication = (token = null) => {
+    if (token) {
+      setSimToken(token);
+      localStorage.setItem("simToken", token);
     } else {
-      setIsAuthenticated(true);
+      setSimToken(null);
+      localStorage.removeItem("simToken");
     }
   };
-
-  const isManager = true; //  <-- Instead of authenticated = true/false, will need string based variables rather than booleans, so can check if === worker/manager etc. to restrict functionality
 
   return (
     <HashRouter>
       <VariableNav
-        isAuthenticated={isAuthenticated}
-        isManager={isManager}
+        accessLevel={accessLevel}
         handleAuthentication={handleAuthentication}
       />
       <Routes>
@@ -55,8 +50,12 @@ function App() {
         <Route
           path="assembly-parts"
           element={
-            <RestrictedRoute isAuthenticated={isAuthenticated}>
-              <AssemblyPartsPage />
+            <RestrictedRoute
+              isAuthenticated={
+                accessLevel === "worker" || accessLevel === "manager"
+              }
+            >
+              <AssemblyPartsPage simToken={simToken} />
             </RestrictedRoute>
           }
         />
@@ -65,71 +64,74 @@ function App() {
           <Route
             path="storage-manager"
             element={
-              <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <StorageLocationPage />
+              <RestrictedRoute
+                isAuthenticated={
+                  accessLevel === "worker" || accessLevel === "manager"
+                }
+              >
+                <StorageLocationPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
           <Route
             path="storage-parts"
             element={
-              <RestrictedRoute isAuthenticated={isAuthenticated}>
-                <StoragePartPage />
+              <RestrictedRoute
+                isAuthenticated={
+                  accessLevel === "worker" || accessLevel === "manager"
+                }
+              >
+                <StoragePartPage  simToken={simToken}/>
               </RestrictedRoute>
             }
           />
         </Route>
 
         <Route path="reporting">
+          <Route index element={<Navigate to="assembly-reports" />} />
           <Route
-            path="assembly-reports"
-            element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <AssemblyReportPage />
-              </RestrictedRoute>
-            }
-          />
-          <Route
+          path="assembly-reports"
+          element={
+            <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
+              <AssemblyReportPage simToken={simToken}/>
+            </RestrictedRoute>
+          }
+        />
+        <Route
             path="storage-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <StorageReportPage />
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
+                <StorageReportPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
           <Route
             path="customer-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <CustomerReportPage />
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
+                <CustomerReportPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
           <Route
             path="assembly-interaction-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <AssemblyInteractionPage />
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
+                <AssemblyInteractionPage simToken={simToken} />
               </RestrictedRoute>
             }
           />
           <Route
             path="storage-interaction-reports"
             element={
-              <RestrictedRoute isAuthenticated={isManager && isAuthenticated}>
-                <StorageInteractionPage />
-                            </RestrictedRoute>
+              <RestrictedRoute isAuthenticated={accessLevel === "manager"}>
+                <StorageInteractionPage simToken={simToken} />
+              </RestrictedRoute>
             }
           />
         </Route>
 
-        
-        <Route
-          path="*"
-          element={
-            <h1 className="p403">404 Page not found, try going  <NavLink to="/" className="homelink">HOME</NavLink> </h1>
-          }
-        />
+        <Route path="*" element={<h1 className="p403">404 Page not found, try going  <NavLink to="/" className="homelink">HOME</NavLink> </h1>} />
       </Routes>
       <ToastContainer position="bottom-center" theme="colored" limit={4} />
       <footer className="foot">

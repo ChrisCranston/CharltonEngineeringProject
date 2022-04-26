@@ -88,7 +88,7 @@ class StoredGateway extends Gateway
     }
 
 
-    public function addPartToLocation($addLocation, $addClient, $addSerial, $addQuantity, $user_id)
+    public function addPartToLocation($addLocation, $addClient, $addSerial, $addQuantity, $user_id, $datetime)
     {
 
         $sql1 = "SELECT client_id from client WHERE client_name = :client";
@@ -125,13 +125,13 @@ class StoredGateway extends Gateway
         $storage_id = (string)$result2[0][0];
 
 
-        $sql4 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, now() )";
-        $params4 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $addQuantity];
+        $sql4 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, :date_time )";
+        $params4 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $addQuantity, "date_time"=>$datetime];
         $result4 = $this->getDatabase()->executeSQL($sql4, $params4);
         $this->setResult($result4);
     }
 
-    public function addQuantity($location, $quantity, $user_id)
+    public function addQuantity($location, $quantity, $user_id, $datetime)
     {
         $sql = "UPDATE storage SET quantity = quantity + :newQuantity WHERE storage.location_id = :location_id ";
         $params = ["newQuantity" => $quantity, "location_id" => $location];
@@ -143,13 +143,13 @@ class StoredGateway extends Gateway
         $storage_id = (string)$result2[0][0];
 
 
-        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, now() )";
-        $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity];
+        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, :date_time )";
+        $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity, "date_time" => $datetime];
         $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
         $this->setResult($result);
     }
 
-    public function removeQuantity($location, $quantity, $user_id)
+    public function removeQuantity($location, $quantity, $user_id, $datetime)
     {
         $sql = "UPDATE storage SET quantity = quantity - :newQuantity WHERE storage.location_id = :location_id ";
         $params = ["newQuantity" => $quantity, "location_id" => $location];
@@ -162,8 +162,8 @@ class StoredGateway extends Gateway
 
         $quantity = $quantity - $quantity - $quantity;
 
-        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, now() )";
-        $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity];
+        $sql3 = "INSERT INTO storage_interaction (storage_id, user_id, amount, interaction_datetime) VALUES (:storageID,:user_id, :amount, :date_time )";
+        $params3 = ["storageID" => $storage_id, "user_id" => $user_id, "amount" => $quantity, "date_time" => $datetime];
         $result3 = $this->getDatabase()->executeSQL($sql3, $params3);
         $this->setResult($result);
     }
