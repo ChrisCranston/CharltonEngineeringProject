@@ -1,6 +1,20 @@
 # CharltonEngineeringProject
 ## Team 2 - KV6002 project repository
 
+Required NPM installs:
+
+npm install react-router-dom
+npm install jwt-decode
+npm install qrcode.react
+npm install react-to-print
+npm install react-modal --force
+npm install modern-react-qr-reader --force                        
+npm install google-maps-react@2.0.6
+npm install react-twitter-embed
+npm install @fortawesome/free-solid-svg-icons
+npm install @fortawesome/react-fontawesome
+npm install prop-types
+npm install react-toastify
 
 
 
