@@ -19,7 +19,6 @@ https://github.com/ChrisCranston/CharltonEngineeringProject
 
 - An example API endpoint can be seen at:
 https://charltonengineeringdemo.com/kv6002/php/customerquery?tabletoget=clientType
-
 - Due to the security implemented into the system it is not possible to directly view other API endpoints without using
   the website itself. 
 
@@ -39,17 +38,19 @@ https://portal.hostgator.com/login
 - The database in use can then be observed by selecting:
 'Launch cPanel' -> 'phpMyAdmin' -> Then selecting 'charlemo' in the left panel.
 
-- Database files can be viewed directly in /DB/ folder once unzipped.
+- Alternatively database files can be viewed directly in /DB/ folder once unzipped.
 
 
 
 
--- Local installation instructions --
 
-- Due to formatting the application to be hosted on hostgator (the same hosting system as the clients existing website)
-  it is not possible to host the PHP files locally without modification. It is possible to host the react 
-  files locally with the following instructions without modifying files, be aware any entries to the database will be reflected in the live demo system @ https://charltonengineeringdemo.com/: 
+-- Recreating system -- 
 
+- It is possible to view the react side of the application locally while still addressing the hosted database without modifying any files, 
+  be aware any entries to the database will be reflected in the live demo system @ https://charltonengineeringdemo.com/
+  To host the react locally use the following instructions:
+
+((react setup))
 1) Install Node on local machine: This can be downloaded and installed from here: https://nodejs.org/en/
 2) Create a folder : this will be where you have your work on your local computer, can be anywhere
 3) Use powershell to go to that folder : open powershell then use the command * cd "folder/location/on/local/machine"
@@ -67,28 +68,46 @@ https://portal.hostgator.com/login
 	- npm install @fortawesome/react-fontawesome
 	- npm install prop-types
 	- npm install react-toastify
-6) Copy the files from /react/ in the submission zip after unzipping into [FOLDER_CREATED_IN_STEP_2]/src
-7) Copy the package.json file (optional, will not impede local performance of the system)
-8) Run the application with the command 'npm start' (this will open a window in a local browser)
+
+((react run))
+1) Copy the files from /react/ in the submission zip after unzipping into [FOLDER_CREATED_IN_STEP_2]/src
+2) Copy the package.json file (optional, will not impede local performance of the system)
+3) Run the application with the command 'npm start' (this will open a window in a local browser)
 NOTE: any edits / additions performed will add entries to the live databse and will be visible on the live system, please use values that are easily
       identifiable during the demo. 
+NOTE: Ctrl+c to stop the running of the app.
+NOTE: local react instance can be found by going to localhost:3000 in a browser
 
 
+((PHP and DB recreation setup))
+- To manually host the databse and php files, an application such as newnumspace or XAMPP needs to be used and some small file changes are required to point
+  to the new set-up. The instructions below are based on hosting the php files on newnumyspace.com (university account) and database files on phpmyadmin (university account):
 
-- To host the database locally, upload the files found in /DB/ to newnumyspace-phpmyadmin. 
-- Host the PHP files via newnumspace inside of /public_url/[FOLDER LOCATION]
-- Changes will then need to be made to address the local database. This can be done by changing the following files:
-	1) config.php Ln:18 (inside of /php/ folder)
-		- define('LOCAL_BASEPATH', '/kv6002/php');
-		  change to: define('LOCAL_BASEPATH', '[NEWNUMYSPACE_URL+FOLDER LOCATION]');
-		  for example: define('LOCAL_BASEPATH', 'https://unn-w18018468.newnumyspace.co.uk/kv6002/php/');
-	2) url.js Ln:1 (inside of /react/components/)
-		- const URL = "https://charltonengineeringdemo.com/kv6002/php/";
-		  change to: const URL = "[NEWNUMYSPACE_URL+FOLDER LOCATION]";
-		  for example: const URL = "https://unn-w18018468.newnumyspace.co.uk/kv6002/php/"
+  STEP 1: Databse files found in /DB/ should be imported to phpmyadmin. This can be done with the following steps:
+	1) go to php my admin: http://phpmyadmin.newnumyspace.co.uk/.
+	2) login with username : unn_[university_id_number] (i.e. unn_w18018468).
+	   and password: [newnumyspacepassword].
+	3) create a database in the left panel, or use an existing database take note of the name as it will be used later. 2 Seperate databses can be created or the files can be loaded into one. 
+	4) select the databse in the left panel.
+	5) using the 'import' button from the top panel, upload the files and follow prompts, default values will work.
 
-- Once these files have been changed you will need to restart the react with `npm start`
+  STEP 2: Edit the files to target the new DB and php files by changing the following 2 files:
+	1) config.php LN:18 onwards (inside of /php/config/ folder)
+		define('LOCAL_BASEPATH', '/kv6002/php/'); <--- change second parameter to the subfolder after public_html on newnumspace, explained further in next step.
+		define('DATABASE', 'charlemo_CES'); <--- change second parameter to the name of the database created in the step above (both can be uploaded to the same database or individual, if individual this address the *_CES file).
+		define('CUSTOMER_DATABASE', 'charlemo_CESCUST'); <--- change second parameter to the name of the second databse created in the step above (if the same name was used for the *_CESCUT file, use the same database name here).
+		define('DB_USER', 'charlemo'); <-- change second parameter to your username for newnumyspace / phpmyadmin typically unn_[university_id_number] .
+		define('DB_PASS','charltonEngineering'); <--- change second parameter to the password for newnumyspace / phpmyadmin.
+		define('DB_HOST','localhost'); <--- shouldnt require changing unless a different hosting service has been used.
 
+	2) url.js LN:1 (inside of /react/components/ folder)
+		const URL = "http://unn-w18018468.newnumyspace.co.uk/kv6002/php/"; <-- change to newnumsapce address, for example: http://unn-w18018468.newnumyspace.co.uk/kv6002/php/, change unn-w18018468 to your [university_id_number] (this may change if STEP 3 folder structure is not used.
+		
+
+
+  STEP 3: The edited php files should then be uploaded to newnumspace, for ease it's recommended to upload into /[username]/public_html/kv6002/php/  (i.e. /w18018468/public_html/kv6002/php/) which will mean the LOCAL_BASEPATH does not need changing.
+
+  STEP 4: complete the ((react run)) steps mentioned above, if the react is already running and the new url.js file is copied in it will automatically update and the website will need refreshed.
 
 
 
