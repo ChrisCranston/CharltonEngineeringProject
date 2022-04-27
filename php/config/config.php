@@ -15,8 +15,11 @@ set_error_handler('errorHandler');
 
 date_default_timezone_set("Europe/London");
 define('SECRET_KEY', "@'v0^oaO.HfQtc51?i@^|xiO?3yS_x");
+define('DEVELOPMENT_MODE', True);
+# HOSTING SETUP:
 define('LOCAL_BASEPATH', '/kv6002/php/');
-// define('BASEPATH_ABSOLUTE', 'http://unn-w18018468.newnumyspace.co.uk/kv6002/php/' );
 define('DATABASE', 'charlemo_CES');
 define('CUSTOMER_DATABASE', 'charlemo_CESCUST');
-define('DEVELOPMENT_MODE', True);
+define('DB_USER', 'charlemo');
+define('DB_PASS','charltonEngineering');
+define('DB_HOST','localhost');

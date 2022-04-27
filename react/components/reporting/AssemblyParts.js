@@ -1,5 +1,6 @@
 import React from "react";
 import AssemblyPart from './AssemblyPart.js';
+import URL from "../url.js"
 
 
 /**
@@ -27,7 +28,7 @@ class AssemblyParts extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyreport"
+        let url = URL+"assemblyreport"
         let formData = new FormData();
         formData.append("token", this.props.simToken);
         fetch(url, { method: "POST", headers: new Headers(), body: formData })

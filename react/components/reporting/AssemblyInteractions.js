@@ -1,6 +1,6 @@
 import React from "react";
 import AssemblyInteraction from './AssemblyInteraction.js';
-
+import URL from "../url.js"
 
 /**
  * @author Christopher Ewart
@@ -28,7 +28,7 @@ class AssemblyInteractions extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport"
+        let url = URL+"assemblyinteractionreport"
         let formData = new FormData();
         formData.append("token", this.props.simToken);
         fetch(url, { method: "POST", headers: new Headers(), body: formData })

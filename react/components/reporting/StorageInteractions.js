@@ -1,5 +1,6 @@
 import React from "react";
 import StorageInteraction from './StorageInteraction.js';
+import URL from "../url.js"
 
 
 /**
@@ -28,7 +29,7 @@ class StorageInteractions extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "https://charltonengineeringdemo.com/kv6002/php/storageinteractionreport"
+        let url = URL+"storageinteractionreport"
         let formData = new FormData();
         formData.append("token", this.props.simToken);
         fetch(url, { method: "POST", headers: new Headers(), body: formData })

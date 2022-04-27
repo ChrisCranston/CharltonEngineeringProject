@@ -1,5 +1,6 @@
 import React from "react";
 import QueryForm from "./QueryForm";
+import URL from "../url.js"
 
 /**
  * QueryPage
@@ -90,7 +91,7 @@ class QueryPage extends React.Component {
           let phoneNumber = this.state.countrycode + this.state.phone;
           this.setState({ submiterror: "" });
           let url =
-            "https://charltonengineeringdemo.com/kv6002/php/customerquery";
+            URL + "customerquery";
           let formData = new FormData();
           formData.append("token", "SiteToken-7874857973");
           formData.append("name", this.state.name);

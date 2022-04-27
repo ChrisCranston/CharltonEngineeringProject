@@ -70,7 +70,7 @@ class StoredGateway extends Gateway
 
     public function findAllPart()
     {
-        $sql = "SELECT storage_part.part_id, storage_part.serial_number, storage_part.name, storage_part.description, storage_part.qr_id,  storage.quantity, qr_code.qr_code_string FROM storage_part LEFT JOIN storage on (storage_part.part_id = storage.part_id) LEFT JOIN qr_code on (storage_part.qr_id = qr_code.qr_id)  ORDER by storage_part.serial_number";
+        $sql = "SELECT storage_part.part_id, storage_part.serial_number, storage_part.name, storage_part.description, storage_part.qr_id, qr_code.qr_code_string FROM storage_part LEFT JOIN qr_code on (storage_part.qr_id = qr_code.qr_id)  ORDER by storage_part.serial_number";
         $result = $this->getDatabase()->executeSQL($sql);
         $this->setResult($result);
     }

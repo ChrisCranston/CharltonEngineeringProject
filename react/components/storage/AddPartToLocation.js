@@ -4,6 +4,7 @@ import QrReader from "modern-react-qr-reader";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import URL from "../url.js"
 
 /**
  * SignUp
@@ -42,10 +43,10 @@ class AddPartToLocation extends React.Component {
 
   componentDidMount() {
     this.fetchData(
-      "https://charltonengineeringdemo.com/kv6002/php/stored"
+      URL+"stored"
     );
     this.fetchData2(
-      "https://charltonengineeringdemo.com/kv6002/php/stored"
+      URL+"stored"
     );
   }
   componentWillUnmount() {}

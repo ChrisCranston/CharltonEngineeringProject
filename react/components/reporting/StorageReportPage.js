@@ -4,6 +4,7 @@ import "./reporting.css";
 import Filter from './Filter.js';
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
+import URL from "../url.js"
 
 /**
  *
@@ -32,7 +33,7 @@ handleClientNameSelect = (e) => {
 
 componentDidMount() {
    
-  let url = "https://charltonengineeringdemo.com/kv6002/php/storagereport"
+  let url = URL+"storagereport"
   let formData = new FormData();
   formData.append("token", this.props.simToken);
   formData.append("warehousenumbers",true);
@@ -51,7 +52,7 @@ componentDidMount() {
           console.log("something went wrong ", err)
       });
 
-   let url2 = "https://charltonengineeringdemo.com/kv6002/php/storagereport"
+   let url2 = URL+"storagereport"
    let formData2 = new FormData();
   formData2.append("token", this.props.simToken);
   formData2.append("clientnames",true);

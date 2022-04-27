@@ -1,5 +1,6 @@
 import React from "react";
 import Query from './Query.js';
+import URL from "../url.js"
 
 
 /**
@@ -27,7 +28,7 @@ class CustomerQuerys extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "https://charltonengineeringdemo.com/kv6002/php/customerreport"
+        let url = URL+"customerreport"
         let formData = new FormData();
         formData.append("token", this.props.simToken);
         fetch(url, { method: "POST", headers: new Headers(), body: formData })
