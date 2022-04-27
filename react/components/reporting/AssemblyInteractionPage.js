@@ -116,7 +116,7 @@ cancelSearch = () => {
           <div style={{ display: "none" }}>
             <ComponentToPrint
               ref={(el) => (this.componentRef = el)}
-              content={ <AssemblyInteractions userName={this.state.userName} search={this.state.search} />}
+              content={ <AssemblyInteractions simToken={this.props.simToken} userName={this.state.userName} search={this.state.search} />}
               filtersApplied = {appliedFilters}
               dateTime = {reportDate}
               reportName = {"Assembly Interactions Report"}

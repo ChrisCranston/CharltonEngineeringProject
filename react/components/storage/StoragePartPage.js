@@ -4,6 +4,8 @@ import SearchBox from "../ReusableComponents/SearchBox/SearchBox"
 import AddPart from "./AddPart.js";
 import QrReader from "modern-react-qr-reader";
 import Modal from 'react-modal';
+import URL from "../url.js"
+
 
 /**
  * PaperPage
