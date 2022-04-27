@@ -5,6 +5,7 @@ import SelectWarehouse from "./SelectWarehouse.js";
 import AddLocation from "./AddLocation.js";
 import QrReader from "modern-react-qr-reader";
 import Modal from "react-modal";
+import URL from "../url.js"
 
 /**
  * PaperPage
@@ -147,7 +148,7 @@ class StorageLocationPage extends React.Component {
       if (this.state.warehousenumber < 4) {
       if (this.state.locationName !== "") {
         if (this.state.type !== "") {
-          let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
+          let url = URL+"stored";
           let formData = new FormData();
           formData.append("edit", "checklocation");
           formData.append("warehouse", this.state.warehousenumber);
@@ -197,7 +198,7 @@ class StorageLocationPage extends React.Component {
       if (this.state.warehousenumber > 0) {
       if (this.state.locationName !== "") {
         if (this.state.type !== "") {
-          let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
+          let url = URL+"stored";
           let formData = new FormData();
           formData.append("edit", "addLocation");
           formData.append("warehouse", this.state.warehousenumber);

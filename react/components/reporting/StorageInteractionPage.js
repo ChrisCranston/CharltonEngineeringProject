@@ -5,6 +5,7 @@ import Filter from './Filter.js';
 import SearchBox from "../ReusableComponents/SearchBox/SearchBox";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
+import URL from "../url.js"
 
 /**
  *
@@ -37,7 +38,7 @@ cancelSearch = () => {
 
   componentDidMount() {
    
-    let url = "https://charltonengineeringdemo.com/kv6002/php/assemblyinteractionreport"
+    let url = URL+"assemblyinteractionreport"
     let formData = new FormData();
     formData.append("token", this.props.simToken);
     formData.append("user_name",true);

@@ -4,6 +4,7 @@ import "./reporting.css";
 import Filter from './Filter.js';
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from './ComponentToPrint.js';
+import URL from "../url.js"
 
 
 /**
@@ -33,7 +34,7 @@ handleQueryTypeSelect = (e) => {
 }
   componentDidMount() {
    
-    let url = "https://charltonengineeringdemo.com/kv6002/php/customerreport"
+    let url = URL+"php/customerreport"
     let formData = new FormData();
     formData.append("token", this.props.simToken);
     formData.append("clientTypes",true);
@@ -52,7 +53,7 @@ handleQueryTypeSelect = (e) => {
             console.log("something went wrong ", err)
         });
 
-    let url2 = "https://charltonengineeringdemo.com/kv6002/php/customerreport"
+    let url2 = URL+"php/customerreport"
     let formData2 = new FormData();
     formData2.append("token", this.props.simToken);
     formData2.append("queryTypes","true");

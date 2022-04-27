@@ -4,6 +4,7 @@ import Parts from "./Parts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../ReusableComponents/Pagination/Pagination"
+import URL from "../url.js"
 
 /**
  * StoredManager
@@ -38,7 +39,7 @@ class StoredManager extends React.Component {
   };
 
   fetchData = () => {
-    let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
+    let url = URL+"stored";
     let formData = new FormData();
     if (this.props.item_type === "part") {
       formData.append("part_search", true);

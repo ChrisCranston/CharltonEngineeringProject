@@ -1,4 +1,5 @@
 import React from "react";
+import URL from "../url.js"
 import StorageLocation from './StorageLocation.js';
 
 
@@ -29,7 +30,7 @@ class StorageLocations extends React.Component {
      * 
      */
     componentDidMount() {
-        let url = "https://charltonengineeringdemo.com/kv6002/php/storagereport"
+        let url = URL+"storagereport"
         let formData = new FormData();
         formData.append("token", this.props.simToken);
         fetch(url, { method: "POST", headers: new Headers(), body: formData })

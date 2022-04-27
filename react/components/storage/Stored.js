@@ -4,6 +4,8 @@ import { ADDEditStored, REMOVEEditStored } from "./EditStored";
 import QRCode from "qrcode.react";
 import AddPartToLocation from "./AddPartToLocation";
 import Modal from "react-modal";
+import URL from "../url.js"
+
 
 /**
  * Stored
@@ -102,7 +104,7 @@ class Stored extends React.Component {
     if (this.state.addSerial !== "") {
       if (this.state.addClient !== "") {
         if (this.state.addQuantity !== "" & this.state.addQuantity > 0) {
-          let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
+          let url = URL+"stored";
           let formData = new FormData();
           formData.append("edit", "addPartToLocation");
           formData.append(
@@ -157,7 +159,7 @@ class Stored extends React.Component {
   fetch2 = (removeAll) => {
     if (this.state.quantityUpdate % 1 === 0 || removeAll === true ) {
       if (this.state.quantityUpdate > 0 || removeAll === true) {
-      let url = "https://charltonengineeringdemo.com/kv6002/php/stored";
+      let url = URL+"stored";
       let formData = new FormData();
       formData.append("edit", this.state.edit);
       formData.append("location", this.props.stored_item.storage_location_id);

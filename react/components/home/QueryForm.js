@@ -1,6 +1,7 @@
 import React from "react";
 import ClientType from "./ClientTypeClass.js"
 import QueryType from "./QueryTypeClass.js"
+import URL from "../url.js"
 
 /**
  * QueryForm
@@ -24,7 +25,7 @@ class QueryForm extends React.Component {
     }
     componentDidMount() {
         let clienttypes = [];
-        fetch('https://charltonengineeringdemo.com/kv6002/php/customerquery?tabletoget=clientType')
+        fetch(URL + 'customerquery?tabletoget=clientType')
             .then(response => {
                 return response.json();
             }).then(data => {
@@ -36,7 +37,7 @@ class QueryForm extends React.Component {
             });
         });
         let querytypes = [];
-        fetch('https://charltonengineeringdemo.com/kv6002/php/customerquery?tabletoget=queryType')
+        fetch(URL +'customerquery?tabletoget=queryType')
             .then(response => {
                 return response.json();
             }).then(data => {
