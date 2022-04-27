@@ -35,9 +35,9 @@ class Database
      */
     private function setDbConnection($dbName)
     {
-        $dbhost = "localhost";
-        $dbuser = "charlemo";
-        $dbpass = "charltonEngineering";
+        $dbhost = DB_HOST;
+        $dbuser = DB_USER;
+        $dbpass = DB_PASS;
 
         $this->dbConnection = new PDO("mysql:host=$dbhost;dbname=$dbName", $dbuser, $dbpass);
         $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
