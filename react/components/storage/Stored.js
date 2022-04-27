@@ -244,7 +244,7 @@ class Stored extends React.Component {
     let addNew = "";
     let confirmation = this.state.confirmation;
     let qr_code = (
-      <div>
+      <div style={{margin: '50px'}}>
         <p>
           WH: {this.props.stored_item.warehouse_number} {" "}
           Location: {this.props.stored_item.location_string}
