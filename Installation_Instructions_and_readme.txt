@@ -22,23 +22,8 @@ https://charltonengineeringdemo.com/kv6002/php/customerquery?tabletoget=clientTy
 - Due to the security implemented into the system it is not possible to directly view other API endpoints without using
   the website itself. 
 
-- Access to the live database is possible by logging in to the hostgator account, this hostgator account has been made specifically
-  for this project to demo to the university and client, it will not be the live system and all personal details / bank details have been removed.
-  The DB can be viewed at:
-https://portal.hostgator.com/login
-
-- Using the following details:
-
--------------------------------------------------
-|Username                  | Password            |
--------------------------------------------------
-|sheffizleism2@gmail.com   | charltonEngineering |
--------------------------------------------------
-
-- The database in use can then be observed by selecting:
-'Launch cPanel' -> 'phpMyAdmin' -> Then selecting 'charlemo' in the left panel.
-
 - Alternatively database files can be viewed directly in /DB/ folder once unzipped.
+  The database files are in mySQL format. 
 
 
 
