@@ -32,11 +32,11 @@ class  ApiCustomerQueryController extends Controller
         
         //post request parameters
         $token_in = $this->getRequest()->getParameter("token");
-        $name = $this->getRequest()->getParameter("name");
+        $name = html_entity_decode($this->getRequest()->getParameter("name"), ENT_QUOTES | ENT_HTML5);
         $businessindividual = $this->getRequest()->getParameter("businessindividual");
         $email = $this->getRequest()->getParameter("email"); //parameters = the table column fillers
         $phonenumber = $this->getRequest()->getParameter("phonenumber");
-        $query = $this->getRequest()->getParameter("query");
+        $query = html_entity_decode($this->getRequest()->getParameter("query"), ENT_QUOTES | ENT_HTML5);
         $querytype = $this->getRequest()->getParameter("querytype");
 
         //GET request parameters
