@@ -81,7 +81,7 @@ class ApiStoredController extends Controller
                 if ($edit == "add") {
                     $this->getGateway()->addQuantity($location, $quantity, $user_id, $datetime);
                 } elseif ($edit == "remove") {
-                    $this->getGateway()->removeQuantity($location, $quantity, $user_id);
+                    $this->getGateway()->removeQuantity($location, $quantity, $user_id, $datetime);
                 } elseif ($edit == "addPart") {
                     $this->getGateway()->addPart($name, $serialNumber, $description);
                 } elseif ($edit == "addLocation") {
