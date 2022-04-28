@@ -37,6 +37,7 @@ class  ApiCustomerQueryController extends Controller
         $email = $this->getRequest()->getParameter("email"); //parameters = the table column fillers
         $phonenumber = $this->getRequest()->getParameter("phonenumber");
         $query = html_entity_decode($this->getRequest()->getParameter("query"), ENT_QUOTES | ENT_HTML5);
+        $query = str_replace('&#13;', '', $query);
         $querytype = $this->getRequest()->getParameter("querytype");
 
         //GET request parameters

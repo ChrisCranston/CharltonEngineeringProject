@@ -41,7 +41,7 @@ cancelSearch = () => {
     let url = URL+"assemblyinteractionreport"
     let formData = new FormData();
     formData.append("token", this.props.simToken);
-    formData.append("user_name",true);
+    formData.append("user_names",true);
     fetch(url, { method: "POST", headers: new Headers(), body: formData })
         .then((response) => {
             if (response.status === 200) {
